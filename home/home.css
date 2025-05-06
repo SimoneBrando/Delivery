@@ -1,0 +1,448 @@
+/* Transizioni */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Reset e stili base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #fff;
+    color: #333;
+    line-height: 1.6;
+    padding-top: 70px; /* Per compensare l'header fixed */
+}
+
+/* Header */
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #046C6D;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+}
+
+.nav-links a.active {
+    color: #046C6D;
+}
+
+.nav-links a.active:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #046C6D;
+}
+
+.nav-links a:hover {
+    color: #046C6D;
+}
+
+.user-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.user-actions i {
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+.user-actions i:hover {
+    color: #046C6D;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero-content h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+/* Tabs */
+
+.tabs {
+    display: flex;
+    background-color: #046C6D;
+    border-radius: 30px;
+    padding: 5px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+}
+
+.tabs a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+    flex: 1;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+
+/* Effetto di transizione fluida per l'indicatore attivo */
+.tabs {
+    position: relative;
+}
+
+/* Offset per l'header fixed */
+section[id] {
+    scroll-margin-top: 80px;
+}
+/* Story Sections */
+.story-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.storia-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.storia-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.storia-image {
+    flex: 1;
+    min-width: 0;
+}
+
+.storia-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.story-section h2 {
+    color: #046C6D;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+/* Position Section */
+
+.position-section {
+    margin-bottom: 40px;
+    padding: 20px;
+    background-color: #046C6D;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.position-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.position-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.position-image {
+    flex: 1;
+    min-width: 0;
+}
+
+.position-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.position-section h2 {
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+/* Reviews Section */
+
+.reviews {
+    padding: 40px 0;
+}
+
+.reviews h2 {
+    text-align: center;
+    color: #046C6D;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.review-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.reviewer-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 15px;
+    border: 2px solid #046C6D;
+}
+
+.reviewer-details h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.stars {
+    color: #FFD700; /* Colore oro per le stelle */
+    margin-top: 5px;
+}
+
+.stars .far {
+    color: #ddd; /* Stelle vuote */
+}
+
+.review-text {
+    font-style: italic;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.review-date {
+    display: block;
+    text-align: right;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+/* Contacts Section */
+.contacts {
+    background-color: #046C6D;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 40px;
+}
+
+.contacts h2 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+.contacts ul {
+    list-style: none;
+}
+
+.contacts li {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.contacts i {
+    margin-right: 10px;
+    color: #fff;
+    width: 20px;
+    text-align: center;
+}
+.orari-apertura {
+    margin-top: 20px;
+    background-color: #046C6D;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 4px solid #fff;
+}
+
+.orari-apertura h3 {
+    color: #fff;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.orari-apertura table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.orari-apertura td {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.orari-apertura td:first-child {
+    font-weight: 500;
+    width: 40%;
+}
+
+.orari-apertura .note {
+    font-size: 0.9em;
+    color: #fff;
+    margin-top: 10px;
+    font-style: italic;
+}
+
+/* Footer */
+footer {
+    background-color: #046C6D;
+    color: white;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    color: white;
+    font-size: 20px;
+}
+
+.social-links a:hover {
+    color: black;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+    
+    .logo {
+        position: static;
+        transform: none;
+        margin: 10px 0;
+        order: -1;
+    }
+    
+    .nav-links {
+        margin-bottom: 10px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-content h2 {
+        font-size: 1.2rem;
+    }
+    
+    .tabs {
+        flex-wrap: wrap;
+    }
+    
+    .tab {
+        flex: 1 0 50%;
+        text-align: center;
+    }
+}

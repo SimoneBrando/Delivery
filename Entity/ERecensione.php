@@ -1,6 +1,6 @@
 <?php
 
-class ERecenzione{
+class ERecensione{
 
     private $id;
     private $descrizione;

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nome Ristorante</title>
+    <link rel="stylesheet" href="../css/personale_consegne.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="nav-links">
+                <a href="home.html">Home</a>
+                <a href="personale_consegne.html">Le mie consegne</a>
+            </div>
+            
+            <div class="logo">Nome Ristorante</div>
+            
+            <div class="user-actions">
+                <i class="fas fa-bell" title="Notifiche"></i>
+                <i class="fas fa-user" title="Profilo"></i>
+            </div>
+        </div>
+    </header>
+        
+    <!--Consegne section-->
+
+    <main>
+        <div class="deliveries-container">
+            <div class="delivery-card">
+                <div class="delivery-header">
+                    <h3>Ordine #1</h3>
+                    <span class="order-status">In consegna</span>
+                </div>
+                <div class="delivery-info">
+                    <p><strong>Posizione:</strong> Via Roma, 123</p>
+                    <p><strong>Destinazione:</strong> Via Milano, 45</p>
+                    <p><strong>Descrizione:</strong> 2x Margherita, 1x Coca-Cola</p>
+                </div>
+                <div class="status-actions">
+                    <label for="status1">Modifica stato:</label>
+                    <select id="status1" class="status-select">
+                        <option value="da-ritirare" selected>Da ritirare</option>
+                        <option value="in-consegna">In consegna</option>
+                        <option value="consegnato">Consegnato</option>
+                        <option value="errore">Errore</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="delivery-card">
+                <div class="delivery-header">
+                    <h3>Ordine #2</h3>
+                    <span class="order-status">Da ritirare</span>
+                </div>
+                <div class="delivery-info">
+                    <p><strong>Posizione:</strong> Via Napoli, 78</p>
+                    <p><strong>Destinazione:</strong> Via Firenze, 12</p>
+                    <p><strong>Descrizione:</strong> 1x Calzone, 2x Birra</p>
+                </div>
+                <div class="status-actions">
+                    <label for="status2">Modifica stato:</label>
+                    <select id="status2" class="status-select">
+                        <option value="da-ritirare" selected>Da ritirare</option>
+                        <option value="in-consegna">In consegna</option>
+                        <option value="consegnato">Consegnato</option>
+                        <option value="errore">Errore</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="delivery-card">
+                <div class="delivery-header">
+                    <h3>Ordine #3</h3>
+                    <span class="order-status consegnato">Consegnato</span>
+                </div>
+                <div class="delivery-info">
+                    <p><strong>Posizione:</strong> Via Venezia, 56</p>
+                    <p><strong>Destinazione:</strong> Via Torino, 89</p>
+                    <p><strong>Descrizione:</strong> 3x Pizza Salsiccia, 1x Patate fritte</p>
+                </div>
+                <div class="status-actions">
+                    <label for="status3">Modifica stato:</label>
+                    <select id="status3" class="status-select">
+                        <option value="da-ritirare" selected>Da ritirare</option>
+                        <option value="in-consegna">In consegna</option>
+                        <option value="consegnato">Consegnato</option>
+                        <option value="errore">Errore</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2023 Nome Ristorante. Tutti i diritti riservati.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+</body>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Seleziona tutti i dropdown di stato
+        const statusSelects = document.querySelectorAll('.status-select');
+        
+        // Aggiungi un event listener a ciascun dropdown
+        statusSelects.forEach(select => {
+            select.addEventListener('change', function() {
+                // Trova l'elemento dello stato nell'ordine corrente
+                const statusElement = this.closest('.delivery-card').querySelector('.order-status');
+                const newStatus = this.value;
+                
+                // Aggiorna il testo e le classi CSS
+                statusElement.textContent = this.options[this.selectedIndex].text;
+                
+                // Rimuovi tutte le classi di stato precedenti
+                statusElement.classList.remove('in-consegna', 'consegnato', 'errore', 'da-ritirare');
+                
+                // Aggiungi la classe corretta in base al nuovo stato
+                switch(newStatus) {
+                    case 'in-consegna':
+                        statusElement.textContent = 'In consegna';
+                        statusElement.classList.add('in-consegna');
+                        break;
+                    case 'consegnato':
+                        statusElement.textContent = 'Consegnato';
+                        statusElement.classList.add('consegnato');
+                        break;
+                    case 'errore':
+                        statusElement.textContent = 'Errore';
+                        statusElement.classList.add('errore');
+                        break;
+                    case 'da-ritirare':
+                        statusElement.textContent = 'Da ritirare';
+                        statusElement.classList.add('da-ritirare');
+                        break;
+                }
+            });
+        });
+    });
+</script>
+
+</html>

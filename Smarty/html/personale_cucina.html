@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Nome Ristorante</title>
-    <link rel="stylesheet" href="../css/personale_consegne.css">
+    <link rel="stylesheet" href="../css/personale_cucina.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../css/layout.css"></link>
     <script src="../Js/loadComponents.js" defer></script>
@@ -31,9 +31,9 @@
                 <div class="status-actions">
                     <label for="status1">Modifica stato:</label>
                     <select id="status1" class="status-select">
-                        <option value="da-ritirare" selected>Da ritirare</option>
-                        <option value="in-consegna">In consegna</option>
-                        <option value="consegnato">Consegnato</option>
+                        <option value="da-preparare" selected>Da preparare</option>
+                        <option value="in-preparazione">In preparazione</option>
+                        <option value="pronto">Pronto</option>
                         <option value="errore">Errore</option>
                     </select>
                 </div>
@@ -52,9 +52,9 @@
                 <div class="status-actions">
                     <label for="status2">Modifica stato:</label>
                     <select id="status2" class="status-select">
-                        <option value="da-ritirare" selected>Da ritirare</option>
-                        <option value="in-consegna">In consegna</option>
-                        <option value="consegnato">Consegnato</option>
+                        <option value="da-preparare" selected>Da preparare</option>
+                        <option value="in-preparazione">In preparazione</option>
+                        <option value="pronto">Pronto</option>
                         <option value="errore">Errore</option>
                     </select>
                 </div>
@@ -73,9 +73,9 @@
                 <div class="status-actions">
                     <label for="status3">Modifica stato:</label>
                     <select id="status3" class="status-select">
-                        <option value="da-ritirare" selected>Da ritirare</option>
-                        <option value="in-consegna">In consegna</option>
-                        <option value="consegnato">Consegnato</option>
+                        <option value="da-preparare" selected>Da preparare</option>
+                        <option value="in-preparazione">In preparazione</option>
+                        <option value="pronto">Pronto</option>
                         <option value="errore">Errore</option>
                     </select>
                 </div>
@@ -106,25 +106,25 @@
                 statusElement.textContent = this.options[this.selectedIndex].text;
                 
                 // Rimuovi tutte le classi di stato precedenti
-                statusElement.classList.remove('in-consegna', 'consegnato', 'errore', 'da-ritirare');
+                statusElement.classList.remove('in-preparazione', 'pronto', 'errore', 'da-preparare');
                 
                 // Aggiungi la classe corretta in base al nuovo stato
                 switch(newStatus) {
-                    case 'in-consegna':
-                        statusElement.textContent = 'In consegna';
-                        statusElement.classList.add('in-consegna');
+                    case 'in-preparazione':
+                        statusElement.textContent = 'In preparazione';
+                        statusElement.classList.add('in-preparazione');
                         break;
-                    case 'consegnato':
-                        statusElement.textContent = 'Consegnato';
-                        statusElement.classList.add('consegnato');
+                    case 'pronto':
+                        statusElement.textContent = 'Pronto';
+                        statusElement.classList.add('pronto');
                         break;
                     case 'errore':
                         statusElement.textContent = 'Errore';
                         statusElement.classList.add('errore');
                         break;
-                    case 'da-ritirare':
-                        statusElement.textContent = 'Da ritirare';
-                        statusElement.classList.add('da-ritirare');
+                    case 'da-preparare':
+                        statusElement.textContent = 'Da preparare';
+                        statusElement.classList.add('da-preparare');
                         break;
                 }
             });

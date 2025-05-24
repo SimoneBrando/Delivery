@@ -1,105 +1,3 @@
-/* Transizioni */
-html {
-    scroll-behavior: smooth;
-}
-
-/* Reset e stili base */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
-}
-
-body {
-    background-color: #fff;
-    color: #333;
-    line-height: 1.6;
-    padding-top: 70px; /* Per compensare l'header fixed */
-}
-
-/* Header */
-header {
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    max-width: auto;
-    margin: 0 auto;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #046C6D;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.nav-links {
-    display: flex;
-    gap: 20px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    padding: 5px 0;
-    position: relative;
-}
-
-.nav-links a.active {
-    color: #046C6D;
-}
-
-.nav-links a.active:after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #046C6D;
-}
-
-.nav-links a:hover {
-    color: #046C6D;
-}
-
-.user-actions {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-}
-
-.user-actions i {
-    font-size: 20px;
-    cursor: pointer;
-    color: #555;
-}
-
-.user-actions i:hover {
-    color: #046C6D;
-}
-
-/* Main Content */
-main {
-    max-width: auto;
-    margin: 0 auto;
-    padding: 20px;
-}
-
 /* Login Section */
 
 .login-content {
@@ -119,7 +17,7 @@ main {
     align-items: center;
     min-height: 80vh; /* o quanto basta per dare aria */
     padding: 40px 20px;
-    background-image: linear-gradient(to left, #035e5778 20%, #035e57 80%);
+    background-image: linear-gradient(to bottom, #035e5778 20%, #035e57 80%);
     flex-wrap: nowrap;
     width: 100%;
     box-sizing: border-box;
@@ -199,62 +97,42 @@ main {
 }
 
 
-
-
-/* Footer */
-footer {
-    background-color: #046C6D;
-    color: white;
-    padding: 20px 0;
-    margin-top: 50px;
-}
-
-.footer-container {
-    max-width: auto;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.social-links {
-    display: flex;
-    gap: 15px;
-}
-
-.social-links a {
-    color: white;
-    font-size: 20px;
-}
-
-.social-links a:hover {
-    color: black;
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
-    .header-container {
+    .login-content {
         flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px 10px;
+    }
+
+    .login-section {
+        flex-direction: column;
+        padding: 20px 10px;
+        border-radius: 0;
+        min-height: auto;
+        background-image: linear-gradient(to bottom, #035e5778 20%, #035e57 80%);
+    }
+
+    .login-form {
+        max-width: 100%;
+        width: 100%;
+        padding: 30px 20px;
+        box-shadow: none;
+        border-radius: 8px;
+    }
+
+    .login-form h1 {
+        font-size: 1.6rem;
+    }
+
+    .form-group input {
+        font-size: 1rem;
         padding: 10px;
     }
-    
-    .logo {
-        position: static;
-        transform: none;
-        margin: 10px 0;
-        order: -1;
-    }
-    
-    .nav-links {
-        margin-bottom: 10px;
-    }
-    
-    .hero-content h1 {
-        font-size: 2rem;
-    }
-    
-    .hero-content h2 {
-        font-size: 1.2rem;
+
+    .btn {
+        font-size: 1rem;
+        padding: 10px;
     }
 }

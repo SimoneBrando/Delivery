@@ -22,12 +22,12 @@ main {
     position: relative;
 }
 
-.order-status.in-consegna {
+.order-status.in-preparazione {
     background-color: #ffcc5c;
     color: #333;
 }
 
-.order-status.consegnato {
+.order-status.pronto {
     background-color: #88c9a1;
     color: white;
 }
@@ -37,7 +37,7 @@ main {
     color: white;
 }
 
-.order-status.da-ritirare {
+.order-status.da-preparare {
     background-color: #5c8cff;
     color: white;
 }
@@ -62,7 +62,7 @@ main {
     color: #333;
 }
 
-.order-status.consegnato {
+.order-status.pronto {
     background-color: #88c9a1;
     color: white;
 }

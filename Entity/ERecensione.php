@@ -1,19 +1,45 @@
 <?php
 
+namespace App\Entity;
+use App\Entity\EUtente;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="recensione")
+ */
 class ERecensione{
 
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
     private $id;
+    /**
+     * @ORM\Column(type="string")
+     */
     private $descrizione;
+    /**
+     * @ORM\Column(type="integer")
+     */
     private $voto;
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private $data;
-    private $orario;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\EUtente", inversedBy="recensione")
+     * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
+     */
+    private $utente;
 
-    public function __construct($id, $descrizione, $voto, $data, $orario){
-        $this->id = $id;
+    public function __construct($descrizione, $voto, $data, $utente){
         $this->descrizione = $descrizione;
         $this->voto = $voto;
         $this->data = $data;
-        $this->orario = $orario;
+        $this->utente = $utente;
     }
 
     //Getter

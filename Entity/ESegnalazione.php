@@ -1,19 +1,52 @@
 <?php
 
+namespace App\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="segnalazione")
+ */
 class ESegnalazione {
 
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
     private $id;
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private $data;
-    private $descriz;
-    private $ora;
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $descrizione;
+    /**
+     * @ORM\Column(type="string")
+     */
     private $testo;
 
-    public function __construct($id, $data, $descrizione, $ora, $testo) {
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\EUtente", inversedBy="segnalazione")
+     * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
+     */
+    private $utente;
+
+    /**
+     * *@ORM\OneToOne(targetEntity="App\Entity\EOrdine", inversedBy="segnalazione")
+     * @ORM\JoinColumn(name="ordine_id", referencedColumnName="id", nullable=false)
+     */
+    private $ordine;
+
+    public function __construct($id, $data, $descrizione, $testo, $utente, $ordine) {
         $this->id = uniqid();
         $this->data = $data;
         $this->descrizione = $descrizione;
-        $this->$ora = $ora;
         $this->testo = $testo;
+        $this->utente = $utente; 
+        $this->ordine = $ordine;
     }
 
     // Getters

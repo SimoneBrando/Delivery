@@ -1,22 +1,35 @@
 <?php
 
+namespace App\Entity;
+use App\Entity\EUtente;
+use Doctrine\ORM\Mapping as ORM;
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="rider")
+ */
 class ERider extends EUtente{
 
-    private $id;
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=false)
+     */
+    private $codiceRider;
 
-    public function __construct($id, $nome, $cognome, $email, $password){
+
+    public function __construct($nome, $cognome, $email, $password, $codiceRider){
         parent::__construct($nome, $cognome, $email, $password);
-        $this->id = $id;
+        $this->codiceRider = $codiceRider;
     }
 
     //Getter
-    public function getId(){
-        return $this->id;
+    public function getCodiceRider(){
+        return $this->codiceRider;
     }
 
     //Setter
-    public function setId($id){
-        $this->id = $id;
+    public function setCodiceRider($codiceRider){
+        $this->codiceRider = $codiceRider;
     }
     
 }

@@ -1,94 +1,107 @@
 <?php
+// src/Entity/EUtente.php
+namespace App\Entity;
 
-class EUtente{
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="utente")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="ruolo", type="string")
+ * @ORM\DiscriminatorMap({
+ *     "cliente" = "App\Entity\ECliente",
+ *     "rider" = "App\Entity\ERider",
+ *     "cuoco" = "App\Entity\ECuoco"
+ * })
+ */
+class EUtente
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
     private $id;
-    private $nome;
-    private $cognome;
-    private $email;
-    private $password;
-    private $telefono;
-    private $dataNascita;
 
-    public function __construct($nome, $cognome, $email, $password, $telefono, $dataNascita) {
-        $this->id = uniqid();
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $nome;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $cognome;
+
+    /**
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+
+    // Costruttore
+    public function __construct(string $nome, string $cognome, string $email, string $password)
+    {
         $this->nome = $nome;
         $this->cognome = $cognome;
         $this->email = $email;
-        $this->password = password_hash($password, PASSWORD_BCRYPT);
-        $this->telefono = $telefono;
-        $this->dataNascita = $dataNascita;
+        $this->password = $password;
     }
 
-    // Getters
-    public function getId() {
+    // Getter e Setter
+    public function getId(): int
+    {
         return $this->id;
     }
-    
-    public function getNome() {
+
+    public function getNome(): string
+    {
         return $this->nome;
     }
-    
-    public function getCognome() {
+
+    public function setNome(string $nome): void
+    {
+        $this->nome = $nome;
+    }
+
+    public function getCognome(): string
+    {
         return $this->cognome;
     }
-    
-    public function getEmail() {
+
+    public function setCognome(string $cognome): void
+    {
+        $this->cognome = $cognome;
+    }
+
+    public function getEmail(): string
+    {
         return $this->email;
     }
-    
-    public function getPassword() {
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword(): string
+    {
         return $this->password;
     }
-    
-    public function getTelefono() {
-        return $this->telefono;
-    }
-    
-    public function getDataNascita() {
-        return $this->dataNascita;
-    }
 
-    // Setters
-    public function setId($id) {
-        $this->id = uniqid();
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
     }
-
-    public function setNome($nome) {
-        $this->nome = htmlspecialchars($nome);
-    }
-
-    public function setCognome($cognome) {
-        $this->cognome = htmlspecialchars($cognome);
-    }
-
-    public function setEmail($email) {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->email = htmlspecialchars($email);
-        } else {
-            throw new Exception("Invalid email format");
-        }
-        
-    }
-
-    public function setPassword($password) {
-        if (strlen($password) >= 8) {
-            // Hash the password before storing it
-            $this->password = password_hash($password, PASSWORD_BCRYPT);
-        }
-    }
-
-    public function setTelefono($telefono) {
-        $this->telefono = htmlspecialchars($telefono);
-    }
-
-    public function setDataNascita($dataNascita) {
-        $date = DateTime::createFromFormat('Y-m-d', $dataNascita);
-        if ($date && $date->format('Y-m-d') === $dataNascita) {
-            $this->dataNascita = htmlspecialchars($dataNascita);
-        } else {
-            throw new Exception("Invalid date format");
-        }
-    }
-
 }
+?>

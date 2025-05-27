@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Home Restaurant</title>
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/admin_panel.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="../Js/loadComponents.js" defer></script>
+</head>
+<body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
+
+    <!-- Main Content -->
+    <main class="admin-preview-container">
+        <h1><i class="fas fa-user-shield"></i> Pannello di Amministrazione</h1>
+        <p class="admin-subtitle">Gestisci il tuo ristorante da questa area riservata</p>
+        
+        <!-- Sezioni di Accesso Rapido -->
+        <section class="admin-sections-grid">
+            <!-- Dashboard -->
+            <a href="dashboard.html" class="admin-section-card">
+                <div class="section-icon">
+                    <i class="fas fa-tachometer-alt"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Dashboard</h2>
+                    <p>Statistiche e panoramica dell'attività</p>
+                </div>
+                <div class="section-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <!-- Gestione Menu -->
+            <a href="gestione-menu.html" class="admin-section-card">
+                <div class="section-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Gestione Menu</h2>
+                    <p>Aggiungi, modifica o elimina piatti dal menu</p>
+                </div>
+                <div class="section-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <!-- Ordini -->
+            <a href="gestione-ordini.html" class="admin-section-card">
+                <div class="section-icon">
+                    <i class="fas fa-shopping-bag"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Gestione Ordini</h2>
+                    <p>Visualizza e gestisci gli ordini dei clienti</p>
+                </div>
+                <div class="section-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <!-- Prenotazioni -->
+            <a href="gestione-prenotazioni.html" class="admin-section-card">
+                <div class="section-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Gestione Prenotazioni</h2>
+                    <p>Controlla le prenotazioni dei tavoli</p>
+                </div>
+                <div class="section-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <!-- Recensioni -->
+            <a href="gestione-recensioni.html" class="admin-section-card">
+                <div class="section-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Recensioni</h2>
+                    <p>Leggi e rispondi alle recensioni dei clienti</p>
+                </div>
+                <div class="section-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+            
+            <!-- Impostazioni -->
+            <a href="impostazioni.html" class="admin-section-card">
+                <div class="section-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+                <div class="section-content">
+                    <h2>Impostazioni</h2>
+                    <p>Configura il tuo ristorante e l'account</p>
+                </div>
+                <div class="section-arrow">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </a>
+        </section>
+        
+        <!-- Statistiche Rapide -->
+        <section class="quick-stats">
+            <h2><i class="fas fa-chart-pie"></i> Panoramica Rapida</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-euro-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Fatturato Oggi</h3>
+                        <p>€1,245.50</p>
+                        <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 12%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Ordini Oggi</h3>
+                        <p>42</p>
+                        <span class="stat-trend up"><i class="fas fa-arrow-up"></i> 5%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Nuovi Clienti</h3>
+                        <p>8</p>
+                        <span class="stat-trend down"><i class="fas fa-arrow-down"></i> 3%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer -->
+    <div id="footer-placeholder"></div>
+</body>
+</html>

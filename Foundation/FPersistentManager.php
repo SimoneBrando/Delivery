@@ -48,4 +48,22 @@ class FPersistentManager {
         $foundationClass = $this->getFoundationClassName($class);
         return call_user_func([$foundationClass, 'risvegliaObjOnAttribute'], $class, $attribute, $value);
     }
+
+    //revisione
+    public function getOrdiniByUserId($userId) {
+        $foundationClass = $this->getFoundationClassName('EOrdine');
+        return call_user_func([$foundationClass, 'getOrdiniByUserId'], $userId);
+    }
+
+    //revisione
+    public function verifyUserEmail($email) {
+        $foundationClass = $this->getFoundationClassName('EUtente');
+        return call_user_func([$foundationClass, 'verifyUserEmail'], $email);
+    }
+
+    //revisione
+    public function verifyUserUsername($username) {
+        $foundationClass = $this->getFoundationClassName('EUtente');
+        return call_user_func([$foundationClass, 'verifyUserUsername'], $username);
+    }
 }

@@ -3,7 +3,7 @@
 // --- Gestione carrello ---
     const cartIcon = document.getElementById('cart-icon');
     const cartBadge = document.getElementById('cart-badge');
-    const cart = [];
+    let cart = [];
     const cartItems = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
     const cartElement = document.getElementById('cart');
@@ -27,6 +27,7 @@
         }
         renderCart();
         showCartIcon();
+        localStorage.setItem('cart', JSON.stringify(cart));
     }
 
     function showCartIcon() {
@@ -69,7 +70,6 @@
         cartElement.classList.remove('open');
         document.body.style.overflow = '';
     }
-
 
 // --- Gestione modale ---
     const modal = document.getElementById('product-modal');

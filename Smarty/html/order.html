@@ -199,5 +199,12 @@
 </body>
 
 <script src="../Js/cart.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
+        renderCart();
+        showCartIcon();
+    });
+</script>
 
 </html>

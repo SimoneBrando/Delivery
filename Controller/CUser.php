@@ -39,5 +39,33 @@ class CUser{
         header('Location: /Delivery/User/login');
     }
 
+    public static function registrati()
+    {
+        $view = new VUser();
+        if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
+                $utente = new EUtente(UHTTPMethods::post('name'), UHTTPMethods::post('surname'),UHTTPMethods::post('age'), UHTTPMethods::post('email'),UHTTPMethods::post('password'),UHTTPMethods::post('username'));
+                $check = FPersistentManager::getInstance()->uploadObj($user);
+                if($check){
+                    $view->showLoginForm();
+                }
+        }else{
+                $view->registrationError();
+            }
+    }
 
+    public static function checkLogin(){
+        $view = new VUser();
+        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));                                            
+        if($username){
+            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
+            if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
+                USession::getSessionStatus() == PHP_SESSION_NONE;
+                    USession::getInstance();
+                    USession::setSessionElement('user', $user->getId());
+                    header('Location: /Delivery/User/home');
+                }
+        }else{
+            $view->loginError();
+        }
+    }
 }

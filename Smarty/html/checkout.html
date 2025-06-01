@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="../css/layout.css"></link>
     <script src="../Js/loadComponents.js" defer></script>
+    <script src="../Js/cart.js"></script>
 </head>
 <body>
     <!-- Header -->
@@ -31,23 +32,8 @@
             <!-- Sezione Riepilogo Ordine -->
             <section class="order-summary">
                 <h2><i class="fas fa-receipt"></i> Il tuo ordine</h2>
-                <ul class="order-items">
-                    <li>
-                        <span>Margherita x2</span>
-                        <span>€16.00</span>
-                    </li>
-                    <li>
-                        <span>Diavola x1</span>
-                        <span>€9.50</span>
-                    </li>
-                    <li>
-                        <span>Patatine Fritte x1</span>
-                        <span>€4.00</span>
-                    </li>
-                    <li>
-                        <span>Coca Cola x2</span>
-                        <span>€6.00</span>
-                    </li>
+                <ul class="order-items" id="order-items">
+                    
                 </ul>
                 <div class="order-totals">
                     <div class="subtotal">
@@ -206,4 +192,20 @@
     
 </body>
 <script src="../Js/checkout.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
+        let cartListElement = document.getElementById("order-items");
+        cart.forEach(element => {
+            const li = document.createElement("li");
+            const nameQtySpan = document.createElement("span");
+            nameQtySpan.textContent = `${element.name} x${element.qty}`;
+            const priceSpan = document.createElement("span");
+            priceSpan.textContent = `€${(element.price * element.qty).toFixed(2)}`;
+            li.appendChild(nameQtySpan);
+            li.appendChild(priceSpan);
+            cartListElement.appendChild(li);
+        });
+    });
+</script>
 </html>

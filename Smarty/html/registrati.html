@@ -72,8 +72,8 @@
     
 <script>
         document.getElementById('phone').addEventListener('input', function(e) {
-    let phoneNumber = e.target.value.replace(/\D/g, ''); // Solo numeri
-    phoneNumber = phoneNumber.slice(0, 10); // Limita a 10 cifre
+    let phoneNumber = e.target.value.replace(/\D/g, ''); // solo numeri
+    phoneNumber = phoneNumber.slice(0, 10); // massimo 10 cifre
 
     if (phoneNumber.length <= 3) {
         e.target.value = phoneNumber;

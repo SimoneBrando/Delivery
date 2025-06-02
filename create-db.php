@@ -1,5 +1,6 @@
 <?php
-$entityManager = require_once "bootstrap.php"; // ⬅️ ora assegniamo ciò che bootstrap.php ritorna
+require_once "bootstrap.php"; // ⬅️ ora assegniamo ciò che bootstrap.php ritorna
+
 
 use Doctrine\ORM\Tools\SchemaTool;
 use App\Entity\EUtente;
@@ -14,6 +15,8 @@ use App\Entity\ERider;
 use App\Entity\ECuoco;
 use App\Entity\ECategoria;
 use App\Entity\EElenco_prodotti;
+
+$entityManager = getEntityManager(); // ottieni l'EntityManager
 
 
 $schemaTool = new SchemaTool($entityManager);

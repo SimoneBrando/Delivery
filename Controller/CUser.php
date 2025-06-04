@@ -2,7 +2,7 @@
 
 use View\VUser;
 require_once __DIR__ . '/../View/VUser.php';
-require_once __DIR__ . '/../src//Entity/EElenco_prodotti.php';
+require_once __DIR__ . '/../Entity/EElenco_prodotti.php';
 
 class CUser{
 

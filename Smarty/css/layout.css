@@ -132,7 +132,7 @@ main {
 
 /* Hero Section */
 .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../Immagini/hero.jpeg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/Smarty/Immagini/hero.jpeg');
     background-size: cover;
     background-position: center;
     height: 500px;

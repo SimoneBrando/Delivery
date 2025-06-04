@@ -2,7 +2,7 @@
 
 function loadComponents() {
     // carica l'header
-    fetch('header.html')
+    fetch('/Smarty/html/header.html')
         .then(res => {
             if (!res.ok) throw new Error('Failed to load header');
             return res.text();
@@ -13,7 +13,7 @@ function loadComponents() {
                 headerPlaceholder.innerHTML = data;
                 
                 const script = document.createElement('script');
-                script.src = '../Js/hamburger.js';
+                script.src = '/Smarty/Js/hamburger.js';
                 script.defer = true;
                 document.body.appendChild(script);
                 
@@ -24,7 +24,7 @@ function loadComponents() {
         .catch(error => console.error('Error loading header:', error));
 
     // carica il footer
-    fetch('footer.html')
+    fetch('/Smarty/html/footer.html')
         .then(res => {
             if (!res.ok) throw new Error('Failed to load footer');
             return res.text();

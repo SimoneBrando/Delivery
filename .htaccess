@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /Delivery/
+
+    # Escludi cartelle specifiche
+    RewriteCond %{REQUEST_URI} ^/Delivery/(Smarty/css|Smarty/Js|images|altro)/ [NC]
+    RewriteRule ^ - [L]
+
+    # Se è file o dir fisico, servilo direttamente
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Altrimenti riscrivi tutto a public/index.php
+    RewriteRule ^(.*)$ public/index.php [QSA,L]
+</IfModule>

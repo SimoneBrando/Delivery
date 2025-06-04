@@ -1,5 +1,7 @@
 <?php
 
+namespace View;
+
 class VUser{
 
     private $smarty;
@@ -21,4 +23,7 @@ class VUser{
         $this->smarty->display('menu.tpl');
     }
 
+    public function showHome(){
+        $this->smarty->display('home.tpl');
+    }
 }

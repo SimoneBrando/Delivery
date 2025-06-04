@@ -1,5 +1,9 @@
 <?php
 
+use View\VUser;
+require_once __DIR__ . '/../View/VUser.php';
+require_once __DIR__ . '/../src//Entity/EElenco_prodotti.php';
+
 class CUser{
 
     public static function isLogged(){
@@ -67,5 +71,18 @@ class CUser{
         }else{
             $view->loginError();
         }
+    }
+
+    public static function mostraMenu(){
+        $view = new VUser();
+        $classe = 'EElenco_prodotti';
+        $id = 0;
+        $menu = 'ciao';
+        $view->showMenu($menu);
+    }
+
+    public static function home(){
+        $view = new VUser();
+        $view->showHome();
     }
 }

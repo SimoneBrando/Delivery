@@ -3,12 +3,9 @@
         "doctrine/orm": "^2.10",
         "symfony/cache": "^7.2",
         "doctrine/annotations": "^2.0",
-<<<<<<< HEAD
-        "smarty/smarty": "^5.5"
-=======
+        "smarty/smarty": "^5.5",
         "doctrine/data-fixtures": "^2.0",
         "fakerphp/faker": "^1.24"
->>>>>>> Francesco
     },
     "autoload": {
         "psr-4": {

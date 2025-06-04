@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Testing\\Fixtures\\' => array($baseDir . '/Testing/Fixtures'),
+    'Testing\\' => array($baseDir . '/Testing'),
     'Symfony\\Polyfill\\Php84\\' => array($vendorDir . '/symfony/polyfill-php84'),
     'Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
@@ -22,6 +24,9 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
+    'Foundation\\' => array($baseDir . '/Foundation'),
+    'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
+    'Entity\\' => array($baseDir . '/Entity'),
     'Doctrine\\Persistence\\' => array($vendorDir . '/doctrine/persistence/src/Persistence'),
     'Doctrine\\ORM\\' => array($vendorDir . '/doctrine/orm/src'),
     'Doctrine\\Instantiator\\' => array($vendorDir . '/doctrine/instantiator/src/Doctrine/Instantiator'),
@@ -29,9 +34,9 @@ return array(
     'Doctrine\\Deprecations\\' => array($vendorDir . '/doctrine/deprecations/src'),
     'Doctrine\\DBAL\\' => array($vendorDir . '/doctrine/dbal/src'),
     'Doctrine\\Common\\Lexer\\' => array($vendorDir . '/doctrine/lexer/src'),
+    'Doctrine\\Common\\DataFixtures\\' => array($vendorDir . '/doctrine/data-fixtures/src'),
     'Doctrine\\Common\\Collections\\' => array($vendorDir . '/doctrine/collections/src'),
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/src', $vendorDir . '/doctrine/event-manager/src'),
-    'App\\' => array($baseDir . '/src'),
 );

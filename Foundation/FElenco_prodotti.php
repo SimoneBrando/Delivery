@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Foundation;
+namespace Foundation;
 
-use App\Entity\EElenco_prodotti;
+use Entity\EElenco_prodotti;
 use Exception;
 
 require_once 'FPersistentManager.php';

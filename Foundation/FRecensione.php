@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Foundation;
+namespace Foundation;
 
-use App\Entity\ERecensione;
+use Entity\ERecensione;
 use Exception;
 
 require_once 'FPersistentManager.php';

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use App\Entity\EOrdine;
-use App\Entity\EProdotto;
+use Entity\EOrdine;
+use Entity\EProdotto;
 
 
 
@@ -27,19 +27,19 @@ class ECategoria {
      */
     private $nome;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\EProdotto", mappedBy="categoria")
+     * @ORM\OneToMany(targetEntity="Entity\EProdotto", mappedBy="categoria")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id", nullable=false)
      */
     private $piatti;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EElenco_prodotti", inversedBy="categorie")
+     * @ORM\ManyToOne(targetEntity="Entity\EElenco_prodotti", inversedBy="categorie")
      * @ORM\JoinColumn(name="elenco_prodotti_id", referencedColumnName="id", nullable=false)
      */
     private $elencoProdotti;
 
     public function __construct() {
-        $this->piatti = new ArrayCollection();
+
     }
 
     // Getters
@@ -56,24 +56,26 @@ class ECategoria {
     }
 
     // Setters
-    public function setId($id) {
-        $this->id = $id;
-    }
 
-    public function setNome($nome) {
+    public function setNome($nome) : ECategoria {
         $this->nome = $nome;
+        return $this;
     }
 
-    public function setPiatti($piatti) {
+    public function setPiatti($piatti) : ECategoria {
         $this->piatti = $piatti;
+        return $this;
     }
 
     public function getElencoProdotti() {
     return $this->elencoProdotti;
     }
 
-    public function setElencoProdotti($elenco) {
+    public function setElencoProdotti($elenco) : ECategoria {
         $this->elencoProdotti = $elenco;
+        return $this;
     }
+
+
 
 }

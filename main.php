@@ -3,23 +3,23 @@
 require_once 'vendor/autoload.php';
 
 use Doctrine\Common\Collections\ArrayCollection;
-use App\Foundation\FEntityManager;
-use App\Foundation\FPersistentManager;
+use Foundation\FEntityManager;
+use Foundation\FPersistentManager;
 
-use App\Entity\EProdotto;
-use App\Entity\EOrdine; 
-use App\Entity\ECategoria;
-use App\Entity\EElenco_prodotti;
-use App\Entity\EUtente;
-use App\Entity\ECarta_credito;
-use App\Entity\ERecensione;
-use App\Entity\ECliente;
+use Entity\EProdotto;
+use Entity\EOrdine;
+use Entity\ECategoria;
+use Entity\EElenco_prodotti;
+use Entity\EUtente;
+use Entity\ECarta_credito;
+use Entity\ERecensione;
+use Entity\ECliente;
 
-use App\Foundation\FProdotto;
-use App\Foundation\FOrdine;
-use App\Foundation\FUtente;
-use App\Foundation\FCarta_credito;
-use App\Foundation\FRecensione;
+use Foundation\FProdotto;
+use Foundation\FOrdine;
+use Foundation\FUtente;
+use Foundation\FCarta_credito;
+use Foundation\FRecensione;
 
 // Recupero del PersistentManager
 try {

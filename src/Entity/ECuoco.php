@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Entity;
-use App\Entity\EUtente;
+namespace Entity;
+use Entity\EUtente;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -16,9 +16,8 @@ class ECuoco extends EUtente{
      */
     private $codiceCuoco;
 
-    public function __construct($nome, $cognome, $email, $password, $codiceCuoco){
-        parent::__construct($nome, $cognome, $email, $password);
-        $this->codiceCuoco = $codiceCuoco;
+    public function __construct(){
+        parent::__construct();
     }
 
     //Getter
@@ -27,8 +26,9 @@ class ECuoco extends EUtente{
     }
 
     //Setter
-    public function setCodiceCuoco($codiceCuoco){
+    public function setCodiceCuoco($codiceCuoco) : ECuoco{
         $this->codiceCuoco = $codiceCuoco;
+        return $this;
     }
     
 }

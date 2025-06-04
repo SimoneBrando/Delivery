@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -38,13 +38,13 @@ class EOrdine {
     private $costo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EUtente", inversedBy="ordini")
+     * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="ordini")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
     private $utente;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\EProdotto")
+     * @ORM\ManyToMany(targetEntity="Entity\EProdotto")
      * @ORM\JoinTable(name="ordini_prodotti",
      *      joinColumns={@ORM\JoinColumn(name="ordine_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="prodotto_id", referencedColumnName="id")}
@@ -52,13 +52,12 @@ class EOrdine {
      */
     private $prodotti;
 
-    public function __construct($prodotti, $note, $dataEsecuzione, $dataRicezione, $costo) {
-        $this->prodotti = $prodotti;
-        $this->note = $note;
-        $this->dataEsecuzione = $dataEsecuzione;
-        $this->dataRicezione = $dataRicezione;
-        $this->costo = $costo;
-        $this->prodotti = new ArrayCollection();
+    /**
+     * @ORM\Column(type="string", columnDefinition="ENUM('in_attesa', 'in_preparazione', 'pronto' , 'consegnato', 'annullato')")
+     */
+    private $stato;
+
+    public function __construct() {
     }
 
     // Getters
@@ -85,33 +84,43 @@ class EOrdine {
     public function getCosto() {
         return $this->costo;
     }
+    public function getStato(){
+        return $this->stato;
+    }
 
     // Setters
-    public function setId($id) {
-        $this->id = $id;
-    }
 
-    public function setProdotti($prodotti) {
+    public function setProdotti($prodotti) : EOrdine {
         $this->prodotti = $prodotti;
+        return $this;
     }
 
-    public function setNote($note) {
+    public function setNote($note) : EOrdine {
         $this->note = $note;
+        return $this;
     }
 
-    public function setDataEsecuzione($dataEsecuzione) {
+    public function setDataEsecuzione($dataEsecuzione) : EOrdine {
         $this->dataEsecuzione = $dataEsecuzione;
+        return $this;
     }
 
-    public function setDataRicezione($dataRicezione) {
+    public function setDataRicezione($dataRicezione) : EOrdine {
         $this->dataRicezione = $dataRicezione;
+        return $this;
     }
     
-    public function setCosto($costo) {
+    public function setCosto($costo) : EOrdine{
         $this->costo = $costo;
+        return $this;
     }
-    public function setUtente($utente) {
+    public function setUtente($utente) : EOrdine{
         $this->utente = $utente;
+        return $this;
+    }
+    public function setStato($stato) : EOrdine{
+        $this->stato = $stato;
+        return $this;
     }
 
 }

@@ -1,19 +1,20 @@
+
 <?php
 $entityManager = require_once "bootstrap.php"; // ⬅️ ora assegniamo ciò che bootstrap.php ritorna
 
 use Doctrine\ORM\Tools\SchemaTool;
-use App\Entity\EUtente;
-use App\Entity\EOrdine;
-use App\Entity\EProdotto;
-use App\Entity\ESegnalazione;
-use App\Entity\ERecensione;
-use App\Entity\ECarta_credito;
-use App\Entity\EIndirizzo;
-use App\Entity\ECliente;
-use App\Entity\ERider;
-use App\Entity\ECuoco;
-use App\Entity\ECategoria;
-use App\Entity\EElenco_prodotti;
+use Entity\EUtente;
+use Entity\EOrdine;
+use Entity\EProdotto;
+use Entity\ESegnalazione;
+use Entity\ERecensione;
+use Entity\ECarta_credito;
+use Entity\EIndirizzo;
+use Entity\ECliente;
+use Entity\ERider;
+use Entity\ECuoco;
+use Entity\ECategoria;
+use Entity\EElenco_prodotti;
 
 
 $schemaTool = new SchemaTool($entityManager);

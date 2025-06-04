@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
-use App\Entity\EUtente;
-use App\Entity\EOrdine;
-use App\Entity\ECarta_credito;
-use App\Entity\ESegnalazione;
-use App\Entity\EIndirizzo;
+namespace Entity;
+use Entity\EUtente;
+use Entity\EOrdine;
+use Entity\ECarta_credito;
+use Entity\ESegnalazione;
+use Entity\EIndirizzo;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,34 +17,30 @@ use Doctrine\Common\Collections\Collection;
 class ECliente extends EUtente{
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ECarta_credito", mappedBy="utente")
+     * @ORM\OneToMany(targetEntity="Entity\ECarta_credito", mappedBy="utente")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
     private $metodiPagamento;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\EIndirizzo", inversedBy="clienti")
+     * @ORM\ManyToMany(targetEntity="Entity\EIndirizzo", inversedBy="clienti")
      * @ORM\JoinTable(name="clienti_indirizzi")
      */
     private $indirizziConsegna;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\EOrdine", mappedBy="utente")
+     * @ORM\OneToMany(targetEntity="Entity\EOrdine", mappedBy="utente")
      */
     private $ordini;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ESegnalazione", mappedBy="cliente")
+     * @ORM\OneToMany(targetEntity="Entity\ESegnalazione", mappedBy="cliente")
      * 
      */
     private $segnalazioni;
 
-    public function __construct($nome, $cognome, $email, $password, $metodiPagamento = [], $indirizziConsegna = []) {
-        parent::__construct($nome, $cognome, $email, $password);
-        $this->indirizziConsegna = new ArrayCollection();
-        $this->ordini = new ArrayCollection();
-        $this->segnalazioni = new ArrayCollection();
-        $this->metodiPagamento = new ArrayCollection();
+    public function __construct() {
+        parent::__construct();
     }
 
     //Getters
@@ -67,12 +63,19 @@ class ECliente extends EUtente{
     
 
     //Setters
-    public function setMetodiPagamento($metodiPagamento) {
+    public function setMetodiPagamento($metodiPagamento) : ECliente {
         $this->metodiPagamento = $metodiPagamento;
+        return $this;
     }
 
-    public function setIndirizziConsegna($indirizziConsegna) {
+    public function setIndirizziConsegna($indirizziConsegna) : ECliente {
         $this->indirizziConsegna = $indirizziConsegna;
+        return $this;
+    }
+
+    public function addIndirizzoConsegna(EIndirizzo $indirizzo) : ECliente {
+        $this->indirizziConsegna[] = $indirizzo;
+        return $this;
     }
 
 

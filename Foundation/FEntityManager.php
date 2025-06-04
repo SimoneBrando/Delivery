@@ -2,7 +2,7 @@
 
 
 
-namespace App\Foundation; 
+namespace Foundation; 
 
 require_once 'bootstrap.php';
 

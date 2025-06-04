@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Foundation;
+namespace Foundation;
 
-use App\Entity\ESegnalazione;
+use Entity\ESegnalazione;
 use Exception;
 
 require_once 'FPersistentManager.php';

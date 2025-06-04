@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Foundation;
+namespace Foundation;
 
-use App\Entity\EIndirizzo;
+use Entity\EIndirizzo;
 use Exception;
 
 require_once 'FPersistentManager.php';

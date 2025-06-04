@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection; 
@@ -32,22 +32,17 @@ class EProdotto {
      */
     private $costo;
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\EOrdine", mappedBy="prodotti")
+     * @ORM\ManyToMany(targetEntity="Entity\EOrdine", mappedBy="prodotti")
      */
     private $ordini;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\ECategoria", inversedBy="piatti")
+     * @ORM\ManyToOne(targetEntity="Entity\ECategoria", inversedBy="piatti")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id", nullable=false)
      */
     private $categoria;
 
-    public function __construct($nome, $descrizione, $costo, $categoria) {
+    public function __construct() {
 
-        $this->nome = $nome;
-        $this->descrizione = $descrizione;
-        $this->costo = $costo;
-        $this->categoria = $categoria; 
-        $this->ordini = new ArrayCollection();
     }
 
     // Getters
@@ -71,23 +66,28 @@ class EProdotto {
     }
 
     // Setters
-    public function setId($id) {
+    public function setId($id) : EProdotto{
         $this->id = $id;
+        return $this;
     }
 
-    public function setNome($nome) {
+    public function setNome($nome) : EProdotto{
         $this->nome = $nome;
+        return $this;
     }
 
-    public function setDescrizione($descrizione) {
+    public function setDescrizione($descrizione) : EProdotto {
         $this->descrizione = $descrizione;
+        return $this;
     }
     
-    public function setCosto($costo) {
+    public function setCosto($costo) : EProdotto {
         $this->costo = $costo;
+        return $this;
     }
-    public function setCategoria($categoria) {
+    public function setCategoria($categoria) : EProdotto {
         $this->categoria = $categoria;
+        return $this;
     }
 
 }

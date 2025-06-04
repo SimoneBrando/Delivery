@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Foundation;
+namespace Foundation;
 
-use App\Entity\ECarta_credito;
+use Entity\ECarta_credito;
 use Exception;
 
 require_once 'FPersistentManager.php';

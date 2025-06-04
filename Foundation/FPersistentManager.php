@@ -1,5 +1,5 @@
 <?php
-namespace App\Foundation;
+namespace Foundation;
 
 class FPersistentManager {
 

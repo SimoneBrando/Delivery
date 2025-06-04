@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Entity;
+namespace Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use App\Entity\ECliente;
+use Entity\ECliente;
 
 /**
  * @ORM\Entity
@@ -41,15 +41,13 @@ class EIndirizzo
     private $citta;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\ECliente", mappedBy="indirizziConsegna")
+     * @ORM\ManyToMany(targetEntity="Entity\ECliente", mappedBy="indirizziConsegna")
      */
     private $clienti;
 
     
 
-    public function __construct()
-    {
-        $this->clienti = new ArrayCollection();
+    public function __construct(){
     }
     public function getId(): int
     {
@@ -61,9 +59,10 @@ class EIndirizzo
         return $this->via;
     }
 
-    public function setVia(string $via)
+    public function setVia(string $via) : EIndirizzo
     {
         $this->via = $via;
+        return $this;
     }
 
     public function getCivico(): string
@@ -71,9 +70,10 @@ class EIndirizzo
         return $this->civico;
     }
 
-    public function setCivico(string $civico)
+    public function setCivico(string $civico) : EIndirizzo
     {
         $this->civico = $civico;
+        return $this;
     }
 
     public function getCap(): string
@@ -81,9 +81,10 @@ class EIndirizzo
         return $this->cap;
     }
 
-    public function setCap(string $cap)
+    public function setCap(string $cap) : EIndirizzo
     {
         $this->cap = $cap;
+        return $this;
     }
 
     public function getCitta(): string
@@ -91,13 +92,20 @@ class EIndirizzo
         return $this->citta;
     }
 
-    public function setCitta(string $citta)
+    public function setCitta(string $citta) : EIndirizzo
     {
         $this->citta = $citta;
+        return $this;
     }
     public function getClienti(): Collection
     {
         return $this->clienti;
+    }
+
+    public function setClienti(Collection $clienti) : EElenco_prodotti
+    {
+        $this->clienti = $clienti;
+        return $this;
     }
     public function addCliente(ECliente $cliente)
     {

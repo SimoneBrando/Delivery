@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity;
+namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -29,24 +29,18 @@ class ESegnalazione {
     private $testo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EUtente", inversedBy="segnalazione")
+     * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="segnalazione")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
     private $utente;
 
     /**
-     * *@ORM\OneToOne(targetEntity="App\Entity\EOrdine", inversedBy="segnalazione")
+     * *@ORM\OneToOne(targetEntity="Entity\EOrdine", inversedBy="segnalazione")
      * @ORM\JoinColumn(name="ordine_id", referencedColumnName="id", nullable=false)
      */
     private $ordine;
 
-    public function __construct($id, $data, $descrizione, $testo, $utente, $ordine) {
-        $this->id = uniqid();
-        $this->data = $data;
-        $this->descrizione = $descrizione;
-        $this->testo = $testo;
-        $this->utente = $utente; 
-        $this->ordine = $ordine;
+    public function __construct() {
     }
 
     // Getters
@@ -71,26 +65,42 @@ class ESegnalazione {
     }
 
     // Setters
-    public function setId($id) {
+    public function setId($id) : ESegnalazione {
         $this->id = $id;
+        return $this;
     }
 
-    public function setData($data) {
+    public function setData($data) : ESegnalazione {
         $this->data = $data;
+        return $this;
     }
 
-    public function setDescrizione($descrizione) {
+    public function setDescrizione($descrizione) : ESegnalazione {
         $this->descrizione = $descrizione;
+        return $this;
     }
 
-    public function setOra($ora) {
+    public function setOra($ora) : ESegnalazione {
         $this->ora = $ora;
+        return $this;
     }
 
-    public function setTesto($testo) {
+    public function setTesto($testo) : ESegnalazione {
         $this->testo = $testo;
+        return $this;
     }
-    
-   
+
+    public function setUtente(EUtente $utente): ESegnalazione {
+        $this->utente = $utente;
+        return $this;
+    }
+
+    public function setOrdine(EOrdine $ordine): ESegnalazione {
+        $this->ordine = $ordine;
+        return $this;
+    }
+
+
+
 
 }

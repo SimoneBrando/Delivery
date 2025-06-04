@@ -1,8 +1,8 @@
 <?php 
 
 
-namespace App\Foundation;
-use App\Entity\EOrdine; 
+namespace Foundation;
+use Entity\EOrdine;
 
 require_once 'FPersistentManager.php';
 require_once 'FEntityManager.php';

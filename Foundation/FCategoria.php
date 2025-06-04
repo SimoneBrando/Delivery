@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Foundation;
+namespace Foundation;
 
-use App\Entity\ECategoria;
+use Entity\ECategoria;
 use Exception;
 
 require_once 'FPersistentManager.php';

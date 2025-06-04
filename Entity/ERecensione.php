@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Entity;
-use App\Entity\EUtente;
+namespace Entity;
+use Entity\EUtente;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -30,16 +30,12 @@ class ERecensione{
      */
     private $data;
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EUtente", inversedBy="recensione")
+     * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="recensione")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
     private $utente;
 
-    public function __construct($descrizione, $voto, $data, $utente){
-        $this->descrizione = $descrizione;
-        $this->voto = $voto;
-        $this->data = $data;
-        $this->utente = $utente;
+    public function __construct(){
     }
 
     //Getter
@@ -64,24 +60,31 @@ class ERecensione{
     }
 
     //Setter
-    public function setId($id){
-        $this->id = $id;
-    }
 
-    public function setDescrizione($descrizione){
+    public function setDescrizione($descrizione) : ERecensione{
         $this->descrizione = $descrizione;
+        return $this;
     }
 
-    public function setVoto($voto){
+    public function setVoto($voto) : ERecensione{
         $this->voto = $voto;
+        return $this;
     }
 
-    public function setData($data){
+    public function setData($data) : ERecensione{
         $this->data = $data;
+        return $this;
     }
 
-    public function setOrario($orario){
+    public function setOrario($orario) : ERecensione{
         $this->orario = $orario;
+        return $this;
+    }
+
+    public function setUtente($utente) : ERecensione
+    {
+        $this->utente = $utente;
+        return $this;
     }
 
 }

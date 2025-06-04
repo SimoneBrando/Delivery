@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Foundation;
+namespace Foundation;
 
-use App\Entity\EProdotto; 
+use Entity\EProdotto;
 
 require_once 'FPersistentManager.php';
 require_once 'FEntityManager.php';

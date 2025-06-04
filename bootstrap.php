@@ -16,7 +16,7 @@ function getEntityManager(): EntityManager
     $config = new Configuration();
     $driver = new AnnotationDriver(
         new AnnotationReader(),
-        [__DIR__ . "/src/Entity"]
+        [__DIR__ . "/Entity"]
     );
     $config->setMetadataDriverImpl($driver);
     $config->setProxyDir(__DIR__ . "/proxies");

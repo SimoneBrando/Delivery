@@ -18,6 +18,11 @@ class ComposerStaticInit6f85502b52ffab0d6a85b356c58b065f
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Testing\\Fixtures\\' => 17,
+            'Testing\\' => 8,
+        ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Php84\\' => 23,
@@ -39,6 +44,15 @@ class ComposerStaticInit6f85502b52ffab0d6a85b356c58b065f
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
         ),
+        'F' => 
+        array (
+            'Foundation\\' => 11,
+            'Faker\\' => 6,
+        ),
+        'E' => 
+        array (
+            'Entity\\' => 7,
+        ),
         'D' => 
         array (
             'Doctrine\\Persistence\\' => 21,
@@ -48,18 +62,23 @@ class ComposerStaticInit6f85502b52ffab0d6a85b356c58b065f
             'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Lexer\\' => 22,
+            'Doctrine\\Common\\DataFixtures\\' => 29,
             'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
         ),
-        'A' => 
-        array (
-            'App\\' => 4,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
+        'Testing\\Fixtures\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Testing/Fixtures',
+        ),
+        'Testing\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Testing',
+        ),
         'Symfony\\Polyfill\\Php84\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php84',
@@ -120,6 +139,18 @@ class ComposerStaticInit6f85502b52ffab0d6a85b356c58b065f
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'Foundation\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Foundation',
+        ),
+        'Faker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
+        ),
+        'Entity\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/Entity',
+        ),
         'Doctrine\\Persistence\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/persistence/src/Persistence',
@@ -148,6 +179,10 @@ class ComposerStaticInit6f85502b52ffab0d6a85b356c58b065f
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/src',
         ),
+        'Doctrine\\Common\\DataFixtures\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/data-fixtures/src',
+        ),
         'Doctrine\\Common\\Collections\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/collections/src',
@@ -164,10 +199,6 @@ class ComposerStaticInit6f85502b52ffab0d6a85b356c58b065f
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/src',
             1 => __DIR__ . '/..' . '/doctrine/event-manager/src',
-        ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
         ),
     );
 

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Entity;
+namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use App\Entity\ECategoria;
+use Entity\ECategoria;
 
 
 /**
@@ -20,7 +20,7 @@ class EElenco_prodotti{
      */
     private $id;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ECategoria", mappedBy="elencoProdotti", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Entity\ECategoria", mappedBy="elencoProdotti", cascade={"persist"})
      */
     private $categorie;
 
@@ -32,18 +32,20 @@ class EElenco_prodotti{
     public function getId() {
         return $this->id;
     }
-    
+    public function setId($id) : EElenco_prodotti {
+        $this->id = $id;
+        return $this;
+
+    }
     public function getCategorie() {
         return $this->categorie;
     }
 
     // Setters
-    public function setId($id) {
-        $this->id = $id;
-    }
 
-    public function setCategorie($categorie) {
+    public function setCategorie($categorie) : EElenco_prodotti{
         $this->categorie = $categorie;
+        return $this;
     }
 
     public function addCategoria(ECategoria $categoria) {

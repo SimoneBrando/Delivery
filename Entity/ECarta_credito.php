@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Entity;
-use App\Entity\EUtente;
+namespace Entity;
+use Entity\EUtente;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -36,19 +36,13 @@ class ECarta_credito{
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\EUtente", inversedBy="carta_credito")
+     * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="carta_credito")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
     private $utente;
 
 
-    public function __construct($numeroCarta, $nomeCarta, $dataScadenza, $cvv, $nomeIntestatario, $utente) {
-        $this->numeroCarta = $numeroCarta;
-        $this->nomeCarta = $nomeCarta;
-        $this->dataScadenza = $dataScadenza;
-        $this->cvv = $cvv;
-        $this->nomeIntestatario = $nomeIntestatario;
-        $this->utente = $utente;
+    public function __construct() {
     }
 
     //Getter
@@ -73,25 +67,37 @@ class ECarta_credito{
     }
 
     //Setter
-    public function setNumeroCarta($numeroCarta){
+    public function setNumeroCarta($numeroCarta) : ECarta_credito {
         $this->numeroCarta = $numeroCarta;
+        return $this;
     }
 
-    public function setNominativo($nomeCarta){
+    public function setNominativo($nomeCarta) : ECarta_credito {
         $this->nomeCarta = $nomeCarta;
+        return $this;
     }
 
-    public function setDataScadenza($dataScadenza){
+    public function setDataScadenza($dataScadenza) : ECarta_credito {
         $this->dataScadenza = $dataScadenza;
+        return $this;
     }
 
-    public function setCvv($cvv){
+    public function setCvv($cvv) : ECarta_credito {
         $this->cvv = $cvv;
+        return $this;
     }
     
-    public function setNomeIntestatario($nomeIntestatario){
+    public function setNomeIntestatario($nomeIntestatario) : ECarta_credito {
         $this->nomeIntestatario = $nomeIntestatario;
+        return $this;
     }
 
-    
+    public function setUtente(EUtente $utente): ECarta_credito
+    {
+        $this->utente = $utente;
+        return $this;
+    }
+
+
+
 }

@@ -1,6 +1,6 @@
 <?php
 // src/Entity/EUtente.php
-namespace App\Entity;
+namespace Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -14,9 +14,9 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="ruolo", type="string")
  * @ORM\DiscriminatorMap({
- *     "cliente" = "App\Entity\ECliente",
- *     "rider" = "App\Entity\ERider",
- *     "cuoco" = "App\Entity\ECuoco"
+ *     "cliente" = "Entity\ECliente",
+ *     "rider" = "Entity\ERider",
+ *     "cuoco" = "Entity\ECuoco"
  * })
  */
 class EUtente
@@ -49,13 +49,10 @@ class EUtente
     private $password;
 
 
+
     // Costruttore
-    public function __construct(string $nome, string $cognome, string $email, string $password)
-    {
-        $this->nome = $nome;
-        $this->cognome = $cognome;
-        $this->email = $email;
-        $this->password = $password;
+    public function __construct(){
+
     }
 
     // Getter e Setter
@@ -69,9 +66,10 @@ class EUtente
         return $this->nome;
     }
 
-    public function setNome(string $nome): void
+    public function setNome(string $nome): EUtente
     {
         $this->nome = $nome;
+        return $this;
     }
 
     public function getCognome(): string
@@ -79,9 +77,10 @@ class EUtente
         return $this->cognome;
     }
 
-    public function setCognome(string $cognome): void
+    public function setCognome(string $cognome): EUtente
     {
         $this->cognome = $cognome;
+        return $this;
     }
 
     public function getEmail(): string
@@ -89,9 +88,10 @@ class EUtente
         return $this->email;
     }
 
-    public function setEmail(string $email): void
+    public function setEmail(string $email): EUtente
     {
         $this->email = $email;
+        return $this;
     }
 
     public function getPassword(): string
@@ -99,9 +99,12 @@ class EUtente
         return $this->password;
     }
 
-    public function setPassword(string $password): void
+    public function setPassword(string $password): EUtente
     {
         $this->password = $password;
+        return $this;
     }
+
+
 }
 ?>

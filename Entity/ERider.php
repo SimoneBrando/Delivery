@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Entity;
-use App\Entity\EUtente;
+namespace Entity;
+use Entity\EUtente;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -17,9 +17,8 @@ class ERider extends EUtente{
     private $codiceRider;
 
 
-    public function __construct($nome, $cognome, $email, $password, $codiceRider){
-        parent::__construct($nome, $cognome, $email, $password);
-        $this->codiceRider = $codiceRider;
+    public function __construct(){
+        parent::__construct();
     }
 
     //Getter
@@ -28,8 +27,9 @@ class ERider extends EUtente{
     }
 
     //Setter
-    public function setCodiceRider($codiceRider){
+    public function setCodiceRider($codiceRider) : ERider{
         $this->codiceRider = $codiceRider;
+        return $this;
     }
     
 }

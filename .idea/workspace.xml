@@ -4,19 +4,41 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bb2ff668-f7e5-4860-a3f8-3c4beb23b74e" name="Changes" comment="" />
+    <list default="true" id="bb2ff668-f7e5-4860-a3f8-3c4beb23b74e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Delivery.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Delivery.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Foundation/FEntityManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FEntityManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Foundation/FPersistentManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FPersistentManager.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Foundation/FProdotto.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FProdotto.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxies/__CG__EntityECategoria.php" beforeDir="false" afterPath="$PROJECT_DIR$/proxies/__CG__EntityECategoria.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;francescodig&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SimoneBrando/Delivery.git&quot;,
+    &quot;accountId&quot;: &quot;c79e4161-ac27-4e13-ba0d-93ec259f7adc&quot;
+  }
+}</component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="$PROJECT_DIR$/../../php/php.exe">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/symfony/string" />
@@ -49,15 +71,55 @@
       <path value="$PROJECT_DIR$/vendor/symfony/cache" />
       <path value="$PROJECT_DIR$/vendor/smarty/smarty" />
       <path value="$PROJECT_DIR$/vendor/fakerphp/faker" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/data-fixtures" />
     </include_path>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
+  <component name="ProjectId" id="2y3JGnbxDmAiwZltqV7CvJuUy5D" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "node.js.selected.package.tslint": "(autodetect)"
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PS-251.25410.148" />
+        <option value="bundled-php-predefined-a98d8de5180a-c5828cf854d9-com.jetbrains.php.sharedIndexes-PS-251.25410.148" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bb2ff668-f7e5-4860-a3f8-3c4beb23b74e" name="Changes" comment="" />
+      <created>1749057239848</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749057239848</updated>
+      <workItem from="1749057243482" duration="829000" />
+      <workItem from="1749135331397" duration="5050000" />
+    </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

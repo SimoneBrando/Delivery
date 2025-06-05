@@ -4,6 +4,8 @@
 
 namespace Foundation; 
 
+use Exception;
+
 require_once 'bootstrap.php';
 
 class FEntityManager{
@@ -35,10 +37,10 @@ class FEntityManager{
      * @param int $id ID dell'oggetto da recuperare
      * @return object || null  
      */
-    public static function risvegliaObj($class, $id){
+    public static function getObj($class,$id): ?object
+    {
         try{
-            $obj = self::$entityManager->find($class, $id);
-            return $obj;
+            return self::$entityManager->find($class, $id);
         }
         catch (Exception $e){
             echo "Errore: " . $e->getMessage();
@@ -54,10 +56,11 @@ class FEntityManager{
      * @return object || null  
      * @throws Exception
      */
-    public function risvegliaObjOnAttribute($class, $attribute, $value){
+    public function getObjOnAttribute($class, $attribute, $value): ?object
+    {
         try{
-            $obj = self::$entityManager->getRepository($class)->findOneBy([$attribute => $value]);
-            return $obj;
+            echo "Cerca in $class dove $attribute = $value\n";
+            return self::$entityManager->getRepository($class)->findOneBy([$attribute => $value]);
         }
         catch (Exception $e){
             echo "Errore: " . $e->getMessage();
@@ -117,7 +120,8 @@ class FEntityManager{
      * @return bool true se l'oggetto è stato salvato, false altrimenti
      * @throws Exception
      */
-    public function salvaObj($obj){
+    public static function saveObj(object $obj): bool
+    {
         try{
             self::$entityManager->getConnection()->beginTransaction(); 
             self::$entityManager->persist($obj);
@@ -136,7 +140,8 @@ class FEntityManager{
      * @param object $obj Oggetto già modificato da salvare
      * @return bool true se aggiornato correttamente, false altrimenti
      */
-    public function updateObj($obj){
+    public static function updateObj(object $obj): bool
+    {
         try{
             self::$entityManager->getConnection()->beginTransaction();
             self::$entityManager->persist($obj); // opzionale se l’oggetto è già gestito
@@ -156,7 +161,8 @@ class FEntityManager{
      * @return bool true se l'oggetto è stato eliminato, false altrimenti
      * @throws Exception
      */
-    public function eliminaObj($obj){
+    public static function deleteObj(object $obj): bool
+    {
         try{
             self::$entityManager->getConnection()->beginTransaction(); 
             self::$entityManager->remove($obj);
@@ -176,10 +182,10 @@ class FEntityManager{
      * @return array array di oggetti
      * @throws Exception
      */
-    public function selectAll($table){
+    public static function getAll(string $table): array
+    {
         try{
-            $stmt = "SELECT e FROM " . $table . "e";
-            $query = self::$entityManager->createQuery($stmt);
+            $query = self::$entityManager->createQuery("SELECT e FROM  $table e");
             $result = $query->getResult();
             return $result;
         } catch (Exception $e){

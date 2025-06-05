@@ -13,66 +13,6 @@ class FProdotto
     private static $table = "prodotto";
     private static $key = "id";
 
-    /**
-     * Metodo per ottenere un prodotto dal database tramite ID
-     * @param int $id ID del prodotto
-     * @return EProdotto|null
-     */
-    public static function getObj($id) {
-        try {
-            $entityManager = FEntityManager::getInstance();
-            return $entityManager->risvegliaObj(EProdotto::class, $id);
-        } catch (Exception $e) {
-            error_log("Errore durante il recupero del prodotto: " . $e->getMessage());
-            return null;
-        }
-    }
-
-    /**
-     * Metodo per salvare un prodotto nel database
-     * @param EProdotto $prodotto L'oggetto prodotto da salvare
-     * @return bool
-     */
-    public static function saveObj(EProdotto $prodotto) {
-        try {
-            $result = FEntityManager::getInstance()->salvaObj($prodotto);
-            return $result;
-        } catch (Exception $e) {
-            error_log("Errore durante il salvataggio del prodotto: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Metodo per eliminare un prodotto dal database
-     * @param EProdotto $prodotto L'oggetto prodotto da eliminare
-     * @return bool
-     */
-    public static function deleteObj(EProdotto $prodotto) {
-        try {
-            $pm = FPersistentManager::getInstance();
-            return $pm->eliminaObj($prodotto);
-        } catch (Exception $e) {
-            error_log("Errore durante l'eliminazione del prodotto: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Metodo per cercare prodotti in base a un attributo
-     * @param string $attribute Attributo per la ricerca
-     * @param mixed $value Valore da cercare
-     * @return array|EProdotto|null
-     */
-    public static function searchByAttribute($attribute, $value) {
-        try {
-            $pm = FPersistentManager::getInstance();
-            return $pm->risvegliaObjOnAttribute(EProdotto::class, $attribute, $value);
-        } catch (Exception $e) {
-            error_log("Errore durante la ricerca del prodotto: " . $e->getMessage());
-            return [];
-        }
-    }
 
     /**
      * Metodo per ottenere tutti i prodotti

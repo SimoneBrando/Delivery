@@ -261,6 +261,17 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getUtente(): \Entity\EUtente
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUtente', []);
+
+        return parent::getUtente();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setProdotti($prodotti): \Entity\EOrdine
     {
 

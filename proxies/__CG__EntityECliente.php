@@ -357,4 +357,15 @@ class ECliente extends \Entity\ECliente implements \Doctrine\ORM\Proxy\Proxy
         return parent::setPassword($password);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getRuolo(): string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRuolo', []);
+
+        return parent::getRuolo();
+    }
+
 }

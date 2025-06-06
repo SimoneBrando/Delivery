@@ -23,6 +23,7 @@ function getEntityManager(): EntityManager
     $config->setProxyNamespace('Proxies');
     $config->setAutoGenerateProxyClasses($isDevMode);
 
+
     $conn = [
         'driver'   => DB_DRIVER,
         'host'     => DB_HOST,

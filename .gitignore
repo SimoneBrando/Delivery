@@ -1,1 +1,5 @@
 .DS_Store
+# Ignora l'intera cartella var/
+/var/*
+# Ignora la cartella vendor/ (dipendenze Composer)
+/vendor/

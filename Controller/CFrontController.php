@@ -30,7 +30,7 @@ class CFrontController{
                 $params = array_slice($uriParts, 2); 
                 call_user_func_array([$controllerClass, $methodName], $params);
             } else {
-                header('Location: /User/home');
+                header('Location: /Delivery/User/home');
             }
         } else {
             http_response_code(404);

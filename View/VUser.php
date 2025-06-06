@@ -12,12 +12,6 @@ class VUser{
 
     }
 
-    public function prova(){
-        $this->smarty->assign('titolo', 'Prova Smarty');
-        $this->smarty->assign('nome', 'Simone');
-        $this->smarty->display('prova.tpl');
-    }
-
     public function showMenu($menu){
         $this->smarty->assign('menu', $menu);
         $this->smarty->display('menu.tpl');
@@ -25,5 +19,10 @@ class VUser{
 
     public function showHome(){
         $this->smarty->display('home.tpl');
+    }
+
+    public function order($menu){
+        $this->smarty->assign('menu', $menu);
+        $this->smarty->display('order.tpl');
     }
 }

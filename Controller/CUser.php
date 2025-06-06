@@ -1,8 +1,10 @@
 <?php
 
 use View\VUser;
+use Foundation\FPersistentManager;
+
 require_once __DIR__ . '/../View/VUser.php';
-require_once __DIR__ . '/../Entity/EElenco_prodotti.php';
+require_once __DIR__ . '/../Foundation/FPersistentManager.php';
 
 class CUser{
 
@@ -75,9 +77,7 @@ class CUser{
 
     public static function mostraMenu(){
         $view = new VUser();
-        $classe = 'EElenco_prodotti';
-        $id = 0;
-        $menu = 'ciao';
+        $menu = FPersistentManager::getInstance()->getMenu();
         $view->showMenu($menu);
     }
 
@@ -85,4 +85,12 @@ class CUser{
         $view = new VUser();
         $view->showHome();
     }
+
+    public static function order(){
+        $view = new VUser();
+        $menu = FPersistentManager::getInstance()->getMenu();
+        $view->order($menu);
+    }
+
+    
 }

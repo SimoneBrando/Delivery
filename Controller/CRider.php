@@ -1,8 +1,12 @@
 <?php
 
-use App\Foundation\FPersistentManager;
+use Foundation\FPersistentManager;
+use View\VRider;
 
-class CCucina{
+require_once __DIR__ . '/../View/VRider.php';
+require_once __DIR__ . '/../Foundation/FPersistentManager.php';
+
+class CRider{
 
     public function isLogged(){
 
@@ -44,6 +48,12 @@ class CCucina{
                 FPersistentManager::getInstance()->updateObj($ordine);
             }
         }
+    }
+
+    public static function showOrders(){
+        $view = new VRider();
+        $orders = FPersistentManager::getInstance()->getOrdersByState('pronto');
+        $view->showOrders($orders);
     }
 
 }

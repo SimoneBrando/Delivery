@@ -5,27 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb2ff668-f7e5-4860-a3f8-3c4beb23b74e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Foundation/FCliente.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Foundation/FCuoco.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Foundation/FRider.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/EOrdine.php" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/EOrdine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/ESegnalazione.php" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/ESegnalazione.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/EUtente.php" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/EUtente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FCarta_credito.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FCarta_credito.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FCategoria.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FCategoria.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Foundation/FElenco_prodotti.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FElenco_prodotti.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FEntityManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FEntityManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FIndirizzo.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FIndirizzo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FOrdine.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FOrdine.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Foundation/FPersistentManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FPersistentManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FProdotto.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FProdotto.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FRecensione.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FRecensione.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FSegnalazione.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FSegnalazione.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FUtente.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FUtente.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxies/__CG__EntityEElenco_prodotti.php" beforeDir="false" afterPath="$PROJECT_DIR$/proxies/__CG__EntityEElenco_prodotti.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxies/__CG__EntityEOrdine.php" beforeDir="false" afterPath="$PROJECT_DIR$/proxies/__CG__EntityEOrdine.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +112,7 @@
       <option name="presentableId" value="Default" />
       <updated>1749057239848</updated>
       <workItem from="1749057243482" duration="829000" />
-      <workItem from="1749135331397" duration="27094000" />
+      <workItem from="1749135331397" duration="30298000" />
     </task>
     <servers />
   </component>

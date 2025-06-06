@@ -4,6 +4,7 @@
 
 namespace Foundation; 
 
+use Doctrine\ORM\Exception\NotSupported;
 use Exception;
 
 require_once 'bootstrap.php';
@@ -51,16 +52,16 @@ class FEntityManager{
     /**
      * Metodo per recuperare un oggetto a partire da una classe e un id
      * @param string $class Nome della classe
-     * @param string $attribute attributo dell'oggetto da recuperare
+     * @param string $field attributo dell'oggetto da recuperare
      * @param mixed $value valore dell'attributo dell'oggetto da recuperare
      * @return object || null  
      * @throws Exception
      */
-    public function getObjOnAttribute($class, $attribute, $value): ?object
+    public static function getObjOnAttribute($class, $field, $value): ?object
     {
         try{
-            echo "Cerca in $class dove $attribute = $value\n";
-            return self::$entityManager->getRepository($class)->findOneBy([$attribute => $value]);
+            echo "Cerca in $class dove $field = $value\n";
+            return self::$entityManager->getRepository($class)->findOneBy([$field => $value]);
         }
         catch (Exception $e){
             echo "Errore: " . $e->getMessage();
@@ -68,19 +69,45 @@ class FEntityManager{
         }
     }
 
+    public static function getObjListOnAttribute($table, $field, $value): array
+    {
+        try{
+            return self::$entityManager->getRepository($table)->findBy([$field => $value]);
 
+        } catch(Exception $e){
+            echo "Errore: " . $e->getMessage();
+            return [];
+        }
+    }
+
+    public static function getObjListBetween($table, $field, $value): array{
+            try {
+                $qb = self::$entityManager->createQueryBuilder();
+                $qb->select('e')
+                    ->from($table, 'e')
+                    ->where($qb->expr()->between("e.$field", ':start', ':end'))
+                    ->setParameter('start', $value[0])
+                    ->setParameter('end', $value[1]);
+
+                return $qb->getQuery()->getResult();
+
+            } catch (\Exception $e) {
+                echo "Errore: " . $e->getMessage();
+                return [];
+            }
+    }
     /**
      * Metodo per verificare se un oggetto esiste nel db
      * @param int $id id dell'oggetto
      * @param string $table nome della tabella
      * @param mixed $value valore dell'attributo da verificare
-     * @param string $attribute attributo da verificare
+     * @param string $field attributo da verificare
      * @return bool true se l'oggetto esiste, false altrimenti
      * @throws Exception
      */
-    public function verificaEsistenza($id, $table, $value, $attribute){
+    public function verificaEsistenza($id, $table, $value, $field){
         try{
-            $stmt = "SELECT u.id" . $id . " FROM " . $table . "u WHERE u." . $attribute . " = :value";
+            $stmt = "SELECT u.id" . $id . " FROM " . $table . "u WHERE u." . $field . " = :value";
             $query = self::$entityManager->createQuery($stmt);
             $query->setParameter(':value', $value);
             $result = $query->getResult();
@@ -96,9 +123,9 @@ class FEntityManager{
         }
     }
 
-    public function getRicerca($entityClass, $str, $attribute){
+    public function getRicerca($entityClass, $str, $field){
         try{
-            $stmt = "SELECT e FROM " . $entityClass . " e WHERE e." . $attribute . " LIKE :ricerca";
+            $stmt = "SELECT e FROM " . $entityClass . " e WHERE e." . $field . " LIKE :ricerca";
             $query = self::$entityManager->createQuery($stmt);
             $query->setParameter(':ricerca','%' .  $str . '%');
             $result = $query->getResult();
@@ -193,6 +220,26 @@ class FEntityManager{
             return [];
         }
     }
+
+    public static function verifyAttributes ($table, $field, $value): ?bool
+    {
+        try{
+            $dql = "SELECT u.id FROM " . $table . " u WHERE u." . $field . " = :value";
+            $query = self::$entityManager->createQuery($dql);
+            $query->setParameter('value', $value);
+
+            $result = $query->getResult();
+            if(count($result) > 0)
+                return true;
+            else
+                return false;
+        } catch (Exception $e){
+            echo "Errore: " . $e->getMessage();
+            return null;
+        }
+    }
+
+
 
 
 

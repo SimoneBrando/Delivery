@@ -64,6 +64,10 @@ class ESegnalazione {
         return $this->testo;
     }
 
+    public function getUtente() : EUtente{
+        return $this->utente;
+    }
+
     // Setters
     public function setId($id) : ESegnalazione {
         $this->id = $id;

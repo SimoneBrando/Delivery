@@ -67,10 +67,10 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'utente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'prodotti', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'utente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'prodotti', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'utente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'prodotti', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'utente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'prodotti', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato'];
     }
 
     /**

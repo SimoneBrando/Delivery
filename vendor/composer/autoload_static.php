@@ -45,6 +45,7 @@ class ComposerStaticInite72b2605ca591526d4ae1ba637230163
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
+            'ParagonIE\\ConstantTime\\' => 23,
         ),
         'F' => 
         array (
@@ -69,6 +70,12 @@ class ComposerStaticInite72b2605ca591526d4ae1ba637230163
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\Annotations\\' => 28,
             'Doctrine\\Common\\' => 16,
+            'Delight\\Otp\\' => 12,
+            'Delight\\Http\\' => 13,
+            'Delight\\Db\\' => 11,
+            'Delight\\Cookie\\' => 15,
+            'Delight\\Base64\\' => 15,
+            'Delight\\Auth\\' => 13,
         ),
     );
 
@@ -145,6 +152,10 @@ class ComposerStaticInite72b2605ca591526d4ae1ba637230163
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'ParagonIE\\ConstantTime\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
+        ),
         'Foundation\\' => 
         array (
             0 => __DIR__ . '/../..' . '/Foundation',
@@ -205,6 +216,30 @@ class ComposerStaticInite72b2605ca591526d4ae1ba637230163
         array (
             0 => __DIR__ . '/..' . '/doctrine/common/src',
             1 => __DIR__ . '/..' . '/doctrine/event-manager/src',
+        ),
+        'Delight\\Otp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/otp/src',
+        ),
+        'Delight\\Http\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/http/src',
+        ),
+        'Delight\\Db\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/db/src',
+        ),
+        'Delight\\Cookie\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/cookie/src',
+        ),
+        'Delight\\Base64\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/base64/src',
+        ),
+        'Delight\\Auth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/delight-im/auth/src',
         ),
     );
 

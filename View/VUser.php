@@ -26,4 +26,12 @@ class VUser{
     public function showHome(){
         $this->smarty->display('home.tpl');
     }
+
+    public function showLoginForm(){
+        $this->smarty->display('login.html');
+    }
+
+    public function showRegisterForm(){
+        $this->smarty->display('registrati.html');
+    }
 }

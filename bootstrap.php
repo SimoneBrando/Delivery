@@ -19,9 +19,9 @@ function getEntityManager(): EntityManager
         [__DIR__ . "/Entity"]
     );
     $config->setMetadataDriverImpl($driver);
-    $config->setProxyDir(__DIR__ . "/proxies");
+    $config->setProxyDir(__DIR__ . "/var/proxies");
     $config->setProxyNamespace('Proxies');
-    $config->setAutoGenerateProxyClasses($isDevMode);
+    $config->setAutoGenerateProxyClasses(false);
 
 
     $conn = [

@@ -2,7 +2,7 @@
 
 namespace View;
 
-class VRider{
+class VChef{
 
     private $smarty;
 
@@ -14,7 +14,7 @@ class VRider{
 
     public function showOrders($orders){
         $this->smarty->assign('orders', $orders);
-        $this->smarty->display('rider_orders.tpl');
+        $this->smarty->display('chef_orders.tpl');
     }
 
 

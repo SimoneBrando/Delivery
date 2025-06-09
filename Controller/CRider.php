@@ -27,16 +27,6 @@ class CRider{
         return true;
     }
 
-    public function mostraOrdini(){
-        if(CRider::isLogged()){
-            $stato = 'in_consegna';
-            $ordini = FPersistentManager::getInstance()->getOrdiniCucina('EOrdine', $stato);
-
-            $view = new VOrdini_cucina();
-            $view->mostraOrdini($ordini);
-        }
-    }
-
     public function cambiaStatoOrdine(){
         if(CRider::isLogged()){
             $ordineId = UHTTPMethods::post('ordineId');
@@ -52,7 +42,7 @@ class CRider{
 
     public static function showOrders(){
         $view = new VRider();
-        $orders = FPersistentManager::getInstance()->getOrdersByState('pronto');
+        $orders = FPersistentManager::getInstance()->getOrdersByState('in_attesa');
         $view->showOrders($orders);
     }
 

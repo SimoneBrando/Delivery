@@ -19,7 +19,7 @@ class CUser{
             $logged = true;
         }
         if(!$logged){
-            header('Location: /Delivery/User/login');
+            header('Location: /Delivery/User/home/');
             exit;
         }
         return true;
@@ -42,7 +42,7 @@ class CUser{
         USession::getInstance();
         USession::unsetSession();
         USession::destroySession();
-        header('Location: /Delivery/User/login');
+        header('Location: /Delivery/User/home');
     }
 
     public static function registrati()
@@ -83,7 +83,10 @@ class CUser{
 
     public static function home(){
         $view = new VUser();
-        $view->showHome();
+        $allReviews = FPersistentManager::getInstance()->getAllReviews();
+        shuffle($allReviews);
+        $reviews = array_slice($allReviews, 0, 3);
+        $view->showHome($reviews);
     }
 
     public static function order(){
@@ -92,5 +95,21 @@ class CUser{
         $view->order($menu);
     }
 
+    public static function showMyOrders(){
+        $view = new VUser();
+        $id = 45;
+        $orders = FPersistentManager::getInstance()->getOrdersByClient($id);
+        $view->showMyOrders($orders);
+    }
+
+    public static function showLoginForm(){
+        $view = new VUser();
+        $view->showLoginForm();
+    }
+
+    public static function showRegisterForm(){
+        $view = new VUser();
+        $view->showRegisterForm();
+    }
     
 }

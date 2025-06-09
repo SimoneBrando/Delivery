@@ -16,6 +16,7 @@ class VRider{
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
+
         $ordersArray = [];
 
     foreach ($orders as $order) {
@@ -40,6 +41,7 @@ class VRider{
             'prodotti' => $prodottiData,
         ];
     }
+
         $this->smarty->assign('orders', $ordersArray);
         $this->smarty->display('rider_orders.tpl');
     }

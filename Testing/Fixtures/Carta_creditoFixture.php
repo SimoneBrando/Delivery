@@ -22,7 +22,7 @@ class CartaCreditoFixture extends AbstractFixture implements DependentFixtureInt
             $carta->setNumeroCarta('41111111111111' . str_pad($i, 2, '0', STR_PAD_LEFT))
                 ->setNominativo('Carta n°' . ($i + 1))
                 ->setDataScadenza(new \DateTime('+2 years'))
-                ->setCvv('1' . $i . $i)
+                ->setCvv(str_pad((string)$i, 3, '0', STR_PAD_LEFT))
                 ->setNomeIntestatario($cliente->getNome() . ' ' . $cliente->getCognome())
                 ->setUtente($cliente); // Assicurati che il metodo esista
 

@@ -1,8 +1,12 @@
 <?php
 
-use App\Foundation\FPersistentManager;
+use Foundation\FPersistentManager;
+use View\VRider;
 
-class CCucina{
+require_once __DIR__ . '/../View/VRider.php';
+require_once __DIR__ . '/../Foundation/FPersistentManager.php';
+
+class CRider{
 
     public function isLogged(){
 
@@ -23,16 +27,6 @@ class CCucina{
         return true;
     }
 
-    public function mostraOrdini(){
-        if(CRider::isLogged()){
-            $stato = 'in_consegna';
-            $ordini = FPersistentManager::getInstance()->getOrdiniCucina('EOrdine', $stato);
-
-            $view = new VOrdini_cucina();
-            $view->mostraOrdini($ordini);
-        }
-    }
-
     public function cambiaStatoOrdine(){
         if(CRider::isLogged()){
             $ordineId = UHTTPMethods::post('ordineId');
@@ -44,6 +38,12 @@ class CCucina{
                 FPersistentManager::getInstance()->updateObj($ordine);
             }
         }
+    }
+
+    public static function showOrders(){
+        $view = new VRider();
+        $orders = FPersistentManager::getInstance()->getOrdersByState('in_attesa');
+        $view->showOrders($orders);
     }
 
 }

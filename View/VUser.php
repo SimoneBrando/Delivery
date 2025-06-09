@@ -12,26 +12,31 @@ class VUser{
 
     }
 
-    public function prova(){
-        $this->smarty->assign('titolo', 'Prova Smarty');
-        $this->smarty->assign('nome', 'Simone');
-        $this->smarty->display('prova.tpl');
-    }
-
     public function showMenu($menu){
         $this->smarty->assign('menu', $menu);
         $this->smarty->display('menu.tpl');
     }
 
-    public function showHome(){
+    public function showHome($reviews){
+        $this->smarty->assign('reviews', $reviews);
         $this->smarty->display('home.tpl');
     }
 
+    public function order($menu){
+        $this->smarty->assign('menu', $menu);
+        $this->smarty->display('order.tpl');
+    }
+
+    public function showMyOrders($orders){
+        $this->smarty->assign('orders', $orders);
+        $this->smarty->display('miei_ordini.tpl');
+    }
+
     public function showLoginForm(){
-        $this->smarty->display('login.html');
+        $this->smarty->display('login.tpl');
     }
 
     public function showRegisterForm(){
-        $this->smarty->display('registrati.html');
+        $this->smarty->display('register.tpl');
     }
 }

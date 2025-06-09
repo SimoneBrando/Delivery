@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-04 17:38:20
+/* Smarty version 5.5.1, created on 2025-06-07 17:53:43
   from 'file:home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6840686cb2a7b3_97391920',
+  'unifunc' => 'content_68446087382720_37220750',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'beb6f5e5ffeb1e16e05c82773e7e4d3676678ab3' => 
     array (
       0 => 'home.tpl',
-      1 => 1749051498,
+      1 => 1749311614,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6840686cb2a7b3_97391920 (\Smarty\Template $_smarty_tpl) {
+function content_68446087382720_37220750 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -97,67 +97,35 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
         </section>
 
         <!-- Reviews Section -->
+
         <section id="recensioni" class="reviews">
             <h2>Recensioni</h2>
             <div class="review-grid">
-                <!-- Recensione 1 -->
-                <div class="review-card">
-                    <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente" class="user-avatar">
-                        <div class="reviewer-details">
-                            <h3>Maria Rossi</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('reviews'), 'review');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('review')->value) {
+$foreach0DoElse = false;
+?>
+                    <div class="review-card">
+                        <div class="reviewer-info">
+                           <div class="reviewer-details">
+                                <h3>Cliente #<?php echo $_smarty_tpl->getValue('review')->getId();?>
+</h3>    
                             </div>
                         </div>
+                        <p class="review-text">"<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('review')->getDescrizione(), ENT_QUOTES, 'UTF-8', true);?>
+"</p>
+                        <span class="review-date"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('review')->getData(),"%d/%m/%Y");?>
+ <?php echo $_smarty_tpl->getValue('review')->getOrario();?>
+</span>
                     </div>
-                    <p class="review-text">"La pizza era eccezionale! Servizio veloce e personale gentilissimo. Tornerò sicuramente."</p>
-                    <span class="review-date">12/05/2024</span>
-                </div>
-        
-                <!-- Recensione 2 -->
-                <div class="review-card">
-                    <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente" class="user-avatar">
-                        <div class="reviewer-details">
-                            <h3>Luigi Bianchi</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="review-text">"Ottima qualità/prezzo. Pasta fatta in casa da urlo! Ambiente accogliente."</p>
-                    <span class="review-date">03/05/2024</span>
-                </div>
-        
-                <!-- Recensione 3 -->
-                <div class="review-card">
-                    <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Cliente" class="user-avatar">
-                        <div class="reviewer-details">
-                            <h3>Anna Verdi</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="review-text">"5 stelle meritatissime! Dal antipasto al dolce, tutto perfetto. Consigliatissimo!"</p>
-                    <span class="review-date">25/04/2024</span>
-                </div>
+                <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             </div>
         </section>
+
 
         <!-- Contacts Section -->
         <section id="contatti" class="contacts">

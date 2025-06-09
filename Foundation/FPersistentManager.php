@@ -229,4 +229,12 @@ class FPersistentManager
     public static function getAllCreditCards(): array{
         return FCarta_credito::getAllCreditCards();
     }
+
+
+
+
+    //<-----------------------MENU--------------------->//
+    public static function getMenu(){
+        return FElenco_prodotti::getMenu();
+    }
 }

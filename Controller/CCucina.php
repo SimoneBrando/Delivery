@@ -1,6 +1,11 @@
 <?php
 
-use App\Foundation\FPersistentManager;
+use Foundation\FPersistentManager;
+use View\VChef;
+
+
+require_once __DIR__ . '/../View/VChef.php';
+require_once __DIR__ . '/../Foundation/FPersistentManager.php';
 
 class CCucina{
 
@@ -44,6 +49,12 @@ class CCucina{
                 FPersistentManager::getInstance()->updateObj($ordine);
             }
         }
+    }
+
+    public static function showOrdersChef(){
+        $view = new VChef();
+        $orders = FPersistentManager::getInstance()->getOrdersByState('in_preparazione');
+        $view->showOrders($orders);
     }
 
 }

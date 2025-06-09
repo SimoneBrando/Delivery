@@ -5,8 +5,10 @@ use Doctrine\ORM\Exception\ORMException;
 use Entity\EUtente;
 use Foundation\FPersistentManager;
 use View\VUser;
+use Foundation\FPersistentManager;
+
 require_once __DIR__ . '/../View/VUser.php';
-require_once __DIR__ . '/../Entity/EElenco_prodotti.php';
+require_once __DIR__ . '/../Foundation/FPersistentManager.php';
 
 class CUser{
 
@@ -133,7 +135,7 @@ class CUser{
             $logged = true;
         }
         if(!$logged){
-            header('Location: /Delivery/User/login');
+            header('Location: /Delivery/User/home/');
             exit;
         }
         return true;
@@ -186,7 +188,42 @@ class CUser{
             $view->loginError();
         }
     }
-*/
 
+    public static function mostraMenu(){
+        $view = new VUser();
+        $menu = FPersistentManager::getInstance()->getMenu();
+        $view->showMenu($menu);
+    }
 
+    public static function home(){
+        $view = new VUser();
+        $allReviews = FPersistentManager::getInstance()->getAllReviews();
+        shuffle($allReviews);
+        $reviews = array_slice($allReviews, 0, 3);
+        $view->showHome($reviews);
+    }
+
+    public static function order(){
+        $view = new VUser();
+        $menu = FPersistentManager::getInstance()->getMenu();
+        $view->order($menu);
+    }
+
+    public static function showMyOrders(){
+        $view = new VUser();
+        $id = 45;
+        $orders = FPersistentManager::getInstance()->getOrdersByClient($id);
+        $view->showMyOrders($orders);
+    }
+
+    public static function showLoginForm(){
+        $view = new VUser();
+        $view->showLoginForm();
+    }
+
+    public static function showRegisterForm(){
+        $view = new VUser();
+        $view->showRegisterForm();
+    }
+    
 }

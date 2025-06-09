@@ -71,67 +71,24 @@
         </section>
 
         <!-- Reviews Section -->
+
         <section id="recensioni" class="reviews">
             <h2>Recensioni</h2>
             <div class="review-grid">
-                <!-- Recensione 1 -->
-                <div class="review-card">
-                    <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Cliente" class="user-avatar">
-                        <div class="reviewer-details">
-                            <h3>Maria Rossi</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
+                {foreach $reviews as $review}
+                    <div class="review-card">
+                        <div class="reviewer-info">
+                           <div class="reviewer-details">
+                                <h3>Cliente #{$review->getId()}</h3>    
                             </div>
                         </div>
+                        <p class="review-text">"{$review->getDescrizione()|escape}"</p>
+                        <span class="review-date">{$review->getData()|date_format:"%d/%m/%Y"} {$review->getOrario()}</span>
                     </div>
-                    <p class="review-text">"La pizza era eccezionale! Servizio veloce e personale gentilissimo. Tornerò sicuramente."</p>
-                    <span class="review-date">12/05/2024</span>
-                </div>
-        
-                <!-- Recensione 2 -->
-                <div class="review-card">
-                    <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Cliente" class="user-avatar">
-                        <div class="reviewer-details">
-                            <h3>Luigi Bianchi</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="review-text">"Ottima qualità/prezzo. Pasta fatta in casa da urlo! Ambiente accogliente."</p>
-                    <span class="review-date">03/05/2024</span>
-                </div>
-        
-                <!-- Recensione 3 -->
-                <div class="review-card">
-                    <div class="reviewer-info">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Cliente" class="user-avatar">
-                        <div class="reviewer-details">
-                            <h3>Anna Verdi</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="review-text">"5 stelle meritatissime! Dal antipasto al dolce, tutto perfetto. Consigliatissimo!"</p>
-                    <span class="review-date">25/04/2024</span>
-                </div>
+                {/foreach}
             </div>
         </section>
+
 
         <!-- Contacts Section -->
         <section id="contatti" class="contacts">

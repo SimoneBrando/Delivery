@@ -6,10 +6,14 @@ use Entity\ECliente;
 use Entity\EUtente;
 use Foundation\FPersistentManager;
 use View\VUser;
+use Utility\UHTTPMethods;
 
 
 require_once __DIR__ . '/../View/VUser.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
+require_once __DIR__ . '/../Entity/ECliente.php';
+require_once __DIR__ . '/../Entity/EUtente.php';
+require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
 
 class CUser{
 
@@ -52,6 +56,7 @@ class CUser{
     }
 
     public function registerUser(){
+        var_dump($_POST);
         ini_set('display_errors', 1);
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);

@@ -79,7 +79,10 @@
                     <div class="review-card">
                         <div class="reviewer-info">
                            <div class="reviewer-details">
-                                <h3>Cliente #{$review->getId()}</h3>    
+                                <h3>
+                                    Valutazione: {$review->getVoto()} 
+                                    <i class="fas fa-star" style="color: gold; margin-left: 5px;"></i>
+                                </h3>
                             </div>
                         </div>
                         <p class="review-text">"{$review->getDescrizione()|escape}"</p>

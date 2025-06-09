@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-07 18:35:53
+/* Smarty version 5.5.1, created on 2025-06-09 19:37:43
   from 'file:register.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68446a69c83a92_12196884',
+  'unifunc' => 'content_68471be7e062c8_34450480',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '32dddfeab57bd114f28194a09c13ad1c222b32d9' => 
     array (
       0 => 'register.tpl',
-      1 => 1749313891,
+      1 => 1749490594,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_68446a69c83a92_12196884 (\Smarty\Template $_smarty_tpl) {
+function content_68471be7e062c8_34450480 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -59,7 +59,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
 </div>
                     <?php }?>
 
-                    <form action="registrati_action.php" method="POST">
+                    <form action="/Delivery/User/registerUser" method="POST">
                         <div class="form-group">
                             <label for="nome">Nome</label>
                             <input 
@@ -67,7 +67,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                                 id="nome" 
                                 name="nome" 
                                 required 
-                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('nome') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('name') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
 "
                             >
                         </div>
@@ -102,23 +102,20 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                                 required
                             >
                         </div>
+                        
                         <div class="form-group">
-                            <label for="telefono">Telefono</label>
+                            <label for="role">Ruolo</label>
                             <input 
                                 type="tel" 
-                                id="phone" 
-                                name="phone" 
-                                pattern="^\d<?php echo 3;?>
- \d<?php echo 3;?>
- \d<?php echo 4;?>
-$" 
-                                placeholder="123 456 7890" 
+                                id="role" 
+                                name="role"  
                                 required 
-                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('phone') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('phone') ?? null)===null||$tmp==='' ? 'cliente' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
 "
                             >
-                            <small>Inserisci un numero di telefono valido</small>
+                            <small>Inserisci cliente per prova</small>
                         </div>
+                        
                         <div class="form-group">
                             <button type="submit" class="btn">Registrati</button>
                         </div>

@@ -1,4 +1,7 @@
 <?php 
+
+namespace Utility;
+
 class UHTTPMethods {
     
     public static function post($param){

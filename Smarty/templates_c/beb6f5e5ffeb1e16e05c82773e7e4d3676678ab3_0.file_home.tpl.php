@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-07 17:53:43
+/* Smarty version 5.5.1, created on 2025-06-09 19:10:30
   from 'file:home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68446087382720_37220750',
+  'unifunc' => 'content_68471586ad4748_16101958',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'beb6f5e5ffeb1e16e05c82773e7e4d3676678ab3' => 
     array (
       0 => 'home.tpl',
-      1 => 1749311614,
+      1 => 1749489029,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_68446087382720_37220750 (\Smarty\Template $_smarty_tpl) {
+function content_68471586ad4748_16101958 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -110,8 +110,11 @@ $foreach0DoElse = false;
                     <div class="review-card">
                         <div class="reviewer-info">
                            <div class="reviewer-details">
-                                <h3>Cliente #<?php echo $_smarty_tpl->getValue('review')->getId();?>
-</h3>    
+                                <h3>
+                                    Valutazione: <?php echo $_smarty_tpl->getValue('review')->getVoto();?>
+ 
+                                    <i class="fas fa-star" style="color: gold; margin-left: 5px;"></i>
+                                </h3>
                             </div>
                         </div>
                         <p class="review-text">"<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('review')->getDescrizione(), ENT_QUOTES, 'UTF-8', true);?>

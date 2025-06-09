@@ -44,6 +44,13 @@ class EOrdine {
     private $utente;
 
     /**
+     * @ORM\OneToOne(targetEntity="Entity\ESegnalazione", mappedBy="ordine")
+     */
+    private $segnalazione;
+
+
+
+    /**
      * @ORM\ManyToMany(targetEntity="Entity\EProdotto")
      * @ORM\JoinTable(name="ordini_prodotti",
      *      joinColumns={@ORM\JoinColumn(name="ordine_id", referencedColumnName="id")},
@@ -86,6 +93,10 @@ class EOrdine {
     }
     public function getStato(){
         return $this->stato;
+    }
+
+    public function getUtente() : EUtente{
+        return $this->utente;
     }
 
     // Setters

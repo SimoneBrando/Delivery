@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-07 18:33:18
+/* Smarty version 5.5.1, created on 2025-06-09 19:07:40
   from 'file:login.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684469ce5b85e2_71506618',
+  'unifunc' => 'content_684714dc883197_68267778',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '29c042b02259a0581d2ee887b9ed61705ed15816' => 
     array (
       0 => 'login.tpl',
-      1 => 1749313995,
+      1 => 1749488742,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_684469ce5b85e2_71506618 (\Smarty\Template $_smarty_tpl) {
+function content_684714dc883197_68267778 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -63,7 +63,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
 </div>
                     <?php }?>
 
-                    <form action="login_action.php" method="POST">
+                    <form action="/Delivery/User/loginUser" method="POST">
                         <div class="form-group">
                             <label for="username">Nome Utente</label>
                             <input 

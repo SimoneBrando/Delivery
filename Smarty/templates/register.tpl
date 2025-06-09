@@ -40,7 +40,7 @@
                                 id="nome" 
                                 name="nome" 
                                 required 
-                                value="{$nome|default:''|escape:'html'}"
+                                value="{$name|default:''|escape:'html'}"
                             >
                         </div>
                         <div class="form-group">
@@ -72,21 +72,19 @@
                                 required
                             >
                         </div>
-                        {*
+                        
                         <div class="form-group">
-                            <label for="telefono">Telefono</label>
+                            <label for="role">Ruolo</label>
                             <input 
                                 type="tel" 
-                                id="phone" 
-                                name="phone" 
-                                pattern="^\d{3} \d{3} \d{4}$" 
-                                placeholder="123 456 7890" 
+                                id="role" 
+                                name="role"  
                                 required 
-                                value="{$phone|default:''|escape:'html'}"
+                                value="{$phone|default:'cliente'|escape:'html'}"
                             >
-                            <small>Inserisci un numero di telefono valido</small>
+                            <small>Inserisci cliente per prova</small>
                         </div>
-                        *}
+                        
                         <div class="form-group">
                             <button type="submit" class="btn">Registrati</button>
                         </div>

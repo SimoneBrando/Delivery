@@ -23,7 +23,7 @@ class SegnalazioneFixture extends AbstractFixture implements DependentFixtureInt
                 ->setData($faker->dateTimeBetween('-1 month', 'now'))
                 ->setDescrizione($faker->sentence())
                 ->setTesto($faker->paragraph())
-                ->setUtente($this->getReference('cliente_' . $i, ECliente::class))
+                ->setCliente($this->getReference('cliente_' . $i, ECliente::class))
                 ->setOrdine($this->getReference('ordine_' . $i, EOrdine::class));
 
             $manager->persist($segnalazione);

@@ -41,7 +41,7 @@ class EOrdine {
      * @ORM\ManyToOne(targetEntity="Entity\ECliente", inversedBy="ordini")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
-    private $utente;
+    private $cliente;
 
     /**
      * @ORM\OneToOne(targetEntity="Entity\ESegnalazione", mappedBy="ordine")
@@ -95,8 +95,8 @@ class EOrdine {
         return $this->stato;
     }
 
-    public function getUtente() : EUtente{
-        return $this->utente;
+    public function getCliente() : ECliente{
+        return $this->cliente;
     }
 
     // Setters
@@ -125,8 +125,8 @@ class EOrdine {
         $this->costo = $costo;
         return $this;
     }
-    public function setUtente($utente) : EOrdine{
-        $this->utente = $utente;
+    public function setCliente($cliente) : EOrdine{
+        $this->cliente = $cliente;
         return $this;
     }
     public function setStato($stato) : EOrdine{

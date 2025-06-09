@@ -81,9 +81,9 @@ class ERecensione{
         return $this;
     }
 
-    public function setUtente($utente) : ERecensione
+    public function setCliente($cliente) : ERecensione
     {
-        $this->utente = $utente;
+        $this->cliente = $cliente;
         return $this;
     }
 

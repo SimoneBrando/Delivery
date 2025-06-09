@@ -3,8 +3,6 @@
 namespace Foundation;
 
 use Entity\ECarta_credito;
-use Entity\ECliente;
-use Entity\EUtente;
 use Exception;
 
 require_once 'FPersistentManager.php';
@@ -24,23 +22,13 @@ class FCarta_credito
         return FEntityManager::getInstance()->getAll(ECarta_credito::class);
     }
 
-    /**
-     * Retrieve a credit card with a specific ID
-     * @param int $id
-     * @return ECarta_credito|null
-     */
     public static function getCreditCardById(int $id): ?ECarta_credito
     {
         return FEntityManager::getInstance()->getObj(ECarta_credito::class, $id);
     }
 
-    /** Retrieve all of client's credit cards
-     * @param int $clientId
-     * @return array
-     */
-    public static function getCreditCardByClientId(int $clientId): array
+    public static function getCreditCardByUserId(int $userId): ?ECarta_credito
     {
-        $client = FEntityManager::getInstance()->getObj(ECliente::class, $clientId);
-        return $client -> getMetodiPagamento()->toArray();
+        return FEntityManager::getInstance()->getObjListOnAttribute(ECarta_credito::class,'utente_id',$userId);
     }
 }

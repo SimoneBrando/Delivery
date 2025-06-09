@@ -32,7 +32,7 @@ class FOrdine{
     public static function getOrdersByClient($value): array
     {
         $client = FEntityManager::getInstance()->getObj(ECliente::class, $value);
-        return $client->getOrdini();
+        return $client->getOrdini()->toArray();
     }
 
     /** Retrieve all orders with a specified state

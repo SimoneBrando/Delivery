@@ -49,6 +49,8 @@ class ECliente extends EUtente{
     }
 
     //Getters
+
+
     public function getMetodiPagamento(): Collection {
         return $this->metodiPagamento;
     }
@@ -59,7 +61,7 @@ class ECliente extends EUtente{
 
     public function getOrdini(): Collection
     {
-    return $this->ordini;
+        return $this->ordini;
     }
     public function getSegnalazioni(): Collection
     {

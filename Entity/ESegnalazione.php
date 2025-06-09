@@ -35,7 +35,7 @@ class ESegnalazione {
     private $cliente;
 
     /**
-     * *@ORM\OneToOne(targetEntity="Entity\EOrdine", inversedBy="segnalazione")
+     * @ORM\OneToOne(targetEntity="Entity\EOrdine", inversedBy="segnalazione")
      * @ORM\JoinColumn(name="ordine_id", referencedColumnName="id", nullable=false)
      */
     private $ordine;
@@ -62,7 +62,7 @@ class ESegnalazione {
     }
 
     public function getCliente() : ECliente{
-        return $this->Cliente;
+        return $this->cliente;
     }
 
     // Setters
@@ -91,8 +91,8 @@ class ESegnalazione {
         return $this;
     }
 
-    public function setCliente(ECliente $Cliente): ESegnalazione {
-        $this->Cliente = $Cliente;
+    public function setCliente(ECliente $cliente): ESegnalazione {
+        $this->cliente = $cliente;
         return $this;
     }
 

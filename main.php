@@ -216,32 +216,32 @@ try {
 //}
 
 
-////Demo per metodo che estrae tutti gli ordini di un certo utente fornendo l'id
-//try {
-//    $i = 0;
-//    $user = FPersistentManager::getObj(ECliente::class, 842 );
-//    $u = FPersistentManager::getOrdersByClient($user->getId());
-//    foreach ($u as $rec) {
-//        echo "\nId ordine: ".$rec->getId()."\n";
-//        echo "\nId utente: ".$rec->getUtente()->getId()."\n";
-//        echo "\nNote: ".$rec->getNote()."\n";
-//        echo "\nData Esecuzione: ".$rec->getDataEsecuzione()->format('Y-m-d H:i:s')."\n";
-//        echo "\nData Ricezione: ".$rec->getDataRicezione()->format('Y-m-d H:i:s')."\n";
-//        echo "\nCosto: " .$rec->getCosto()."\n";
-//        echo "\nStato: ".$rec->getStato()."\n";
-//        foreach($rec->getProdotti() as $prodotto){
-//            $i++;
-//            echo "\nProdotto ".$i.": ".$prodotto->getNome()."\n";
-//        }
-//
-//
-//    }
-//
-//} catch (Exception $e) {
-//    echo "errore";
-//}
-//
-//
+//Demo per metodo che estrae tutti gli ordini di un certo utente fornendo l'id
+try {
+    $i = 0;
+    $user = FPersistentManager::getObj(ECliente::class, 241 );
+    $u = FPersistentManager::getOrdersByClient($user->getId());
+    foreach ($u as $rec) {
+        echo "\nId ordine: ".$rec->getId()."\n";
+        echo "\nId utente: ".$rec->getCliente()->getId()."\n";
+        echo "\nNote: ".$rec->getNote()."\n";
+        echo "\nData Esecuzione: ".$rec->getDataEsecuzione()->format('Y-m-d H:i:s')."\n";
+        echo "\nData Ricezione: ".$rec->getDataRicezione()->format('Y-m-d H:i:s')."\n";
+        echo "\nCosto: " .$rec->getCosto()."\n";
+        echo "\nStato: ".$rec->getStato()."\n";
+        foreach($rec->getProdotti() as $prodotto){
+            $i++;
+            echo "\nProdotto ".$i.": ".$prodotto->getNome()."\n";
+        }
+
+
+    }
+
+} catch (Exception $e) {
+    echo "errore";
+}
+
+
 
 ////Demo per metodo che estrae tutti gli ordini di un certo utente fornendo l'id
 //try {

@@ -22,7 +22,7 @@ class RecensioneFixture extends AbstractFixture implements DependentFixtureInter
                 ->setDescrizione($faker->sentence(10))
                 ->setVoto($faker->numberBetween(1, 5))
                 ->setData($faker->dateTimeBetween('-1 year', 'now'))
-                ->setUtente($this->getReference('cliente_' . $i, ECliente::class));
+                ->setCliente($this->getReference('cliente_' . $i, ECliente::class));
 
             $this->addReference('recensione_' . $i, $recensione);
             $manager->persist($recensione);

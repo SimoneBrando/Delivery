@@ -41,7 +41,8 @@ class CFrontController{
             //Else redirect to home page (/Delivery/User/home)
             if (method_exists($controllerClass, $methodName)) {
                 $params = array_slice($uriParts, 2); 
-                call_user_func_array([$controllerClass, $methodName], $params);
+                $controller = new $controllerClass();
+                call_user_func_array([$controller, $methodName], $params);
             } else {
                 header('Location: /Delivery/User/home');
             }

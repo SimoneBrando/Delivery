@@ -24,6 +24,7 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
     'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Psr\\Cache\\' => array($vendorDir . '/psr/cache/src'),
+    'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
     'Foundation\\' => array($baseDir . '/Foundation'),
     'Faker\\' => array($vendorDir . '/fakerphp/faker/src/Faker'),
     'Entity\\' => array($baseDir . '/Entity'),
@@ -39,4 +40,10 @@ return array(
     'Doctrine\\Common\\Cache\\' => array($vendorDir . '/doctrine/cache/lib/Doctrine/Common/Cache'),
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib/Doctrine/Common/Annotations'),
     'Doctrine\\Common\\' => array($vendorDir . '/doctrine/common/src', $vendorDir . '/doctrine/event-manager/src'),
+    'Delight\\Otp\\' => array($vendorDir . '/delight-im/otp/src'),
+    'Delight\\Http\\' => array($vendorDir . '/delight-im/http/src'),
+    'Delight\\Db\\' => array($vendorDir . '/delight-im/db/src'),
+    'Delight\\Cookie\\' => array($vendorDir . '/delight-im/cookie/src'),
+    'Delight\\Base64\\' => array($vendorDir . '/delight-im/base64/src'),
+    'Delight\\Auth\\' => array($vendorDir . '/delight-im/auth/src'),
 );

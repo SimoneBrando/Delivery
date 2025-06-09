@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.5.1, created on 2025-06-09 15:37:14
+  from 'file:login.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.5.1',
+  'unifunc' => 'content_6846e38a6b2a04_20526481',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '55ae4b4420fd16b87a0b205e02129a0a1c7942d5' => 
+    array (
+      0 => 'login.tpl',
+      1 => 1749476162,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_6846e38a6b2a04_20526481 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +31,9 @@
     <link rel="stylesheet" href="/Smarty/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
-    <script src="/Smarty/Js/loadComponents.js" defer></script>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/loadComponents.js" defer><?php echo '</script'; ?>
+>
 </head>
 <body>
     <!-- Header -->
@@ -32,9 +58,10 @@
                 <div class="login-form">
                     <h1>Accedi al tuo Account</h1>
 
-                    {if isset($error)}
-                        <div class="error-message">{$error}</div>
-                    {/if}
+                    <?php if ((true && ($_smarty_tpl->hasVariable('error') && null !== ($_smarty_tpl->getValue('error') ?? null)))) {?>
+                        <div class="error-message"><?php echo $_smarty_tpl->getValue('error');?>
+</div>
+                    <?php }?>
 
                     <form action="/Delivery/User/loginUser" method="POST">
                         <div class="form-group">
@@ -44,7 +71,8 @@
                                 id="username" 
                                 name="username" 
                                 required
-                                value="{$username|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('username') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -54,7 +82,8 @@
                                 id="password" 
                                 name="password" 
                                 required
-                                value="{$password|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('password') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -73,3 +102,5 @@
     <div id="footer-placeholder"></div>
 </body>
 </html>
+<?php }
+}

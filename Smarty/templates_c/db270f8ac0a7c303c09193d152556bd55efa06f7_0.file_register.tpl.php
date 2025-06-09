@@ -1,4 +1,28 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.5.1, created on 2025-06-09 12:03:56
+  from 'file:register.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.5.1',
+  'unifunc' => 'content_6846b18c54c538_70422797',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'db270f8ac0a7c303c09193d152556bd55efa06f7' => 
+    array (
+      0 => 'register.tpl',
+      1 => 1749463432,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+))) {
+function content_6846b18c54c538_70422797 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +31,9 @@
     <link rel="stylesheet" href="/Smarty/css/registrati.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
-    <script src="/Smarty/Js/loadComponents.js" defer></script>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/loadComponents.js" defer><?php echo '</script'; ?>
+>
 </head>
 <body>
     <!-- Header -->
@@ -28,9 +54,10 @@
                 <div class="login-form">
                     <h1>Registrati</h1>
 
-                    {if isset($error)}
-                        <div class="error-message">{$error}</div>
-                    {/if}
+                    <?php if ((true && ($_smarty_tpl->hasVariable('error') && null !== ($_smarty_tpl->getValue('error') ?? null)))) {?>
+                        <div class="error-message"><?php echo $_smarty_tpl->getValue('error');?>
+</div>
+                    <?php }?>
 
                     <form action="/Delivery/User/registerUser" method="POST">
                         <div class="form-group">
@@ -40,7 +67,8 @@
                                 id="nome" 
                                 name="nome" 
                                 required 
-                                value="{$nome|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('nome') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -50,7 +78,8 @@
                                 id="cognome" 
                                 name="cognome" 
                                 required 
-                                value="{$cognome|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('cognome') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -60,7 +89,8 @@
                                 id="email" 
                                 name="email" 
                                 required 
-                                value="{$email|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('email') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -72,22 +102,7 @@
                                 required
                             >
                         </div>
-                        {*
-                        <div class="form-group">
-                            <label for="telefono">Telefono</label>
-                            <input 
-                                type="tel" 
-                                id="phone" 
-                                name="phone" 
-                                pattern="^\d{3} \d{3} \d{4}$" 
-                                placeholder="123 456 7890" 
-                                required 
-                                value="{$phone|default:''|escape:'html'}"
-                            >
-                            <small>Inserisci un numero di telefono valido</small>
-                        </div>
-                        *}
-                        <div class="form-group">
+                                                <div class="form-group">
                             <button type="submit" class="btn">Registrati</button>
                         </div>
                         <div class="form-group">
@@ -102,8 +117,9 @@
     <!-- Footer -->
     <div id="footer-placeholder"></div>
 
-    {literal}
-    <script>
+    
+    <?php echo '<script'; ?>
+>
         document.getElementById('phone').addEventListener('input', function(e) {
             let phoneNumber = e.target.value.replace(/\D/g, ''); // solo numeri
             phoneNumber = phoneNumber.slice(0, 10); // massimo 10 cifre
@@ -116,8 +132,11 @@
                 e.target.value = phoneNumber.replace(/(\d{3})(\d{3})(\d{0,4})/, '$1 $2 $3');
             }
         });
-    </script>
-    {/literal}
+    <?php echo '</script'; ?>
+>
+    
 
 </body>
 </html>
+<?php }
+}

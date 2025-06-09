@@ -17,6 +17,20 @@ use Entity\ECuoco;
 use Entity\ECategoria;
 use Entity\EElenco_prodotti;
 
+try {
+    $dbAuth = getAuthDb(); // Connessione al database auth_db
+    $sqlAuth = file_get_contents(__DIR__ . '/vendor/delight-im/auth/Database/MySQL.sql');
+    $statements = array_filter(array_map('trim', explode(';', $sqlAuth)));
+    foreach ($statements as $stmt) {
+        if ($stmt !== '') {
+            $dbAuth->exec($stmt);
+            echo "Tabella di PHP-Auth creata in auth_db.\n";
+        }
+    }
+} catch (Exception $e) {
+    die("Errore PHP-Auth: " . $e->getMessage());
+}
+
 $entityManager = getEntityManager(); // ottieni l'EntityManager
 
 

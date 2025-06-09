@@ -5,6 +5,9 @@ use Doctrine\ORM\Configuration;
 use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Delight\Auth\Auth;
+use Delight\Db\PdoDatabase;
+use Delight\Db\PdoDsn;
 
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/config/config.php";
@@ -35,4 +38,26 @@ function getEntityManager(): EntityManager
     ];
 
     return EntityManager::create($conn, $config);
+}
+
+function getAuth(): Auth
+{
+    $db = getAuthDb();
+    return new Auth($db, throttling: false);
+}
+
+function getAuthDb(): PdoDatabase
+{
+    $dbName = DB_AUTH_NAME;
+    $user = DB_USER;
+    $password = DB_PASS;
+    $port = DB_PORT;
+    $host = DB_HOST;    
+    $charset = DB_CHARSET; 
+
+    return PdoDatabase::fromDsn(new PdoDsn(
+        "mysql:dbname=$dbName;host=$host;charset=$charset",
+        $user,
+        $password,
+    ));
 }

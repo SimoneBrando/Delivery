@@ -31,6 +31,11 @@ class EUtente
     /**
      * @ORM\Column(type="string")
      */
+    private string $user_id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
     private $nome;
 
     /**
@@ -52,6 +57,9 @@ class EUtente
 
 
 
+    /**
+     * @ORM\Column(type="string")
+     */
 
 
 
@@ -66,9 +74,20 @@ class EUtente
         return $this->id;
     }
 
+    public function getUserId() : string
+    {
+        return $this->user_id;
+    }
+
     public function getNome(): string
     {
         return $this->nome;
+    }
+
+    public function setNome(string $nome): EUtente
+    {
+        $this->nome = $nome;
+        return $this;
     }
 
     public function getCognome(): string

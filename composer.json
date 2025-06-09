@@ -6,7 +6,8 @@
         "smarty/smarty": "^5.5",
         "doctrine/data-fixtures": "^2.0",
         "fakerphp/faker": "^1.24",
-        "delight-im/auth": "^9.0"
+        "delight-im/auth": "^9.0",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

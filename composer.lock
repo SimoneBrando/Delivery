@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5ae6b596de95a94c65a4826753131d5d",
+    "content-hash": "6c271a91579f7effe63f68d06679ee3a",
     "packages": [
         {
             "name": "delight-im/auth",
@@ -2880,7 +2880,9 @@
     "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {},
+    "platform": {
+        "ext-pdo": "*"
+    },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

@@ -27,7 +27,7 @@ class OrdineFixture extends AbstractFixture implements DependentFixtureInterface
                 ->setDataEsecuzione($faker->dateTimeBetween('-1 day', 'now'))
                 ->setCosto($faker->randomFloat(2, 5, 100))
                 ->setStato($faker->randomElement($statiPossibili))
-                ->setUtente( $this->getReference('cliente_' . $i, ECliente::class));
+                ->setCliente( $this->getReference('cliente_' . $i, ECliente::class));
 
             $prodotti = [];
             $numProdotti = $faker->numberBetween(1, 5);

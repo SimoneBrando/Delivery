@@ -6,17 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="bb2ff668-f7e5-4860-a3f8-3c4beb23b74e" name="Changes" comment="Added methods for FCarta_credito.php and FIndirizzo.php, FRecensione.php, FSegnalazione.php and FPersistentManager.php. Edited methods for FOrdine.php, FUtente.php and their entity. Added on Main.php demo to try methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/ECliente.php" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/ECliente.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/EOrdine.php" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/EOrdine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/ERecensione.php" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/ERecensione.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Entity/ESegnalazione.php" beforeDir="false" afterPath="$PROJECT_DIR$/Entity/ESegnalazione.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FCarta_credito.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FCarta_credito.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FIndirizzo.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FIndirizzo.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FOrdine.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FOrdine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Foundation/FPersistentManager.php" beforeDir="false" afterPath="$PROJECT_DIR$/Foundation/FPersistentManager.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testing/Fixtures/RecensioneFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Fixtures/RecensioneFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Testing/Fixtures/SegnalazioneFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Fixtures/SegnalazioneFixture.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/CUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/CUser.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Fixtures/OrdineFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Fixtures/OrdineFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Testing/Fixtures/UtenteFixture.php" beforeDir="false" afterPath="$PROJECT_DIR$/Testing/Fixtures/UtenteFixture.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +19,9 @@
   </component>
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

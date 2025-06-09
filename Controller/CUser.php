@@ -187,7 +187,7 @@ class CUser{
 
     public static function showMyOrders(){
         $view = new VUser();
-        $id = 45;
+        $id = 161;
         $orders = FPersistentManager::getInstance()->getOrdersByClient($id);
         $view->showMyOrders($orders);
     }

@@ -29,7 +29,7 @@ class EUtente
     private $id;
 
     /**
-     * @ORM\Column(type: 'string', length: 255)]
+     * @ORM\Column(type="string")
      */
     private string $user_id;
 
@@ -71,7 +71,7 @@ class EUtente
     /**
      * @ORM\Column(type="string")
      */
-
+    
 
 
     // Costruttore

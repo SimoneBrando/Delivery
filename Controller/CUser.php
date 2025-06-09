@@ -2,6 +2,7 @@
 
 use Delight\Auth\Auth;
 use Doctrine\ORM\Exception\ORMException;
+use Entity\ECliente;
 use Entity\EUtente;
 use Foundation\FPersistentManager;
 use View\VUser;
@@ -15,7 +16,13 @@ class CUser{
     public Auth $auth_manager;
     private FPersistentManager $entity_manager;
 
+    public function __construct() {
+        $this->entity_manager = FPersistentManager::getInstance();
+        $this->auth_manager = getAuth();
+    }
+
     public static function showLoginForm(){
+        /*
         if(UCookie::isSet('PHPSESSID')){
             if(session_status() == PHP_SESSION_NONE){
                 USession::getInstance();
@@ -24,11 +31,13 @@ class CUser{
         if(USession::isSetSessionElement('user')){
             header('Location: /Delivery/User/home');
         }
+            */
         $view = new VUser();
         $view->showLoginForm();
     }
 
     public static function showRegisterForm(){
+        /*
         if(UCookie::isSet('PHPSESSID')){
             if(session_status() == PHP_SESSION_NONE){
                 USession::getInstance();
@@ -37,16 +46,19 @@ class CUser{
         if(USession::isSetSessionElement('user')){
             header('Location: /Delivery/User/home');
         }
+            */
         $view = new VUser();
         $view->showRegisterForm();
     }
 
-    public function registerUser(
-        string $name,
-        string $surname,
-        string $email,
-        string $password,
-    ){
+    public function registerUser(){
+        ini_set('display_errors', 1);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
+        $password = $_POST["password"];
+        $email = $_POST["email"];
+        $name = $_POST["nome"];
+        $surname = $_POST["cognome"];
         if (strlen($password) < 8) {
             die("Please enter a stronger password");
         }
@@ -58,13 +70,15 @@ class CUser{
                 callback: null
             );
 
-            $profile = new EUtente();
+            $profile = new ECliente();
             $profile
                 ->setNome($name)
                 ->setCognome($surname)
-                ->setUserId($userId);
-            
-            $this->entity_manager->saveObj($profile);
+                ->setUserId($userId)
+                ->setEmail($email)
+                ->setPassword($password);
+            FPersistentManager::getInstance()->saveObj($profile);
+            header('Location: /Delivery/User/home');
         } catch (\Delight\Auth\InvalidEmailException $e) {
             die('Invalid email address');
         } catch (\Delight\Auth\InvalidPasswordException $e) {
@@ -78,11 +92,13 @@ class CUser{
         } catch (\Delight\Auth\UnknownIdException $e) {
             die('Unknown id');
         }
-        header('Location: /Delivery/User/home');
     }
 
-    public function loginUser(string $email, string $password, string $rememberMe = "0"): void
+    public function loginUser(): void
     {
+        $email = $_POST["username"];
+        $password = $_POST["password"];
+        $rememberMe = "0";
         $currentUser = USession::isSetSessionElement("user");
 
         if ($currentUser) {
@@ -100,7 +116,7 @@ class CUser{
             }
             $this->auth_manager->login($email, $password, $duration);
             $userId = $this->auth_manager->getUserId();
-            $profile = $this->entity_manager->getObjOnAttribute(EUtente::class, 'userId', $userId);
+            $profile = $this->entity_manager->getObjOnAttribute(EUtente::class, 'user_id', $userId);
 
             USession::setSessionElement("user", $profile->getId());
             header('Location: /Delivery/User/home');

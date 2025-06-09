@@ -2,7 +2,7 @@
 
 namespace Foundation;
 
-use Entity\ERider;
+
 use Entity\EUtente;
 use Exception;
 
@@ -41,5 +41,15 @@ class FUtente
     public static function getAllUsers(): array
     {
         return FEntityManager::getInstance()->getAll(EUtente::class);
+    }
+
+    /**
+     * Retrieve a user from the database with a specified ID
+     * @param int $userId
+     * @return EUtente|null
+     * @throws Exception
+     */
+    public static function getUserById(int $userId): ?EUtente{
+        return FEntityManager::getInstance()->getObjOnAttribute(EUtente::class,'id',$userId);
     }
 }

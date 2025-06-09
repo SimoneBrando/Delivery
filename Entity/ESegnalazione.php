@@ -29,10 +29,10 @@ class ESegnalazione {
     private $testo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="segnalazione")
+     * @ORM\ManyToOne(targetEntity="Entity\ECliente", inversedBy="segnalazione")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
-    private $utente;
+    private $cliente;
 
     /**
      * *@ORM\OneToOne(targetEntity="Entity\EOrdine", inversedBy="segnalazione")
@@ -56,16 +56,13 @@ class ESegnalazione {
         return $this->descrizione;
     }
 
-    public function getOra() {
-        return $this->ora;
-    }
 
     public function getTesto() {
         return $this->testo;
     }
 
-    public function getUtente() : EUtente{
-        return $this->utente;
+    public function getCliente() : ECliente{
+        return $this->Cliente;
     }
 
     // Setters
@@ -94,8 +91,8 @@ class ESegnalazione {
         return $this;
     }
 
-    public function setUtente(EUtente $utente): ESegnalazione {
-        $this->utente = $utente;
+    public function setCliente(ECliente $Cliente): ESegnalazione {
+        $this->Cliente = $Cliente;
         return $this;
     }
 

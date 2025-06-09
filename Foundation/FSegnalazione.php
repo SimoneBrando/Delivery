@@ -2,6 +2,7 @@
 
 namespace Foundation;
 
+use Entity\ECliente;
 use Entity\ESegnalazione;
 use Exception;
 
@@ -26,5 +27,16 @@ class FSegnalazione
     public static function getAllWarnings(): array
     {
         return FEntityManager::getInstance()->getAll(ESegnalazione::class);
+    }
+
+    /**
+     * Retrieve all warnings of a specified client
+     * @param $clientId
+     * @return array
+     */
+    public static function getWarningsByClientId($clientId): array
+    {
+        $client = FEntityManager::getInstance()->getObj(ECliente::class, $clientId);
+        return $client->getSegnalazioni()->toArray();
     }
 }

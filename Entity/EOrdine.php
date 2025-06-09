@@ -38,7 +38,7 @@ class EOrdine {
     private $costo;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="ordini")
+     * @ORM\ManyToOne(targetEntity="Entity\ECliente", inversedBy="ordini")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
     private $utente;

@@ -269,7 +269,7 @@ try {
 //
 
 
-////Demo per metodo che estrae tutti gli ordini di un certo utente fornendo l'id
+////Demo per metodo che estrae tutti gli ordini giornalieri
 //try {
 //    $i=0;
 //    $time = new \DateTime('2025-06-03');
@@ -294,14 +294,82 @@ try {
 //    echo "errore" . $e . "\n";
 //}
 
-//Demo per metodo che estrae tutti gli ordini di un certo utente fornendo l'id
-try {
-    $u = FPersistentManager::getMenu();
-    print_r($u);
+////Demo per metodo che restituisce il menù
+//try {
+//    $u = FPersistentManager::getMenu();
+//    print_r($u);
+//
+//} catch (Exception $e) {
+//    echo "errore" . $e . "\n";
+//}
 
-} catch (Exception $e) {
-    echo "errore" . $e . "\n";
-}
+////Demo per metodo che estrae tutte le carte di credito di un certo utente fornendo l'id
+//try {
+//    $u = FPersistentManager::getCreditCardByClientId(860);
+//    foreach ($u as $carta) {
+//        echo 'Numero: ' . $carta->getNumeroCarta() . PHP_EOL;
+//        echo 'Intestatario: ' . $carta->getNomeIntestatario() . PHP_EOL;
+//        echo 'Utente ID: ' . $carta->getNominativo() . PHP_EOL;
+//    }
+//
+//} catch (Exception $e) {
+//    echo "errore" . $e . "\n";
+//}
+
+////Demo per metodo che estrae tutti gli indirizzi di un certo cliente fornendo l'id
+//try {
+//    $u = FPersistentManager::getAddressByClientId(841);
+//    foreach ($u as $indirizzo) {
+//        echo 'id Indirizzo: ' . $indirizzo->getId() . PHP_EOL;
+//        echo 'Via: ' . $indirizzo->getVia() . PHP_EOL;
+//        echo 'Civico: ' . $indirizzo->getCivico() . PHP_EOL;
+//        echo 'Città: ' . $indirizzo->getCitta() . PHP_EOL;
+//    }
+//
+//} catch (Exception $e) {
+//    echo "errore" . $e . "\n";
+//}
+
+////Demo per metodo che estrae tutte le segnalazioni di un certo utente fornendo l'id
+//try {
+//    $u = FPersistentManager::getWarningsByClientId(841);
+//    foreach ($u as $segnalazione) {
+//        echo 'id Indirizzo: ' . $segnalazione->getId() . PHP_EOL;
+//        echo 'Descrizione: ' . $segnalazione->getDescrizione() . PHP_EOL;
+//
+//    }
+//
+//} catch (Exception $e) {
+//    echo "errore" . $e . "\n";
+//}
+
+//
+////Demo per metodo che estrae tutte le recensioni
+//try {
+//    $u = FPersistentManager::getAllReviews();
+//    foreach ($u as $recensione) {
+//        echo 'id Indirizzo: ' . $recensione->getId() . PHP_EOL;
+//        echo 'Descrizione: ' . $recensione->getDescrizione() . PHP_EOL;
+//
+//    }
+//
+//} catch (Exception $e) {
+//    echo "errore" . $e . "\n";
+//}
+
+
+////Demo per metodo che estrae tutte le recensioni di un certo cliente
+//try {
+//    $u = FPersistentManager::getReviewByClientId(860);
+//    foreach ($u as $recensione) {
+//        echo 'id Indirizzo: ' . $recensione->getId() . PHP_EOL;
+//        echo 'Descrizione: ' . $recensione->getDescrizione() . PHP_EOL;
+//
+//    }
+//
+//} catch (Exception $e) {
+//    echo "errore" . $e . "\n";
+//}
 
 
 

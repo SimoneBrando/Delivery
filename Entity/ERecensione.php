@@ -30,10 +30,10 @@ class ERecensione{
      */
     private $data;
     /**
-     * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="recensione")
+     * @ORM\ManyToOne(targetEntity="Entity\ECliente", inversedBy="recensione")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
-    private $utente;
+    private $cliente;
 
     public function __construct(){
     }

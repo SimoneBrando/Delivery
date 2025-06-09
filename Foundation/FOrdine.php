@@ -3,6 +3,7 @@
 
 namespace Foundation;
 use DateTime;
+use Entity\ECliente;
 use Entity\EOrdine;
 use Exception;
 
@@ -30,20 +31,32 @@ class FOrdine{
      */
     public static function getOrdersByClient($value): array
     {
-        return FEntityManager::getInstance()->getObjListOnAttribute(EOrdine::class,'utente',$value );
+        $client = FEntityManager::getInstance()->getObj(ECliente::class, $value);
+        return $client->getOrdini();
     }
 
+    /** Retrieve all orders with a specified state
+     * @param $value
+     * @return array
+     */
     public static function getOrdersByState($value): array
     {
         return FEntityManager::getInstance()->getObjListOnAttribute(EOrdine::class,'stato',$value );
     }
+
+    /** Retrieve all orders of a specied date
+     * @param $value
+     * @return array
+     */
     public static function getOrdersByDate($value): array
     {
         return FEntityManager::getInstance()->getObjListOnAttribute(EOrdine::class,'dataEsecuzione',$value );
     }
 
     /**
-     * @throws Exception
+     * Retrieve all daily orders
+     * @param $time
+     * @return array
      */
     public static function getDailyOrders($time): array
     {

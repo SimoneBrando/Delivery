@@ -34,6 +34,12 @@ class ECarta_credito{
      */
     private $nomeIntestatario;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Entity\ECliente", inversedBy="metodiPagamento")
+     * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
+     */
+    private $cliente;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="Entity\EUtente", inversedBy="carta_credito")

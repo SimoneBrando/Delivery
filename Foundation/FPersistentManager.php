@@ -1,8 +1,10 @@
 <?php
 namespace Foundation;
 
+use Entity\ECarta_credito;
 use Entity\ECliente;
 use Entity\EIndirizzo;
+use Entity\ERecensione;
 use Entity\EUtente;
 use Exception;
 
@@ -147,6 +149,26 @@ class FPersistentManager
         return FEntityManager::getInstance()->getAll(EIndirizzo::class);
     }
 
+    /**
+     * Retrieve an address from the db
+     * @param $id
+     * @return EIndirizzo|null
+     */
+    public static function getAddressById($id): ?EIndirizzo
+    {
+        return FIndirizzo::getAddressById($id);
+    }
+
+    /**
+     * Retrieve all of client's addresses from the db
+     * @param int $userId
+     * @return array
+     */
+    public static function getAddressByClientId(int $clientId) : array
+    {
+        return FIndirizzo::getAddressByClientId($clientId);
+    }
+
 // <--------------------------------REVIEW--------------------------------------------> //
 
     /**
@@ -159,6 +181,27 @@ class FPersistentManager
         return FRecensione::getAllReviews();
     }
 
+    /**
+     * Retrieve a review from the db
+     * @param $id
+     * @return ERecensione|null
+     */
+
+    public static function getReviewById($id): ?ERecensione
+    {
+        return FRecensione::getReviewById($id);
+    }
+
+    /**
+     * Retrieve all of client's reviews
+     * @param int $clientId
+     * @return array
+     */
+    public static function getReviewByClientId(int $clientId): array
+    {
+        return FRecensione::getReviewByClientId($clientId);
+    }
+
 
     //<------------------------WARNING---------------------------------------------> //
 
@@ -169,6 +212,16 @@ class FPersistentManager
     public static function getAllWarnings(): array
     {
         return FSegnalazione::getAllWarnigns();
+    }
+
+    /**
+     * Retrieve all client's warnings from the db
+     * @param int $clientId
+     * @return array
+     */
+    public static function getWarningsByClientId(int $clientId): array
+    {
+        return FSegnalazione::getWarningsByClientId($clientId);
     }
     //<----------------------------ORDER------------------------------------------->//
 
@@ -199,10 +252,23 @@ class FPersistentManager
     {
         return FOrdine::getOrdersByState($value);
     }
+
+    /**
+     * retrieve all orders of a spiecific date
+     * @param $value
+     * @return array
+     */
     public static function getOrdersByDate($value): array
     {
         return FOrdine::getOrdersByDate($value);
     }
+
+    /**
+     * Retrieve all daily orders
+     * @param $time
+     * @return array
+     * @throws Exception
+     */
     public static function getDailyOrders($time): array
     {
         return FOrdine::getDailyOrders($time);
@@ -230,10 +296,33 @@ class FPersistentManager
         return FCarta_credito::getAllCreditCards();
     }
 
+    /** Retrieve  a credit card from the db
+     * @param $id
+     * @return ECarta_credito|null
+     */
+    public static function getCreditCardById($id): ?ECarta_credito{
+        return FCarta_credito::getCreditCardById($id);
+    }
+
+    /** Retrieve all of client's credit cards from the db
+     * @param int $clientId
+     * @return array
+     */
+    public static function getCreditCardByClientId(int $clientId): array
+    {
+        return FCarta_credito::getCreditCardByClientId($clientId);
+    }
+
+
 
 
 
     //<-----------------------MENU--------------------->//
+
+    /** Retrieve a menu from the db
+     * @return array
+     * @throws \Doctrine\ORM\Exception\NotSupported
+     */
     public static function getMenu(){
         return FElenco_prodotti::getMenu();
     }

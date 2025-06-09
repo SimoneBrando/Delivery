@@ -17,7 +17,7 @@ use Doctrine\Common\Collections\Collection;
 class ECliente extends EUtente{
 
     /**
-     * @ORM\OneToMany(targetEntity="Entity\ECarta_credito", mappedBy="utente")
+     * @ORM\OneToMany(targetEntity="Entity\ECarta_credito", mappedBy="cliente")
      * @ORM\JoinColumn(name="utente_id", referencedColumnName="id", nullable=false)
      */
     private $metodiPagamento;
@@ -29,7 +29,7 @@ class ECliente extends EUtente{
     private $indirizziConsegna;
 
     /**
-     * @ORM\OneToMany(targetEntity="Entity\EOrdine", mappedBy="utente")
+     * @ORM\OneToMany(targetEntity="Entity\EOrdine", mappedBy="cliente")
      */
     private $ordini;
 
@@ -38,6 +38,11 @@ class ECliente extends EUtente{
      * 
      */
     private $segnalazioni;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Entity\ERecensione", mappedBy="cliente", cascade={"persist", "remove"})
+     */
+    private $recensioni;
 
     public function __construct() {
         parent::__construct();
@@ -59,6 +64,11 @@ class ECliente extends EUtente{
     public function getSegnalazioni(): Collection
     {
         return $this->segnalazioni;
+    }
+
+    public function getRecensioni(): Collection
+    {
+        return $this->recensioni;
     }
     
 

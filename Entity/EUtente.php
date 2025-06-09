@@ -48,24 +48,10 @@ class EUtente
      */
     private $password;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Entity\ERecensione", mappedBy="utente", cascade={"persist", "remove"})
-     */
-    private $recensione;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Entity\ESegnalazione", mappedBy="utente", cascade={"persist", "remove"})
-     */
-    private $segnalazione;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Entity\EOrdine", mappedBy="utente", cascade={"persist", "remove"})
-     */
-    private $ordini;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+
 
 
 
@@ -74,7 +60,7 @@ class EUtente
 
     }
 
-    // Getter e Setter
+    // Getter
     public function getId(): int
     {
         return $this->id;
@@ -85,21 +71,9 @@ class EUtente
         return $this->nome;
     }
 
-    public function setNome(string $nome): EUtente
-    {
-        $this->nome = $nome;
-        return $this;
-    }
-
     public function getCognome(): string
     {
         return $this->cognome;
-    }
-
-    public function setCognome(string $cognome): EUtente
-    {
-        $this->cognome = $cognome;
-        return $this;
     }
 
     public function getEmail(): string
@@ -107,21 +81,9 @@ class EUtente
         return $this->email;
     }
 
-    public function setEmail(string $email): EUtente
-    {
-        $this->email = $email;
-        return $this;
-    }
-
     public function getPassword(): string
     {
         return $this->password;
-    }
-
-    public function setPassword(string $password): EUtente
-    {
-        $this->password = $password;
-        return $this;
     }
 
     //The class EUtente is an abstract class with InheritanceType(JOINED) and a DiscriminatorColumn called ruolo
@@ -136,6 +98,39 @@ class EUtente
         // Rimuovi la "E" iniziale se vuoi solo "Cliente"
         return strtolower(substr($roleClass, 1)); // "cliente"
     }
+
+    //Setter
+
+    public function setNome(string $nome): EUtente
+    {
+        $this->nome = $nome;
+        return $this;
+    }
+
+
+    public function setCognome(string $cognome): EUtente
+    {
+        $this->cognome = $cognome;
+        return $this;
+    }
+
+
+
+    public function setEmail(string $email): EUtente
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+
+
+    public function setPassword(string $password): EUtente
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+
 
 }
 ?>

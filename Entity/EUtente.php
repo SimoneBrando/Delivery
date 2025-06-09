@@ -120,10 +120,10 @@ class EUtente
 
     //Setter
 
-    public function setNome(string $nome): EUtente
-    {
-        $this->nome = $nome;
+    public function setUserId(string $userId): EUtente{
+        $this->user_id = $userId;
         return $this;
+
     }
 
 

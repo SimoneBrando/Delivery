@@ -23,10 +23,12 @@ class UserFixture extends AbstractFixture
         // Creazione clienti
         for ($i = 0; $i < self::NUM_CLIENTI; $i++) {
             $cliente = new ECliente();
+            $userId=$i;
             $cliente->setNome($faker->firstName())
                 ->setCognome($faker->lastName())
                 ->setEmail($faker->unique()->safeEmail())
                 ->setPassword(password_hash('password123', PASSWORD_BCRYPT)) // Password fissa per testing
+                ->setUserId("$userId")
                 ->addIndirizzoConsegna($this->getReference('indirizzo_'.$i, EIndirizzo::class));
 
             $this->addReference('cliente_' . $i, $cliente);
@@ -36,11 +38,13 @@ class UserFixture extends AbstractFixture
         // Creazione cuochi
         for ($i = 0; $i < self::NUM_CUOCHI; $i++) {
             $cuoco = new ECuoco();
+            $userId=$i+20;
             $cuoco->setCodiceCuoco('CUOCO-' . strtoupper($faker->bothify('##??')))
                 ->setNome($faker->firstName())
                 ->setCognome($faker->lastName())
                 ->setEmail($faker->unique()->safeEmail())
-                ->setPassword(password_hash('password123', PASSWORD_BCRYPT));
+                ->setPassword(password_hash('password123', PASSWORD_BCRYPT))
+                ->setUserId("$userId");
 
             $this->addReference('cuoco_' . $i, $cuoco);
             $manager->persist($cuoco);
@@ -49,11 +53,14 @@ class UserFixture extends AbstractFixture
         // Creazione rider
         for ($i = 0; $i < self::NUM_RIDER; $i++) {
             $rider = new ERider();
+            $userId=$i+30;
             $rider->setCodiceRider('RIDER-' . strtoupper($faker->bothify('##??')))
                 ->setNome($faker->firstName())
                 ->setCognome($faker->lastName())
                 ->setEmail($faker->unique()->safeEmail())
-                ->setPassword(password_hash('password123', PASSWORD_BCRYPT));
+                ->setPassword(password_hash('password123', PASSWORD_BCRYPT))
+                ->setUserId("$userId");
+
 
             $this->addReference('rider_' . $i, $rider);
             $manager->persist($rider);

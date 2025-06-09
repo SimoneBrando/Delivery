@@ -5,7 +5,7 @@ use Doctrine\ORM\Exception\ORMException;
 use Entity\EUtente;
 use Foundation\FPersistentManager;
 use View\VUser;
-use Foundation\FPersistentManager;
+
 
 require_once __DIR__ . '/../View/VUser.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
@@ -141,52 +141,12 @@ class CUser{
         return true;
     }
 
-    public static function home(){
-        $view = new VUser();
-        $view->showHome();
-    }
-
     public static function showMenu(){
         $view = new VUser();
         $classe = 'EElenco_prodotti';
         $id = 0;
         $menu = 'ciao';
         $view->showMenu($menu);
-    }
-      
-/*
-    public static function registrati()
-    {
-        $view = new VUser();
-        if(FPersistentManager::getInstance()->verifyUserEmail(UHTTPMethods::post('email')) == false && FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username')) == false){
-                $utente = new EUtente();
-                    $utente->setNome(UHTTPMethods::post('name'));
-                    $utente->setCognome(UHTTPMethods::post('surname'));
-                    $utente->setEmail(UHTTPMethods::post('email'));
-                    $utente->setPassword(UHTTPMethods::post('password'));
-                $check = FPersistentManager::getInstance()->uploadObj($utente);
-                if($check){
-                    $view->showLoginForm();
-                }
-        }else{
-                $view->registrationError();
-            }
-    }
-
-    public static function checkLogin(){
-        $view = new VUser();
-        $username = FPersistentManager::getInstance()->verifyUserUsername(UHTTPMethods::post('username'));                                            
-        if($username){
-            $user = FPersistentManager::getInstance()->retriveUserOnUsername(UHTTPMethods::post('username'));
-            if(password_verify(UHTTPMethods::post('password'), $user->getPassword())){
-                USession::getSessionStatus() == PHP_SESSION_NONE;
-                    USession::getInstance();
-                    USession::setSessionElement('user', $user->getId());
-                    header('Location: /Delivery/User/home');
-                }
-        }else{
-            $view->loginError();
-        }
     }
 
     public static function mostraMenu(){
@@ -216,14 +176,4 @@ class CUser{
         $view->showMyOrders($orders);
     }
 
-    public static function showLoginForm(){
-        $view = new VUser();
-        $view->showLoginForm();
-    }
-
-    public static function showRegisterForm(){
-        $view = new VUser();
-        $view->showRegisterForm();
-    }
-    
 }

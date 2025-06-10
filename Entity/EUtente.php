@@ -145,7 +145,7 @@ class EUtente
 
     public function setPassword(string $password): EUtente
     {
-        $this->password = $password;
+        $this->password = password_hash($password,PASSWORD_BCRYPT);
         return $this;
     }
 

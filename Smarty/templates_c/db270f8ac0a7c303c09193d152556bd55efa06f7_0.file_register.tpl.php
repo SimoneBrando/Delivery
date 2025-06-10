@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-09 12:03:56
+/* Smarty version 5.5.1, created on 2025-06-10 15:17:44
   from 'file:register.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6846b18c54c538_70422797',
+  'unifunc' => 'content_684830784fed23_83697843',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'db270f8ac0a7c303c09193d152556bd55efa06f7' => 
     array (
       0 => 'register.tpl',
-      1 => 1749463432,
+      1 => 1749539856,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_6846b18c54c538_70422797 (\Smarty\Template $_smarty_tpl) {
+function content_684830784fed23_83697843 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -67,7 +67,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                                 id="nome" 
                                 name="nome" 
                                 required 
-                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('nome') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('name') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
 "
                             >
                         </div>
@@ -102,7 +102,21 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                                 required
                             >
                         </div>
-                                                <div class="form-group">
+                        
+                        <div class="form-group">
+                            <label for="role">Ruolo</label>
+                            <input 
+                                type="tel" 
+                                id="role" 
+                                name="role"  
+                                required 
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('phone') ?? null)===null||$tmp==='' ? 'cliente' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
+                            >
+                            <small>Inserisci cliente per prova</small>
+                        </div>
+                        
+                        <div class="form-group">
                             <button type="submit" class="btn">Registrati</button>
                         </div>
                         <div class="form-group">

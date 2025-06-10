@@ -1,5 +1,6 @@
 <?php
 
+namespace Services\Utility;
 class USession {
     private static $istance;
 

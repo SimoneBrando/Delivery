@@ -1,26 +1,34 @@
 <?php
 
-use App\Foundation\FPersistentManager;
+use Entity\EOrdine;
+use Foundation\FPersistentManager;
+use Services\Utility\USession;
+use Utility\UHTTPMethods;
+use View\VUser;
+use Entity\ESegnalazione;
 
 class COrdine{
 
     public function mostraOrdini(){
         if(CUser::isLogged()){
-            $userId = USession::getInstance()->geSessionId('user');
-            $ordini = FPersistentManager::getInstance()->getOrdiniByUserId($userId);
-
-            $view = new VMiei_Ordini();
-            $view->mostraOrdini($ordini);
+            $userId = USession::getSessionElement('user');
+            $ordini = FPersistentManager::getInstance()->getOrdersByClient($userId);
+            $view = new VUser();
+            $view->showMyOrders($ordini);
         }
     }
 
     public function inviaSegnalazione(){
         if(CUser::isLogged()){
-            $userId = USession::getInstance()->getSessionId('user');
-            $ordineId = USession::getInstance()->getSessionId('ordine');
-
-            $segnalazione = new ESegnalazione(UHTTPMethods::post('segnalazione'), $userId, $ordineId);
-            FPersistentManager::getInstance()->salvaObj($segnalazione);
+            $userId = USession::getSessionElement('user');
+            $ordineId = USession::getSessionElement('ordine');
+            $testoSegnalazione = UHTTPMethods::post('segnalazione');
+            $segnalazione = new ESegnalazione();
+            $segnalazione->setCliente($userId)
+                ->setTesto($testoSegnalazione)
+                ->setOrdine(FPersistentManager::getInstance()->getObjOnAttribute(EOrdine::class,'id',$ordineId))
+                ->set
+            FPersistentManager::getInstance()->saveObj($segnalazione);
         }
     }
 }

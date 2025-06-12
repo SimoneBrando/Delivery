@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-09 10:21:06
+/* Smarty version 5.5.1, created on 2025-06-12 15:35:46
   from 'file:order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684699722065f4_00074183',
+  'unifunc' => 'content_684ad7b24bad10_37628710',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0d72ae563e5ca74c451763467a59fb234539c4a9' => 
     array (
       0 => 'order.tpl',
-      1 => 1749454433,
+      1 => 1749735343,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_684699722065f4_00074183 (\Smarty\Template $_smarty_tpl) {
+function content_684ad7b24bad10_37628710 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -103,7 +103,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         <h2>Il tuo ordine</h2>
         <ul id="cart-items"></ul>
         <p id="cart-total">Totale: €0.00</p>
-        <a href="checkout.html"><button>Prosegui</button></a>
+        <a href="checkout.tpl">Prosegui</a>
     </div>
 
     <div id="product-modal" class="modal hidden">

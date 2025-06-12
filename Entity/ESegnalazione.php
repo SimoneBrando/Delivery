@@ -65,6 +65,10 @@ class ESegnalazione {
         return $this->cliente;
     }
 
+    public function getOrdine() : EOrdine{
+        return $this->ordine;
+    }
+
     // Setters
     public function setId($id) : ESegnalazione {
         $this->id = $id;
@@ -78,11 +82,6 @@ class ESegnalazione {
 
     public function setDescrizione($descrizione) : ESegnalazione {
         $this->descrizione = $descrizione;
-        return $this;
-    }
-
-    public function setOra($ora) : ESegnalazione {
-        $this->ora = $ora;
         return $this;
     }
 

@@ -332,4 +332,14 @@ class CUser{
         $view->showChangePassword();
     }
 
+    public static function showProfile(){
+        if (self::isLogged()) {
+            header("Location: /Delivery/User/showChangePassword");
+            exit;
+        }else {
+            $view = new VUser();
+            $view->showLoginForm();
+        }
+    }
+
 }

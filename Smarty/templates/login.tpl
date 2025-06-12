@@ -57,6 +57,10 @@
                                 value="{$password|default:''|escape:'html'}"
                             >
                         </div>
+                        <div class="form-group remember-me">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" value="1">
+                            <label for="rememberMe">Ricordami</label> <!-- metti qui il metodo per fare il remember -->
+                        </div>
                         <div class="form-group">
                             <button type="submit" class="btn">Accedi</button>
                         </div>

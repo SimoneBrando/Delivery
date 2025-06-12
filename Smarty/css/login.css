@@ -112,7 +112,32 @@
 .form-group a:hover {
     text-decoration: underline;
 }
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    user-select: none;
+}
 
+.remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #007BFF; 
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.remember-me label {
+    cursor: pointer;
+    color: #333;
+}
+
+.remember-me input[type="checkbox"]:hover {
+    filter: brightness(90%);
+}
 
 
 /* Responsive Design */

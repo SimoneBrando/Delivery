@@ -41,6 +41,6 @@ class VUser{
     }
 
     public function showChangePassword(){
-        $this->smarty->display('change_password.tpl');
+        $this->smarty->display('account.tpl');
     }
 }

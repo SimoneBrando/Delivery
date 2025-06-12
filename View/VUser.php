@@ -39,4 +39,8 @@ class VUser{
     public function showRegisterForm(){
         $this->smarty->display('register.tpl');
     }
+
+    public function showChangePassword(){
+        $this->smarty->display('change_password.tpl');
+    }
 }

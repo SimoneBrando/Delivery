@@ -9,6 +9,8 @@ use View\VUser;
 use Services\Utility\USession;
 use Services\Utility\UCookie;
 use Utility\UHTTPMethods;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__ . '/../View/VUser.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
@@ -150,14 +152,7 @@ class CUser{
             $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
                 // Costruisci il link di reset password
                 $url = 'https://www.delivery.com/reset_password?selector=' . urlencode($selector) . '&token=' . urlencode($token);
-                $subject = 'Reset your password';
-                $message = "Hi,\n\nWe received a request to reset your password.\n\nPlease click the following link to reset it:\n\n$url\n\nIf you did not request this, you can ignore this email.";
-                $headers = 'From: no-reply@delivery.com' . "\r\n" .
-                        'Reply-To: no-reply@delivery.com' . "\r\n" .
-                        'X-Mailer: PHP/' . phpversion();
-                mail($email, $subject, $message, $headers);
-                // Invia email (solo per esempio — in produzione è meglio usare libreria PHPMailer più robusta)
-                /*
+                //Da definire le variabili d'ambiente
                 $mail = new PHPMailer(true);
                 $mail->isSMTP();
                 $mail->Host = $_ENV['SMTP_HOST'];
@@ -169,9 +164,9 @@ class CUser{
                 $mail->setFrom('no-reply@delivery.com', 'Delivery Service');
                 $mail->addAddress($email);
                 $mail->Subject = 'Reset your password';
-                $mail->Body = "Click here to reset: $url";    
+                $mail->Body = "Hi,\n\nWe received a request to reset your password.\n\nPlease click the following link to reset it:\n\n$url\n\nIf you did not request this, you can ignore this email.";    
                 $mail->send();
-                */
+                
             });
         } catch (\Delight\Auth\InvalidEmailException $e) {
             die('Invalid email address');
@@ -181,9 +176,9 @@ class CUser{
             die('Password reset is disabled');
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
-        } /* catch(Exeption e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }*/
+        } catch(Exception $e) {
+            die($e->errorMessage());
+        }
     }
     
     //Step 2 of 3: Verifying an attempt
@@ -207,6 +202,11 @@ class CUser{
         try {
             $this->auth_manager->resetPasswordAndSignIn($selector, $token, $newPassword);
             echo 'Password has been reset';
+            $userId= $this->auth_manager->getUserId(); //recupero userId dell'utente che si è appena loggato cambiando password
+            $client = $this->entity_manager->getObjOnAttribute("Cliente","user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
+            $oldPassword = $client->getPassword(); //recupero la vecchia password del Cliente (al fine di eseguire un rollback manuale se necessario)
+            $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
+            $this->entity_manager->updateObj($client); //salvataggio sul database
         }
         catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
             die('Invalid token');
@@ -218,23 +218,55 @@ class CUser{
             die('Invalid password');
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
+        } catch (ORMException $e) {
+            //Tentativo di rollback manuale
+            if(isset($userId)){
+                try {
+                    $this->auth_manager->changePassword($newPassword,$oldPassword); //ripristino la vecchia password in caso di errore
+                } catch (\Delight\Auth\InvalidPasswordException $e) {
+                    die('Invalid password(s)');
+                } catch (\Delight\Auth\TooManyRequestsException $e) {
+                    die('Too many requests');
+                }
+            }
+            die('ORM error');
         }
     }
 
     //Quando l'utente è già loggato
     public function changePassword() {
+        if (!($this->isLogged())){
+            header("/Delivery/User/home");
+            exit;
+        }
         try {
-            $this->auth_manager->changePassword(UHTTPMethods::post('oldPassword'), UHTTPMethods::post('newPassword'));
+            $oldPassword = UHTTPMethods::post('oldPassword');
+            $newPassword = UHTTPMethods::post('newPassword');
+            $this->auth_manager->changePassword($oldPassword,$newPassword);
             echo 'Password has been changed';
-        }
-        catch (\Delight\Auth\NotLoggedInException $e) {
+            $userId= $this->auth_manager->getUserId(); //recupero userId dell'utente loggato
+            $client = $this->entity_manager->getObjOnAttribute(EUtente::class,"user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
+            $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
+            $this->entity_manager->updateObj($client); //salvataggio sul database
+            header("/Delivery/User/home");
+        } catch (\Delight\Auth\NotLoggedInException $e) {
             die('Not logged in');
-        }
-        catch (\Delight\Auth\InvalidPasswordException $e) {
+        } catch (\Delight\Auth\InvalidPasswordException $e) {
             die('Invalid password(s)');
-        }
-        catch (\Delight\Auth\TooManyRequestsException $e) {
+        } catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
+        } catch (ORMException $e) {
+            //Tentativo di rollback manuale
+            if(isset($userId)){
+                try {
+                    $this->auth_manager->changePassword($$newPassword,$oldPassword); //ripristino la vecchia password in caso di errore
+                } catch (\Delight\Auth\InvalidPasswordException $e) {
+                    die('Invalid password(s)');
+                } catch (\Delight\Auth\TooManyRequestsException $e) {
+                    die('Too many requests');
+                }
+            }
+            die('ORM error');
         }
     }
 
@@ -289,6 +321,15 @@ class CUser{
         $id = 161;
         $orders = FPersistentManager::getInstance()->getOrdersByClient($id);
         $view->showMyOrders($orders);
+    }
+
+    public function showChangePassword() {
+        if(!($this->isLogged())) {
+            header("Location: /Delivery/User/home");
+            exit;
+        }
+        $view = new VUser();
+        $view->showChangePassword();
     }
 
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-10 16:05:25
+/* Smarty version 5.5.1, created on 2025-06-11 10:05:42
   from 'file:home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68483ba5d98471_84745181',
+  'unifunc' => 'content_684938d6b14b80_10362491',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '14480e0397d18fd823be1c34e12f9063673c3c8c' => 
     array (
       0 => 'home.tpl',
-      1 => 1749564075,
+      1 => 1749629058,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_68483ba5d98471_84745181 (\Smarty\Template $_smarty_tpl) {
+function content_684938d6b14b80_10362491 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -77,6 +77,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                     <img src="/Smarty/Immagini/story.jpeg" alt="Storia del ristorante">
                 </div>
             </div>
+            <form action="/Delivery/User/showChangePassword" method="POST">
+                <div class="form-group">
+                    <button type="submit" class="btn">Cambia Password</button>
+                </div>
+            </form>
         </section>
 
          <!-- Position Section -->

@@ -8,11 +8,10 @@
     <link rel="stylesheet" href="/Smarty/css/menu.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
-    <script src="/Smarty/Js/loadComponents.js" defer></script>
 </head>
 <body>
     <!-- Header -->
-    <div id="header-placeholder"></div>
+    {include file="header.tpl"}
 
     <!-- Main Content -->
     <main>
@@ -47,7 +46,7 @@
     </main>
 
     <!-- Footer -->
-    <div id="footer-placeholder"></div>
+    {include file="footer.tpl"}
 </body>
 </html>
 

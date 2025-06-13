@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="/Smarty/css/order.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="/Smarty/css/layout.css" />
-    <script src="/SMarty/Js/loadComponents.js" defer></script>
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    {include file="header.tpl"}
 
     <main>
         <section class="hero">
@@ -68,7 +67,7 @@
         </div>
     </div>
 
-    <div id="footer-placeholder"></div>
+    {include file="footer.tpl"}
 
 </body>
 

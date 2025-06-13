@@ -7,10 +7,9 @@
     <link rel="stylesheet" href="/Smarty/css/personale_consegne.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css"></link>
-    <script src="/Smarty/Js/loadComponents.js" defer></script>
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    {include file="header.tpl"}
 
     <main>
         <div class="deliveries-container">
@@ -58,7 +57,7 @@
         </div>
     </main>
 
-    <div id="footer-placeholder"></div>
+    {include file="footer.tpl"}
 
 </body>
 

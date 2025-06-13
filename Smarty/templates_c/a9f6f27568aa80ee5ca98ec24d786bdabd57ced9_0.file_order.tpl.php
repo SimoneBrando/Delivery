@@ -1,26 +1,28 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-06 18:43:20
+/* Smarty version 5.5.1, created on 2025-06-13 11:54:27
   from 'file:order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68431aa8625e17_56906530',
+  'unifunc' => 'content_684bf55322ab69_36464436',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a9f6f27568aa80ee5ca98ec24d786bdabd57ced9' => 
     array (
       0 => 'order.tpl',
-      1 => 1749228187,
+      1 => 1749808432,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:header.tpl' => 1,
+    'file:footer.tpl' => 1,
   ),
 ))) {
-function content_68431aa8625e17_56906530 (\Smarty\Template $_smarty_tpl) {
+function content_684bf55322ab69_36464436 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -31,12 +33,10 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
     <link rel="stylesheet" href="/Smarty/css/order.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="/Smarty/css/layout.css" />
-    <?php echo '<script'; ?>
- src="/SMarty/Js/loadComponents.js" defer><?php echo '</script'; ?>
->
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <main>
         <section class="hero">
@@ -113,7 +113,8 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         </div>
     </div>
 
-    <div id="footer-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
 </body>
 

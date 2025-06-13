@@ -7,11 +7,10 @@
     <link rel="stylesheet" href="../css/checkout.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="../css/layout.css" />
-    <script src="../Js/loadComponents.js" defer></script>
     <script src="../Js/cart.js"></script>
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    {include file="header.tpl"}
 
     <main>
         <section class="hero">
@@ -162,7 +161,7 @@
         </section>
     </main>
 
-    <div id="footer-placeholder"></div>
+    {include file="footer.tpl"}
 </body>
 
 <script src="../Js/checkout.js" defer></script>

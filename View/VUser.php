@@ -9,7 +9,12 @@ class VUser{
     public function __construct(){
 
         $this->smarty = getSmartyInstance();
+        $this->assignCommonVars();
 
+    }
+
+    public function assignCommonVars() {
+        $this->smarty->assign('logged', \CUser::isLogged());
     }
 
     public function showMenu($menu){

@@ -60,7 +60,7 @@ class FEntityManager{
     public static function getObjOnAttribute($class, $field, $value): ?object
     {
         try{
-            echo "Cerca in $class dove $field = $value\n";
+            //echo "Cerca in $class dove $field = $value\n";
             return self::$entityManager->getRepository($class)->findOneBy([$field => $value]);
         }
         catch (Exception $e){

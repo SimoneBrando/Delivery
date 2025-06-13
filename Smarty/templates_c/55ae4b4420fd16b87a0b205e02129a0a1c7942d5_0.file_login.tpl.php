@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-10 16:08:54
+/* Smarty version 5.5.1, created on 2025-06-12 16:07:10
   from 'file:login.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68483c76a56af3_91338511',
+  'unifunc' => 'content_684adf0e2bc827_27162657',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '55ae4b4420fd16b87a0b205e02129a0a1c7942d5' => 
     array (
       0 => 'login.tpl',
-      1 => 1749564083,
+      1 => 1749736980,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_68483c76a56af3_91338511 (\Smarty\Template $_smarty_tpl) {
+function content_684adf0e2bc827_27162657 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -85,6 +85,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                                 value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('password') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
 "
                             >
+                        </div>
+                        <div class="form-group remember-me">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" value="1">
+                            <label for="rememberMe">Ricordami</label> <!-- metti qui il metodo per fare il remember -->
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn">Accedi</button>

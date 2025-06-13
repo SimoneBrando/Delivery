@@ -6,6 +6,7 @@ use Services\Utility\USession;
 use Utility\UHTTPMethods;
 use View\VUser;
 use Entity\ESegnalazione;
+use Controller\CUser;
 
 class COrdine{
 
@@ -26,8 +27,7 @@ class COrdine{
             $segnalazione = new ESegnalazione();
             $segnalazione->setCliente($userId)
                 ->setTesto($testoSegnalazione)
-                ->setOrdine(FPersistentManager::getInstance()->getObjOnAttribute(EOrdine::class,'id',$ordineId))
-                ->set
+                ->setOrdine(FPersistentManager::getInstance()->getObjOnAttribute(EOrdine::class,'id',$ordineId));
             FPersistentManager::getInstance()->saveObj($segnalazione);
         }
     }

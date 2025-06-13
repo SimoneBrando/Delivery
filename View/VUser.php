@@ -40,7 +40,8 @@ class VUser{
         $this->smarty->display('register.tpl');
     }
 
-    public function showChangePassword(){
+    public function showChangePassword($user){
+        $this->smarty->assign('utente',$user);
         $this->smarty->display('account.tpl');
     }
 }

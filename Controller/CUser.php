@@ -30,14 +30,6 @@ class CUser{
         $this->auth_manager = getAuth();
     }
 
-    public function showLoginForm(){
-        if($this->isLogged()){
-            header('Location: /Delivery/User/home');
-        }
-        $view = new VUser();
-        $view->showLoginForm();
-    }
-
     public function showRegisterForm(){
         if($this->isLogged()){
             header('Location: /Delivery/User/home');
@@ -99,7 +91,7 @@ class CUser{
         $email = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_EMAIL);
         $password = UHTTPMethods::post('password');
         //Da implementare nella form di login
-        $rememberMe = "0";
+        $rememberMe = UHTTPMethods::post('rememberMe');
         $currentUser = USession::isSetSessionElement("user");
         if ($currentUser) {
             $user = USession::getSessionElement("user");
@@ -107,7 +99,7 @@ class CUser{
             exit;
         }
         try {
-            if ($rememberMe) {
+            if ($rememberMe == 1) {
                 //30 days
                 $duration = 60*60*24*30;
             } else {
@@ -270,6 +262,21 @@ class CUser{
         }
     }
 
+    public function modifyProfile(){
+        $newName = UHTTPMethods::post('newName');
+        $newSurname = UHTTPMethods::post('newSurname');
+        $userId = USession::getSessionElement('user');
+        try {
+            $user = $this->entity_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
+            $user->setNome($newName)
+                ->setCognome($newSurname);
+            $this->entity_manager->updateObj($user);
+            header("Location: /Delivery/User/showChangePassword");
+        } catch (ORMException $e) {
+            die("ORM Exception");
+        }
+    }
+
     public function isLoggedIn(): bool{
         return $this->auth_manager->isLoggedIn();
     }
@@ -328,8 +335,10 @@ class CUser{
             header("Location: /Delivery/User/home");
             exit;
         }
+        $userId = USession::getSessionElement('user');;
+        $user = $this->entity_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
         $view = new VUser();
-        $view->showChangePassword();
+        $view->showChangePassword($user);
     }
 
     public static function showProfile(){

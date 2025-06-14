@@ -1,26 +1,28 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-07 17:24:11
+/* Smarty version 5.5.1, created on 2025-06-14 19:31:03
   from 'file:chef_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6844599b595a48_00869440',
+  'unifunc' => 'content_684db1d7009377_92017868',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9f29803aa9dcc32a8f281d287d6cfac70e342ecd' => 
     array (
       0 => 'chef_orders.tpl',
-      1 => 1749309828,
+      1 => 1749922256,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:header.tpl' => 1,
+    'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6844599b595a48_00869440 (\Smarty\Template $_smarty_tpl) {
+function content_684db1d7009377_92017868 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -31,14 +33,12 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
     <link rel="stylesheet" href="/Smarty/css/personale_consegne.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css"></link>
-    <?php echo '<script'; ?>
- src="/Smarty/Js/loadComponents.js" defer><?php echo '</script'; ?>
->
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
-    <main>
+     <main>
         <div class="deliveries-container">
             <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('orders'), 'order');
@@ -51,15 +51,15 @@ $foreach0DoElse = false;
                         <h3>Ordine #<?php echo $_smarty_tpl->getValue('order')->getId();?>
 </h3>
                         <?php $_smarty_tpl->assign('statoClasse', '', false, NULL);?>
-                        <?php if ($_smarty_tpl->getValue('order')->getStato() == 'in_attesa') {?>
-                            <?php $_smarty_tpl->assign('statoClasse', 'da-ritirare', false, NULL);?>
-                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_preparazione') {?>
-                            <?php $_smarty_tpl->assign('statoClasse', 'in-consegna', false, NULL);?>
-                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'pronto') {?>
-                            <?php $_smarty_tpl->assign('statoClasse', 'in-consegna', false, NULL);?>
+                        <?php if ($_smarty_tpl->getValue('order')->getStato() == 'annullato') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'annullato', false, NULL);?>
                         <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'consegnato') {?>
                             <?php $_smarty_tpl->assign('statoClasse', 'consegnato', false, NULL);?>
-                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'annullato') {?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'pronto') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'pronto', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_preparazione') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'in_preparazione', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_attesa') {?>
                             <?php $_smarty_tpl->assign('statoClasse', 'errore', false, NULL);?>
                         <?php }?>
                         <span class="order-status <?php echo htmlspecialchars((string)$_smarty_tpl->getValue('statoClasse'), ENT_QUOTES, 'UTF-8', true);?>
@@ -92,17 +92,21 @@ $foreach1DoElse = false;
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         </ul>
                     </div>
-                    <div class="status-actions">
+                    <form method="POST" action="/Delivery/Chef/cambiaStatoOrdine" class="status-form">
+                        <input type="hidden" name="ordineId" value="<?php echo $_smarty_tpl->getValue('order')->getId();?>
+">
                         <label for="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
 ">Modifica stato:</label>
-                        <select id="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
+                        <select name="stato" id="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
 " class="status-select">
-                            <option value="da-ritirare" <?php if ($_smarty_tpl->getValue('statoClasse') == 'da-ritirare') {?>selected<?php }?>>Da ritirare</option>
-                            <option value="in-consegna" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in-consegna') {?>selected<?php }?>>In consegna</option>
+                            <option value="">-- Seleziona stato --</option>
+                            <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
                             <option value="consegnato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'consegnato') {?>selected<?php }?>>Consegnato</option>
-                            <option value="errore" <?php if ($_smarty_tpl->getValue('statoClasse') == 'errore') {?>selected<?php }?>>Errore</option>
+                            <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
+                            <option value="in_preparazione" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_preparazione') {?>selected<?php }?>>In Preparazione</option>
+                            <option value="in_attesa" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_attesa') {?>selected<?php }?>>In Attesa</option>
                         </select>
-                    </div>
+                    </form>
                 </div>
             <?php
 }
@@ -110,41 +114,27 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         </div>
     </main>
 
-    <div id="footer-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
+        <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p>Sei sicuro di voler aggiornare lo stato in <strong><span id="modalStatus"></span></strong>?</p>
+            <button id="confirmBtn">Conferma</button>
+            <button onclick="closeModal()">Annulla</button>
+        </div>
+    </div>
+
+
+
+    <?php echo '<script'; ?>
+ src="/Smarty/js/orders.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
 
 </body>
-
-<?php echo '<script'; ?>
->
-    document.addEventListener('DOMContentLoaded', function() {
-        const statusSelects = document.querySelectorAll('.status-select');
-        statusSelects.forEach(select => {
-            select.addEventListener('change', function() {
-                const statusElement = this.closest('.delivery-card').querySelector('.order-status');
-                const newStatus = this.value;
-                statusElement.textContent = this.options[this.selectedIndex].text;
-
-                statusElement.classList.remove('in-consegna', 'consegnato', 'errore', 'da-ritirare');
-
-                switch(newStatus) {
-                    case 'in-consegna':
-                        statusElement.classList.add('in-consegna');
-                        break;
-                    case 'consegnato':
-                        statusElement.classList.add('consegnato');
-                        break;
-                    case 'errore':
-                        statusElement.classList.add('errore');
-                        break;
-                    case 'da-ritirare':
-                        statusElement.classList.add('da-ritirare');
-                        break;
-                }
-            });
-        });
-    });
-<?php echo '</script'; ?>
->
 
 </html>
 <?php }

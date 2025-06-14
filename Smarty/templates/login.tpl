@@ -74,5 +74,7 @@
 
     <!-- Footer -->
     {include file="footer.tpl"}
+
+    <script src="/Smarty/js/hamburger.js"></script>
 </body>
 </html>

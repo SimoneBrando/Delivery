@@ -319,8 +319,12 @@ class CUser{
 
     public static function order(){
         $view = new VUser();
-        $menu = FPersistentManager::getInstance()->getMenu();
-        $view->order($menu);
+        if (self::isLogged()) {
+            $menu = FPersistentManager::getInstance()->getMenu();
+            $view->order($menu);
+        }else {
+            $view->showLoginForm();
+        }
     }
 
     public static function showMyOrders(){

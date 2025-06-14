@@ -69,6 +69,9 @@
 
     {include file="footer.tpl"}
 
+
+    <script src="/Smarty/js/hamburger.js"></script>
+
 </body>
 
 <script src="/Smarty/Js/cart.js" defer></script>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-13 11:54:27
+/* Smarty version 5.5.1, created on 2025-06-14 19:23:21
   from 'file:order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684bf55322ab69_36464436',
+  'unifunc' => 'content_684db0099ca126_55464711',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a9f6f27568aa80ee5ca98ec24d786bdabd57ced9' => 
     array (
       0 => 'order.tpl',
-      1 => 1749808432,
+      1 => 1749921780,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684bf55322ab69_36464436 (\Smarty\Template $_smarty_tpl) {
+function content_684db0099ca126_55464711 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -115,6 +115,11 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
+
+
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
 
 </body>
 

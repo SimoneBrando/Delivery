@@ -21,9 +21,5 @@ function setupMobileMenu() {
 }
 
 // Attiva quando l'header è stato caricato
-document.addEventListener('headerLoaded', setupMobileMenu);
+document.addEventListener('DOMContentLoaded', setupMobileMenu);
 
-// Se l'header viene caricato dinamicamente
-if (window.headerLoaded) {
-    setupMobileMenu();
-}

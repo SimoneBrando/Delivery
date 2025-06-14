@@ -99,6 +99,8 @@
     <!-- Footer -->
     {include file="footer.tpl"}
 
+    <script src="/Smarty/js/hamburger.js"></script>
+
     {literal}
     <script>
         document.getElementById('phone').addEventListener('input', function(e) {

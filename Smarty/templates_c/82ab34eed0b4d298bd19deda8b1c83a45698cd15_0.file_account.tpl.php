@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-13 12:02:13
+/* Smarty version 5.5.1, created on 2025-06-14 15:57:10
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684bf7250594b8_12906607',
+  'unifunc' => 'content_684d7fb6e0c491_51578843',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '82ab34eed0b4d298bd19deda8b1c83a45698cd15' => 
     array (
       0 => 'account.tpl',
-      1 => 1749808457,
+      1 => 1749909253,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684bf7250594b8_12906607 (\Smarty\Template $_smarty_tpl) {
+function content_684d7fb6e0c491_51578843 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -53,6 +53,26 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
 
         <section class="account-container">
             <h2>Gestione Account</h2>
+
+            <!-- Modifica Profile -->
+            <div class="password-section">
+                <h3>Modifica Profilo</h3>
+                <form action="/Delivery/User/modifyProfile" method="POST">
+                    <div class="form-group">
+                        <label for="newName">Nuovo Nome</label>
+                        <input id="newName" name="newName" value="<?php echo $_smarty_tpl->getValue('utente')->getNome();?>
+" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newSurname">Nuovo Cognome</label>
+                        <input id="newSurname" name="newSurname" value="<?php echo $_smarty_tpl->getValue('utente')->getCognome();?>
+" required>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Aggiorna Profilo</button>
+                </form>
+            </div>
 
             <!-- Cambia Password -->
             <div class="password-section">

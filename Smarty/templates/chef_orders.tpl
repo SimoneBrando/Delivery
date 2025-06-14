@@ -11,22 +11,22 @@
 <body>
     {include file="header.tpl"}
 
-    <main>
+     <main>
         <div class="deliveries-container">
             {foreach $orders as $order}
                 <div class="delivery-card">
                     <div class="delivery-header">
                         <h3>Ordine #{$order->getId()}</h3>
                         {assign var=statoClasse value=''}
-                        {if $order->getStato() == 'in_attesa'}
-                            {assign var=statoClasse value='da-ritirare'}
-                        {elseif $order->getStato() == 'in_preparazione'}
-                            {assign var=statoClasse value='in-consegna'}
-                        {elseif $order->getStato() == 'pronto'}
-                            {assign var=statoClasse value='in-consegna'}
+                        {if $order->getStato() == 'annullato'}
+                            {assign var=statoClasse value='annullato'}
                         {elseif $order->getStato() == 'consegnato'}
                             {assign var=statoClasse value='consegnato'}
-                        {elseif $order->getStato() == 'annullato'}
+                        {elseif $order->getStato() == 'pronto'}
+                            {assign var=statoClasse value='pronto'}
+                        {elseif $order->getStato() == 'in_preparazione'}
+                            {assign var=statoClasse value='in_preparazione'}
+                        {elseif $order->getStato() == 'in_attesa'}
                             {assign var=statoClasse value='errore'}
                         {/if}
                         <span class="order-status {$statoClasse|escape}">{$order->getStato()|replace:"_":" "|capitalize}</span>
@@ -43,15 +43,18 @@
                             {/foreach}
                         </ul>
                     </div>
-                    <div class="status-actions">
+                    <form method="POST" action="/Delivery/Chef/cambiaStatoOrdine" class="status-form">
+                        <input type="hidden" name="ordineId" value="{$order->getId()}">
                         <label for="status{$order->getId()}">Modifica stato:</label>
-                        <select id="status{$order->getId()}" class="status-select">
-                            <option value="da-ritirare" {if $statoClasse == 'da-ritirare'}selected{/if}>Da ritirare</option>
-                            <option value="in-consegna" {if $statoClasse == 'in-consegna'}selected{/if}>In consegna</option>
+                        <select name="stato" id="status{$order->getId()}" class="status-select">
+                            <option value="">-- Seleziona stato --</option>
+                            <option value="annullato" {if $statoClasse == 'annullato'}selected{/if}>Annullato</option>
                             <option value="consegnato" {if $statoClasse == 'consegnato'}selected{/if}>Consegnato</option>
-                            <option value="errore" {if $statoClasse == 'errore'}selected{/if}>Errore</option>
+                            <option value="pronto" {if $statoClasse == 'pronto'}selected{/if}>Pronto</option>
+                            <option value="in_preparazione" {if $statoClasse == 'in_preparazione'}selected{/if}>In Preparazione</option>
+                            <option value="in_attesa" {if $statoClasse == 'in_attesa'}selected{/if}>In Attesa</option>
                         </select>
-                    </div>
+                    </form>
                 </div>
             {/foreach}
         </div>
@@ -59,36 +62,20 @@
 
     {include file="footer.tpl"}
 
+    {* Modale per conferma *}
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <p>Sei sicuro di voler aggiornare lo stato in <strong><span id="modalStatus"></span></strong>?</p>
+            <button id="confirmBtn">Conferma</button>
+            <button onclick="closeModal()">Annulla</button>
+        </div>
+    </div>
+
+
+
+    <script src="/Smarty/js/orders.js"></script>
+    <script src="/Smarty/js/hamburger.js"></script>
+
 </body>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const statusSelects = document.querySelectorAll('.status-select');
-        statusSelects.forEach(select => {
-            select.addEventListener('change', function() {
-                const statusElement = this.closest('.delivery-card').querySelector('.order-status');
-                const newStatus = this.value;
-                statusElement.textContent = this.options[this.selectedIndex].text;
-
-                statusElement.classList.remove('in-consegna', 'consegnato', 'errore', 'da-ritirare');
-
-                switch(newStatus) {
-                    case 'in-consegna':
-                        statusElement.classList.add('in-consegna');
-                        break;
-                    case 'consegnato':
-                        statusElement.classList.add('consegnato');
-                        break;
-                    case 'errore':
-                        statusElement.classList.add('errore');
-                        break;
-                    case 'da-ritirare':
-                        statusElement.classList.add('da-ritirare');
-                        break;
-                }
-            });
-        });
-    });
-</script>
 
 </html>

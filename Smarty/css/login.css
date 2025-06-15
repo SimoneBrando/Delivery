@@ -22,6 +22,7 @@
 
 .login-image {
     width: 45%;
+    order: 1; /
 }
 
 .login-image img {
@@ -41,6 +42,7 @@
     border-right: 2px solid var(--colore-primario);
     border-bottom: 2px solid var(--colore-primario);
     border-top: 2px solid var(--colore-primario);
+    order: 2; 
 }
 
 .login-form h1 {
@@ -157,6 +159,8 @@
 @media (max-width: 768px) {
     .login-content {
         flex-direction: column;
+        max-width: 500px;
+        margin: 0 auto;
     }
     
     .login-image,
@@ -166,19 +170,31 @@
     
     .login-image {
         max-height: 200px;
+        order: 2; /* Sposta l'immagine dopo il form su mobile */
+        border: 2px solid var(--colore-primario);
+        border-top: none; /* Rimuovi il bordo superiore */
     }
     
     .login-form {
+        order: 1; /* Sposta il form prima dell'immagine su mobile */
         padding: 30px;
+        border: 2px solid var(--colore-primario);
+        border-bottom: none; /* Rimuovi il bordo inferiore */
     }
 }
 
 @media (max-width: 480px) {
+    .login-content {
+        max-width: 100%;
+        border-radius: 0;
+    }
+    
     .login-form {
         padding: 25px 20px;
     }
     
     .login-form h1 {
         font-size: 1.8rem;
+        margin-bottom: 20px;
     }
 }

@@ -2,7 +2,7 @@
     <div class="header-container">
 
         <!-- Hamburger visibile solo su mobile -->
-        <button class="hamburger" id="hamburger">&#9776;</button>
+        <button type='button' class="hamburger" id="hamburger">&#9776;</button>
 
         <a href="/Delivery/User/home/" class="logo">
             <img src="/Smarty/Immagini/logo.png" alt="Logo">
@@ -31,5 +31,5 @@
         </div>
     </div>
 
-    <script src="/Smarty/Js/hemburger.js" defer></script>
+    <script src="/Smarty/Js/hamburger.js" defer></script>
 </header>

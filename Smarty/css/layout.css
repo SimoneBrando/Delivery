@@ -82,6 +82,7 @@ header {
     background-color: var(--colore-primario);
 }
 
+
 .user-actions {
     display: flex;
     gap: 15px;
@@ -320,5 +321,9 @@ footer {
     .storia-text p,
     .position-text p {
         font-size: 1rem;
+    }
+
+    .hamburger {
+        display: block;
     }
 }

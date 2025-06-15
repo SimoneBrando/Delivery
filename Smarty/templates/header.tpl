@@ -24,6 +24,10 @@
             <a href="/Delivery/User/showProfile" title="Profilo">
                 <i class="fas fa-user"></i>
             </a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Cambia tema">
+                <i class="fas fa-moon"></i>
+                <span class="toggle-text">Scuro</span>
+            </button>
         </div>
     </div>
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-14 19:28:51
+/* Smarty version 5.5.1, created on 2025-06-15 13:54:49
   from 'file:rider_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684db1532d4c94_14367718',
+  'unifunc' => 'content_684eb489ebd0a6_87042469',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c4b42d1af8bc8f5d9c6583cc9ebd8c6f45dd0d50' => 
     array (
       0 => 'rider_orders.tpl',
-      1 => 1749922121,
+      1 => 1749984639,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684db1532d4c94_14367718 (\Smarty\Template $_smarty_tpl) {
+function content_684eb489ebd0a6_87042469 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -130,6 +130,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 >
     <?php echo '<script'; ?>
  src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
 >
 </body>
 

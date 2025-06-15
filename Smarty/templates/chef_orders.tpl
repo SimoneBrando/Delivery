@@ -75,6 +75,7 @@
 
     <script src="/Smarty/js/orders.js"></script>
     <script src="/Smarty/js/hamburger.js"></script>
+    <script src="/Smarty/js/theme.js" defer></script>
 
 </body>
 

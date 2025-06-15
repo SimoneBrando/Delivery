@@ -100,6 +100,7 @@
     {include file="footer.tpl"}
 
     <script src="/Smarty/js/hamburger.js"></script>
+    <script src="/Smarty/js/theme.js" defer></script>
 
     {literal}
     <script>

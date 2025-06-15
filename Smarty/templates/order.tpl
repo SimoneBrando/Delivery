@@ -71,6 +71,7 @@
 
 
     <script src="/Smarty/js/hamburger.js"></script>
+    <script src="/Smarty/js/theme.js" defer></script>
 
 </body>
 

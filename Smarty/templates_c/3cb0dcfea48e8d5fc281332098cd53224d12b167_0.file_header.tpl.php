@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-13 12:05:29
+/* Smarty version 5.5.1, created on 2025-06-15 12:41:34
   from 'file:header.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684bf7e90272a3_15518315',
+  'unifunc' => 'content_684ea35eef4a98_09347301',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3cb0dcfea48e8d5fc281332098cd53224d12b167' => 
     array (
       0 => 'header.tpl',
-      1 => 1749809126,
+      1 => 1749984061,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_684bf7e90272a3_15518315 (\Smarty\Template $_smarty_tpl) {
+function content_684ea35eef4a98_09347301 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><header>
     <div class="header-container">
@@ -48,6 +48,10 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
             <a href="/Delivery/User/showProfile" title="Profilo">
                 <i class="fas fa-user"></i>
             </a>
+            <button id="theme-toggle" class="theme-toggle" aria-label="Cambia tema">
+                <i class="fas fa-moon"></i>
+                <span class="toggle-text">Scuro</span>
+            </button>
         </div>
     </div>
 

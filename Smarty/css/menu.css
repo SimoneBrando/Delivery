@@ -1,22 +1,20 @@
-/* Effetto di transizione fluida per l'indicatore attivo */
 .tabs {
     position: relative;
 }
 
-/* Offset per l'header fixed */
 section[id] {
     scroll-margin-top: 80px;
 }
 
 .menu-section {
-    background-color: white;
+    background-color: var(--colore-bianco);
     border-radius: 8px;
     padding: 30px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 10px var(--colore-ombra-leggera);
 }
 
 .menu-section h1 {
-    color: #046C6D;
+    color: var(--colore-primario);
     text-align: center;
     margin-bottom: 30px;
     font-size: 2.5rem;
@@ -27,14 +25,14 @@ section[id] {
 }
 
 .menu-category h2 {
-    color: #046C6D;
+    color: var(--colore-primario);
     font-size: 1.8rem;
     margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 10px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #f0f0f0;
+    border-bottom: 2px solid var(--colore-bordo);
 }
 
 .menu-items {
@@ -48,37 +46,39 @@ section[id] {
     justify-content: space-between;
     padding: 15px;
     border-radius: 8px;
+    background-color: var(--colore-bianco);
     transition: all 0.3s ease;
-    border: 1px solid #eee;
+    border: 1px solid var(--colore-bordo);
 }
 
 .menu-item:hover {
-    background-color: #f9f9f9;
+    background-color: var(--colore-ombra-leggera);
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    box-shadow: 0 5px 15px var(--colore-ombra-leggera);
 }
 
 .item-info h3 {
-    color: #333;
+    color: var(--colore-testo);
     margin-bottom: 5px;
     font-size: 1.2rem;
 }
 
 .item-info p {
-    color: #046C6D;
+    color: var(--colore-primario);
     font-size: 0.9rem;
     margin-top: 5px;
 }
 
 .item-price {
-    color: #046C6D;
+    color: var(--colore-primario);
     font-weight: bold;
     font-size: 1.1rem;
     white-space: nowrap;
     margin-left: 15px;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
-
+    .menu-items {
+        grid-template-columns: 1fr;
+    }
 }

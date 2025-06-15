@@ -329,7 +329,7 @@ class CUser{
 
     public static function showMyOrders(){
         $view = new VUser();
-        $id = 161;
+        $id = 10;
         $orders = FPersistentManager::getInstance()->getOrdersByClient($id);
         $view->showMyOrders($orders);
     }
@@ -353,6 +353,15 @@ class CUser{
             $view = new VUser();
             $view->showLoginForm();
         }
+    }
+
+    public static function showLoginForm(){
+        if(self::isLogged()){
+            header('Location: /Delivery/User/home');
+            exit;
+        }
+        $view = new VUser();
+        $view->showLoginForm();
     }
 
 }

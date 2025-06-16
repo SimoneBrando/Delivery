@@ -24,7 +24,7 @@
 
         <section class="form-container">
             <div class="form-card">
-                <form action="/Delivery/Proprietario/createCollaboratore" method="POST">
+                <form action="/Delivery/Proprietario/createEmployee" method="POST">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="nome">
@@ -65,8 +65,8 @@
                             </label>
                             <select id="ruolo" name="ruolo" required>
                                 <option value="">-- Seleziona un ruolo --</option>
-                                <option value="chef">Chef</option>
-                                <option value="rider">Rider</option>
+                                <option value="Cuoco">Cuoco</option>
+                                <option value="Rider">Rider</option>
                             </select>
                         </div>
 

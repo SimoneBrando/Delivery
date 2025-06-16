@@ -34,13 +34,6 @@ class CProprietario{
         return true;
     }
 
-    public function mostraMenu(){
-        if(CProprietario::isLogged()){
-            $view = new VProprietario();
-            $view -> mostraMenu();
-        }
-    }
-
     public function inserisciProdotto(){
         if(CProprietario::isLogged()){
             $prodotto = new EProdotto(UHTTPMethods::post('inserisci_prodotto'));

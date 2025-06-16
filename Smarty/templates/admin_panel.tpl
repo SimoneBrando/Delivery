@@ -35,14 +35,6 @@
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="/Delivery/Proprietario/showCreationForm" class="admin-section-card">
-                <div class="section-icon"><i class="fas fa-users-cog"></i></div>
-                <div class="section-content">
-                    <h2>Nuovi Dipendenti</h2>
-                    <p>Crea account per nuovi dipendenti</p>
-                </div>
-                <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
-            </a>
             <a href="/Delivery/Proprietario/showOrders" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-shopping-bag"></i></div>
                 <div class="section-content">

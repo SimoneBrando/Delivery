@@ -124,4 +124,39 @@ class CProprietario{
         $view = new VProprietario();
         $view -> showCreationForm();
     }
+
+    public function showReviews(){
+        $view = new VProprietario();
+        $allReviews = FPersistentManager::getInstance()->getAllReviews();
+
+        usort($allReviews, function($a, $b) { //ordina per data di creazione
+            return $b->getData() <=> $a->getData();
+        });
+        $view -> showReviews($allReviews);
+    }
+
+    public function showMenu(){
+        $view = new VProprietario();
+        $prodotti = FPersistentManager::getInstance()->getAllProducts();
+        $view -> showMenu($prodotti);
+    
+    }
+
+    public function showOrders(){
+        $view = new VProprietario();
+        $allOrders = FPersistentManager::getInstance()->getAllOrders();
+
+        usort($allOrders, function($a, $b) { //ordina per data di esecuzione
+            return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
+        });
+        
+        $view -> showOrders($allOrders);
+    }
+
+    public function showCreateAccount(){
+        $chefs = FPersistentManager::getInstance()->getAllChefs();
+        $riders= FPersistentManager::getInstance()->getAllRiders();
+        $view = new VProprietario();
+        $view -> showCreateAccount($chefs, $riders);
+    }
 }

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-15 16:32:56
+/* Smarty version 5.5.1, created on 2025-06-16 13:42:18
   from 'file:admin_panel.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684ed998506ce6_29451576',
+  'unifunc' => 'content_6850031a11b6b2_25922768',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '17e2a85164843040eb155618fab9eaed6d99c9e1' => 
     array (
       0 => 'admin_panel.tpl',
-      1 => 1749997973,
+      1 => 1750074130,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684ed998506ce6_29451576 (\Smarty\Template $_smarty_tpl) {
+function content_6850031a11b6b2_25922768 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -54,7 +54,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="gestione-menu.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showMenu" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-utensils"></i></div>
                 <div class="section-content">
                     <h2>Gestione Menu</h2>
@@ -62,7 +62,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="gestione-ordini.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showOrders" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-shopping-bag"></i></div>
                 <div class="section-content">
                     <h2>Gestione Ordini</h2>
@@ -70,7 +70,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="gestione-recensioni.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showReviews" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-star"></i></div>
                 <div class="section-content">
                     <h2>Recensioni</h2>
@@ -78,11 +78,11 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="impostazioni.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showCreateAccount" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-cog"></i></div>
                 <div class="section-content">
-                    <h2>Impostazioni</h2>
-                    <p>Configura il tuo ristorante e l'account</p>
+                    <h2>Gestione account</h2>
+                    <p>Configura gli account del tuo ristorante</p>
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>

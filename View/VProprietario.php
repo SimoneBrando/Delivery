@@ -26,6 +26,25 @@ class VProprietario{
         $this->smarty->display('admin_panel.tpl');
     }
 
+    public function showReviews($allReviews){
+        $this->smarty->assign('reviews', $allReviews);
+        $this->smarty->display('recensioni_admin.tpl');
+    }
 
+    public function showMenu($prodotti){
+        $this->smarty->assign('products', $prodotti);
+        $this->smarty->display('menu_admin.tpl');
+    }
+
+    public function showOrders($allOrders){
+        $this->smarty->assign('orders', $allOrders);
+        $this->smarty->display('admin_order.tpl');
+    }
+
+    public function showCreateAccount($chefs, $riders){
+        $this->smarty->assign('chefs', $chefs);
+        $this->smarty->assign('riders', $riders);
+        $this->smarty->display('create_account_admin.tpl');
+    }
 
 }

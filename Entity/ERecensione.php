@@ -59,6 +59,11 @@ class ERecensione{
         return $this->orario;
     }
 
+    public function getCliente() : EUtente
+    {
+        return $this->cliente;
+    }
+
     //Setter
 
     public function setDescrizione($descrizione) : ERecensione{

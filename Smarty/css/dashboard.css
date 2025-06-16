@@ -1,6 +1,5 @@
-/* Stile specifico per la Dashboard Admin */
 .admin-header {
-    background-color: #035050; /* Colore più scuro per distinguere l'area admin */
+    background-color: #035050; 
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -65,9 +64,6 @@
     background-color: #046C6D;
     border-color: #046C6D;
 }
-
-
-
 
 /* Stat Cards */
 .stats-grid {

@@ -1,26 +1,28 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-12 16:07:10
+/* Smarty version 5.5.1, created on 2025-06-16 10:46:33
   from 'file:login.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684adf0e2bc827_27162657',
+  'unifunc' => 'content_684fd9e9538233_21388979',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '55ae4b4420fd16b87a0b205e02129a0a1c7942d5' => 
     array (
       0 => 'login.tpl',
-      1 => 1749736980,
+      1 => 1750063531,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:header.tpl' => 1,
+    'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684adf0e2bc827_27162657 (\Smarty\Template $_smarty_tpl) {
+function content_684fd9e9538233_21388979 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -31,13 +33,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <link rel="stylesheet" href="/Smarty/css/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
-    <?php echo '<script'; ?>
- src="/Smarty/Js/loadComponents.js" defer><?php echo '</script'; ?>
->
 </head>
 <body>
     <!-- Header -->
-    <div id="header-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <!-- Main Section -->   
     <main>
@@ -103,7 +103,15 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     </main>
 
     <!-- Footer -->
-    <div id="footer-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+>
 </body>
 </html>
 <?php }

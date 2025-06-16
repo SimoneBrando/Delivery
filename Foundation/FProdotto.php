@@ -20,4 +20,5 @@ class FProdotto
     public static function getAllProducts(): array{
         return FEntityManager::getInstance()->getAll(EProdotto::class);
     }
+
 }

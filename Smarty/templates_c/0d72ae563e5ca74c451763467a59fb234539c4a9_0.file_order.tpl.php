@@ -1,26 +1,28 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-12 15:35:46
+/* Smarty version 5.5.1, created on 2025-06-16 10:47:01
   from 'file:order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684ad7b24bad10_37628710',
+  'unifunc' => 'content_684fda05e4f027_01271864',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0d72ae563e5ca74c451763467a59fb234539c4a9' => 
     array (
       0 => 'order.tpl',
-      1 => 1749735343,
+      1 => 1750063531,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:header.tpl' => 1,
+    'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684ad7b24bad10_37628710 (\Smarty\Template $_smarty_tpl) {
+function content_684fda05e4f027_01271864 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -31,12 +33,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <link rel="stylesheet" href="/Smarty/css/order.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link rel="stylesheet" href="/Smarty/css/layout.css" />
-    <?php echo '<script'; ?>
- src="/SMarty/Js/loadComponents.js" defer><?php echo '</script'; ?>
->
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <main>
         <section class="hero">
@@ -103,7 +103,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         <h2>Il tuo ordine</h2>
         <ul id="cart-items"></ul>
         <p id="cart-total">Totale: €0.00</p>
-        <a href="checkout.tpl">Prosegui</a>
+        <a href="checkout.html"><button>Prosegui</button></a>
     </div>
 
     <div id="product-modal" class="modal hidden">
@@ -113,7 +113,16 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         </div>
     </div>
 
-    <div id="footer-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
+
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+>
 
 </body>
 

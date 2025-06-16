@@ -4,6 +4,9 @@ namespace Foundation;
 use Entity\ECliente;
 use Entity\EIndirizzo;
 use Entity\EUtente;
+use Entity\ECarrello;
+use Entity\EProdotto;
+use Entity\EItemCarrello;
 use Exception;
 
 class FPersistentManager
@@ -122,7 +125,7 @@ class FPersistentManager
     {
         return FCuoco::getAllChefs();
     }
-// <-----------------------CLIENT------------------->
+    // <-----------------------CLIENT------------------->
 
     /**
      * @throws Exception
@@ -208,6 +211,7 @@ class FPersistentManager
         return FOrdine::getDailyOrders($time);
     }
 
+
     //<----------------------PRODUCT------------------------>//
 
     /**
@@ -218,6 +222,8 @@ class FPersistentManager
     public static function getAllProducts(): array{
         return FProdotto::getAllProducts();
     }
+
+
 
     //<-------------------------CREDIT CARD------------------------->//
 
@@ -241,4 +247,48 @@ class FPersistentManager
     public static function getMenu(){
         return FElenco_prodotti::getMenu();
     }
+
+    //<----------------------CART------------------------>//
+
+    /**
+     * Method to get a client's cart from his ID
+     * @param $clientId
+     * @return ECarrello|null
+     * @throws Exception
+     */
+    public static function getCartByClientId($clientId): ?ECarrello
+    {
+        $clientId = FEntityManager::getInstance()->getObj(ECarrello::class, $clientId)->getId();
+        return FCarrello::getCartByClientId($clientId);
+    }
+    //<----------------------ITEM CART------------------------>//
+
+    /**
+     * method to add an item to the cart. If is already into the cart, it decreases the quantity
+     * @param int $cartId
+     * @param EItemCarrello $item
+     * @return void
+     * @throws Exception
+     */
+    public static function addOrUpdateItemToCart(int $cartId, EItemCarrello $item): void
+    {
+        $cart = FEntityManager::getInstance()->getObj(ECarrello::class, $cartId);
+        FCarrello::addOrUpdateItemToCart($cart, $item);
+    }
+
+    /**
+     * Method to remove an item from the cart. If the quantity of item to remove is equal to the actual, it deletes
+     * the item. Else it decreseases the quantity
+     * @param int $cartId
+     * @param EItemCarrello $item
+     * @return void
+     * @throws Exception
+     */
+    public static function removeOrUpdateItemFromCart(int $cartId, EItemCarrello $item): void
+    {
+        $cart = FEntityManager::getInstance()->getObj(ECarrello::class, $cartId);
+        FCarrello::removeOrUpdateItemFromCart($cartId, $item);
+    }
+
+
 }

@@ -44,6 +44,11 @@ class ECliente extends EUtente{
      */
     private $recensioni;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Entity\ECarrello", mappedBy="cliente", cascade={"persist", "remove"})
+     */
+    private $carrelli;
+
     public function __construct() {
         parent::__construct();
     }

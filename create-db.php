@@ -16,6 +16,8 @@ use Entity\ERider;
 use Entity\ECuoco;
 use Entity\ECategoria;
 use Entity\EElenco_prodotti;
+use Entity\ECarrello;
+use Entity\EItemCarrello;
 
 try {
     $dbAuth = getAuthDb(); // Connessione al database auth_db
@@ -48,6 +50,8 @@ $classes = [
     $entityManager->getClassMetadata(ECuoco::class),
     $entityManager->getClassMetadata(ECategoria::class),
     $entityManager->getClassMetadata(EElenco_prodotti::class),
+    $entityManager->getClassMetadata(ECarrello::class),
+    $entityManager->getClassMetadata(EItemCarrello::class),
 
 ];
 

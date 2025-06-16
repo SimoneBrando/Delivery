@@ -38,7 +38,7 @@ class CUser{
         $view->showRegisterForm();
     }
 
-    public function registerUser(){
+    public function registerUser(string $role = 'Cliente', array $extraData = []){
         $password = UHTTPMethods::post('password');
         $email = UHTTPMethods::post('email');
         $name = UHTTPMethods::post('nome');
@@ -53,14 +53,23 @@ class CUser{
                 username: $email,
                 callback: null
             );
-
-            $profile = new ECliente();
+            $className = "Entity\\E" . ucfirst(strtolower($role));
+            if (class_exists($className)) {
+                $profile = new $className();
+            } else {
+                throw new Exception("Classe $className non trovata");
+            }
             $profile
                 ->setNome($name)
                 ->setCognome($surname)
                 ->setUserId($userId)
                 ->setEmail($email)
                 ->setPassword($password);
+            foreach ($extraData as $method => $value) {
+                if (method_exists($profile, $method)) {
+                    $profile->$method($value);
+                }
+            }
             FPersistentManager::getInstance()->saveObj($profile);
             header('Location: /Delivery/User/home');
         } catch (\Delight\Auth\InvalidEmailException $e) {

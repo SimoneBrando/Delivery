@@ -7,7 +7,7 @@ use Exception;
 
 require_once 'FPersistentManager.php';
 require_once 'FEntityManager.php';
-require_once __DIR__ . '\..\Entity\EProdotto.php';
+require_once __DIR__ . '/../Entity/EProdotto.php';
 
 class FProdotto
 {

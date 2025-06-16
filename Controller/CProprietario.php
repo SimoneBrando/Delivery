@@ -3,9 +3,15 @@
 use Foundation\FPersistentManager;
 use View\VProprietario;
 use Utility\UHTTPMethods;
+use Services\Utility\UCookie;
+use Services\Utility\USession;
+use Entity\EProdotto;
+
 
 require_once __DIR__ . '/../View/VProprietario.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
+require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
+require_once __DIR__ . '/CUser.php';
 
 class CProprietario{
 
@@ -26,13 +32,6 @@ class CProprietario{
                 exit;
             }
         return true;
-    }
-
-    public function mostraMenu(){
-        if(CProprietario::isLogged()){
-            $view = new VProprietario();
-            $view -> mostraMenu();
-        }
     }
 
     public function inserisciProdotto(){
@@ -94,5 +93,63 @@ class CProprietario{
         $numeroClienti = count($numeroClienti);
 
         $view -> showPanel($orders, $ordiniSettimana, $totaleSettimana, $numeroClienti);
+    }
+
+    public function createEmployee() {
+        $role = UHTTPMethods::post('ruolo');
+        $extraData = [];
+        if ($role === 'Cuoco') {
+            $codiceCuoco = 'CUOCO-'. strtoupper(substr(bin2hex(random_bytes(2)), 0, 4));
+            $extraData = ['setCodiceCuoco' => $codiceCuoco];
+        } elseif ($role === 'Rider') {
+            $codiceRider = 'RIDER-' . strtoupper(substr(bin2hex(random_bytes(2)), 0, 4));
+            $extraData = ['setCodiceRider' => $codiceRider];
+        }
+        try {
+            $user = new CUser();
+            $user->registerUser($role, $extraData);
+        } catch (Exception $e) {
+            die('Unknown error');
+        }
+    }
+
+    public function showCreationForm(){
+        $view = new VProprietario();
+        $view -> showCreationForm();
+    }
+
+    public function showReviews(){
+        $view = new VProprietario();
+        $allReviews = FPersistentManager::getInstance()->getAllReviews();
+
+        usort($allReviews, function($a, $b) { //ordina per data di creazione
+            return $b->getData() <=> $a->getData();
+        });
+        $view -> showReviews($allReviews);
+    }
+
+    public function showMenu(){
+        $view = new VProprietario();
+        $prodotti = FPersistentManager::getInstance()->getAllProducts();
+        $view -> showMenu($prodotti);
+    
+    }
+
+    public function showOrders(){
+        $view = new VProprietario();
+        $allOrders = FPersistentManager::getInstance()->getAllOrders();
+
+        usort($allOrders, function($a, $b) { //ordina per data di esecuzione
+            return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
+        });
+        
+        $view -> showOrders($allOrders);
+    }
+
+    public function showCreateAccount(){
+        $chefs = FPersistentManager::getInstance()->getAllChefs();
+        $riders= FPersistentManager::getInstance()->getAllRiders();
+        $view = new VProprietario();
+        $view -> showCreateAccount($chefs, $riders);
     }
 }

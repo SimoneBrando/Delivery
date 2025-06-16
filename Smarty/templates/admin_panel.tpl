@@ -27,7 +27,7 @@
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="gestione-menu.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showMenu" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-utensils"></i></div>
                 <div class="section-content">
                     <h2>Gestione Menu</h2>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="gestione-ordini.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showOrders" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-shopping-bag"></i></div>
                 <div class="section-content">
                     <h2>Gestione Ordini</h2>
@@ -43,7 +43,7 @@
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="gestione-recensioni.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showReviews" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-star"></i></div>
                 <div class="section-content">
                     <h2>Recensioni</h2>
@@ -51,11 +51,11 @@
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
-            <a href="impostazioni.html" class="admin-section-card">
+            <a href="/Delivery/Proprietario/showCreateAccount" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-cog"></i></div>
                 <div class="section-content">
-                    <h2>Impostazioni</h2>
-                    <p>Configura il tuo ristorante e l'account</p>
+                    <h2>Gestione account</h2>
+                    <p>Configura gli account del tuo ristorante</p>
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>

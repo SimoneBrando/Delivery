@@ -18,6 +18,10 @@ class VProprietario{
         $this->smarty->display('dashboard.tpl');
     }
 
+    public function showCreationForm(){
+        $this->smarty->display('create_employee.tpl');
+    }
+
     public function showPanel($orders, $ordiniSettimana, $totaleSettimana, $numeroClienti){
         $this->smarty->assign('ordiniSettimana', $ordiniSettimana);
         $this->smarty->assign('totaleSettimana', $totaleSettimana);
@@ -25,6 +29,8 @@ class VProprietario{
         $this->smarty->assign('orders',$orders);
         $this->smarty->display('admin_panel.tpl');
     }
+
+    public function mostraMenu(){}
 
 
 

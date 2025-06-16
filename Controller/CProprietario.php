@@ -3,9 +3,15 @@
 use Foundation\FPersistentManager;
 use View\VProprietario;
 use Utility\UHTTPMethods;
+use Services\Utility\UCookie;
+use Services\Utility\USession;
+use Entity\EProdotto;
+
 
 require_once __DIR__ . '/../View/VProprietario.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
+require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
+require_once __DIR__ . '/CUser.php';
 
 class CProprietario{
 
@@ -94,5 +100,28 @@ class CProprietario{
         $numeroClienti = count($numeroClienti);
 
         $view -> showPanel($orders, $ordiniSettimana, $totaleSettimana, $numeroClienti);
+    }
+
+    public function createEmployee() {
+        $role = UHTTPMethods::post('ruolo');
+        $extraData = [];
+        if ($role === 'Cuoco') {
+            $codiceCuoco = 'CUOCO-'. strtoupper(substr(bin2hex(random_bytes(2)), 0, 4));
+            $extraData = ['setCodiceCuoco' => $codiceCuoco];
+        } elseif ($role === 'Rider') {
+            $codiceRider = 'RIDER-' . strtoupper(substr(bin2hex(random_bytes(2)), 0, 4));
+            $extraData = ['setCodiceRider' => $codiceRider];
+        }
+        try {
+            $user = new CUser();
+            $user->registerUser($role, $extraData);
+        } catch (Exception $e) {
+            die('Unknown error');
+        }
+    }
+
+    public function showCreationForm(){
+        $view = new VProprietario();
+        $view -> showCreationForm();
     }
 }

@@ -122,8 +122,10 @@ class CUser{
             header('Location: /Delivery/User/home');
             exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
+            $this->showLoginForm();
             die('Wrong email address');
         } catch (\Delight\Auth\InvalidPasswordException $e) {
+            $this->showLoginForm();
             die('Wrong password');
         } catch (\Delight\Auth\EmailNotVerifiedException $e) {
             die('Email not verified');
@@ -284,6 +286,28 @@ class CUser{
         } catch (ORMException $e) {
             die("ORM Exception");
         }
+    }
+
+    public function removeAccount(string $userId) {
+        try{
+        $this->auth_manager->admin()->deleteUserById($userId);
+        $user = $this->entity_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
+        $this->entity_manager->deleteObj($user);
+        } catch (\Delight\Auth\UnknownIdException $e) {
+            die('Unknown ID');
+        } catch (\Exception $e) {
+            die ("Unknown exception $e");
+        }
+    }
+    public function deleteAccount(){
+        if (!($this->isLogged())){
+            header("Location: /Delivery/User/home");
+            exit;
+        }
+        $userId = USession::getSessionElement('user');
+        $this->logoutUser();
+        $this->removeAccount($userId);
+        header("Location: /Delivery/User/home");
     }
 
     public function isLoggedIn(): bool{

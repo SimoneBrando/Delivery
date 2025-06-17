@@ -75,6 +75,9 @@
                 <a href="/Delivery/User/logoutUser/" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
+                <a href="/Delivery/User/deleteAccount/" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Delete Account
+                </a>
             </div>
         </section>
 

@@ -113,6 +113,13 @@ class CProprietario{
         }
     }
 
+    public function deleteEmployee() {
+        $employeeId = UHTTPMethods::post('employeeId');
+        $user = new CUser();
+        $user->removeAccount($employeeId);
+        $this->showCreateAccount();
+    }
+
     public function showCreationForm(){
         $view = new VProprietario();
         $view -> showCreationForm();

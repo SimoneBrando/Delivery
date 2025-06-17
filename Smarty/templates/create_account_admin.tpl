@@ -103,8 +103,8 @@
                                         <button class="btn btn-edit" data-id="{$chef->getId()}">
                                             <i class="fas fa-edit"></i> Modifica
                                         </button>
-                                        <form action="/Delivery/Proprietario/METODOELIMINAPERSONALE" method="POST" class="inline-form">
-                                            <input type="hidden" name="user_id" value="{$chef->getId()}">
+                                        <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
+                                            <input type="hidden" name="employeeId" value="{$chef->getUserId()}">
                                             <button type="submit" class="btn btn-delete">
                                                 <i class="fas fa-trash-alt"></i> Elimina
                                             </button>
@@ -143,8 +143,8 @@
                                         <button class="btn btn-edit" data-id="{$rider->getId()}">
                                             <i class="fas fa-edit"></i> Modifica
                                         </button>
-                                        <form action="/Delivery/Proprietario/deleteCollaboratore" method="POST" class="inline-form">
-                                            <input type="hidden" name="user_id" value="{$rider->getId()}">
+                                        <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
+                                            <input type="hidden" name="employeeId" value="{$rider->getUserId()}">
                                             <button type="submit" class="btn btn-delete">
                                                 <i class="fas fa-trash-alt"></i> Elimina
                                             </button>

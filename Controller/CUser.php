@@ -278,7 +278,6 @@ class CUser extends BaseController{
     }
 
     public function removeAccount(string $userId = "") {
-        $this->requireLogin();
         try{
             $this->auth_manager->admin()->deleteUserById($userId);
             $user = $this->persistent_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);

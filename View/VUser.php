@@ -2,6 +2,9 @@
 
 namespace View;
 
+use CUser;
+require_once __DIR__ . '/../Controller/CUser.php';
+
 class VUser{
 
     private $smarty;
@@ -14,7 +17,7 @@ class VUser{
     }
 
     public function assignCommonVars() {
-        $this->smarty->assign('logged', \CUser::isLogged());
+        $this->smarty->assign('logged', CUser::isLogged());
     }
 
     public function showMenu($menu){

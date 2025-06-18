@@ -17,32 +17,32 @@ require_once __DIR__ . '/CUser.php';
 class CProprietario extends BaseController {
 
     public function inserisciProdotto(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $prodotto = new EProdotto(UHTTPMethods::post('inserisci_prodotto'));
         $this->persistent_manager->saveObj($prodotto);
     }
 
     public function modificaProdotto(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $prodotto = new EProdotto(UHTTPMethods::post('modifica_prodotto'));
         $this->persistent_manager->updateObj($prodotto);
     }
 
     public function eliminaProdotto(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $prodotto = UHTTPMethods::post('elimina_prodotto');
         $this->persistent_manager->deleteObj($prodotto);
     }
 
     public function showDashboard(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $view = new VProprietario();
         $view -> showDashboard();
         
     }
 
     public function showPanel(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $view = new VProprietario();
         $allOrders = $this->persistent_manager->getAllOrders();
 
@@ -73,7 +73,7 @@ class CProprietario extends BaseController {
     }
 
     public function createEmployee() {
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $role = UHTTPMethods::post('ruolo');
         $extraData = [];
         if ($role === 'Cuoco') {
@@ -92,7 +92,7 @@ class CProprietario extends BaseController {
     }
 
     public function deleteEmployee() {
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $employeeId = UHTTPMethods::post('employeeId');
         $user = new CUser();
         $user->removeAccount($employeeId);
@@ -100,13 +100,13 @@ class CProprietario extends BaseController {
     }
 
     public function showCreationForm(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $view = new VProprietario();
         $view -> showCreationForm();
     }
 
     public function showReviews(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $view = new VProprietario();
         $allReviews = $this->persistent_manager->getAllReviews();
 
@@ -117,7 +117,7 @@ class CProprietario extends BaseController {
     }
 
     public function showMenu(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $view = new VProprietario();
         $prodotti = $this->persistent_manager->getAllProducts();
         $view -> showMenu($prodotti);
@@ -125,7 +125,7 @@ class CProprietario extends BaseController {
     }
 
     public function showOrders(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $view = new VProprietario();
         $allOrders = $this->persistent_manager->getAllOrders();
 
@@ -137,7 +137,7 @@ class CProprietario extends BaseController {
     }
 
     public function showCreateAccount(){
-        $this->requireRole('admin');
+        $this->requireRole('proprietario');
         $chefs = $this->persistent_manager->getAllChefs();
         $riders= $this->persistent_manager->getAllRiders();
         $view = new VProprietario();

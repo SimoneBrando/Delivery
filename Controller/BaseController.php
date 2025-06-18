@@ -27,7 +27,7 @@ abstract class BaseController{
     public function __construct() {
         $this->persistent_manager = FPersistentManager::getInstance();
         $this->auth_manager = getAuth();
-        $this->validRoles = ['cliente', 'cuoco', 'rider', 'admin'];
+        $this->validRoles = ['cliente', 'cuoco', 'rider', 'proprietario'];
     }
 
     public function requireLogin() {

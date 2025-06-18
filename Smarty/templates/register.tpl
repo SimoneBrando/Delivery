@@ -73,18 +73,6 @@
                         </div>
                         
                         <div class="form-group">
-                            <label for="role">Ruolo</label>
-                            <input 
-                                type="tel" 
-                                id="role" 
-                                name="role"  
-                                required 
-                                value="{$phone|default:'cliente'|escape:'html'}"
-                            >
-                            <small>Inserisci cliente per prova</small>
-                        </div>
-                        
-                        <div class="form-group">
                             <button type="submit" class="btn">Registrati</button>
                         </div>
                         <div class="form-group">

@@ -16,7 +16,8 @@ use Doctrine\Common\Collections\Collection;
  * @ORM\DiscriminatorMap({
  *     "cliente" = "Entity\ECliente",
  *     "rider" = "Entity\ERider",
- *     "cuoco" = "Entity\ECuoco"
+ *     "cuoco" = "Entity\ECuoco",
+ *     "admin" = "Entity\EProprietario"
  * })
  */
 class EUtente

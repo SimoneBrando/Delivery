@@ -1,9 +1,10 @@
 
 <?php
-require_once "bootstrap.php"; // ⬅️ ora assegniamo ciò che bootstrap.php ritorna
+require_once "bootstrap.php";
 
 
 use Doctrine\ORM\Tools\SchemaTool;
+use Entity\EProprietario;
 use Entity\EUtente;
 use Entity\EOrdine;
 use Entity\EProdotto;
@@ -52,6 +53,7 @@ $classes = [
     $entityManager->getClassMetadata(EElenco_prodotti::class),
     $entityManager->getClassMetadata(ECarrello::class),
     $entityManager->getClassMetadata(EItemCarrello::class),
+    $entityManager->getClassMetadata(EProprietario::class),
 
 ];
 

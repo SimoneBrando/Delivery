@@ -1,17 +1,15 @@
 <?php
 
-use Delight\Auth\Auth;
+use Controller\BaseController;
 use Doctrine\ORM\Exception\ORMException;
-use Entity\ECliente;
 use Entity\EUtente;
-use Foundation\FPersistentManager;
 use View\VUser;
 use Services\Utility\USession;
-use Services\Utility\UCookie;
 use Utility\UHTTPMethods;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../View/VUser.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
 require_once __DIR__ . '/../Entity/ECliente.php';
@@ -20,18 +18,10 @@ require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
 require_once __DIR__ . '/../services/utility/USession.php';
 require_once __DIR__ . '/../services/utility/UCookie.php';
 
-class CUser{
-
-    public Auth $auth_manager;
-    private FPersistentManager $entity_manager;
-
-    public function __construct() {
-        $this->entity_manager = FPersistentManager::getInstance();
-        $this->auth_manager = getAuth();
-    }
+class CUser extends BaseController{
 
     public function showRegisterForm(){
-        if($this->isLogged()){
+        if($this->isLoggedIn()){
             header('Location: /Delivery/User/home');
         }
         $view = new VUser();
@@ -70,7 +60,7 @@ class CUser{
                     $profile->$method($value);
                 }
             }
-            FPersistentManager::getInstance()->saveObj($profile);
+            $this->persistent_manager->saveObj($profile);
             header('Location: /Delivery/User/home');
         } catch (\Delight\Auth\InvalidEmailException $e) {
             die('Invalid email address');
@@ -116,8 +106,7 @@ class CUser{
                 $duration = 60*60*24;
             }
             $this->auth_manager->login($email, $password, $duration);
-            $userId = $this->auth_manager->getUserId();
-            $profile = $this->entity_manager->getObjOnAttribute(EUtente::class, 'user_id', $userId);
+            $profile = $this->getUser();
             USession::setSessionElement("user", $profile->getId());
             header('Location: /Delivery/User/home');
             exit;
@@ -132,7 +121,7 @@ class CUser{
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
         } catch (\Delight\Auth\AttemptCancelledException|\Delight\Auth\AuthError $e) {
-            die('An error occurred');
+            $this->handleFatalError();
         }
     }
 
@@ -206,10 +195,10 @@ class CUser{
             $this->auth_manager->resetPasswordAndSignIn($selector, $token, $newPassword);
             echo 'Password has been reset';
             $userId= $this->auth_manager->getUserId(); //recupero userId dell'utente che si è appena loggato cambiando password
-            $client = $this->entity_manager->getObjOnAttribute("Cliente","user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
+            $client = $this->persistent_manager->getObjOnAttribute("Cliente","user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
             $oldPassword = $client->getPassword(); //recupero la vecchia password del Cliente (al fine di eseguire un rollback manuale se necessario)
             $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
-            $this->entity_manager->updateObj($client); //salvataggio sul database
+            $this->persistent_manager->updateObj($client); //salvataggio sul database
         }
         catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
             die('Invalid token');
@@ -248,9 +237,9 @@ class CUser{
             $this->auth_manager->changePassword($oldPassword,$newPassword);
             echo 'Password has been changed';
             $userId= $this->auth_manager->getUserId(); //recupero userId dell'utente loggato
-            $client = $this->entity_manager->getObjOnAttribute(EUtente::class,"user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
+            $client = $this->persistent_manager->getObjOnAttribute(EUtente::class,"user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
             $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
-            $this->entity_manager->updateObj($client); //salvataggio sul database
+            $this->persistent_manager->updateObj($client); //salvataggio sul database
             header("/Delivery/User/home");
         } catch (\Delight\Auth\NotLoggedInException $e) {
             die('Not logged in');
@@ -274,29 +263,32 @@ class CUser{
     }
 
     public function modifyProfile(){
+        $this->requireLogin();
         $newName = UHTTPMethods::post('newName');
         $newSurname = UHTTPMethods::post('newSurname');
-        $userId = USession::getSessionElement('user');
         try {
-            $user = $this->entity_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
+            $user = $this->getUser();
             $user->setNome($newName)
                 ->setCognome($newSurname);
-            $this->entity_manager->updateObj($user);
+            $this->persistent_manager->updateObj($user);
             header("Location: /Delivery/User/showChangePassword");
         } catch (ORMException $e) {
             die("ORM Exception");
         }
     }
 
-    public function removeAccount(string $userId) {
+    public function removeAccount(string $userId = "") {
+        $this->requireLogin();
         try{
-        $this->auth_manager->admin()->deleteUserById($userId);
-        $user = $this->entity_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
-        $this->entity_manager->deleteObj($user);
+            $this->auth_manager->admin()->deleteUserById($userId);
+            $user = $this->persistent_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
+            $this->persistent_manager->deleteObj($user);
         } catch (\Delight\Auth\UnknownIdException $e) {
             die('Unknown ID');
         } catch (\Exception $e) {
             die ("Unknown exception $e");
+        } catch (\ArgumentCountError $e) {
+            die ("Argument passed not valid");
         }
     }
     public function deleteAccount(){
@@ -310,86 +302,51 @@ class CUser{
         header("Location: /Delivery/User/home");
     }
 
-    public function isLoggedIn(): bool{
-        return $this->auth_manager->isLoggedIn();
-    }
-    //Capire quale funzione è più corretta
-    public static function isLogged(){
-        $logged = false;
-        if(UCookie::isSet('PHPSESSID')){
-            if(session_status() == PHP_SESSION_NONE){
-                USession::getInstance();
-            }
-        }
-        if(USession::isSetSessionElement('user')){
-            $logged = true;
-        }
-        return $logged;
-    }
-
-
-    public static function showMenu(){
+    public function mostraMenu(){
         $view = new VUser();
-        $classe = 'EElenco_prodotti';
-        $id = 0;
-        $menu = 'ciao';
+        $menu = $this->persistent_manager->getMenu();
         $view->showMenu($menu);
     }
 
-    public static function mostraMenu(){
+    public function home(){
         $view = new VUser();
-        $menu = FPersistentManager::getInstance()->getMenu();
-        $view->showMenu($menu);
-    }
-
-    public static function home(){
-        $view = new VUser();
-        $allReviews = FPersistentManager::getInstance()->getAllReviews();
+        $allReviews = $this->persistent_manager->getAllReviews();
         shuffle($allReviews);
         $reviews = array_slice($allReviews, 0, 3);
         $view->showHome($reviews);
     }
 
-    public static function order(){
+    public function order(){
+        $this->requireRole('cliente');
         $view = new VUser();
-        if (self::isLogged()) {
-            $menu = FPersistentManager::getInstance()->getMenu();
-            $view->order($menu);
-        }else {
-            $view->showLoginForm();
-        }
+        $menu = $this->persistent_manager->getMenu();
+        $view->order($menu);
     }
 
-    public static function showMyOrders(){
+    public function showMyOrders(){
+        $this->requireRole('cliente');
         $view = new VUser();
-        $id = 10;
-        $orders = FPersistentManager::getInstance()->getOrdersByClient($id);
+        $id = $this->getUser()->getId();
+        $orders = $this->persistent_manager->getOrdersByClient($id);
         $view->showMyOrders($orders);
     }
 
     public function showChangePassword() {
-        if(!($this->isLogged())) {
-            header("Location: /Delivery/User/home");
-            exit;
-        }
-        $userId = USession::getSessionElement('user');;
-        $user = $this->entity_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
+        $this->requireLogin();
+        $user = $this->getUser();
         $view = new VUser();
         $view->showChangePassword($user);
     }
 
-    public static function showProfile(){
-        if (self::isLogged()) {
-            header("Location: /Delivery/User/showChangePassword");
-            exit;
-        }else {
-            $view = new VUser();
-            $view->showLoginForm();
-        }
+    public function showProfile(){
+        $this->requireLogin();
+        $user = $this->getUser();
+        $view = new VUser();
+        $view->showChangePassword($user);
     }
 
-    public static function showLoginForm(){
-        if(self::isLogged()){
+    public function showLoginForm(){
+        if($this->isLoggedIn()){
             header('Location: /Delivery/User/home');
             exit;
         }

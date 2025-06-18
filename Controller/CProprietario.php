@@ -1,5 +1,6 @@
 <?php 
 
+use Controller\BaseController;
 use Foundation\FPersistentManager;
 use View\VProprietario;
 use Utility\UHTTPMethods;
@@ -7,67 +8,43 @@ use Services\Utility\UCookie;
 use Services\Utility\USession;
 use Entity\EProdotto;
 
-
+require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../View/VProprietario.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
 require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
 require_once __DIR__ . '/CUser.php';
 
-class CProprietario{
-
-    public function isLogged(){
-
-        $logged = false;
-        
-        if(UCookie::isSet('PHPSESSID')){
-                if(session_status() == PHP_SESSION_NONE){
-                    USession::getInstance();
-                }
-            }
-            if(USession::isSetSessionElement('proprietario')){
-                $logged = true;
-            }
-            if(!$logged){
-                header('Location: /Delivery/User/login');
-                exit;
-            }
-        return true;
-    }
+class CProprietario extends BaseController {
 
     public function inserisciProdotto(){
-        if(CProprietario::isLogged()){
-            $prodotto = new EProdotto(UHTTPMethods::post('inserisci_prodotto'));
-            FPersistentManager::getInstance()->salvaObj($prodotto);
-        }
+        $this->requireRole('admin');
+        $prodotto = new EProdotto(UHTTPMethods::post('inserisci_prodotto'));
+        $this->persistent_manager->saveObj($prodotto);
     }
 
     public function modificaProdotto(){
-        if(CProprietario::isLogged()){
-            $prodotto = new EProdotto(UHTTPMethods::post('modifica_prodotto'));
-            FPersistentManager::getInstance()->updateObj($prodotto);
-        }
+        $this->requireRole('admin');
+        $prodotto = new EProdotto(UHTTPMethods::post('modifica_prodotto'));
+        $this->persistent_manager->updateObj($prodotto);
     }
 
     public function eliminaProdotto(){
-        if(CProprietario::isLogged()){
-            $prodotto = UHTTPMethods::post('elimina_prodotto');
-            FPersistentManager::getInstance()->eliminaObj($prodotto);
-        }
+        $this->requireRole('admin');
+        $prodotto = UHTTPMethods::post('elimina_prodotto');
+        $this->persistent_manager->deleteObj($prodotto);
     }
 
     public function showDashboard(){
-
-        ini_set('display_startup_errors', 1);
-        ini_set('display_errors', 1);
-        error_reporting(E_ALL);
+        $this->requireRole('admin');
         $view = new VProprietario();
         $view -> showDashboard();
         
     }
 
     public function showPanel(){
+        $this->requireRole('admin');
         $view = new VProprietario();
-        $allOrders = FPersistentManager::getInstance()->getAllOrders();
+        $allOrders = $this->persistent_manager->getAllOrders();
 
         usort($allOrders, function($a, $b) { //ordina per data di esecuzione
             return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
@@ -89,13 +66,14 @@ class CProprietario{
             }
         }
 
-        $numeroClienti = FPersistentManager::getInstance()->getAllClients();
+        $numeroClienti = $this->persistent_manager->getAllClients();
         $numeroClienti = count($numeroClienti);
 
         $view -> showPanel($orders, $ordiniSettimana, $totaleSettimana, $numeroClienti);
     }
 
     public function createEmployee() {
+        $this->requireRole('admin');
         $role = UHTTPMethods::post('ruolo');
         $extraData = [];
         if ($role === 'Cuoco') {
@@ -114,6 +92,7 @@ class CProprietario{
     }
 
     public function deleteEmployee() {
+        $this->requireRole('admin');
         $employeeId = UHTTPMethods::post('employeeId');
         $user = new CUser();
         $user->removeAccount($employeeId);
@@ -121,13 +100,15 @@ class CProprietario{
     }
 
     public function showCreationForm(){
+        $this->requireRole('admin');
         $view = new VProprietario();
         $view -> showCreationForm();
     }
 
     public function showReviews(){
+        $this->requireRole('admin');
         $view = new VProprietario();
-        $allReviews = FPersistentManager::getInstance()->getAllReviews();
+        $allReviews = $this->persistent_manager->getAllReviews();
 
         usort($allReviews, function($a, $b) { //ordina per data di creazione
             return $b->getData() <=> $a->getData();
@@ -136,15 +117,17 @@ class CProprietario{
     }
 
     public function showMenu(){
+        $this->requireRole('admin');
         $view = new VProprietario();
-        $prodotti = FPersistentManager::getInstance()->getAllProducts();
+        $prodotti = $this->persistent_manager->getAllProducts();
         $view -> showMenu($prodotti);
     
     }
 
     public function showOrders(){
+        $this->requireRole('admin');
         $view = new VProprietario();
-        $allOrders = FPersistentManager::getInstance()->getAllOrders();
+        $allOrders = $this->persistent_manager->getAllOrders();
 
         usort($allOrders, function($a, $b) { //ordina per data di esecuzione
             return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
@@ -154,8 +137,9 @@ class CProprietario{
     }
 
     public function showCreateAccount(){
-        $chefs = FPersistentManager::getInstance()->getAllChefs();
-        $riders= FPersistentManager::getInstance()->getAllRiders();
+        $this->requireRole('admin');
+        $chefs = $this->persistent_manager->getAllChefs();
+        $riders= $this->persistent_manager->getAllRiders();
         $view = new VProprietario();
         $view -> showCreateAccount($chefs, $riders);
     }

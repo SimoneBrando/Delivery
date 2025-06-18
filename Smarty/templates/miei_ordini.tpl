@@ -11,6 +11,7 @@
 <body>
 
     <!-- Header -->
+
     {include file="header.tpl"}
 
     <!-- Main Content -->
@@ -52,6 +53,7 @@
     </main>
 
     <!-- Footer -->
+    
     {include file="footer.tpl"}
 
     <script src="/Smarty/js/hamburger.js"></script>

@@ -235,12 +235,11 @@ class CUser extends BaseController{
             $oldPassword = UHTTPMethods::post('oldPassword');
             $newPassword = UHTTPMethods::post('newPassword');
             $this->auth_manager->changePassword($oldPassword,$newPassword);
-            echo 'Password has been changed';
             $userId= $this->auth_manager->getUserId(); //recupero userId dell'utente loggato
             $client = $this->persistent_manager->getObjOnAttribute(EUtente::class,"user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
             $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
             $this->persistent_manager->updateObj($client); //salvataggio sul database
-            header("/Delivery/User/home");
+            header("Location: /Delivery/User/home");
         } catch (\Delight\Auth\NotLoggedInException $e) {
             die('Not logged in');
         } catch (\Delight\Auth\InvalidPasswordException $e) {

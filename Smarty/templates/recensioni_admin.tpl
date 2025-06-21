@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="user-details">
                                         <h3>{$review->getCliente()->getNome()} {$review->getCliente()->getCognome()} </h3>
-                                        <span class="review-date">{$review->getData()|date_format:"%d/%m/%Y %H:%M"}</span>
+                                        <span class="review-date">{$review->getData()|date_format:"%H:%M %e %B %Y"}</span>
                                     </div>
                                 </div>
                                 <div class="review-rating">

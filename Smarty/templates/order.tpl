@@ -57,7 +57,7 @@
         <h2>Il tuo ordine</h2>
         <ul id="cart-items"></ul>
         <p id="cart-total">Totale: €0.00</p>
-        <a href="checkout.html"><button>Prosegui</button></a>
+        <a href="/Delivery/Ordine/showConfirmOrder"><button>Prosegui</button></a>
     </div>
 
     <div id="product-modal" class="modal hidden">

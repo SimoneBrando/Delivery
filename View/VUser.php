@@ -52,4 +52,13 @@ class VUser{
         $this->smarty->assign('utente',$user);
         $this->smarty->display('account.tpl');
     }
+
+    public function showConfirmOrder($user){
+        $this->smarty->assign('utente', $user);
+        $this->smarty->display('check_order.tpl');
+    }
+
+    public function confermedOrder(){
+        $this->smarty->display('confermed_order.tpl');
+    }
 }

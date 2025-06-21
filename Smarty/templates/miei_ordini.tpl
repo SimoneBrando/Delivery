@@ -34,8 +34,8 @@
                         <div class="order-items">
                             <p>
                                 <strong>Prodotti:</strong>
-                                {foreach from=$order->getProdotti() item=product name=prodottiLoop}
-                                    {$product->getNome()}{if !$smarty.foreach.prodottiLoop.last}, {/if}
+                                {foreach from=$order->getItemOrdini() item=itemOrdine name=itemLoop}
+                                    {$itemOrdine->getProdotto()->getNome()}{if !$smarty.foreach.itemLoop.last}, {/if}
                                 {/foreach}
                             </p>
                             <p><strong>Totale:</strong> €{$order->getCosto()}</p>

@@ -10,9 +10,7 @@ require_once 'FPersistentManager.php';
 require_once 'FEntityManager.php';
 require_once __DIR__ . '/../Entity/EIndirizzo.php';
 
-class FIndirizzo
-{
-
+class FIndirizzo {
 
     /**
      * @return array
@@ -29,8 +27,9 @@ class FIndirizzo
         return FEntityManager::getInstance()->getObj(EIndirizzo::class, $id);
     }
 
-    public static function getAddressByUserId(int $userId): ?EIndirizzo
+    public static function getAddressByUserId(int $userId): array
     {
         return FEntityManager::getInstance()->getObjListOnAttribute(EIndirizzo::class, 'utente_id', $userId);
     }
+    
 }

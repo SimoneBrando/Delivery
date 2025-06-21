@@ -19,7 +19,6 @@ class EOrdine {
      */
     private $id;
 
-
     /**
      * @ORM\Column(type="string")
      */
@@ -44,20 +43,14 @@ class EOrdine {
     private $cliente;
 
     /**
+     * @ORM\OneToMany(targetEntity="Entity\EItemOrdine", mappedBy="ordine", cascade={"persist", "remove"})
+     */
+    private $itemOrdini;
+
+    /**
      * @ORM\OneToOne(targetEntity="Entity\ESegnalazione", mappedBy="ordine")
      */
     private $segnalazione;
-
-
-
-    /**
-     * @ORM\ManyToMany(targetEntity="Entity\EProdotto")
-     * @ORM\JoinTable(name="ordini_prodotti",
-     *      joinColumns={@ORM\JoinColumn(name="ordine_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="prodotto_id", referencedColumnName="id")}
-     * )
-     */
-    private $prodotti;
 
     /**
      * @ORM\Column(type="string", columnDefinition="ENUM('in_attesa', 'in_preparazione', 'pronto' , 'consegnato', 'annullato')")
@@ -65,15 +58,12 @@ class EOrdine {
     private $stato;
 
     public function __construct() {
+        $this->itemOrdini = new ArrayCollection();
     }
 
     // Getters
     public function getId() {
         return $this->id;
-    }
-
-    public function getProdotti() {
-        return $this->prodotti;
     }
 
     public function getNote() {
@@ -99,13 +89,11 @@ class EOrdine {
         return $this->cliente;
     }
 
-    // Setters
-
-    public function setProdotti($prodotti) : EOrdine {
-        $this->prodotti = $prodotti;
-        return $this;
+    public function getItemOrdini() {
+        return $this->itemOrdini;
     }
 
+    // Setters
     public function setNote($note) : EOrdine {
         $this->note = $note;
         return $this;
@@ -133,5 +121,25 @@ class EOrdine {
         $this->stato = $stato;
         return $this;
     }
+
+    public function addItemOrdine(EItemOrdine $item): self {
+        if (!$this->itemOrdini->contains($item)) {
+            $this->itemOrdini[] = $item;
+            //$item->setOrdine($this);
+        }
+        return $this;
+    }
+
+    /*
+    public function removeItemOrdine(EItemOrdine $item): self {
+        if ($this->itemOrdini->contains($item)) {
+            $this->itemOrdini->removeElement($item);
+            if ($item->getOrdine() === $this) {
+                $item->setOrdine(null);
+            }
+        }
+        return $this;
+    }
+    */
 
 }

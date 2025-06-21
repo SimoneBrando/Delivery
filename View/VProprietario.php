@@ -12,9 +12,10 @@ class VProprietario{
 
     }
 
-    public function showDashboard(){
+    public function showDashboard($orders){
         ini_set('display_startup_errors', 1);
         error_reporting(E_ALL);
+        $this->smarty->assign('ordini', $orders);
         $this->smarty->display('dashboard.tpl');
     }
 

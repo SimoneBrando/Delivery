@@ -27,7 +27,7 @@ class FCarta_credito
         return FEntityManager::getInstance()->getObj(ECarta_credito::class, $id);
     }
 
-    public static function getCreditCardByUserId(int $userId): ?ECarta_credito
+    public static function getCreditCardByUserId(int $userId): array
     {
         return FEntityManager::getInstance()->getObjListOnAttribute(ECarta_credito::class,'utente_id',$userId);
     }

@@ -102,7 +102,7 @@ class EIndirizzo
         return $this->clienti;
     }
 
-    public function setClienti(Collection $clienti) : EElenco_prodotti
+    public function setClienti(Collection $clienti) : EIndirizzo
     {
         $this->clienti = $clienti;
         return $this;

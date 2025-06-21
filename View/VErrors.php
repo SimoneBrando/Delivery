@@ -13,7 +13,8 @@ class VErrors{
         $this->smarty->display('access_denied.tpl');
     }
 
-    public function showFatalError(){
+    public function showFatalError($message){
+        $this->smarty->assign('message', $message);
         $this->smarty->display('fatal_error.tpl');
     }
 }

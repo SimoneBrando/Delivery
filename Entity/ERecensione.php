@@ -56,7 +56,7 @@ class ERecensione{
     }
     
     public function getOrario(){
-        return $this->orario;
+        return $this->data;
     }
 
     public function getCliente() : EUtente
@@ -82,7 +82,7 @@ class ERecensione{
     }
 
     public function setOrario($orario) : ERecensione{
-        $this->orario = $orario;
+        $this->data = $orario;
         return $this;
     }
 

@@ -14,8 +14,6 @@ require_once __DIR__ . '/Fixtures/RecensioneFixture.php';
 require_once __DIR__ . '/Fixtures/SegnalazioneFixture.php';
 require_once __DIR__ . '/Fixtures/UtenteFixture.php';
 
-
-
 use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
@@ -31,6 +29,7 @@ use Testing\Fixtures\CuocoFixture;
 use Testing\Fixtures\ClienteFixture;
 use Testing\Fixtures\CategoriaFixture;
 use Testing\Fixtures\CartaCreditoFixture;
+
 
 
 $loader = new Loader();

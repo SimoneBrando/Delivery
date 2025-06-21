@@ -4,6 +4,7 @@ namespace Controller;
 
 use Delight\Auth\Auth;
 use Entity\EUtente;
+use Exception;
 use Foundation\FPersistentManager;
 use Services\Utility\UCookie;
 use Services\Utility\USession;
@@ -96,11 +97,16 @@ abstract class BaseController{
         return $user;
     }
 
-    public function handleFatalError(){
+    public function handleFatalError(Exception $error){
         USession::destroySession();
         $this->auth_manager->logout();
         USession::unsetSessionElement('user');
         $view = new VErrors();
-        $view->showFatalError();
+        $view->showFatalError($error->getMessage());
+    }
+
+    public function handleError(Exception $error){
+        $view = new VErrors();
+        $view->showFatalError($error->getMessage());
     }
 }

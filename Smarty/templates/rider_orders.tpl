@@ -38,8 +38,8 @@
                         <p><strong>Costo totale:</strong> €{$order->getCosto()}</p>
                         <p><strong>Prodotti:</strong></p>
                         <ul>
-                            {foreach $order->getProdotti() as $prodotto}
-                                <li>{$prodotto->getNome()|escape} - {$prodotto->getDescrizione()|escape} - €{$prodotto->getCosto()}</li>
+                            {foreach $order->getItemOrdini() as $itemOrdine}
+                                <li>{$itemOrdine->getProdotto()->getNome()|escape} - {$itemOrdine->getProdotto()->getDescrizione()|escape} - qty: {$itemOrdine->getQuantita()} - €{$itemOrdine->getPrezzoUnitarioAlMomento()}</li>
                             {/foreach}
                         </ul>
                     </div>

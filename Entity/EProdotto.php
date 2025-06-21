@@ -32,14 +32,15 @@ class EProdotto {
      */
     private $costo;
     /**
-     * @ORM\ManyToMany(targetEntity="Entity\EOrdine", mappedBy="prodotti")
-     */
-    private $ordini;
-    /**
      * @ORM\ManyToOne(targetEntity="Entity\ECategoria", inversedBy="piatti")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id", nullable=false)
      */
     private $categoria;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Entity\EItemOrdine", mappedBy="prodotto")
+     */
+    private $itemOrdini;
 
     public function __construct() {
 
@@ -65,31 +66,28 @@ class EProdotto {
         return $this->categoria;
     }
 
-    // Setters
-    public function setId($id) : EProdotto{
-        $this->id = $id;
-        return $this;
+    public function getItemOrdini() {
+        return $this->itemOrdini;
     }
 
-    public function setNome($nome) : EProdotto{
+    // Setters
+    public function setNome(string $nome) : EProdotto{
         $this->nome = $nome;
         return $this;
     }
 
-    public function setDescrizione($descrizione) : EProdotto {
+    public function setDescrizione(string $descrizione) : EProdotto {
         $this->descrizione = $descrizione;
         return $this;
     }
     
-    public function setCosto($costo) : EProdotto {
+    public function setCosto(float $costo) : EProdotto {
         $this->costo = $costo;
         return $this;
     }
-    public function setCategoria($categoria) : EProdotto {
+    public function setCategoria(ECategoria $categoria) : EProdotto {
         $this->categoria = $categoria;
         return $this;
     }
 
 }
-
-?>

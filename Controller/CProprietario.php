@@ -36,8 +36,14 @@ class CProprietario extends BaseController {
 
     public function showDashboard(){
         $this->requireRole('proprietario');
+        $allOrders = $this->persistent_manager->getAllOrders();
+
+        usort($allOrders, function($a, $b) { //ordina per data di esecuzione
+            return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
+        });
+        $orders = array_slice($allOrders, 0, 5);
         $view = new VProprietario();
-        $view -> showDashboard();
+        $view -> showDashboard($orders);
         
     }
 

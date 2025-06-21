@@ -121,7 +121,7 @@ class CUser extends BaseController{
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
         } catch (\Delight\Auth\AttemptCancelledException|\Delight\Auth\AuthError $e) {
-            $this->handleFatalError();
+            $this->handleFatalError($e);
         }
     }
 

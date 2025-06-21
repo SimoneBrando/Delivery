@@ -6,10 +6,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="item_carrello")
+ * @ORM\Table(name="item_ordine")
  */
-class EItemCarrello
-{
+class EItemOrdine {
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -18,10 +17,10 @@ class EItemCarrello
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Entity\ECarrello", inversedBy="carrelloItems")
-     * @ORM\JoinColumn(name="carrello_id", referencedColumnName="id", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Entity\EOrdine", inversedBy="ordineItems")
+     * @ORM\JoinColumn(name="ordine_id", referencedColumnName="id", nullable=false)
      */
-    private $carrello;
+    private $ordine;
 
     /**
      * @ORM\ManyToOne(targetEntity="Entity\EProdotto")
@@ -37,7 +36,7 @@ class EItemCarrello
     /**
      * @ORM\Column(type="decimal", precision=10, scale=2)
      */
-    private $prezzoUnitario;
+    private $prezzoUnitarioAlMomento;
 
 
     //Getters 
@@ -47,9 +46,9 @@ class EItemCarrello
         return $this->id;
     }
 
-    public function getCarrello(): ?ECarrello
+    public function getOrdine(): ?EOrdine
     {
-        return $this->carrello;
+        return $this->ordine;
     }
 
     public function getProdotto(): ?EProdotto
@@ -62,38 +61,38 @@ class EItemCarrello
         return $this->quantita;
     }
 
-    public function getPrezzoUnitario(): float
+    public function getPrezzoUnitarioAlMomento(): float
     {
-        return (float)$this->prezzoUnitario;
+        return (float)$this->prezzoUnitarioAlMomento;
     }
 
     public function getPrezzoTotale(): float
     {
-        return $this->quantita * $this->getPrezzoUnitario();
+        return $this->quantita * $this->getPrezzoUnitarioAlMomento();
     }
 
     // Setters
-    public function setProdotto(EProdotto $prodotto): EItemCarrello
+    public function setProdotto(EProdotto $prodotto): EItemOrdine
     {
         $this->prodotto = $prodotto;
         return $this;
     }
 
-    public function setCarrello(?ECarrello $carrello): EItemCarrello
+    public function setOrdine(?EOrdine $ordine): EItemOrdine
     {
-        $this->carrello = $carrello;
+        $this->ordine = $ordine;
         return $this;
     }
 
-    public function setQuantita(int $quantita): EItemCarrello
+    public function setQuantita(int $quantita): EItemOrdine
     {
         $this->quantita = $quantita;
         return $this;
     }
 
-    public function setPrezzoUnitario(float $prezzo): EItemCarrello
+    public function setPrezzoUnitarioAlMomento(float $prezzo): EItemOrdine
     {
-        $this->prezzoUnitario = $prezzo;
+        $this->prezzoUnitarioAlMomento = $prezzo;
         return $this;
     }
 

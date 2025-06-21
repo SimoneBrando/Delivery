@@ -3,6 +3,7 @@ namespace Foundation;
 
 use Entity\ECliente;
 use Entity\EIndirizzo;
+use Entity\EItemOrdine;
 use Entity\EUtente;
 use Entity\ECarrello;
 use Entity\EProdotto;
@@ -13,9 +14,11 @@ class FPersistentManager
 {
 
     private static $instance;
+    private $emORM;
 
     private function __construct()
     {
+        $this->emORM = FEntityManager::getInstance()->getEntityManager();
     }
 
     public static function getInstance()
@@ -24,6 +27,26 @@ class FPersistentManager
             self::$instance = new self();
         }
         return self::$instance;
+    }
+
+    public function beginTransaction() {
+        $this->emORM->getConnection()->beginTransaction();
+    }
+
+    public function commit(){
+        $this->emORM->getConnection()->commit();
+    }
+
+    public function rollback() {
+        $this->emORM->getConnection()->rollBack();
+    }
+
+    public function flush(){
+        $this->emORM->flush();
+    }
+
+    public function persist($obj){
+        $this->emORM->persist($obj);
     }
 
 
@@ -171,7 +194,7 @@ class FPersistentManager
      */
     public static function getAllWarnings(): array
     {
-        return FSegnalazione::getAllWarnigns();
+        return FSegnalazione::getAllWarnings();
     }
     //<----------------------------ORDER------------------------------------------->//
 
@@ -247,48 +270,4 @@ class FPersistentManager
     public static function getMenu(){
         return FElenco_prodotti::getMenu();
     }
-
-    //<----------------------CART------------------------>//
-
-    /**
-     * Method to get a client's cart from his ID
-     * @param $clientId
-     * @return ECarrello|null
-     * @throws Exception
-     */
-    public static function getCartByClientId($clientId): ?ECarrello
-    {
-        $clientId = FEntityManager::getInstance()->getObj(ECarrello::class, $clientId)->getId();
-        return FCarrello::getCartByClientId($clientId);
-    }
-    //<----------------------ITEM CART------------------------>//
-
-    /**
-     * method to add an item to the cart. If is already into the cart, it decreases the quantity
-     * @param int $cartId
-     * @param EItemCarrello $item
-     * @return void
-     * @throws Exception
-     */
-    public static function addOrUpdateItemToCart(int $cartId, EItemCarrello $item): void
-    {
-        $cart = FEntityManager::getInstance()->getObj(ECarrello::class, $cartId);
-        FCarrello::addOrUpdateItemToCart($cart, $item);
-    }
-
-    /**
-     * Method to remove an item from the cart. If the quantity of item to remove is equal to the actual, it deletes
-     * the item. Else it decreseases the quantity
-     * @param int $cartId
-     * @param EItemCarrello $item
-     * @return void
-     * @throws Exception
-     */
-    public static function removeOrUpdateItemFromCart(int $cartId, EItemCarrello $item): void
-    {
-        $cart = FEntityManager::getInstance()->getObj(ECarrello::class, $cartId);
-        FCarrello::removeOrUpdateItemFromCart($cartId, $item);
-    }
-
-
 }

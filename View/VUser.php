@@ -66,4 +66,12 @@ class VUser{
     public function confermedOrder(){
         $this->smarty->display('confermed_order.tpl');
     }
+
+    public function showAddressForm(){
+        $this->smarty->display('address_form.tpl');
+    }
+
+    public function showCreditCardForm(){
+        $this->smarty->display('credit_card_form.tpl');
+    }
 }

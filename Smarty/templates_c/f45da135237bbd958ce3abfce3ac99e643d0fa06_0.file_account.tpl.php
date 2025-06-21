@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-21 17:51:40
+/* Smarty version 5.5.1, created on 2025-06-22 00:54:50
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6856d50c9b6031_12969578',
+  'unifunc' => 'content_6857383a33a092_19104239',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f45da135237bbd958ce3abfce3ac99e643d0fa06' => 
     array (
       0 => 'account.tpl',
-      1 => 1750521097,
+      1 => 1750546488,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6856d50c9b6031_12969578 (\Smarty\Template $_smarty_tpl) {
+function content_6857383a33a092_19104239 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -104,10 +104,22 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('indirizzo')->value) {
 $foreach0DoElse = false;
 ?>
                             <li class="address-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <?php echo $_smarty_tpl->getValue('indirizzo')->getVia();?>
+                                <span>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <?php echo $_smarty_tpl->getValue('indirizzo')->getVia();?>
+, <?php echo $_smarty_tpl->getValue('indirizzo')->getCivico();?>
+, <?php echo $_smarty_tpl->getValue('indirizzo')->getCap();?>
+ <?php echo $_smarty_tpl->getValue('indirizzo')->getCitta();?>
 
-                                <!-- Aggiungi qui eventuali altri campi -->
+                                    <form action="/Delivery/User/removeAddress" method="POST" class="remove-address-form">
+                                        <input type="hidden" name="indirizzo_id" value="<?php echo $_smarty_tpl->getValue('indirizzo')->getId();?>
+">
+                                        <button type="submit" class="remove-address-btn" title="Rimuovi indirizzo">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </button>
+                                    </form>
+                                </span>
+                                
                             </li>
                         <?php
 }
@@ -116,7 +128,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 <?php } else { ?>
                     <p>Nessun indirizzo registrato.</p>
                 <?php }?>
-                <a href="/Delivery/User/addAddress/" class="btn-link">
+                <a href="/Delivery/User/showAddressForm/" class="btn-link">
                     <i class="fas fa-plus"></i> Aggiungi indirizzo
                 </a>
             </div>
@@ -133,10 +145,18 @@ foreach ($_from ?? [] as $_smarty_tpl->getVariable('carta')->value) {
 $foreach1DoElse = false;
 ?>
                             <li class="card-item">
-                                <i class="far fa-credit-card"></i>
-                                <?php echo $_smarty_tpl->getValue('carta')->getNominativo();?>
+                                <span>
+                                    <i class="far fa-credit-card"></i>
+                                    <?php echo $_smarty_tpl->getValue('carta')->getNominativo();?>
 
-                                <!-- Aggiungi qui eventuali altri campi -->
+                                    <form action="/Delivery/User/removeCreditCard" method="POST" class="remove-card-form">
+                                    <input type="hidden" name="numero_carta" value="<?php echo $_smarty_tpl->getValue('carta')->getNumeroCarta();?>
+">
+                                    <button type="submit" class="remove-card-btn" title="Rimuovi Metodo di Pagamento">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                                </span>
                             </li>
                         <?php
 }
@@ -145,7 +165,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 <?php } else { ?>
                     <p>Nessuna carta di credito registrata.</p>
                 <?php }?>
-                <a href="/Delivery/User/addCreditCard/" class="btn-link">
+                <a href="/Delivery/User/showCreditCardForm/" class="btn-link">
                     <i class="fas fa-plus"></i> Aggiungi carta
                 </a>
             </div>

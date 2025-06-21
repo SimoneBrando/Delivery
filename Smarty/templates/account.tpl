@@ -70,16 +70,23 @@
                     <ul class="address-list">
                         {foreach $indirizzi as $indirizzo}
                             <li class="address-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                {$indirizzo->getVia()}
-                                <!-- Aggiungi qui eventuali altri campi -->
+                                <span>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    {$indirizzo->getVia()}, {$indirizzo->getCivico()}, {$indirizzo->getCap()} {$indirizzo->getCitta()}
+                                </span>
+                                <form action="/Delivery/User/removeAddress" method="POST" class="remove-address-form">
+                                    <input type="hidden" name="indirizzo_id" value="{$indirizzo->getId()}">
+                                    <button type="submit" class="remove-address-btn" title="Rimuovi indirizzo">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
                             </li>
                         {/foreach}
                     </ul>
                 {else}
                     <p>Nessun indirizzo registrato.</p>
                 {/if}
-                <a href="/Delivery/User/addAddress/" class="btn-link">
+                <a href="/Delivery/User/showAddressForm/" class="btn-link">
                     <i class="fas fa-plus"></i> Aggiungi indirizzo
                 </a>
             </div>
@@ -91,16 +98,23 @@
                     <ul class="cards-list">
                         {foreach $carte_credito as $carta}
                             <li class="card-item">
-                                <i class="far fa-credit-card"></i>
-                                {$carta->getNominativo()}
-                                <!-- Aggiungi qui eventuali altri campi -->
+                                <span>
+                                    <i class="far fa-credit-card"></i>
+                                    {$carta->getNominativo()}
+                                </span>
+                                <form action="/Delivery/User/removeCreditCard" method="POST" class="remove-card-form">
+                                    <input type="hidden" name="numero_carta" value="{$carta->getNumeroCarta()}">
+                                    <button type="submit" class="remove-card-btn" title="Rimuovi Metodo di Pagamento">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
                             </li>
                         {/foreach}
                     </ul>
                 {else}
                     <p>Nessuna carta di credito registrata.</p>
                 {/if}
-                <a href="/Delivery/User/addCreditCard/" class="btn-link">
+                <a href="/Delivery/User/showCreditCardForm/" class="btn-link">
                     <i class="fas fa-plus"></i> Aggiungi carta
                 </a>
             </div>

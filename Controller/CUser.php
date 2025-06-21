@@ -2,8 +2,10 @@
 
 use Controller\BaseController;
 use Doctrine\ORM\Exception\ORMException;
+use Entity\ECarta_credito;
 use Entity\EIndirizzo;
 use Entity\EUtente;
+use View\VErrors;
 use View\VUser;
 use Services\Utility\USession;
 use Utility\UHTTPMethods;
@@ -12,9 +14,12 @@ use PHPMailer\PHPMailer\Exception;
 
 require_once __DIR__ . '/BaseController.php';
 require_once __DIR__ . '/../View/VUser.php';
+require_once __DIR__ . '/../View/VErrors.php';
 require_once __DIR__ . '/../Foundation/FPersistentManager.php';
 require_once __DIR__ . '/../Entity/ECliente.php';
 require_once __DIR__ . '/../Entity/EUtente.php';
+require_once __DIR__ . '/../Entity/EIndirizzo.php';
+require_once __DIR__ . '/../Entity/ECarta_credito.php';
 require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
 require_once __DIR__ . '/../services/utility/USession.php';
 require_once __DIR__ . '/../services/utility/UCookie.php';
@@ -264,9 +269,9 @@ class CUser extends BaseController{
 
     public function modifyProfile(){
         $this->requireLogin();
-        $newName = UHTTPMethods::post('newName');
-        $newSurname = UHTTPMethods::post('newSurname');
         try {
+            $newName = UHTTPMethods::post('newName');
+            $newSurname = UHTTPMethods::post('newSurname');
             $user = $this->getUser();
             $user->setNome($newName)
                 ->setCognome($newSurname);
@@ -368,6 +373,128 @@ class CUser extends BaseController{
         }
         $view = new VUser();
         $view->showLoginForm();
+    }
+
+    //Gestione Indirizzi
+    public function showAddressForm(){
+        $this->requireRole('cliente');
+        $view = new VUser();
+        $view->showAddressForm();
+    }
+    public function addAddress(){
+        $this->requireRole('cliente');
+        $user = $this->getUser();
+        try {
+            $via = UHTTPMethods::post('via');
+            $civico = UHTTPMethods::post('civico');
+            $cap = UHTTPMethods::post('cap');
+            $citta = UHTTPMethods::post('citta');
+            $address = new EIndirizzo();
+            $address->setVia($via)
+                ->setCivico($civico)
+                ->setCap($cap)
+                ->setCitta($citta)
+                ->addCliente($user);
+            $this->persistent_manager->saveObj($address);
+            $this->showProfile();
+        } catch (InvalidArgumentException $e) {
+            $view = new VErrors();
+            $view->showFatalError($e->getMessage());
+        } catch (\PDOException $e) {
+            error_log("Errore DB: " . $e->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore durante il salvataggio");
+        } catch (\Throwable $th) {
+            error_log("Errore generico: " . $th->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore imprevisto");
+        }
+        
+    }
+    public function removeAddress(){
+        $this->requireRole('cliente');
+        try {
+            $addressId = UHTTPMethods::post('address_id');
+            $address = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class,'id',$addressId);
+            $this->persistent_manager->deleteObj($address);
+            $this->showProfile();
+        } catch (InvalidArgumentException $e) {
+            $view = new VErrors();
+            $view->showFatalError($e->getMessage());
+        } catch (\PDOException $e) {
+            error_log("Errore DB: " . $e->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore durante il salvataggio");
+        } catch (\Throwable $th) {
+            error_log("Errore generico: " . $th->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore imprevisto");
+        }
+    }
+
+    //Gestione MetodiPagamento
+    public function showCreditCardForm(){
+        $this->requireRole('cliente');
+        $view = new VUser();
+        $view->showCreditCardForm();
+    }
+    public function addCreditCard(){
+        $this->requireRole('cliente');
+        $user = $this->getUser();
+        try{
+            $numeroCarta = UHTTPMethods::post('numero_carta');
+            $nomeCarta = UHTTPMethods::post('nome_carta');
+            $scadenza = UHTTPMethods::post('data_scadenza');
+            $dataScadenza = DateTime::createFromFormat('m/y', $scadenza);
+            $errors = DateTime::getLastErrors();
+            if ($dataScadenza === false || $errors['warning_count'] > 0 || $errors['error_count'] > 0) {
+                throw new InvalidArgumentException("La data di scadenza non è valida.");
+            }
+            $dataScadenza->modify('last day of this month 23:59:59');
+            $dataScadenza->modify('last day of this month 23:59:59');
+            $cvv = UHTTPMethods::post('cvv');
+            $nomeIntestatario = UHTTPMethods::post('nome_intestatario');
+            $creditCard = new ECarta_credito();
+            $creditCard->setNumeroCarta($numeroCarta)
+                ->setNominativo($nomeCarta)
+                ->setDataScadenza($dataScadenza)
+                ->setCvv($cvv)
+                ->setNomeIntestatario($nomeIntestatario)
+                ->setUtente($user);
+            $this->persistent_manager->saveObj($creditCard);
+            $this->showProfile();
+        } catch (InvalidArgumentException $e) {
+            $view = new VErrors();
+            $view->showFatalError($e->getMessage());
+        } catch (\PDOException $e) {
+            error_log("Errore DB: " . $e->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore durante il salvataggio");
+        } catch (\Throwable $th) {
+            error_log("Errore generico: " . $th->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore imprevisto");
+        }
+    }
+    public function removeCreditCard(){
+        try{
+            $this->requireRole('cliente');
+            $numeroCarta = UHTTPMethods::post('numero_carta');
+            $creditCard = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', $numeroCarta);
+            $this->persistent_manager->deleteObj($creditCard);
+            $this->showProfile();
+        } catch (InvalidArgumentException $e) {
+            $view = new VErrors();
+            $view->showFatalError($e->getMessage());
+        } catch (\PDOException $e) {
+            error_log("Errore DB: " . $e->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore durante il salvataggio");
+        } catch (\Throwable $th) {
+            error_log("Errore generico: " . $th->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore imprevisto");
+        }
     }
 
 }

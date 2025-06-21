@@ -72,6 +72,10 @@ class ECarta_credito{
         return $this->nomeIntestatario;
     }
 
+    public function getCliente(): ECliente{
+        return $this->cliente;
+    }
+
     //Setter
     public function setNumeroCarta($numeroCarta) : ECarta_credito {
         $this->numeroCarta = $numeroCarta;

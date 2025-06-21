@@ -4,7 +4,7 @@ namespace Testing;
 
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 require_once dirname(__DIR__) . '/bootstrap.php';
-require_once __DIR__ . '/Fixtures/Carta_creditoFixture.php';
+require_once __DIR__ . '/Fixtures/CartaCreditoFixture.php';
 require_once __DIR__ . '/Fixtures/CategoriaFixture.php';
 require_once __DIR__ . '/Fixtures/Elenco_prodottiFixture.php';
 require_once __DIR__ . '/Fixtures/IndirizzoFixture.php';
@@ -40,13 +40,14 @@ $loader->addFixture(new ClienteFixture());
 $loader->addFixture(new CuocoFixture());
 $loader->addFixture(new RiderFixture());
 */
+
+$loader->addFixture(new CartaCreditoFixture());
 $loader->addFixture(new ElencoProdottiFixture());
 $loader->addFixture(new CategoriaFixture());
 $loader->addFixture(new ProdottoFixture());
 $loader->addFixture(new OrdineFixture());
 $loader->addFixture(new RecensioneFixture());
 $loader->addFixture(new SegnalazioneFixture());
-$loader->addFixture(new CartaCreditoFixture());
 
 
 

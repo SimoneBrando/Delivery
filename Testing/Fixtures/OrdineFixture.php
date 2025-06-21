@@ -9,6 +9,8 @@ use Entity\EOrdine;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Entity\ECarta_credito;
+use Entity\EIndirizzo;
 use Entity\EProdotto;
 use Faker\Factory;
 
@@ -26,12 +28,14 @@ class OrdineFixture extends AbstractFixture implements DependentFixtureInterface
                 ->setDataRicezione($faker->dateTimeBetween('-10 days', '-1 day'))
                 ->setDataEsecuzione($faker->dateTimeBetween('-1 day', 'now'))
                 ->setStato($faker->randomElement($statiPossibili))
-                ->setCliente( $this->getReference('cliente_' . $i, ECliente::class));
+                ->setCliente( $this->getReference('cliente_' . $i, ECliente::class))
+                ->setIndirizzoConsegna($this->getReference('indirizzo_'.$faker->numberBetween(0, 19),EIndirizzo::class))
+                ->setMetodoPagamento($this->getReference('metodo_'.$faker->numberBetween(0, 19),ECarta_credito::class));
             $costoTotale = 0;
             $numItemOrdine = $faker->numberBetween(1, 5);
             for ($j = 0; $j < $numItemOrdine; $j++) {
                 $itemOrdine = new EItemOrdine();
-                $prodotto = $this->getReference('prodotto_'.$faker->numberBetween(0, 99),EProdotto::class);
+                $prodotto = $this->getReference('prodotto_'.$faker->numberBetween(0, int2: 99),EProdotto::class);
                 $itemOrdine->setProdotto($prodotto)
                     ->setQuantita($faker->numberBetween(1, 5))
                     ->setPrezzoUnitarioAlMomento($prodotto->getCosto())
@@ -54,6 +58,8 @@ class OrdineFixture extends AbstractFixture implements DependentFixtureInterface
         return [
             UserFixture::class,
             ProdottoFixture::class,
+            IndirizzoFixture::class,
+            CartaCreditoFixture::class,
         ];
     }
 }

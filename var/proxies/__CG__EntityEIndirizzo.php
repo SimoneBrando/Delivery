@@ -294,7 +294,7 @@ class EIndirizzo extends \Entity\EIndirizzo implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setClienti(\Doctrine\Common\Collections\Collection $clienti): \Entity\EElenco_prodotti
+    public function setClienti(\Doctrine\Common\Collections\Collection $clienti): \Entity\EIndirizzo
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setClienti', [$clienti]);

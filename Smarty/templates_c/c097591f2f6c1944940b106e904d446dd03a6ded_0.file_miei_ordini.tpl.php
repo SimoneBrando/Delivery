@@ -1,26 +1,28 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-09 10:27:23
+/* Smarty version 5.5.1, created on 2025-06-21 19:53:53
   from 'file:miei_ordini.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68469aeb9c0c42_50422824',
+  'unifunc' => 'content_6856f1b1671bd8_31814556',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c097591f2f6c1944940b106e904d446dd03a6ded' => 
     array (
       0 => 'miei_ordini.tpl',
-      1 => 1749454433,
+      1 => 1750528431,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
+    'file:header.tpl' => 1,
+    'file:footer.tpl' => 1,
   ),
 ))) {
-function content_68469aeb9c0c42_50422824 (\Smarty\Template $_smarty_tpl) {
+function content_6856f1b1671bd8_31814556 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -31,14 +33,12 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <link rel="stylesheet" href="/Smarty/css/miei_ordini.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
-    <?php echo '<script'; ?>
- src="/Smarty/Js/loadComponents.js" defer><?php echo '</script'; ?>
->
 </head>
 <body>
 
     <!-- Header -->
-    <div id="header-placeholder"></div>
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <!-- Main Content -->
     <main>
@@ -54,11 +54,11 @@ $foreach0DoElse = false;
 ?>
                     <div class="order-card">
                         <div class="order-header">
-                            <h2>Ordine #<?php echo $_smarty_tpl->getValue('order')->getId();?>
+                            <h2>Ordine del <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')->getDataRicezione(),"%d/%m/%y");?>
 </h2>
                             <span class="order-date">
                                 <?php if ($_smarty_tpl->getValue('order')->getDataEsecuzione()) {?>
-                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')->getDataEsecuzione(),"%d %B %Y");?>
+                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')->getDataEsecuzione(),"%d/%m/%y");?>
 
                                 <?php } else { ?>
                                     Data non disponibile
@@ -69,19 +69,19 @@ $foreach0DoElse = false;
                             <p>
                                 <strong>Prodotti:</strong>
                                 <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('order')->getProdotti(), 'product', false, NULL, 'prodottiLoop', array (
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('order')->getItemOrdini(), 'itemOrdine', false, NULL, 'itemLoop', array (
   'last' => true,
   'iteration' => true,
   'total' => true,
 ));
 $foreach1DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('product')->value) {
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('itemOrdine')->value) {
 $foreach1DoElse = false;
-$_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['iteration']++;
-$_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['last'] = $_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['iteration'] === $_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['total'];
+$_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['iteration']++;
+$_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['last'] = $_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['iteration'] === $_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['total'];
 ?>
-                                    <?php echo $_smarty_tpl->getValue('product')->getNome();
-if (!($_smarty_tpl->getValue('__smarty_foreach_prodottiLoop')['last'] ?? null)) {?>, <?php }?>
+                                    <?php echo $_smarty_tpl->getValue('itemOrdine')->getProdotto()->getNome();
+if (!($_smarty_tpl->getValue('__smarty_foreach_itemLoop')['last'] ?? null)) {?>,  <?php }?>
                                 <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
@@ -93,6 +93,13 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <p><strong>Stato:</strong> <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getValue('order')->getStato());?>
 </p>
                         </div>
+                        <div class="order_info">
+                            <p>Indirizzo: <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCitta();?>
+, <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getVia();?>
+, <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCivico();?>
+</p>
+                            <p>Metodo Pagamento: <?php echo $_smarty_tpl->getValue('order')->getMetodoPagamento()->getNominativo();?>
+</p>
                     </div>
                 <?php
 }
@@ -104,9 +111,17 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         </section>
     </main>
 
-    <!-- Footer -->
-    <div id="footer-placeholder"></div>
 
+    <!-- Footer -->
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+>
 </body>
 </html>
 <?php }

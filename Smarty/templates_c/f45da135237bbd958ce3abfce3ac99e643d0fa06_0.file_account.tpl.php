@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-16 10:46:53
+/* Smarty version 5.5.1, created on 2025-06-21 17:51:40
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684fd9fd0957a8_15169984',
+  'unifunc' => 'content_6856d50c9b6031_12969578',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f45da135237bbd958ce3abfce3ac99e643d0fa06' => 
     array (
       0 => 'account.tpl',
-      1 => 1750063531,
+      1 => 1750521097,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684fd9fd0957a8_15169984 (\Smarty\Template $_smarty_tpl) {
+function content_6856d50c9b6031_12969578 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -92,6 +92,64 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                 </form>
             </div>
 
+            <!-- Sezione Indirizzi -->
+            <div class="address-section">
+                <h3>I miei indirizzi</h3>
+                <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('indirizzi')) > 0) {?>
+                    <ul class="address-list">
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('indirizzi'), 'indirizzo');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('indirizzo')->value) {
+$foreach0DoElse = false;
+?>
+                            <li class="address-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <?php echo $_smarty_tpl->getValue('indirizzo')->getVia();?>
+
+                                <!-- Aggiungi qui eventuali altri campi -->
+                            </li>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                    </ul>
+                <?php } else { ?>
+                    <p>Nessun indirizzo registrato.</p>
+                <?php }?>
+                <a href="/Delivery/User/addAddress/" class="btn-link">
+                    <i class="fas fa-plus"></i> Aggiungi indirizzo
+                </a>
+            </div>
+
+            <!-- Sezione Carte di Credito -->
+            <div class="credit-cards-section">
+                <h3>Le mie carte di credito</h3>
+                <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('carte_credito')) > 0) {?>
+                    <ul class="cards-list">
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('carte_credito'), 'carta');
+$foreach1DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('carta')->value) {
+$foreach1DoElse = false;
+?>
+                            <li class="card-item">
+                                <i class="far fa-credit-card"></i>
+                                <?php echo $_smarty_tpl->getValue('carta')->getNominativo();?>
+
+                                <!-- Aggiungi qui eventuali altri campi -->
+                            </li>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                    </ul>
+                <?php } else { ?>
+                    <p>Nessuna carta di credito registrata.</p>
+                <?php }?>
+                <a href="/Delivery/User/addCreditCard/" class="btn-link">
+                    <i class="fas fa-plus"></i> Aggiungi carta
+                </a>
+            </div>
+
             <!-- Link ai miei ordini -->
             <div class="orders-link">
                 <a href="/Delivery/User/showMyOrders/" class="btn-link">
@@ -103,6 +161,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
             <div class="logout-section">
                 <a href="/Delivery/User/logoutUser/" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <a href="/Delivery/User/deleteAccount/" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Delete Account
                 </a>
             </div>
         </section>

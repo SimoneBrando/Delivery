@@ -67,10 +67,10 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'utente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'prodotti', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'utente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'prodotti', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento'];
     }
 
     /**
@@ -195,17 +195,6 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getProdotti()
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getProdotti', []);
-
-        return parent::getProdotti();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getNote()
     {
 
@@ -261,23 +250,45 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getUtente(): \Entity\EUtente
+    public function getCliente(): \Entity\ECliente
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUtente', []);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCliente', []);
 
-        return parent::getUtente();
+        return parent::getCliente();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setProdotti($prodotti): \Entity\EOrdine
+    public function getItemOrdini()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setProdotti', [$prodotti]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getItemOrdini', []);
 
-        return parent::setProdotti($prodotti);
+        return parent::getItemOrdini();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getIndirizzoConsegna(): \Entity\EIndirizzo
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getIndirizzoConsegna', []);
+
+        return parent::getIndirizzoConsegna();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getMetodoPagamento(): \Entity\ECarta_credito
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getMetodoPagamento', []);
+
+        return parent::getMetodoPagamento();
     }
 
     /**
@@ -327,12 +338,12 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setUtente($utente): \Entity\EOrdine
+    public function setCliente($cliente): \Entity\EOrdine
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUtente', [$utente]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCliente', [$cliente]);
 
-        return parent::setUtente($utente);
+        return parent::setCliente($cliente);
     }
 
     /**
@@ -344,6 +355,39 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setStato', [$stato]);
 
         return parent::setStato($stato);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setIndirizzoConsegna(\Entity\EIndirizzo $indirizzo): \Entity\EOrdine
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setIndirizzoConsegna', [$indirizzo]);
+
+        return parent::setIndirizzoConsegna($indirizzo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setMetodoPagamento(\Entity\ECarta_credito $carta): \Entity\EOrdine
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setMetodoPagamento', [$carta]);
+
+        return parent::setMetodoPagamento($carta);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addItemOrdine(\Entity\EItemOrdine $item): \Entity\EOrdine
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addItemOrdine', [$item]);
+
+        return parent::addItemOrdine($item);
     }
 
 }

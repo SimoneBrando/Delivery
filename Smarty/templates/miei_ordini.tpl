@@ -22,10 +22,10 @@
                 {foreach from=$orders item=order}
                     <div class="order-card">
                         <div class="order-header">
-                            <h2>Ordine #{$order->getId()}</h2>
+                            <h2>Ordine del {$order->getDataRicezione()|date_format:"%d/%m/%y"}</h2>
                             <span class="order-date">
                                 {if $order->getDataEsecuzione()}
-                                    {$order->getDataEsecuzione()|date_format:"%d %B %Y"}
+                                    {$order->getDataEsecuzione()|date_format:"%d/%m/%y"}
                                 {else}
                                     Data non disponibile
                                 {/if}
@@ -35,13 +35,16 @@
                             <p>
                                 <strong>Prodotti:</strong>
                                 {foreach from=$order->getItemOrdini() item=itemOrdine name=itemLoop}
-                                    {$itemOrdine->getProdotto()->getNome()}{if !$smarty.foreach.itemLoop.last}, {/if}
+                                    {$itemOrdine->getProdotto()->getNome()}{if !$smarty.foreach.itemLoop.last},  {/if}
                                 {/foreach}
                             </p>
                             <p><strong>Totale:</strong> €{$order->getCosto()}</p>
                             <p><strong>Note:</strong> {$order->getNote()|default:"-"}</p>
                             <p><strong>Stato:</strong> {$order->getStato()|capitalize}</p>
                         </div>
+                        <div class="order_info">
+                            <p>Indirizzo: {$order->getIndirizzoConsegna()->getCitta()}, {$order->getIndirizzoConsegna()->getVia()}, {$order->getIndirizzoConsegna()->getCivico()}</p>
+                            <p>Metodo Pagamento: {$order->getMetodoPagamento()->getNominativo()}</p>
                     </div>
                 {/foreach}
             {else}

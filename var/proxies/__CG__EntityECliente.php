@@ -67,10 +67,10 @@ class ECliente extends \Entity\ECliente implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\ECliente' . "\0" . 'metodiPagamento', '' . "\0" . 'Entity\\ECliente' . "\0" . 'indirizziConsegna', '' . "\0" . 'Entity\\ECliente' . "\0" . 'ordini', '' . "\0" . 'Entity\\ECliente' . "\0" . 'segnalazioni'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\ECliente' . "\0" . 'metodiPagamento', '' . "\0" . 'Entity\\ECliente' . "\0" . 'indirizziConsegna', '' . "\0" . 'Entity\\ECliente' . "\0" . 'ordini', '' . "\0" . 'Entity\\ECliente' . "\0" . 'segnalazioni', '' . "\0" . 'Entity\\ECliente' . "\0" . 'recensioni'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\ECliente' . "\0" . 'metodiPagamento', '' . "\0" . 'Entity\\ECliente' . "\0" . 'indirizziConsegna', '' . "\0" . 'Entity\\ECliente' . "\0" . 'ordini', '' . "\0" . 'Entity\\ECliente' . "\0" . 'segnalazioni'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\ECliente' . "\0" . 'metodiPagamento', '' . "\0" . 'Entity\\ECliente' . "\0" . 'indirizziConsegna', '' . "\0" . 'Entity\\ECliente' . "\0" . 'ordini', '' . "\0" . 'Entity\\ECliente' . "\0" . 'segnalazioni', '' . "\0" . 'Entity\\ECliente' . "\0" . 'recensioni'];
     }
 
     /**
@@ -224,6 +224,17 @@ class ECliente extends \Entity\ECliente implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getRecensioni(): \Doctrine\Common\Collections\Collection
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRecensioni', []);
+
+        return parent::getRecensioni();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setMetodiPagamento($metodiPagamento): \Entity\ECliente
     {
 
@@ -272,6 +283,17 @@ class ECliente extends \Entity\ECliente implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getUserId(): string
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getUserId', []);
+
+        return parent::getUserId();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getNome(): string
     {
 
@@ -305,34 +327,12 @@ class ECliente extends \Entity\ECliente implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCognome(string $cognome): \Entity\EUtente
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCognome', [$cognome]);
-
-        return parent::setCognome($cognome);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getEmail(): string
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getEmail', []);
 
         return parent::getEmail();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setEmail(string $email): \Entity\EUtente
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', [$email]);
-
-        return parent::setEmail($email);
     }
 
     /**
@@ -349,23 +349,56 @@ class ECliente extends \Entity\ECliente implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setPassword(string $password): \Entity\EUtente
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', [$password]);
-
-        return parent::setPassword($password);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getRuolo(): string
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'getRuolo', []);
 
         return parent::getRuolo();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUserId(string $userId): \Entity\EUtente
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setUserId', [$userId]);
+
+        return parent::setUserId($userId);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setCognome(string $cognome): \Entity\EUtente
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCognome', [$cognome]);
+
+        return parent::setCognome($cognome);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setEmail(string $email): \Entity\EUtente
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setEmail', [$email]);
+
+        return parent::setEmail($email);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setPassword(string $password): \Entity\EUtente
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setPassword', [$password]);
+
+        return parent::setPassword($password);
     }
 
 }

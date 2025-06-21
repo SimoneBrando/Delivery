@@ -67,10 +67,10 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'ordini', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'itemOrdini'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'ordini', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'itemOrdini'];
     }
 
     /**
@@ -239,18 +239,18 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setId($id): \Entity\EProdotto
+    public function getItemOrdini()
     {
 
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setId', [$id]);
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getItemOrdini', []);
 
-        return parent::setId($id);
+        return parent::getItemOrdini();
     }
 
     /**
      * {@inheritDoc}
      */
-    public function setNome($nome): \Entity\EProdotto
+    public function setNome(string $nome): \Entity\EProdotto
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setNome', [$nome]);
@@ -261,7 +261,7 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setDescrizione($descrizione): \Entity\EProdotto
+    public function setDescrizione(string $descrizione): \Entity\EProdotto
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDescrizione', [$descrizione]);
@@ -272,7 +272,7 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCosto($costo): \Entity\EProdotto
+    public function setCosto(float $costo): \Entity\EProdotto
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCosto', [$costo]);
@@ -283,7 +283,7 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function setCategoria($categoria): \Entity\EProdotto
+    public function setCategoria(\Entity\ECategoria $categoria): \Entity\EProdotto
     {
 
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategoria', [$categoria]);

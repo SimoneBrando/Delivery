@@ -2,6 +2,7 @@
 
 use Controller\BaseController;
 use Doctrine\ORM\Exception\ORMException;
+use Entity\EIndirizzo;
 use Entity\EUtente;
 use View\VUser;
 use Services\Utility\USession;
@@ -329,18 +330,35 @@ class CUser extends BaseController{
         $view->showMyOrders($orders);
     }
 
-    public function showChangePassword() {
-        $this->requireLogin();
-        $user = $this->getUser();
-        $view = new VUser();
-        $view->showChangePassword($user);
-    }
-
     public function showProfile(){
         $this->requireLogin();
         $user = $this->getUser();
+        $userAddresses = $this->findUserAdresses();
+        $userCreditCards = $this->findUserCards(); 
         $view = new VUser();
-        $view->showChangePassword($user);
+        $view->showChangePassword($user, $userAddresses, $userCreditCards);
+    }
+
+    public function findUserAdresses(){
+        $this->requireLogin();
+        $user = $this->getUser();
+        $addresses = $this->persistent_manager->getAllAddresses();
+        $userAddresses = array_filter(
+            $addresses, function($indirizzo) use ($user) {
+            return $indirizzo->getClienti()->contains($user);
+        });
+        return $userAddresses;
+    }
+
+    public function findUserCards(){
+        $this->requireLogin();
+        $user = $this->getUser();
+        $credtCards = $this->persistent_manager->getAllCreditCards();
+        $userCreditCard = array_filter(
+            $credtCards,
+            fn($carta) => $carta->getCliente()->getId() === $user->getId()
+        );
+        return $userCreditCard;
     }
 
     public function showLoginForm(){

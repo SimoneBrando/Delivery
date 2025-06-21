@@ -57,6 +57,18 @@ class EOrdine {
      */
     private $stato;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Entity\EIndirizzo", inversedBy="ordini")
+     * @ORM\JoinColumn(name="indirizzo_id", referencedColumnName="id", nullable=false)
+     */
+    private $indirizzoConsegna;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Entity\ECarta_credito", inversedBy="ordini")
+     * @ORM\JoinColumn(name="numeroCarta", referencedColumnName="numeroCarta", nullable=false)
+     */
+    private $metodoPagamento;
+
     public function __construct() {
         $this->itemOrdini = new ArrayCollection();
     }
@@ -93,6 +105,14 @@ class EOrdine {
         return $this->itemOrdini;
     }
 
+    public function getIndirizzoConsegna(): EIndirizzo{
+        return $this->indirizzoConsegna;
+    }
+
+    public function getMetodoPagamento(): ECarta_credito{
+        return $this->metodoPagamento;
+    }
+
     // Setters
     public function setNote($note) : EOrdine {
         $this->note = $note;
@@ -119,6 +139,16 @@ class EOrdine {
     }
     public function setStato($stato) : EOrdine{
         $this->stato = $stato;
+        return $this;
+    }
+
+    public function setIndirizzoConsegna(EIndirizzo $indirizzo): self{
+        $this->indirizzoConsegna = $indirizzo;
+        return $this;
+    }
+
+    public function setMetodoPagamento(ECarta_credito $carta): self{
+        $this->metodoPagamento = $carta;
         return $this;
     }
 

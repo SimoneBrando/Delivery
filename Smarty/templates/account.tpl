@@ -63,6 +63,48 @@
                 </form>
             </div>
 
+            <!-- Sezione Indirizzi -->
+            <div class="address-section">
+                <h3>I miei indirizzi</h3>
+                {if count($indirizzi) > 0}
+                    <ul class="address-list">
+                        {foreach $indirizzi as $indirizzo}
+                            <li class="address-item">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {$indirizzo->getVia()}
+                                <!-- Aggiungi qui eventuali altri campi -->
+                            </li>
+                        {/foreach}
+                    </ul>
+                {else}
+                    <p>Nessun indirizzo registrato.</p>
+                {/if}
+                <a href="/Delivery/User/addAddress/" class="btn-link">
+                    <i class="fas fa-plus"></i> Aggiungi indirizzo
+                </a>
+            </div>
+
+            <!-- Sezione Carte di Credito -->
+            <div class="credit-cards-section">
+                <h3>Le mie carte di credito</h3>
+                {if count($carte_credito) > 0}
+                    <ul class="cards-list">
+                        {foreach $carte_credito as $carta}
+                            <li class="card-item">
+                                <i class="far fa-credit-card"></i>
+                                {$carta->getNominativo()}
+                                <!-- Aggiungi qui eventuali altri campi -->
+                            </li>
+                        {/foreach}
+                    </ul>
+                {else}
+                    <p>Nessuna carta di credito registrata.</p>
+                {/if}
+                <a href="/Delivery/User/addCreditCard/" class="btn-link">
+                    <i class="fas fa-plus"></i> Aggiungi carta
+                </a>
+            </div>
+
             <!-- Link ai miei ordini -->
             <div class="orders-link">
                 <a href="/Delivery/User/showMyOrders/" class="btn-link">

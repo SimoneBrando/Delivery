@@ -86,7 +86,7 @@
                             </div>
                         </div>
                         <p class="review-text">"{$review->getDescrizione()|escape}"</p>
-                        <span class="review-date">{$review->getData()|date_format:"%H:%M %e %B %Y"}</span>
+                        <span class="review-date">"{$review->getData()|date_format:"%H:%M %e %B %Y"}"</span>
                     </div>
                 {/foreach}
             </div>

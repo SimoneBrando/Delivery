@@ -25,7 +25,7 @@ class CartaCreditoFixture extends AbstractFixture implements DependentFixtureInt
                 ->setCvv(str_pad((string)$i, 3, '0', STR_PAD_LEFT))
                 ->setNomeIntestatario($cliente->getNome() . ' ' . $cliente->getCognome())
                 ->setUtente($cliente); // Assicurati che il metodo esista
-
+            $this->addReference('metodo_' . $i, $carta);
             $manager->persist($carta);
         }
 

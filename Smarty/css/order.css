@@ -269,3 +269,9 @@ section[id] {
   background-color: var(--colore-primario-hover);
   box-shadow: 0 8px 20px rgba(3, 80, 80, 0.7);
 }
+
+/* Tema scuro specifico */
+body[data-theme="dark"] .menu-item {
+    background-color: rgba(111, 110, 110, 0.2);
+}
+

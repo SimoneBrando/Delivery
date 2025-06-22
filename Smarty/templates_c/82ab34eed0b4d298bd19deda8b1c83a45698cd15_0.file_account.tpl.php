@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-15 13:46:38
+/* Smarty version 5.5.1, created on 2025-06-22 16:31:14
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684eb29e7bfb05_54376881',
+  'unifunc' => 'content_685813b2dd6779_62816067',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '82ab34eed0b4d298bd19deda8b1c83a45698cd15' => 
     array (
       0 => 'account.tpl',
-      1 => 1749984575,
+      1 => 1750602402,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684eb29e7bfb05_54376881 (\Smarty\Template $_smarty_tpl) {
+function content_685813b2dd6779_62816067 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -92,6 +92,76 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 </form>
             </div>
 
+            <!-- Sezione Indirizzi -->
+            <div class="address-section">
+                <h3>I miei indirizzi</h3>
+                <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('indirizzi')) > 0) {?>
+                    <ul class="address-list">
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('indirizzi'), 'indirizzo');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('indirizzo')->value) {
+$foreach0DoElse = false;
+?>
+                            <li class="address-item">
+                                <span>
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <?php echo $_smarty_tpl->getValue('indirizzo')->getVia();?>
+, <?php echo $_smarty_tpl->getValue('indirizzo')->getCivico();?>
+, <?php echo $_smarty_tpl->getValue('indirizzo')->getCap();?>
+ <?php echo $_smarty_tpl->getValue('indirizzo')->getCitta();?>
+
+                                </span>
+                            </li>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                    </ul>
+                <?php } else { ?>
+                    <p>Nessun indirizzo registrato.</p>
+                <?php }?>
+                <a href="/Delivery/User/showAddressForm/" class="btn-link">
+                    <i class="fas fa-plus"></i> Aggiungi indirizzo
+                </a>
+            </div>
+
+            <!-- Sezione Carte di Credito -->
+            <div class="credit-cards-section">
+                <h3>Le mie carte di credito</h3>
+                <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('carte_credito')) > 0) {?>
+                    <ul class="cards-list">
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('carte_credito'), 'carta');
+$foreach1DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('carta')->value) {
+$foreach1DoElse = false;
+?>
+                            <li class="card-item">
+                                <span>
+                                    <i class="far fa-credit-card"></i>
+                                    <?php echo $_smarty_tpl->getValue('carta')->getNominativo();?>
+
+                                </span>
+                                <form action="/Delivery/User/removeCreditCard" method="POST" class="remove-card-form">
+                                    <input type="hidden" name="numero_carta" value="<?php echo $_smarty_tpl->getValue('carta')->getNumeroCarta();?>
+">
+                                    <button type="submit" class="remove-card-btn" title="Rimuovi Metodo di Pagamento">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
+                            </li>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                    </ul>
+                <?php } else { ?>
+                    <p>Nessuna carta di credito registrata.</p>
+                <?php }?>
+                <a href="/Delivery/User/showCreditCardForm/" class="btn-link">
+                    <i class="fas fa-plus"></i> Aggiungi carta
+                </a>
+            </div>
+
             <!-- Link ai miei ordini -->
             <div class="orders-link">
                 <a href="/Delivery/User/showMyOrders/" class="btn-link">
@@ -103,6 +173,9 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
             <div class="logout-section">
                 <a href="/Delivery/User/logoutUser/" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+                <a href="/Delivery/User/deleteAccount/" class="btn-logout">
+                    <i class="fas fa-sign-out-alt"></i> Delete Account
                 </a>
             </div>
         </section>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-15 13:52:18
+/* Smarty version 5.5.1, created on 2025-06-22 16:31:51
   from 'file:miei_ordini.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684eb3f29f66f3_84020049',
+  'unifunc' => 'content_685813d71f8309_63532330',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3bbf3d963d28453d85017cb2ea6f8f1285e3bd8d' => 
     array (
       0 => 'miei_ordini.tpl',
-      1 => 1749984645,
+      1 => 1750602402,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684eb3f29f66f3_84020049 (\Smarty\Template $_smarty_tpl) {
+function content_685813d71f8309_63532330 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -42,6 +42,8 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
 
     <!-- Main Content -->
     <main>
+
+        <!-- Orders Section -->
         <section class="orders-section">
             <h1>I Miei Ordini</h1>
 
@@ -54,11 +56,11 @@ $foreach0DoElse = false;
 ?>
                     <div class="order-card">
                         <div class="order-header">
-                            <h2>Ordine #<?php echo $_smarty_tpl->getValue('order')->getId();?>
+                            <h2>Ordine del <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')->getDataRicezione(),"%d/%m/%y");?>
 </h2>
                             <span class="order-date">
                                 <?php if ($_smarty_tpl->getValue('order')->getDataEsecuzione()) {?>
-                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')->getDataEsecuzione(),"%d %B %Y");?>
+                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('order')->getDataEsecuzione(),"%d/%m/%y");?>
 
                                 <?php } else { ?>
                                     Data non disponibile
@@ -69,19 +71,19 @@ $foreach0DoElse = false;
                             <p>
                                 <strong>Prodotti:</strong>
                                 <?php
-$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('order')->getProdotti(), 'product', false, NULL, 'prodottiLoop', array (
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('order')->getItemOrdini(), 'itemOrdine', false, NULL, 'itemLoop', array (
   'last' => true,
   'iteration' => true,
   'total' => true,
 ));
 $foreach1DoElse = true;
-foreach ($_from ?? [] as $_smarty_tpl->getVariable('product')->value) {
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('itemOrdine')->value) {
 $foreach1DoElse = false;
-$_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['iteration']++;
-$_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['last'] = $_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['iteration'] === $_smarty_tpl->tpl_vars['__smarty_foreach_prodottiLoop']->value['total'];
+$_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['iteration']++;
+$_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['last'] = $_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['iteration'] === $_smarty_tpl->tpl_vars['__smarty_foreach_itemLoop']->value['total'];
 ?>
-                                    <?php echo $_smarty_tpl->getValue('product')->getNome();
-if (!($_smarty_tpl->getValue('__smarty_foreach_prodottiLoop')['last'] ?? null)) {?>, <?php }?>
+                                    <?php echo $_smarty_tpl->getValue('itemOrdine')->getProdotto()->getNome();
+if (!($_smarty_tpl->getValue('__smarty_foreach_itemLoop')['last'] ?? null)) {?>,  <?php }?>
                                 <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
@@ -93,6 +95,13 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <p><strong>Stato:</strong> <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getValue('order')->getStato());?>
 </p>
                         </div>
+                        <div class="order_info">
+                            <p>Indirizzo: <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCitta();?>
+, <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getVia();?>
+, <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCivico();?>
+</p>
+                            <p>Metodo Pagamento: <?php echo $_smarty_tpl->getValue('order')->getMetodoPagamento()->getNominativo();?>
+</p>
                     </div>
                 <?php
 }
@@ -102,7 +111,13 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <?php }?>
 
         </section>
+        <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('orders')) > 0) {?>
+            <div class="review-conteiner">
+                <a href="/Delivery/User/showReviewForm/" class="btn">Scrivi recensione!</a>
+            </div>
+        <?php }?>
     </main>
+
 
     <!-- Footer -->
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
@@ -114,8 +129,6 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     <?php echo '<script'; ?>
  src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
 >
-
-
 </body>
 </html>
 <?php }

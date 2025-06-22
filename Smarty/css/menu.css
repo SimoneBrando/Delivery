@@ -77,6 +77,11 @@ section[id] {
     margin-left: 15px;
 }
 
+/* Tema scuro specifico */
+body[data-theme="dark"] .menu-item {
+    background-color: rgba(111, 110, 110, 0.2);
+}
+
 @media (max-width: 768px) {
     .menu-items {
         grid-template-columns: 1fr;

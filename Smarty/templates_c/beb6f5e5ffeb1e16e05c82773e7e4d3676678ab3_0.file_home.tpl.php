@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-14 22:11:06
+/* Smarty version 5.5.1, created on 2025-06-22 16:30:19
   from 'file:home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684dd75a33a012_34516508',
+  'unifunc' => 'content_6858137b69aeb3_90181435',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'beb6f5e5ffeb1e16e05c82773e7e4d3676678ab3' => 
     array (
       0 => 'home.tpl',
-      1 => 1749931732,
+      1 => 1750602402,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684dd75a33a012_34516508 (\Smarty\Template $_smarty_tpl) {
+function content_6858137b69aeb3_90181435 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -120,9 +120,8 @@ $foreach0DoElse = false;
                         </div>
                         <p class="review-text">"<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('review')->getDescrizione(), ENT_QUOTES, 'UTF-8', true);?>
 "</p>
-                        <span class="review-date"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('review')->getData(),"%d/%m/%Y");?>
- <?php echo $_smarty_tpl->getValue('review')->getOrario();?>
-</span>
+                        <span class="review-date">"<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('review')->getData(),"%H:%M %e %B %Y");?>
+"</span>
                     </div>
                 <?php
 }

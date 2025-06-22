@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/Smarty/css/layout.css"></link>
     <link rel="stylesheet" href="/Smarty/css/error.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="../Js/loadComponents.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -16,20 +15,23 @@
 
     <!-- Main Content -->
     <main>
-        <section>
-            <div>
-                <h1>Accesso Negato</h1>
+      <section class="accesso-negato-container">
+        <div class="crossed-utensils">
+          <i class="fas fa-utensils fork "></i>
+        </div>
 
-                <p>Non hai i permessi necessari per accedere a questa sezione.</p>
-
-                <a class="button" href="/Delivery/User/home">Torna alla Homepage</a>
-            </div>
-        </section>
+        <h1>Accesso Negato</h1>
+        <p>Non hai i permessi necessari per accedere a questa sezione.</p>
+        <a class="button" href="/Delivery/User/home">Torna alla Homepage</a>
+      </section>
     </main>
 
     <!-- Footer -->
     
     {include file="footer.tpl"}
+
+    <script src="/Smarty/js/hamburger.js"></script>
+    <script src="/Smarty/js/theme.js" defer></script>
 
 </body>
 </html>

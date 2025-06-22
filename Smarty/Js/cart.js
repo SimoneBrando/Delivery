@@ -13,9 +13,11 @@
         const name = item.querySelector('h3').textContent;
         const price = parseFloat(item.querySelector('.item-price').textContent.replace('€', '').replace(',', '.'));
         const id = item.querySelector('.add-button').dataset.id;
+        const descrizioneElement = item.querySelector('.item-info p');
+        const descrizione = descrizioneElement ? descrizioneElement.textContent.trim() : '';
 
         item.querySelector('.add-button').addEventListener('click', () => {
-            openModalWithProduct(id, name, price);
+            openModalWithProduct(id, name, price, descrizione);
         });
     });
 
@@ -147,18 +149,18 @@
     const modalBody = document.getElementById('modal-body');
     const closeBtn = document.querySelector('.close-button');
 
-    function openModalWithProduct(id, name, price) {
+    function openModalWithProduct(id, name, price, descrizione) {
         modal.classList.remove('hidden');
         modalBody.innerHTML = `
             <h2>${name}</h2>
             <p>Prezzo: €${price.toFixed(2)}</p>
-            <p>Qui puoi aggiungere descrizione, opzioni extra, immagini, ecc.</p>
+            <p>${descrizione || "Descrizione non disponibile"}</p>
             <button onclick="confirmAddToCart('${id}', '${name}', ${price})">Aggiungi al carrello</button>
         `;
     }
 
-    function confirmAddToCart(id, name, price) {
-        addToCart(id, name, price);
+    function confirmAddToCart(id, name, price, descrizione) {
+        addToCart(id, name, price, descrizione);
         modal.classList.add('hidden');
     }
 

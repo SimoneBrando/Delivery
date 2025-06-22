@@ -52,7 +52,7 @@ class COrdine extends BaseController{
         $user = $this->getUser();
         $userUtility = new CUser();
         $adresses = $userUtility->findUserAdresses();
-        $cards = $userUtility->findUserCards();
+        $cards = $userUtility->findActiveUserCards();
         $view = new VUser();
         $view->showConfirmOrder($user,$dataConsegna, $adresses, $cards);
     }

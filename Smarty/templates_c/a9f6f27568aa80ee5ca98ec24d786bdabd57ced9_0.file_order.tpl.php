@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-15 13:42:55
+/* Smarty version 5.5.1, created on 2025-06-22 16:31:51
   from 'file:order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684eb1bf045936_42031819',
+  'unifunc' => 'content_685813d7a42942_59446877',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'a9f6f27568aa80ee5ca98ec24d786bdabd57ced9' => 
     array (
       0 => 'order.tpl',
-      1 => 1749987647,
+      1 => 1750602402,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684eb1bf045936_42031819 (\Smarty\Template $_smarty_tpl) {
+function content_685813d7a42942_59446877 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -103,7 +103,10 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         <h2>Il tuo ordine</h2>
         <ul id="cart-items"></ul>
         <p id="cart-total">Totale: €0.00</p>
-        <a href="checkout.html"><button>Prosegui</button></a>
+        <form id="cartForm" method="POST" action="/Delivery/Ordine/showConfirmOrder">
+            <input type="hidden" name="cart_data" id="cartDataInput">
+            <button type="submit">Prosegui Ordine</button>
+        </form>
     </div>
 
     <div id="product-modal" class="modal hidden">
@@ -133,6 +136,10 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 >
     document.addEventListener("DOMContentLoaded", function() {
         cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];
+        cartForm.addEventListener("submit", function(event) {
+            const currentCart = localStorage.getItem("cart");
+            document.getElementById("cartDataInput").value = currentCart;
+        });
         renderCart();
         showCartIcon();
     });

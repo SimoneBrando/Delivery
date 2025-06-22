@@ -67,10 +67,10 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento'];
     }
 
     /**
@@ -294,6 +294,17 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getDataConsegna(): ?\DateTime
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getDataConsegna', []);
+
+        return parent::getDataConsegna();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setNote($note): \Entity\EOrdine
     {
 
@@ -322,6 +333,17 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDataRicezione', [$dataRicezione]);
 
         return parent::setDataRicezione($dataRicezione);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setDataConsegna($dataConsegna): \Entity\EOrdine
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setDataConsegna', [$dataConsegna]);
+
+        return parent::setDataConsegna($dataConsegna);
     }
 
     /**

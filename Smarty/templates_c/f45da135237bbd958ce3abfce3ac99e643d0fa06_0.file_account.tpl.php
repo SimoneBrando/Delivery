@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-22 00:54:50
+/* Smarty version 5.5.1, created on 2025-06-22 11:30:03
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6857383a33a092_19104239',
+  'unifunc' => 'content_6857cd1bd62c38_65582208',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f45da135237bbd958ce3abfce3ac99e643d0fa06' => 
     array (
       0 => 'account.tpl',
-      1 => 1750546488,
+      1 => 1750584601,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6857383a33a092_19104239 (\Smarty\Template $_smarty_tpl) {
+function content_6857cd1bd62c38_65582208 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -111,15 +111,7 @@ $foreach0DoElse = false;
 , <?php echo $_smarty_tpl->getValue('indirizzo')->getCap();?>
  <?php echo $_smarty_tpl->getValue('indirizzo')->getCitta();?>
 
-                                    <form action="/Delivery/User/removeAddress" method="POST" class="remove-address-form">
-                                        <input type="hidden" name="indirizzo_id" value="<?php echo $_smarty_tpl->getValue('indirizzo')->getId();?>
-">
-                                        <button type="submit" class="remove-address-btn" title="Rimuovi indirizzo">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </button>
-                                    </form>
                                 </span>
-                                
                             </li>
                         <?php
 }
@@ -149,14 +141,14 @@ $foreach1DoElse = false;
                                     <i class="far fa-credit-card"></i>
                                     <?php echo $_smarty_tpl->getValue('carta')->getNominativo();?>
 
-                                    <form action="/Delivery/User/removeCreditCard" method="POST" class="remove-card-form">
+                                </span>
+                                <form action="/Delivery/User/removeCreditCard" method="POST" class="remove-card-form">
                                     <input type="hidden" name="numero_carta" value="<?php echo $_smarty_tpl->getValue('carta')->getNumeroCarta();?>
 ">
                                     <button type="submit" class="remove-card-btn" title="Rimuovi Metodo di Pagamento">
                                         <i class="fas fa-trash-alt"></i>
                                     </button>
                                 </form>
-                                </span>
                             </li>
                         <?php
 }

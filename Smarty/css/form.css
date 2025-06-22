@@ -28,6 +28,7 @@
 
 .form input[type="text"] {
   width: 100%;
+  font-size: 1rem;
   padding: 0.6rem;
   border: 1px solid var(--colore-input-bordo);
   border-radius: 6px;
@@ -105,4 +106,28 @@
 
 .remove-card-btn:hover {
     color: darkred;
+}
+
+.star-rating {
+  direction: rtl;
+  font-size: 2rem;
+  unicode-bidi: bidi-override;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.star-rating input {
+  display: none;
+}
+
+.star-rating label {
+  cursor: pointer;
+  color: var(--colore-stelle-vuote, #ddd);
+  transition: color 0.2s;
+}
+
+.star-rating input:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+  color: var(--colore-stelle-piene, #FFD700);
 }

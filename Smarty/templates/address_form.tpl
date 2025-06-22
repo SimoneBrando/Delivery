@@ -28,17 +28,17 @@
 
                     <div class="form-group">
                         <label for="civico">Civico</label>
-                        <input type="text" id="civico" name="civico" required>
+                        <input type="text" id="civico" name="civico" pattern="^[0-9]+[a-zA-Z]?$" required>
                     </div>
 
                     <div class="form-group">
                         <label for="citta">Città</label>
-                        <input type="text" id="citta" name="citta" required>
+                        <input type="text" id="citta" name="citta" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Solo lettere ammesse" autocapitalize="on" required>
                     </div>
 
                     <div class="form-group">
                         <label for="cap">CAP</label>
-                        <input type="text" id="cap" name="cap" pattern="\d{5}" required>
+                        <input type="text" id="cap" name="cap" pattern="\d&#123;5&#125;" inputmode="numeric" maxlength="5" title="Inserisci un CAP valido (5 cifre)" required>
                     </div>
 
                     <button type="submit">Salva Indirizzo</button>

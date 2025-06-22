@@ -339,7 +339,7 @@ class CUser extends BaseController{
         $this->requireLogin();
         $user = $this->getUser();
         $userAddresses = $this->findUserAdresses();
-        $userCreditCards = $this->findUserCards(); 
+        $userCreditCards = $this->findActiveUserCards(); 
         $view = new VUser();
         $view->showChangePassword($user, $userAddresses, $userCreditCards);
     }
@@ -349,19 +349,19 @@ class CUser extends BaseController{
         $user = $this->getUser();
         $addresses = $this->persistent_manager->getAllAddresses();
         $userAddresses = array_filter(
-            $addresses, function($indirizzo) use ($user) {
-            return $indirizzo->getClienti()->contains($user);
+            $addresses, function($address) use ($user) {
+            return $address->getClienti()->contains($user);
         });
         return $userAddresses;
     }
 
-    public function findUserCards(){
+    public function findActiveUserCards(){
         $this->requireLogin();
         $user = $this->getUser();
         $credtCards = $this->persistent_manager->getAllCreditCards();
         $userCreditCard = array_filter(
             $credtCards,
-            fn($carta) => $carta->getCliente()->getId() === $user->getId()
+            fn($carta) => $carta->getCliente()->getId() === $user->getId() && $carta->getCartaAttiva() === true
         );
         return $userCreditCard;
     }
@@ -387,8 +387,8 @@ class CUser extends BaseController{
         try {
             $via = UHTTPMethods::post('via');
             $civico = UHTTPMethods::post('civico');
-            $cap = UHTTPMethods::post('cap');
-            $citta = UHTTPMethods::post('citta');
+            $cap = UHTTPMethods::postInt('cap',5,5);
+            $citta = UHTTPMethods::postString('citta');
             $address = new EIndirizzo();
             $address->setVia($via)
                 ->setCivico($civico)
@@ -396,7 +396,8 @@ class CUser extends BaseController{
                 ->setCitta($citta)
                 ->addCliente($user);
             $this->persistent_manager->saveObj($address);
-            $this->showProfile();
+            header("Location: /Delivery/User/showProfile");
+            exit;
         } catch (InvalidArgumentException $e) {
             $view = new VErrors();
             $view->showFatalError($e->getMessage());
@@ -407,10 +408,11 @@ class CUser extends BaseController{
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
             $view = new VErrors();
-            $view->showFatalError("Errore imprevisto");
+            $view->showFatalError("Errore imprevisto".$th->getMessage());
         }
-        
     }
+
+    /* Da aggiustare in seguito
     public function removeAddress(){
         $this->requireRole('cliente');
         try {
@@ -428,9 +430,10 @@ class CUser extends BaseController{
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
             $view = new VErrors();
-            $view->showFatalError("Errore imprevisto");
+            $view->showFatalError("Errore imprevisto".$th->getMessage(). $address->getVia());
         }
     }
+    */
 
     //Gestione MetodiPagamento
     public function showCreditCardForm(){
@@ -442,27 +445,48 @@ class CUser extends BaseController{
         $this->requireRole('cliente');
         $user = $this->getUser();
         try{
-            $numeroCarta = UHTTPMethods::post('numero_carta');
+            $numeroCarta = UHTTPMethods::postInt('numero_carta',16,16);
             $nomeCarta = UHTTPMethods::post('nome_carta');
-            $scadenza = UHTTPMethods::post('data_scadenza');
-            $dataScadenza = DateTime::createFromFormat('m/y', $scadenza);
-            $errors = DateTime::getLastErrors();
-            if ($dataScadenza === false || $errors['warning_count'] > 0 || $errors['error_count'] > 0) {
-                throw new InvalidArgumentException("La data di scadenza non è valida.");
-            }
+            $dataScadenza = UHTTPMethods::postDate('data_scadenza', 'm/y');
             $dataScadenza->modify('last day of this month 23:59:59');
-            $dataScadenza->modify('last day of this month 23:59:59');
-            $cvv = UHTTPMethods::post('cvv');
-            $nomeIntestatario = UHTTPMethods::post('nome_intestatario');
+            $cvv = UHTTPMethods::postInt('cvv',3,4);
+            $nomeIntestatario = UHTTPMethods::postString('nome_intestatario');
             $creditCard = new ECarta_credito();
             $creditCard->setNumeroCarta($numeroCarta)
                 ->setNominativo($nomeCarta)
                 ->setDataScadenza($dataScadenza)
                 ->setCvv($cvv)
                 ->setNomeIntestatario($nomeIntestatario)
-                ->setUtente($user);
+                ->setUtente($user)
+                ->setCartaAttiva(true);
             $this->persistent_manager->saveObj($creditCard);
-            $this->showProfile();
+            header("Location: /Delivery/User/showProfile");
+            exit;
+        } catch (InvalidArgumentException $e) {
+            $view = new VErrors();
+            $view->showFatalError($e->getMessage());
+        } catch (\PDOException $e) {
+            error_log("Errore DB: " . $e->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore durante il salvataggio");
+        } catch (\Throwable $th) {
+            error_log("Errore generico: " . $th->getMessage());
+            $view = new VErrors();
+            $view->showFatalError("Errore imprevisto".$th->getMessage());
+        }
+    }
+    public function removeCreditCard(){
+        try{
+            $this->requireRole('cliente');
+            $numeroCarta = UHTTPMethods::postInt('numero_carta',16,16);
+            $creditCard = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', $numeroCarta);
+            if (!$creditCard) {
+                throw new InvalidArgumentException("Carta di credito non trovata.");
+            }
+            $creditCard->setCartaAttiva(false);
+            $this->persistent_manager->updateObj($creditCard);
+            header("Location: /Delivery/User/showProfile");
+            exit;
         } catch (InvalidArgumentException $e) {
             $view = new VErrors();
             $view->showFatalError($e->getMessage());
@@ -476,25 +500,11 @@ class CUser extends BaseController{
             $view->showFatalError("Errore imprevisto");
         }
     }
-    public function removeCreditCard(){
-        try{
-            $this->requireRole('cliente');
-            $numeroCarta = UHTTPMethods::post('numero_carta');
-            $creditCard = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', $numeroCarta);
-            $this->persistent_manager->deleteObj($creditCard);
-            $this->showProfile();
-        } catch (InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
-        } catch (\PDOException $e) {
-            error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
-        } catch (\Throwable $th) {
-            error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto");
-        }
+
+    public function showReviewForm(){
+        $this->requireRole('cliente');
+        $view = new VUser();
+        $view->showReviewForm();
     }
 
 }

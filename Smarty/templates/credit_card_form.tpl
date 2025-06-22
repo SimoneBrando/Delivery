@@ -28,25 +28,25 @@
 
                     <div class="form-group">
                         <label for="numero_carta">Numero Carta</label>
-                        <input type="text" id="numero_carta" name="numero_carta" required>
+                        <input type="text" id="numero_carta" name="numero_carta" pattern="^\d&#123;16&#125;$" inputmode="numeric" maxlength="16" title="Inserisci 16 cifre numeriche" required>
                     </div>
 
                     <div class="form-group">
                         <label for="cvv">CVV</label>
-                        <input type="text" id="cvv" name="cvv" required>
+                        <input type="text" id="cvv" name="cvv" pattern="^\d&#123;3,4&#125;$" inputmode="numeric" maxlength="4" title="Inserisci un CVV di 3 o 4 cifre" required>
                     </div>
 
                     <div class="form-group">
                         <label for="nome_intestatario">Nome Intestatario</label>
-                        <input type="text" id="nome_intestatario" name="nome_intestatario" required>
+                        <input type="text" id="nome_intestatario" name="nome_intestatario" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Inserisci un nome valido (solo lettere e spazi)" required>
                     </div>
 
                     <div class="form-group">
                         <label for="data_scadenza">Data Scadenza</label>
-                        <input type="text" id="data_scadenza" name="data_scadenza" pattern="^(0[1-9]|1[0-2])\/\d{2}$" required>
+                        <input type="text" id="data_scadenza" name="data_scadenza" pattern="^(0[1-9]|1[0-2])\/\d&#123;2&#125;$" inputmode="numeric" placeholder="MM/AA" required>
                     </div>
 
-                    <button type="submit">Salva Indirizzo</button>
+                    <button type="submit">Salva Metodo di Pagamento</button>
 
                 </form>
             </div>

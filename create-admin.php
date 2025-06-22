@@ -12,7 +12,7 @@ if (php_sapi_name() !== 'cli') {
 }
 $options = getopt("", ["email:", "password:"]);
 if (!isset($options['email'], $options['password'])) {
-    echo "Usa: php create_admin.php --email=EMAIL --password=PASSWORD\n";
+    echo "Usa: php create-admin.php --email=EMAIL --password=PASSWORD\n";
     exit(1);
 }
 $nome = 'Admin';

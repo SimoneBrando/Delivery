@@ -47,6 +47,10 @@ class ECarta_credito{
      */
     private $utente;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $attiva;
 
     public function __construct() {
     }
@@ -73,7 +77,11 @@ class ECarta_credito{
     }
 
     public function getCliente(): ECliente{
-        return $this->cliente;
+        return $this->utente;
+    }
+
+    public function getCartaAttiva(): bool{
+        return $this->attiva;
     }
 
     //Setter
@@ -105,6 +113,11 @@ class ECarta_credito{
     public function setUtente(EUtente $utente): ECarta_credito
     {
         $this->utente = $utente;
+        return $this;
+    }
+
+    public function setCartaAttiva(bool $attiva): ECarta_credito{
+        $this->attiva = $attiva;
         return $this;
     }
 

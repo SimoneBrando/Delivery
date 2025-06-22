@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-21 19:53:53
+/* Smarty version 5.5.1, created on 2025-06-22 12:27:24
   from 'file:miei_ordini.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6856f1b1671bd8_31814556',
+  'unifunc' => 'content_6857da8cdddbc5_36179066',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c097591f2f6c1944940b106e904d446dd03a6ded' => 
     array (
       0 => 'miei_ordini.tpl',
-      1 => 1750528431,
+      1 => 1750588042,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6856f1b1671bd8_31814556 (\Smarty\Template $_smarty_tpl) {
+function content_6857da8cdddbc5_36179066 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -42,6 +42,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 
     <!-- Main Content -->
     <main>
+
+        <!-- Orders Section -->
         <section class="orders-section">
             <h1>I Miei Ordini</h1>
 
@@ -109,6 +111,11 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <?php }?>
 
         </section>
+        <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('orders')) > 0) {?>
+            <div class="review-conteiner">
+                <a href="/Delivery/User/showReviewForm/" class="btn">Scrivi recensione!</a>
+            </div>
+        <?php }?>
     </main>
 
 

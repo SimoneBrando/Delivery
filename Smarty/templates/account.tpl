@@ -74,12 +74,6 @@
                                     <i class="fas fa-map-marker-alt"></i>
                                     {$indirizzo->getVia()}, {$indirizzo->getCivico()}, {$indirizzo->getCap()} {$indirizzo->getCitta()}
                                 </span>
-                                <form action="/Delivery/User/removeAddress" method="POST" class="remove-address-form">
-                                    <input type="hidden" name="indirizzo_id" value="{$indirizzo->getId()}">
-                                    <button type="submit" class="remove-address-btn" title="Rimuovi indirizzo">
-                                        <i class="fas fa-trash-alt"></i>
-                                    </button>
-                                </form>
                             </li>
                         {/foreach}
                     </ul>

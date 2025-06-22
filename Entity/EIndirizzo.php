@@ -109,6 +109,9 @@ class EIndirizzo
     }
     public function addCliente(ECliente $cliente)
     {
+        if ($this->clienti === null) {
+            $this->clienti = new ArrayCollection();
+        }
         if (!$this->clienti->contains($cliente)) {
             $this->clienti[] = $cliente;
             $cliente->addIndirizzoConsegna($this);

@@ -32,6 +32,10 @@ class EOrdine {
      */
     private $dataRicezione;
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private ?\DateTime $dataConsegna;
+    /**
      * @ORM\Column(type="decimal", scale=2)
      */
     private $costo;
@@ -113,6 +117,10 @@ class EOrdine {
         return $this->metodoPagamento;
     }
 
+    public function getDataConsegna(): \DateTime|null{
+        return $this->dataConsegna;
+    }
+
     // Setters
     public function setNote($note) : EOrdine {
         $this->note = $note;
@@ -126,6 +134,11 @@ class EOrdine {
 
     public function setDataRicezione($dataRicezione) : EOrdine {
         $this->dataRicezione = $dataRicezione;
+        return $this;
+    }
+    
+    public function setDataConsegna($dataConsegna): EOrdine{
+        $this->dataConsegna = $dataConsegna;
         return $this;
     }
     

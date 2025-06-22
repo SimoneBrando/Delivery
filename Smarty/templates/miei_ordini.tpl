@@ -15,6 +15,8 @@
 
     <!-- Main Content -->
     <main>
+
+        <!-- Orders Section -->
         <section class="orders-section">
             <h1>I Miei Ordini</h1>
 
@@ -52,6 +54,11 @@
             {/if}
 
         </section>
+        {if $orders|@count > 0}
+            <div class="review-conteiner">
+                <a href="/Delivery/User/showReviewForm/" class="btn">Scrivi recensione!</a>
+            </div>
+        {/if}
     </main>
 
 

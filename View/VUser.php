@@ -55,9 +55,8 @@ class VUser{
         $this->smarty->display('account.tpl');
     }
 
-    public function showConfirmOrder($user, $dataConsegna, $adresses, $creditCards){
+    public function showConfirmOrder($user, $adresses, $creditCards){
         $this->smarty->assign('utente', $user);
-        $this->smarty->assign('data_consegna', $dataConsegna);
         $this->smarty->assign('indirizzi',$adresses);
         $this->smarty->assign('carte_credito',$creditCards);
         $this->smarty->display('check_order.tpl');

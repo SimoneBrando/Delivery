@@ -25,36 +25,13 @@ class COrdine extends BaseController{
         $cart = json_decode(UHTTPMethods::post('cart_data'), true);
         if (!is_array($cart) || empty($cart)) {
             throw new InvalidArgumentException("Carrello non valido o vuoto.");
-        }
-        $order = new EOrdine();
-        foreach ($cart as $item){
-                $prodotto = $this->persistent_manager->getObjOnAttribute(EProdotto::class,'id',$item['id']);
-                if (!$prodotto) {
-                    throw new InvalidArgumentException("Prodotto {$item['name']} non trovato.");
-                }
-                $itemOrder = new EItemOrdine;
-                $itemOrder->setOrdine($order)
-                    ->setProdotto($prodotto)
-                    ->setQuantita($item['qty'])
-                    ->setPrezzoUnitarioAlMomento($item['price']);
-                $itemOrderList[] = $itemOrder;
-        }
-        try {
-            $ordiniAttivi = $this->persistent_manager->getOrdersByState('in_preparazione');
-            $numeroOrdini = is_array($ordiniAttivi) ? count($ordiniAttivi) : 10;
-        } catch (Exception $e) {
-            error_log("Errore nel recupero degli ordini in preparazione: " . $e->getMessage());
-            // Fallback: impostiamo un numero fittizio per forzare il ritardo
-            $numeroOrdini = 10;
-        }
-        $calculator = new OrderTimeCalculator;
-        $dataConsegna = $calculator->orarioConsegnaCalculator($itemOrderList,$numeroOrdini);        
+        }    
         $user = $this->getUser();
         $userUtility = new CUser();
         $adresses = $userUtility->findUserAdresses();
         $cards = $userUtility->findActiveUserCards();
         $view = new VUser();
-        $view->showConfirmOrder($user,$dataConsegna, $adresses, $cards);
+        $view->showConfirmOrder($user, $adresses, $cards);
     }
 
     public function confirmPayment(){
@@ -116,8 +93,53 @@ class COrdine extends BaseController{
         }
     }
 
-    public static function listadiProdotti(){
+    public function getEstimatedTime() {
+        try{
+            $this->requireRole('cliente');
+            $indirizzoId = UHTTPMethods::post('indirizzo_id');
+            $indirizzo = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class, 'id', $indirizzoId);
+            $indirizzoCliente = "{$indirizzo->getVia()} {$indirizzo->getCivico()}, {$indirizzo->getCitta()}";
+            $cart = json_decode(UHTTPMethods::post('cart_data'), true);
+            if (!is_array($cart) || empty($cart)) {
+                throw new InvalidArgumentException("Carrello non valido");
+            }
+            $order = new EOrdine();
+            foreach ($cart as $item){
+                $prodotto = $this->persistent_manager->getObjOnAttribute(EProdotto::class,'id',$item['id']);
+                if (!$prodotto) {
+                    throw new InvalidArgumentException("Prodotto {$item} non trovato");
+                    }
+                $itemOrder = new EItemOrdine;
+                $itemOrder->setOrdine($order)
+                    ->setProdotto($prodotto)
+                    ->setQuantita($item['qty'])
+                    ->setPrezzoUnitarioAlMomento($item['price']);
+                $itemOrderList[] = $itemOrder;
+            }
+            try {
+                $ordiniAttivi = $this->persistent_manager->getOrdersByState('in_preparazione');
+                $numeroOrdini = is_array($ordiniAttivi) ? count($ordiniAttivi) : 10;
+            } catch (Exception $e) {
+                error_log("Errore nel recupero degli ordini in preparazione: " . $e->getMessage());
+                // Fallback: impostiamo un numero fittizio per forzare il ritardo
+                $numeroOrdini = 10;
+            }
+            $orderTime = new OrderTimeCalculator();    
+            // Esegui il calcolo reale del tempo stimato
+            $estimatedTime = $orderTime->orarioConsegnaCalculator($itemOrderList, $numeroOrdini,$indirizzoCliente);
 
+            header('Content-Type: application/json');
+            echo json_encode([
+                'estimated_time' => $estimatedTime->format('Y-m-d\TH:i')
+            ]);
+        } catch (Exception $e) {
+            header('Content-Type: application/json');
+            http_response_code(500);
+            echo json_encode([
+                'error' => $e->getMessage()
+            ]);
+            exit;
+        }
     }
     
 }

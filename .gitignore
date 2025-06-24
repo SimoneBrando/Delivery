@@ -3,3 +3,5 @@
 /var/*
 # Ignora la cartella vendor/ (dipendenze Composer)
 /vendor/
+#Ignora il file config.php
+config/config.php

@@ -1,0 +1,43 @@
+Array
+(
+    [destination_addresses] => Array
+        (
+            [0] => 65028 Tocco Da Casauria PE, Italy
+        )
+
+    [origin_addresses] => Array
+        (
+            [0] => P.za Duomo, 1, 67100 L'Aquila AQ, Italy
+        )
+
+    [rows] => Array
+        (
+            [0] => Array
+                (
+                    [elements] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [distance] => Array
+                                        (
+                                            [text] => 65.7 km
+                                            [value] => 65681
+                                        )
+
+                                    [duration] => Array
+                                        (
+                                            [text] => 1 hour 4 mins
+                                            [value] => 3811
+                                        )
+
+                                    [status] => OK
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [status] => OK
+)

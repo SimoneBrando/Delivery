@@ -47,6 +47,7 @@
                         <div class="order_info">
                             <p>Indirizzo: {$order->getIndirizzoConsegna()->getCitta()}, {$order->getIndirizzoConsegna()->getVia()}, {$order->getIndirizzoConsegna()->getCivico()}</p>
                             <p>Metodo Pagamento: {$order->getMetodoPagamento()->getNominativo()}</p>
+                        </div>
                     </div>
                 {/foreach}
             {else}

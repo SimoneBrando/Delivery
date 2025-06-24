@@ -85,6 +85,30 @@ main {
     color: #ff3d00;
 }
 
+/* Review section */
+.review-conteiner {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.review-conteiner .btn {
+    background-color: var(--colore-primario);
+    color: var(--colore-bianco);
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: inline-block;
+}
+
+.review-conteiner .btn:hover {
+    transform: scale(1.15);
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     .orders-section {

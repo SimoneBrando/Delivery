@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-22 16:31:14
+/* Smarty version 5.5.1, created on 2025-06-24 13:48:09
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685813b2dd6779_62816067',
+  'unifunc' => 'content_685a9079b9ea61_18351342',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '82ab34eed0b4d298bd19deda8b1c83a45698cd15' => 
     array (
       0 => 'account.tpl',
-      1 => 1750602402,
+      1 => 1750765688,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685813b2dd6779_62816067 (\Smarty\Template $_smarty_tpl) {
+function content_685a9079b9ea61_18351342 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -120,9 +120,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 <?php } else { ?>
                     <p>Nessun indirizzo registrato.</p>
                 <?php }?>
-                <a href="/Delivery/User/showAddressForm/" class="btn-link">
-                    <i class="fas fa-plus"></i> Aggiungi indirizzo
-                </a>
+                    <button type="button" data-modal-target="addressModal" class="btn-link-modal">
+                        <i class="fas fa-plus"></i> Aggiungi indirizzo
+                    </button>
             </div>
 
             <!-- Sezione Carte di Credito -->
@@ -157,9 +157,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 <?php } else { ?>
                     <p>Nessuna carta di credito registrata.</p>
                 <?php }?>
-                <a href="/Delivery/User/showCreditCardForm/" class="btn-link">
-                    <i class="fas fa-plus"></i> Aggiungi carta
-                </a>
+                    <button type="button" data-modal-target="cardModal" class="btn-link-modal">
+                        <i class="fas fa-plus"></i> Aggiungi carta
+                    </button>
             </div>
 
             <!-- Link ai miei ordini -->
@@ -183,9 +183,86 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     </main>
 
     <!-- Footer -->
-    
+
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
+
+    <!-- Modal Aggiungi Indirizzo -->
+        <div id="addressModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+
+                <h2>Aggiungi un nuovo indirizzo</h2>
+
+                <form method="POST" action="/Delivery/User/addAddress" class="form">
+
+                        <div class="form-group">
+                            <label for="via">Via</label>
+                            <input type="text" id="via" name="via" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="civico">Civico</label>
+                            <input type="text" id="civico" name="civico" pattern="^[0-9]+[a-zA-Z]?$" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="citta">Città</label>
+                            <input type="text" id="citta" name="citta" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Solo lettere ammesse" autocapitalize="on" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cap">CAP</label>
+                            <input type="text" id="cap" name="cap" pattern="\d&#123;5&#125;" inputmode="numeric" maxlength="5" title="Inserisci un CAP valido (5 cifre)" required>
+                        </div>
+
+                        <button type="submit">Salva Indirizzo</button>
+
+                </form>
+            </div>
+        </div>
+
+    <!-- Modal Aggiungi Carta -->
+        <div id="cardModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+
+                <h2>Aggiungi un nuovo metodo di pagamento</h2>
+
+                <form method="POST" action="/Delivery/User/addCreditCard" class="form">
+
+                    <div class="form-group">
+                        <label for="nome_carta">Nominativo Carta</label>
+                        <input type="text" id="nome_carta" name="nome_carta" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numero_carta">Numero Carta</label>
+                        <input type="text" id="numero_carta" name="numero_carta" pattern="^\d&#123;16&#125;$" inputmode="numeric" maxlength="16" title="Inserisci 16 cifre numeriche" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" pattern="^\d&#123;3,4&#125;$" inputmode="numeric" maxlength="4" title="Inserisci un CVV di 3 o 4 cifre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome_intestatario">Nome Intestatario</label>
+                        <input type="text" id="nome_intestatario" name="nome_intestatario" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Inserisci un nome valido (solo lettere e spazi)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data_scadenza">Data Scadenza</label>
+                        <input type="text" id="data_scadenza" name="data_scadenza" pattern="^(0[1-9]|1[0-2])\/\d&#123;2&#125;$" inputmode="numeric" placeholder="MM/AA" required>
+                    </div>
+
+                    <button type="submit">Salva Metodo di Pagamento</button>
+
+                </form>
+            </div>
+        </div>
+
+    
 
     <?php echo '<script'; ?>
  src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
@@ -193,7 +270,10 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     <?php echo '<script'; ?>
  src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
 >
-    
+    <?php echo '<script'; ?>
+ src="/Smarty/js/modal.js" defer><?php echo '</script'; ?>
+>
+
 </body>
 
 </html><?php }

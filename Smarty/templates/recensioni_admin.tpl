@@ -23,30 +23,34 @@
         </div>
         
         <!-- Filtri e Ricerca -->
+        <form method="get" action="/Delivery/Proprietario/showReviews/">
         <section class="filters-section">
             <div class="filters-grid">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchReviews" placeholder="Cerca recensioni...">
+                    <input type="text" name="search" value="{$smarty.get.search|default:''|escape}" placeholder="Cerca recensioni...">
                 </div>
                 <div class="filter-group">
-                    <label for="filterRating"><i class="fas fa-filter"></i> Filtra per voto:</label>
-                    <select id="filterRating">
-                        <option value="all">Tutti i voti</option>
-                        <option value="5">5 stelle</option>
-                        <option value="4">4 stelle</option>
-                        <option value="3">3 stelle</option>
-                        <option value="2">2 stelle</option>
-                        <option value="1">1 stella</option>
+                    <label for="stars"><i class="fas fa-filter"></i> Filtra per voto:</label>
+                    <select name="stars" id="stars">
+                        <option value="all" {if ($smarty.get.stars|default:'all') == 'all' || !$smarty.get.stars}selected{/if}>Tutti i voti</option>
+                        <option value="5" {if ($smarty.get.stars|default:'') == '5'}selected{/if}>5 stelle</option>
+                        <option value="4" {if ($smarty.get.stars|default:'') == '4'}selected{/if}>4 stelle</option>
+                        <option value="3" {if ($smarty.get.stars|default:'') == '3'}selected{/if}>3 stelle</option>
+                        <option value="2" {if ($smarty.get.stars|default:'') == '2'}selected{/if}>2 stelle</option>
+                        <option value="1" {if ($smarty.get.stars|default:'') == '1'}selected{/if}>1 stelle</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="filterDate"><i class="far fa-calendar-alt"></i> Ordina per:</label>
-                    <select id="filterDate">
-                        <option value="newest">Più recenti</option>
-                        <option value="oldest">Più vecchie</option>
+                    <label for="sort"><i class="far fa-calendar-alt"></i> Ordina per:</label>
+                    <select name="sort" id="sort">
+                        <option value="newest" {if ($smarty.get.sort|default:'newest') == 'newest' || !$smarty.get.sort}selected{/if}>Più recenti</option>
+                        <option value="oldest" {if ($smarty.get.sort|default:'') == 'oldest'}selected{/if}>Più vecchie</option>
                     </select>
                 </div>
+                <div class="filter-group">
+                <button type="submit" class="btn-apply-filters">Applica filtri</button>
+            </div>
             </div>
         </section><br>
 

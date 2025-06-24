@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-16 13:37:48
+/* Smarty version 5.5.1, created on 2025-06-24 15:37:21
   from 'file:create_account_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6850020ce1e184_15972568',
+  'unifunc' => 'content_685aaa114ae4a6_04405271',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd6dd92daedf082b424d7da185d1a22ad73925750' => 
     array (
       0 => 'create_account_admin.tpl',
-      1 => 1750073864,
+      1 => 1750511469,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6850020ce1e184_15972568 (\Smarty\Template $_smarty_tpl) {
+function content_685aaa114ae4a6_04405271 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -51,7 +51,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
 
         <section class="form-container">
             <div class="form-card">
-                <form action="/Delivery/Proprietario/createCollaboratore" method="POST">
+                <form action="/Delivery/Proprietario/createEmployee" method="POST">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="nome">
@@ -92,8 +92,8 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                             </label>
                             <select id="ruolo" name="ruolo" required>
                                 <option value="">-- Seleziona un ruolo --</option>
-                                <option value="chef">Chef</option>
-                                <option value="rider">Rider</option>
+                                <option value="Cuoco">Cuoco</option>
+                                <option value="Rider">Rider</option>
                             </select>
                         </div>
 
@@ -140,8 +140,8 @@ $foreach0DoElse = false;
 ">
                                             <i class="fas fa-edit"></i> Modifica
                                         </button>
-                                        <form action="/Delivery/Proprietario/METODOELIMINAPERSONALE" method="POST" class="inline-form">
-                                            <input type="hidden" name="user_id" value="<?php echo $_smarty_tpl->getValue('chef')->getId();?>
+                                        <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
+                                            <input type="hidden" name="employeeId" value="<?php echo $_smarty_tpl->getValue('chef')->getUserId();?>
 ">
                                             <button type="submit" class="btn btn-delete">
                                                 <i class="fas fa-trash-alt"></i> Elimina
@@ -193,8 +193,8 @@ $foreach1DoElse = false;
 ">
                                             <i class="fas fa-edit"></i> Modifica
                                         </button>
-                                        <form action="/Delivery/Proprietario/deleteCollaboratore" method="POST" class="inline-form">
-                                            <input type="hidden" name="user_id" value="<?php echo $_smarty_tpl->getValue('rider')->getId();?>
+                                        <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
+                                            <input type="hidden" name="employeeId" value="<?php echo $_smarty_tpl->getValue('rider')->getUserId();?>
 ">
                                             <button type="submit" class="btn btn-delete">
                                                 <i class="fas fa-trash-alt"></i> Elimina

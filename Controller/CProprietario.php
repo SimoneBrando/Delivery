@@ -114,20 +114,68 @@ class CProprietario extends BaseController {
     public function showReviews(){
         $this->requireRole('proprietario');
         $view = new VProprietario();
+
         $allReviews = $this->persistent_manager->getAllReviews();
 
-        usort($allReviews, function($a, $b) { //ordina per data di creazione
-            return $b->getData() <=> $a->getData();
-        });
-        $view -> showReviews($allReviews);
+        $sort = $_GET['sort'] ?? 'newest';  
+        $stars = $_GET['stars'] ?? 'all';    
+        $search = $_GET['search'] ?? '';    
+
+        if ($stars !== 'all') {
+            $starsInt = intval($stars);
+            $allReviews = array_filter($allReviews, function($review) use ($starsInt) {
+                return $review->getVoto() === $starsInt;
+            });
+        }
+
+        if (!empty($search)) {
+            $searchLower = mb_strtolower($search);
+            $allReviews = array_filter($allReviews, function($review) use ($searchLower) {
+                $descrizione = mb_strtolower($review->getDescrizione());
+                $nome = mb_strtolower($review->getCliente()->getNome());
+                $cognome = mb_strtolower($review->getCliente()->getCognome());
+
+                return (mb_stripos($descrizione, $searchLower) !== false)
+                    || (mb_stripos($nome, $searchLower) !== false)
+                    || (mb_stripos($cognome, $searchLower) !== false);
+            });
+        }
+
+        if ($sort === 'newest') {
+            usort($allReviews, function($a, $b) {
+                return $b->getData() <=> $a->getData();
+            });
+        } elseif ($sort === 'oldest') {
+            usort($allReviews, function($a, $b) {
+                return $a->getData() <=> $b->getData();
+            });
+        }
+        $view->showReviews($allReviews);
     }
+
 
     public function showMenu(){
         $this->requireRole('proprietario');
         $view = new VProprietario();
         $prodotti = $this->persistent_manager->getAllProducts();
-        $view -> showMenu($prodotti);
-    
+
+        $search = $_GET['search'] ?? '';
+        $categoryFilter = $_GET['category'] ?? 'all';
+
+        if ($categoryFilter !== 'all') {
+            $prodotti = array_filter($prodotti, function($product) use ($categoryFilter) {
+                return strtolower($product->getCategoria()->getNome()) === strtolower($categoryFilter);
+            });
+        }
+
+        if (!empty($search)) {
+            $searchLower = mb_strtolower($search);
+            $prodotti = array_filter($prodotti, function($product) use ($searchLower) {
+                return mb_stripos($product->getNome(), $searchLower) !== false
+                    || mb_stripos($product->getDescrizione(), $searchLower) !== false;
+            });
+        }
+        $view->showMenu($prodotti);
     }
 
     public function showOrders(){
@@ -135,11 +183,39 @@ class CProprietario extends BaseController {
         $view = new VProprietario();
         $allOrders = $this->persistent_manager->getAllOrders();
 
-        usort($allOrders, function($a, $b) { //ordina per data di esecuzione
-            return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
-        });
-        
-        $view -> showOrders($allOrders);
+        $search = $_GET['search'] ?? '';
+        $status = $_GET['status'] ?? 'all';
+        $sort = $_GET['sort'] ?? 'newest';
+
+        if ($status !== 'all') {
+            $allOrders = array_filter($allOrders, function($order) use ($status) {
+                return $order->getStato() === $status;
+            });
+        }
+
+        if (!empty($search)) {
+            $searchLower = mb_strtolower($search);
+            $allOrders = array_filter($allOrders, function($order) use ($searchLower) {
+                $nome = mb_strtolower($order->getCliente()->getNome());
+                $cognome = mb_strtolower($order->getCliente()->getCognome());
+                $id = (string)$order->getId();
+
+                return mb_stripos($nome, $searchLower) !== false
+                    || mb_stripos($cognome, $searchLower) !== false
+                    || mb_stripos($id, $searchLower) !== false;
+            });
+        }
+
+        if ($sort === 'newest') {
+            usort($allOrders, function($a, $b) {
+                return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
+            });
+        } else { 
+            usort($allOrders, function($a, $b) {
+                return $a->getDataEsecuzione() <=> $b->getDataEsecuzione();
+            });
+        }
+        $view->showOrders($allOrders);
     }
 
     public function showCreateAccount(){
@@ -149,4 +225,100 @@ class CProprietario extends BaseController {
         $view = new VProprietario();
         $view -> showCreateAccount($chefs, $riders);
     }
+
+    public function saveProduct(){
+        $this->requireRole('proprietario');
+
+        $id = UHTTPMethods::post('product_id') ?? null;  
+        $nome = trim(UHTTPMethods::post('nome') ?? '');
+        $categoriaId = UHTTPMethods::post('categoria_id') ?? null;
+        $descrizione = trim(UHTTPMethods::post('descrizione') ?? '');
+        $costo = floatval(UHTTPMethods::post('costo') ?? 0);
+
+        if (!$nome || !$categoriaId || !$descrizione || $costo <= 0) {
+            die('Dati mancanti o non validi');
+        }
+
+        $categoria = $this->persistent_manager->getObj(\Entity\ECategoria::class, $categoriaId);
+
+        if ($id) {
+            $prodotto = $this->persistent_manager->getObj(EProdotto::class, $id);
+            if (!$prodotto) {
+                die('Prodotto non trovato');
+            }
+        } else {
+            $prodotto = new EProdotto();
+        }
+
+        $prodotto->setNome($nome);
+        $prodotto->setCategoria($categoria);
+        $prodotto->setDescrizione($descrizione);
+        $prodotto->setCosto($costo);
+
+        $this->persistent_manager->saveObj($prodotto);
+        header('Location: /Delivery/Proprietario/showMenu/'); 
+            
+    }
+/* da modificare per gli ordini
+    public function deleteProduct(){
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+        $this->requireRole('proprietario');
+    
+        $id = UHTTPMethods::post('product_id');
+        if (!$id) {
+            echo('ID prodotto mancante');
+        }
+
+        $prodotto = $this->persistent_manager->getObj(EProdotto::class, $id);
+        if (!$prodotto) {
+            die('Prodotto non trovato');
+        }
+        $result=$this->persistent_manager->deleteObj($prodotto);
+        var_dump($result);
+
+    }*/
+
+    public function modifyProduct() {
+        ini_set('display_errors', 1);
+        error_reporting(E_ALL);
+
+        $this->requireRole('proprietario');
+
+        $id = UHTTPMethods::post('product_id') ?? null;
+        $nome = trim(UHTTPMethods::post('nome') ?? '');
+        $categoriaId = UHTTPMethods::post('categoria_id') ?? null;
+        $descrizione = trim(UHTTPMethods::post('descrizione') ?? '');
+        $costo = floatval(UHTTPMethods::post('costo') ?? 0);
+
+        if (!$nome || !$categoriaId || !$descrizione || $costo <= 0) {
+            die('Dati mancanti o non validi');
+        }
+
+        $categoria = $this->persistent_manager->getObj(\Entity\ECategoria::class, $categoriaId);
+        if (!$categoria) {
+            die('Categoria non valida');
+        }
+
+        if ($id) {
+            $prodotto = $this->persistent_manager->getObj(EProdotto::class, $id);
+            if (!$prodotto) {
+                die('Prodotto non trovato');
+            }
+        } else {
+            $prodotto = new EProdotto();
+        }
+
+        $prodotto->setNome($nome);
+        $prodotto->setCategoria($categoria);
+        $prodotto->setDescrizione($descrizione);
+        $prodotto->setCosto($costo);
+
+        $this->persistent_manager->updateObj($prodotto);
+
+        header('Location: /Delivery/Proprietario/showMenu/');
+        exit;
+    }
+
+
 }

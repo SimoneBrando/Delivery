@@ -23,22 +23,26 @@
         </div>
         
         <!-- Filtri e Ricerca -->
+        <form method="get" action="/Delivery/Proprietario/showMenu/">
         <section class="filters-section">
             <div class="filters-grid">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchProducts" placeholder="Cerca prodotti...">
+                    <input type="text" name="search" value="{$smarty.get.search|default:''|escape}"  placeholder="Cerca prodotti...">
                 </div>
                 <div class="filter-group">
                     <label for="filterCategory"><i class="fas fa-filter"></i> Filtra per categoria:</label>
-                    <select id="filterCategory">
-                        <option value="all">Tutte le categorie</option> 
-                        <option value="antipasti">Antipasti</option> 
-                        <option value="primi">Primi</option>
-                        <option value="secondi">Secondi</option>
-                        <option value="dolci">Dolci</option>
-                        <option value="bevande">Bevande</option>
+                    <select name="category" id="filterCategory">
+                        <option value="all" {if ($smarty.get.category|default:'all') == 'all'}selected{/if}>Tutte le categorie</option> 
+                        <option value="antipasti" {if ($smarty.get.category|default:'') == 'antipasti'}selected{/if}>Antipasti</option> 
+                        <option value="primi" {if ($smarty.get.category|default:'') == 'primi'}selected{/if}>Primi</option>
+                        <option value="secondi" {if ($smarty.get.category|default:'') == 'secondi'}selected{/if}>Secondi</option>
+                        <option value="dolci" {if ($smarty.get.category|default:'') == 'dolci'}selected{/if}>Dolci</option>
+                        <option value="bevande" {if ($smarty.get.category|default:'') == 'bevande'}selected{/if}>Bevande</option>
                     </select>
+                </div>
+                <div class="filter-group">
+                    <button type="submit" class="btn-apply-filters">Applica filtri</button>
                 </div>
             </div>
         </section>
@@ -70,12 +74,19 @@
                                 <td>{$product->getCategoria()->getNome()}</td>
                                 <td>€{$product->getCosto()|number_format:2}</td>
                                 <td class="actions">
-                                    <button class="btn btn-edit" data-id="{$product->getId()}">
-                                        <i class="fas fa-edit"></i> Modifica
-                                    </button>
-                                    <form action="/Delivery/Proprietario/METODOELIMINAPRODOTTO" method="post" class="inline-delete-form">
+                                    <button type="button"
+                                        class="btn btn-edit"
+                                        data-modal-target="editProductModal"
+                                        data-id="{$product->getId()}"
+                                        data-nome="{$product->getNome()|escape:'html'}"
+                                        data-descrizione="{$product->getDescrizione()|escape:'html'}"
+                                        data-prezzo="{$product->getCosto()}"
+                                        data-categoria="{$product->getCategoria()->getId()}">
+                                    <i class="fas fa-edit"></i> Modifica
+                                </button>
+                                    <form action="/Delivery/Proprietario/deleteProduct/" method="post" class="inline-delete-form">
                                         <input type="hidden" name="product_id" value="{$product->getId()}">
-                                        <button type="submit" class="btn btn-delete">
+                                        <button type="submit" class="btn btn-delete" data-product-id="{$product->getId()}">
                                             <i class="fas fa-trash-alt"></i> Elimina
                                         </button>
                                     </form>
@@ -96,7 +107,7 @@
         <section class="product-form-section">
             <h2><i class="fas fa-plus-circle"></i> Aggiungi Prodotto</h2>
             
-            <form id="productForm" action="/Delivery/Proprietario/NOMEDELMETODOPERAGGIUNGEREUNPRODOTTO" method="post">
+            <form id="productForm" action="/Delivery/Proprietario/saveProduct" method="post">
                 {if $editMode}
                     <input type="hidden" name="product_id" value="{$editingProduct->getId()}">
                 {/if}
@@ -110,11 +121,11 @@
                     <div class="form-group">
                         <label for="productCategory">Categoria:</label>
                         <select id="productCategory" name="categoria_id" required>
-                            {foreach from=$categories item=category}
-                                <option value="{$category->getId()}" {if $editMode && $editingProduct->getCategoria()->getId() == $category->getId()}selected{/if}>
-                                    {$category->getNome()}
-                                </option>
-                            {/foreach}
+                            <option value="1">Antipasti</option>
+                            <option value="2">Primi</option>
+                            <option value="3">Secondi</option>
+                            <option value="4">Dolci</option>
+                            <option value="5">Bevande</option>
                         </select>
                     </div>
                     
@@ -147,19 +158,70 @@
     <!-- Footer -->
     {include file="footer.tpl"}
 
-    <!-- Modal Conferma Eliminazione -->
-    <div id="deleteModal" class="modal">
+    <!-- Modale per Modifica Prodotto -->
+    <div id="editProductModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <h2><i class="fas fa-exclamation-triangle"></i> Conferma Eliminazione</h2>
-            <p>Sei sicuro di voler eliminare questo prodotto?</p>
-            <div class="modal-actions">
-                <button id="confirmDelete" class="btn btn-danger">Elimina</button>
-                <button id="cancelDelete" class="btn btn-secondary">Annulla</button>
-            </div>
+            <span class="close-button">&times;</span>
+            <h2><i class="fas fa-pen"></i> Modifica Prodotto</h2>
+            <form id="editProductForm" method="post" action="/Delivery/Proprietario/modifyProduct">
+                <input type="hidden" name="product_id" id="editProductId">
+
+                <div class="form-group">
+                    <label for="editNome">Nome:</label>
+                    <input type="text" id="editNome" name="nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="editCategoria">Categoria:</label>
+                    <select id="editCategoria" name="categoria_id" required>
+                        <option value="1">Antipasti</option>
+                        <option value="2">Primi</option>
+                        <option value="3">Secondi</option>
+                        <option value="4">Dolci</option>
+                        <option value="5">Bevande</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="editPrezzo">Prezzo (€):</label>
+                    <input type="number" id="editPrezzo" name="costo" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="editDescrizione">Descrizione:</label>
+                    <textarea id="editDescrizione" name="descrizione" rows="3" required></textarea>
+                </div>
+
+                <div class="form-group full-width actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Salva Modifiche
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
+
+
     <script src="/Smarty/js/hamburger.js"></script>
     <script src="/Smarty/js/theme.js"></script>
+    <script src="/Smarty/Js/modal.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('[data-modal-target="editProductModal"]').forEach(button => {
+        button.addEventListener('click', function () {
+        // Inserisci i dati del prodotto nella modale
+        document.getElementById('editProductId').value = this.dataset.id;
+        document.getElementById('editNome').value = this.dataset.nome;
+        document.getElementById('editDescrizione').value = this.dataset.descrizione;
+        document.getElementById('editCategoria').value = this.dataset.categoria;
+        document.getElementById('editPrezzo').value = this.dataset.prezzo;
+        });
+    });
+    });
+    </script>
+
+    
+
 </body>
 </html>

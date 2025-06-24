@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-16 13:08:41
+/* Smarty version 5.5.1, created on 2025-06-24 15:33:35
   from 'file:admin_order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684ffb39c36a63_09794617',
+  'unifunc' => 'content_685aa92fbeb438_63085467',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'da8473b92e7b12688303a1c22652f7a4dc8d396b' => 
     array (
       0 => 'admin_order.tpl',
-      1 => 1750072120,
+      1 => 1750772013,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684ffb39c36a63_09794617 (\Smarty\Template $_smarty_tpl) {
+function content_685aa92fbeb438_63085467 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -50,29 +50,34 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
         </div>
         
         <!-- Filtri e Ricerca -->
+        <form method="get" action="/Delivery/Proprietario/showOrders/">
         <section class="filters-section">
             <div class="filters-grid">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchOrders" placeholder="Cerca ordini...">
+                    <input type="text" name="search" value="<?php echo htmlspecialchars((string)(($tmp = $_GET['search'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+" placeholder="Cerca ordini...">
                 </div>
                 <div class="filter-group">
                     <label for="filterStatus"><i class="fas fa-filter"></i> Filtra per stato:</label>
-                    <select id="filterStatus">
-                        <option value="all">Tutti gli stati</option>
-                        <option value="in_attesa">In attesa</option>
-                        <option value="in_preparazione">In preparazione</option>
-                        <option value="pronto">Pronto</option>
-                        <option value="consegnato">Consegnato</option>
-                        <option value="annullato">Annullato</option>
+                    <select name="status" id="filterStatus">
+                        <option value="all" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? 'all' ?? null : $tmp)) == 'all') {?>selected<?php }?>>Tutti gli stati</option>
+                        <option value="in_attesa" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_attesa') {?>selected<?php }?>>In attesa</option>
+                        <option value="in_preparazione" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_preparazione') {?>selected<?php }?>>In preparazione</option>
+                        <option value="pronto" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'pronto') {?>selected<?php }?>>Pronto</option>
+                        <option value="consegnato" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'consegnato') {?>selected<?php }?>>Consegnato</option>
+                        <option value="annullato" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'annullato') {?>selected<?php }?>>Annullato</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="filterDate"><i class="far fa-calendar-alt"></i> Ordina per:</label>
-                    <select id="filterDate">
-                        <option value="newest">Più recenti</option>
-                        <option value="oldest">Più vecchi</option>
+                    <select name="sort" id="filterDate">
+                        <option value="newest" <?php if (((($tmp = $_GET['sort'] ?? null)===null||$tmp==='' ? 'newest' ?? null : $tmp)) == 'newest') {?>selected<?php }?>>Più recenti</option>
+                        <option value="oldest" <?php if (((($tmp = $_GET['sort'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'oldest') {?>selected<?php }?>>Più vecchi</option>
                     </select>
+                </div>
+                <div class="filter-group">
+                    <button type="submit" class="btn-apply-filters">Applica filtri</button>
                 </div>
             </div>
         </section>

@@ -80,9 +80,9 @@
                 {else}
                     <p>Nessun indirizzo registrato.</p>
                 {/if}
-                <a href="/Delivery/User/showAddressForm/" class="btn-link">
-                    <i class="fas fa-plus"></i> Aggiungi indirizzo
-                </a>
+                    <button type="button" data-modal-target="addressModal" class="btn-link-modal">
+                        <i class="fas fa-plus"></i> Aggiungi indirizzo
+                    </button>
             </div>
 
             <!-- Sezione Carte di Credito -->
@@ -108,9 +108,9 @@
                 {else}
                     <p>Nessuna carta di credito registrata.</p>
                 {/if}
-                <a href="/Delivery/User/showCreditCardForm/" class="btn-link">
-                    <i class="fas fa-plus"></i> Aggiungi carta
-                </a>
+                    <button type="button" data-modal-target="cardModal" class="btn-link-modal">
+                        <i class="fas fa-plus"></i> Aggiungi carta
+                    </button>
             </div>
 
             <!-- Link ai miei ordini -->
@@ -134,12 +134,90 @@
     </main>
 
     <!-- Footer -->
-    
+
     {include file="footer.tpl"}
+
+    <!-- Modal Aggiungi Indirizzo -->
+        <div id="addressModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+
+                <h2>Aggiungi un nuovo indirizzo</h2>
+
+                <form method="POST" action="/Delivery/User/addAddress" class="form">
+
+                        <div class="form-group">
+                            <label for="via">Via</label>
+                            <input type="text" id="via" name="via" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="civico">Civico</label>
+                            <input type="text" id="civico" name="civico" pattern="^[0-9]+[a-zA-Z]?$" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="citta">Città</label>
+                            <input type="text" id="citta" name="citta" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Solo lettere ammesse" autocapitalize="on" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cap">CAP</label>
+                            <input type="text" id="cap" name="cap" pattern="\d&#123;5&#125;" inputmode="numeric" maxlength="5" title="Inserisci un CAP valido (5 cifre)" required>
+                        </div>
+
+                        <button type="submit">Salva Indirizzo</button>
+
+                </form>
+            </div>
+        </div>
+
+    <!-- Modal Aggiungi Carta -->
+        <div id="cardModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+
+                <h2>Aggiungi un nuovo metodo di pagamento</h2>
+
+                <form method="POST" action="/Delivery/User/addCreditCard" class="form">
+
+                    <div class="form-group">
+                        <label for="nome_carta">Nominativo Carta</label>
+                        <input type="text" id="nome_carta" name="nome_carta" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="numero_carta">Numero Carta</label>
+                        <input type="text" id="numero_carta" name="numero_carta" pattern="^\d&#123;16&#125;$" inputmode="numeric" maxlength="16" title="Inserisci 16 cifre numeriche" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" pattern="^\d&#123;3,4&#125;$" inputmode="numeric" maxlength="4" title="Inserisci un CVV di 3 o 4 cifre" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nome_intestatario">Nome Intestatario</label>
+                        <input type="text" id="nome_intestatario" name="nome_intestatario" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Inserisci un nome valido (solo lettere e spazi)" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data_scadenza">Data Scadenza</label>
+                        <input type="text" id="data_scadenza" name="data_scadenza" pattern="^(0[1-9]|1[0-2])\/\d&#123;2&#125;$" inputmode="numeric" placeholder="MM/AA" required>
+                    </div>
+
+                    <button type="submit">Salva Metodo di Pagamento</button>
+
+                </form>
+            </div>
+        </div>
+
+    
 
     <script src="/Smarty/js/hamburger.js"></script>
     <script src="/Smarty/js/theme.js" defer></script>
-    
+    <script src="/Smarty/js/modal.js" defer></script>
+
 </body>
 
 </html>

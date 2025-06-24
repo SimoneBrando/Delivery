@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-22 16:31:51
+/* Smarty version 5.5.1, created on 2025-06-24 13:15:13
   from 'file:miei_ordini.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685813d71f8309_63532330',
+  'unifunc' => 'content_685a88c13f2f57_02274332',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3bbf3d963d28453d85017cb2ea6f8f1285e3bd8d' => 
     array (
       0 => 'miei_ordini.tpl',
-      1 => 1750602402,
+      1 => 1750763709,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685813d71f8309_63532330 (\Smarty\Template $_smarty_tpl) {
+function content_685a88c13f2f57_02274332 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -102,6 +102,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 </p>
                             <p>Metodo Pagamento: <?php echo $_smarty_tpl->getValue('order')->getMetodoPagamento()->getNominativo();?>
 </p>
+                        </div>
                     </div>
                 <?php
 }

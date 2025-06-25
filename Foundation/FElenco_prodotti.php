@@ -61,12 +61,14 @@ class FElenco_prodotti
             $piattiArray = [];
 
             foreach ($cat->getPiatti() as $piatto) {
-                $piattiArray[] = [
-                    'id' => $piatto->getId(),
-                    'nome' => $piatto->getNome(),
-                    'descrizione' => $piatto->getDescrizione(),
-                    'costo' => $piatto->getCosto()
-                ];
+                if($piatto->getAttivo() == 1){
+                    $piattiArray[] = [
+                        'id' => $piatto->getId(),
+                        'nome' => $piatto->getNome(),
+                        'descrizione' => $piatto->getDescrizione(),
+                        'costo' => $piatto->getCosto()
+                    ];
+                }
             }
 
             $menu[] = [

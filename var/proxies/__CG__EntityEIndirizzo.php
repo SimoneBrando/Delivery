@@ -67,10 +67,10 @@ class EIndirizzo extends \Entity\EIndirizzo implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'id', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'via', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'civico', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'cap', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'citta', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'clienti'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'id', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'via', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'civico', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'cap', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'citta', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'attivo', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'clienti'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'id', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'via', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'civico', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'cap', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'citta', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'clienti'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'id', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'via', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'civico', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'cap', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'citta', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'attivo', '' . "\0" . 'Entity\\EIndirizzo' . "\0" . 'clienti'];
     }
 
     /**
@@ -278,6 +278,28 @@ class EIndirizzo extends \Entity\EIndirizzo implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCitta', [$citta]);
 
         return parent::setCitta($citta);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getAttivo(): bool
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAttivo', []);
+
+        return parent::getAttivo();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAttivo(bool $attivo): \Entity\EIndirizzo
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAttivo', [$attivo]);
+
+        return parent::setAttivo($attivo);
     }
 
     /**

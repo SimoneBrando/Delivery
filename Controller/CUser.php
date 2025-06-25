@@ -26,12 +26,21 @@ require_once __DIR__ . '/../services/utility/UCookie.php';
 
 class CUser extends BaseController{
 
-    public function showRegisterForm(){
+    public function showRegisterForm(string $error = ""){
         if($this->isLoggedIn()){
             header('Location: /Delivery/User/home');
         }
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $view->showRegisterForm();
+    }
+
+    public function showLoginForm(string $error = ""){
+        if($this->isLoggedIn()){
+            header('Location: /Delivery/User/home');
+            exit;
+        }
+        $view = new VUser($this->isLoggedIn());
+        $view->showLoginForm($error);
     }
 
     public function registerUser(string $role = 'Cliente', array $extraData = []){
@@ -67,15 +76,16 @@ class CUser extends BaseController{
                 }
             }
             $this->persistent_manager->saveObj($profile);
+            $this->auth_manager->login($email, $password);
             header('Location: /Delivery/User/home');
         } catch (\Delight\Auth\InvalidEmailException $e) {
-            die('Invalid email address');
+            $this->showRegisterForm("Indirizzo email non valido");
         } catch (\Delight\Auth\InvalidPasswordException $e) {
-            die('Invalid password');
+            $this->showRegisterForm("Password non valida");
         } catch (\Delight\Auth\UserAlreadyExistsException $e) {
-            die('User already exists');
+            $this->showRegisterForm("Utente già registrato");
         } catch (\Delight\Auth\TooManyRequestsException $e) {
-            die('Too many requests');
+            $this->handleFatalError($e);
         } catch (ORMException $e) {
             //Tentativo di rollback manuale
             if(isset($userId)){
@@ -88,7 +98,7 @@ class CUser extends BaseController{
             }
             die('ORM error');
         } catch (\Delight\Auth\UnknownIdException $e) {
-            die('Unknown id');
+            $this->handleFatalError($e);
         }
     }
 
@@ -117,15 +127,13 @@ class CUser extends BaseController{
             header('Location: /Delivery/User/home');
             exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
-            $this->showLoginForm();
-            die('Wrong email address');
+            $this->showLoginForm("Email o password errati");
         } catch (\Delight\Auth\InvalidPasswordException $e) {
-            $this->showLoginForm();
-            die('Wrong password');
+            $this->showLoginForm("Email o password errati");
         } catch (\Delight\Auth\EmailNotVerifiedException $e) {
-            die('Email not verified');
+            $this->showLoginForm("Email non verificata");
         } catch (\Delight\Auth\TooManyRequestsException $e) {
-            die('Too many requests');
+            $this->handleFatalError($e);
         } catch (\Delight\Auth\AttemptCancelledException|\Delight\Auth\AuthError $e) {
             $this->handleFatalError($e);
         }
@@ -307,13 +315,13 @@ class CUser extends BaseController{
     }
 
     public function mostraMenu(){
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $menu = $this->persistent_manager->getMenu();
         $view->showMenu($menu);
     }
 
     public function home(){
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $allReviews = $this->persistent_manager->getAllReviews();
         shuffle($allReviews);
         $reviews = array_slice($allReviews, 0, 3);
@@ -322,14 +330,14 @@ class CUser extends BaseController{
 
     public function order(){
         $this->requireRole('cliente');
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $menu = $this->persistent_manager->getMenu();
         $view->order($menu);
     }
 
     public function showMyOrders(){
         $this->requireRole('cliente');
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $id = $this->getUser()->getId();
         $orders = $this->persistent_manager->getOrdersByClient($id);
         $view->showMyOrders($orders);
@@ -340,7 +348,7 @@ class CUser extends BaseController{
         $user = $this->getUser();
         $userAddresses = $this->findUserAdresses();
         $userCreditCards = $this->findActiveUserCards(); 
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $view->showChangePassword($user, $userAddresses, $userCreditCards);
     }
 
@@ -366,19 +374,10 @@ class CUser extends BaseController{
         return $userCreditCard;
     }
 
-    public function showLoginForm(){
-        if($this->isLoggedIn()){
-            header('Location: /Delivery/User/home');
-            exit;
-        }
-        $view = new VUser();
-        $view->showLoginForm();
-    }
-
     //Gestione Indirizzi
     public function showAddressForm(){
         $this->requireRole('cliente');
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $view->showAddressForm();
     }
     public function addAddress(){
@@ -438,7 +437,7 @@ class CUser extends BaseController{
     //Gestione MetodiPagamento
     public function showCreditCardForm(){
         $this->requireRole('cliente');
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $view->showCreditCardForm();
     }
     public function addCreditCard(){
@@ -503,7 +502,7 @@ class CUser extends BaseController{
 
     public function showReviewForm(){
         $this->requireRole('cliente');
-        $view = new VUser();
+        $view = new VUser($this->isLoggedIn());
         $view->showReviewForm();
     }
 

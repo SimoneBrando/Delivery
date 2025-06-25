@@ -33,7 +33,7 @@ abstract class BaseController{
 
     public function requireLogin() {
         if(!($this->isLoggedIn())){
-            $view = new VUser();
+            $view = new VUser($this->isLoggedIn());
             $view->showLoginForm();
             exit;
         }

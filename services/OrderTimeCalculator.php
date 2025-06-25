@@ -17,11 +17,12 @@ class OrderTimeCalculator {
         'Bevande' => 0,
     ];
 
-    private string $indirizzoRistorante = "Piazza Duomo 1, L'Aquila";
+    private string $indirizzoRistorante;
     private string $apiKey;
 
     public function __construct(){
         $this->apiKey = API_KEY;
+        $this->indirizzoRistorante = INDIRIZZO_RISTORANTE;
     }
 
     public function timeCalculator(array $itemOrderList, int $ordiniInPreparazione = 0, string $indirizzoCliente = ""): int {
@@ -57,7 +58,6 @@ class OrderTimeCalculator {
             return 30; // fallback in caso di errore
         }
         $data = json_decode($response, true);
-        file_put_contents('api_response_debug.log', print_r($data, true));
         if (!isset($data['rows'][0]['elements'][0]['duration']['value'])) {
             return 30; // fallback in caso di struttura errata
         }

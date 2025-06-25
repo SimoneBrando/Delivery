@@ -158,12 +158,14 @@
 
                         <div class="form-group">
                             <label for="citta">Città</label>
-                            <input type="text" id="citta" name="citta" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Solo lettere ammesse" autocapitalize="on" required>
+                            <select id="citta" name="citta" required>
+                                <option value="">-- Seleziona una città --</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="cap">CAP</label>
-                            <input type="text" id="cap" name="cap" pattern="\d&#123;5&#125;" inputmode="numeric" maxlength="5" title="Inserisci un CAP valido (5 cifre)" required>
+                            <input type="text" id="cap" name="cap" pattern="\d&#123;5&#125;" inputmode="numeric" maxlength="5" title="Inserisci un CAP valido (5 cifre)"  readonly required>
                         </div>
 
                         <button type="submit">Salva Indirizzo</button>
@@ -213,6 +215,35 @@
         </div>
 
     
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const select = document.getElementById('citta');
+            const capInput = document.getElementById('cap');
+
+            fetch('/Smarty/comuni_aq.json')
+                .then(response => response.json())
+                .then(comuni => {
+                    comuni.forEach(comune => {
+                        const option = document.createElement('option');
+                        option.value = comune.nome;
+                        option.textContent = comune.nome;
+                        option.dataset.cap = comune.cap[0]; // usa il primo CAP disponibile
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Errore nel caricamento dei comuni:', error);
+                });
+
+            select.addEventListener('change', function () {
+                const selectedOption = this.options[this.selectedIndex];
+                const cap = selectedOption.dataset.cap;
+                if (cap) {
+                    capInput.value = cap;
+                }
+            });
+        });
+    </script>
 
     <script src="/Smarty/js/hamburger.js"></script>
     <script src="/Smarty/js/theme.js" defer></script>

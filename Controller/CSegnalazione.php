@@ -1,5 +1,6 @@
 <?php
 
+use Controller\BaseController;
 use Entity\EOrdine;
 use Foundation\FPersistentManager;
 use Services\Utility\USession;
@@ -8,19 +9,19 @@ use View\VUser;
 use Entity\ESegnalazione;
 use Controller\CUser;
 
-class COrdine{
+class CSegnalazione extends BaseController{
 
     public function mostraOrdini(){
-        if(CUser::isLogged()){
+        if($this->isLoggedIn()){
             $userId = USession::getSessionElement('user');
             $ordini = FPersistentManager::getInstance()->getOrdersByClient($userId);
-            $view = new VUser();
+            $view = new VUser($this->isLoggedIn());
             $view->showMyOrders($ordini);
         }
     }
 
     public function inviaSegnalazione(){
-        if(CUser::isLogged()){
+        if($this->isLoggedIn()){
             $userId = USession::getSessionElement('user');
             $ordineId = USession::getSessionElement('ordine');
             $testoSegnalazione = UHTTPMethods::post('segnalazione');

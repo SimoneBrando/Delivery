@@ -11,5 +11,7 @@ define ('DB_USER', 'root');
 define ('DB_PASS', '');
 define ('DB_CHARSET', 'utf8mb4');
 define ('DB_DRIVER', 'pdo_mysql');
+
+define ("INDIRIZZO_RISTORANTE", "Piazza Duomo 1, L'Aquila");
 define ("API_KEY", $API_KEY);
 

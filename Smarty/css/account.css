@@ -200,6 +200,32 @@
   background: var(--colore-primario-hover);
 }
 
+select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: var(--colore-bianco);
+    color: #333;
+    appearance: none; /* rimuove lo stile nativo su alcuni browser */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px 16px;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
+    outline: none;
+}
+
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
 /* Animazione apertura modale */
 @keyframes slideIn {
   from {

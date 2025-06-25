@@ -3,21 +3,22 @@
 namespace View;
 
 use CUser;
+
 require_once __DIR__ . '/../Controller/CUser.php';
 
 class VUser{
 
     private $smarty;
 
-    public function __construct(){
+    public function __construct(bool $logged){
 
         $this->smarty = getSmartyInstance();
-        $this->assignCommonVars();
+        $this->assignCommonVars($logged);
 
     }
 
-    public function assignCommonVars() {
-        $this->smarty->assign('logged', CUser::isLogged());
+    public function assignCommonVars(bool $logged) {
+        $this->smarty->assign('logged', $logged);
     }
 
     public function showMenu($menu){
@@ -40,11 +41,13 @@ class VUser{
         $this->smarty->display('miei_ordini.tpl');
     }
 
-    public function showLoginForm(){
+    public function showLoginForm(string $error = ""){
+        $this->smarty->assign('error', $error);
         $this->smarty->display('login.tpl');
     }
 
-    public function showRegisterForm(){
+    public function showRegisterForm(string $error = ""){
+        $this->smarty->assign('error', $error);
         $this->smarty->display('register.tpl');
     }
 

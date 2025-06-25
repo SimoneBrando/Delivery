@@ -31,7 +31,7 @@
                 <div class="login-form">
                     <h1>Accedi al tuo Account</h1>
 
-                    {if isset($error)}
+                    {if isset($error) && $error != ""}
                         <div class="error-message">{$error}</div>
                     {/if}
 

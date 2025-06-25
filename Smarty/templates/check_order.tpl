@@ -20,7 +20,6 @@
                 <div class="order-card">
                     <div class="order-header">
                         <h2>Riepilogo ordine</h2>
-                        <span class="order-date" id="order-date">--</span>
                     </div>
                     <div class="order-items">
                         <strong>Prodotti:</strong>

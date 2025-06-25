@@ -12,10 +12,15 @@ class VProprietario{
 
     }
 
-    public function showDashboard($orders){
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
+    public function showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, $fatturatoSettimana, $nomiTopPiatti, $quantitaTopPiatti){
         $this->smarty->assign('ordini', $orders);
+        $this->smarty->assign('totaleOggi', $totaleOggi);
+        $this->smarty->assign('numeroClienti', $numeroClienti);
+        $this->smarty->assign('ordiniOggi', $ordiniOggi);
+        $this->smarty->assign('mediaValutazioni', $mediaValutazioni);
+        $this->smarty->assign('fatturatoSettimana', $fatturatoSettimana);
+        $this->smarty->assign('nomiPiatti', $nomiTopPiatti);
+        $this->smarty->assign('quantitaPiatti', $quantitaTopPiatti);
         $this->smarty->display('dashboard.tpl');
     }
 

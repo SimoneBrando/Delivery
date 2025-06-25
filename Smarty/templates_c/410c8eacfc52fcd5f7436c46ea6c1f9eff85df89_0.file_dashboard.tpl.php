@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 15:37:16
+/* Smarty version 5.5.1, created on 2025-06-25 12:11:56
   from 'file:dashboard.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685aaa0c13e453_87367316',
+  'unifunc' => 'content_685bcb6c9d59b6_92995809',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '410c8eacfc52fcd5f7436c46ea6c1f9eff85df89' => 
     array (
       0 => 'dashboard.tpl',
-      1 => 1750000809,
+      1 => 1750846315,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685aaa0c13e453_87367316 (\Smarty\Template $_smarty_tpl) {
+function content_685bcb6c9d59b6_92995809 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -58,7 +58,8 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
             </div>
             <div class="stat-info">
                 <h3>Fatturato Oggi</h3>
-                <p>€1,245.50</p>
+                <p>€<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('totaleOggi'),2,",",".");?>
+</p>
             </div>
         </div>
         <div class="stat-card">
@@ -67,7 +68,8 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
             </div>
             <div class="stat-info">
                 <h3>Ordini Oggi</h3>
-                <p>42</p>
+                <p><?php echo $_smarty_tpl->getValue('ordiniOggi');?>
+</p>
             </div>
         </div>
         <div class="stat-card">
@@ -75,8 +77,9 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 <i class="fas fa-users"></i>
             </div>
             <div class="stat-info">
-                <h3>Nuovi Clienti</h3>
-                <p>8</p>
+                <h3>Nuovi Clienti Totali</h3>
+                <p><?php echo $_smarty_tpl->getValue('numeroClienti');?>
+</p>
             </div>
         </div>
         <div class="stat-card">
@@ -85,7 +88,8 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
             </div>
             <div class="stat-info">
                 <h3>Valutazione Media</h3>
-                <p>4.7/5</p>
+                <p><?php echo round((float) $_smarty_tpl->getValue('mediaValutazioni'), (int) 1, (int) 1);?>
+/5</p>
             </div>
         </div>
     </section>
@@ -102,50 +106,47 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
         </div>
     </section>
 
-    <!-- Ultimi Ordini - SEZIONE DINAMICA -->
-    <section class="recent-orders">
-        <h2><i class="fas fa-history"></i> Ultimi Ordini</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Importo</th>
-                    <th>Stato</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
+    <!-- Ultimi Ordini Dinamici -->
+        <section class="recent-orders">
+            <h2><i class="fas fa-history"></i> Ultimi Ordini</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Importo</th>
+                        <th>Stato</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('ordini'), 'ordine');
 $foreach0DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('ordine')->value) {
 $foreach0DoElse = false;
 ?>
-                    <tr>
-                        <td>#<?php echo $_smarty_tpl->getValue('ordine')->getId();?>
+                        <tr>
+                            <td data-label="ID">#<?php echo $_smarty_tpl->getValue('ordine')->getId();?>
 </td>
-                        <td><?php echo $_smarty_tpl->getValue('ordine')->getCliente()->getNome();?>
+                            <td data-label="Cliente"><?php echo $_smarty_tpl->getValue('ordine')->getCliente()->getNome();?>
  <?php echo $_smarty_tpl->getValue('ordine')->getCliente()->getCognome();?>
 </td>
-                        <td>€<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('ordine')->getCosto(),2,'.',',');?>
+                            <td data-label="Importo">€<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('ordine')->getCosto(),2);?>
 </td>
-                        <td>
-                            <span class="status <?php echo mb_strtolower((string) $_smarty_tpl->getValue('ordine')->getStato(), 'UTF-8');?>
+                            <td data-label="Stato">
+                                <span class="status <?php echo mb_strtolower((string) $_smarty_tpl->getValue('ordine')->getStato(), 'UTF-8');?>
 ">
-                                <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getValue('ordine')->getStato());?>
+                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getValue('ordine')->getStato());?>
 
-                            </span>
-                        </td>
-                        <td><a href="/ordini/dettagli/<?php echo $_smarty_tpl->getValue('ordine')->getId();?>
-" class="btn-details">Dettagli</a></td>
-                    </tr>
-                <?php
+                                </span>
+                            </td>
+                        </tr>
+                    <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
-            </tbody>
-        </table>
-    </section>
+                </tbody>
+            </table>
+        </section>
 
     <!-- Footer -->
     
@@ -155,7 +156,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     <!-- Script per i grafici -->
     <?php echo '<script'; ?>
 >
-        // Grafico Fatturato
+        // grafico fatturato
         const revenueCtx = document.getElementById('revenueChart').getContext('2d');
         new Chart(revenueCtx, {
             type: 'bar',
@@ -163,7 +164,8 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
                 datasets: [{
                     label: 'Fatturato (€)',
-                    data: [850, 920, 1100, 1245, 1500, 1800, 2100],
+                    data: <?php echo json_encode($_smarty_tpl->getValue('fatturatoSettimana'));?>
+,
                     backgroundColor: '#046C6D',
                     borderColor: '#035050',
                     borderWidth: 1
@@ -177,15 +179,17 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             }
         });
 
-        // Grafico Piatti Più Venduti
+        // grafico piatti più venduti
         const dishesCtx = document.getElementById('dishesChart').getContext('2d');
         new Chart(dishesCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Margherita', 'Diavola', 'Capricciosa', 'Quattro Stagioni', 'Patatine'],
+                labels: <?php echo json_encode($_smarty_tpl->getValue('nomiPiatti'));?>
+,
                 datasets: [{
-                    data: [65, 40, 30, 25, 20],
-                    backgroundColor: ['#046C6D', '#035050', '#03A6A6', '#04B2B2', '#05C0C0']
+                    data: <?php echo json_encode($_smarty_tpl->getValue('quantitaPiatti'));?>
+,
+                    backgroundColor: ['#046C6D',  '#035050',  '#03A6A6',  '#04B2B2',  '#05C0C0',  '#057878',  '#028484',  '#039393',  '#026969', '#064B4B']
                 }]
             },
             options: {

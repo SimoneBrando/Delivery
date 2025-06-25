@@ -29,7 +29,7 @@
             </div>
             <div class="stat-info">
                 <h3>Fatturato Oggi</h3>
-                <p>€1,245.50</p>
+                <p>€{$totaleOggi|number_format:2:",":"."}</p>
             </div>
         </div>
         <div class="stat-card">
@@ -38,7 +38,7 @@
             </div>
             <div class="stat-info">
                 <h3>Ordini Oggi</h3>
-                <p>42</p>
+                <p>{$ordiniOggi}</p>
             </div>
         </div>
         <div class="stat-card">
@@ -46,8 +46,8 @@
                 <i class="fas fa-users"></i>
             </div>
             <div class="stat-info">
-                <h3>Nuovi Clienti</h3>
-                <p>8</p>
+                <h3>Nuovi Clienti Totali</h3>
+                <p>{$numeroClienti}</p>
             </div>
         </div>
         <div class="stat-card">
@@ -56,7 +56,7 @@
             </div>
             <div class="stat-info">
                 <h3>Valutazione Media</h3>
-                <p>4.7/5</p>
+                <p>{$mediaValutazioni|round:1}/5</p>
             </div>
         </div>
     </section>
@@ -73,36 +73,34 @@
         </div>
     </section>
 
-    <!-- Ultimi Ordini - SEZIONE DINAMICA -->
-    <section class="recent-orders">
-        <h2><i class="fas fa-history"></i> Ultimi Ordini</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Cliente</th>
-                    <th>Importo</th>
-                    <th>Stato</th>
-                    <th>Azioni</th>
-                </tr>
-            </thead>
-            <tbody>
-                {foreach from=$ordini item=ordine}
+    <!-- Ultimi Ordini Dinamici -->
+        <section class="recent-orders">
+            <h2><i class="fas fa-history"></i> Ultimi Ordini</h2>
+            <table>
+                <thead>
                     <tr>
-                        <td>#{$ordine->getId()}</td>
-                        <td>{$ordine->getCliente()->getNome()} {$ordine->getCliente()->getCognome()}</td>
-                        <td>€{$ordine->getCosto()|number_format:2:'.':','}</td>
-                        <td>
-                            <span class="status {$ordine->getStato()|lower}">
-                                {$ordine->getStato()|capitalize}
-                            </span>
-                        </td>
-                        <td><a href="/ordini/dettagli/{$ordine->getId()}" class="btn-details">Dettagli</a></td>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Importo</th>
+                        <th>Stato</th>
                     </tr>
-                {/foreach}
-            </tbody>
-        </table>
-    </section>
+                </thead>
+                <tbody>
+                    {foreach from=$ordini item=ordine}
+                        <tr>
+                            <td data-label="ID">#{$ordine->getId()}</td>
+                            <td data-label="Cliente">{$ordine->getCliente()->getNome()} {$ordine->getCliente()->getCognome()}</td>
+                            <td data-label="Importo">€{$ordine->getCosto()|number_format:2}</td>
+                            <td data-label="Stato">
+                                <span class="status {$ordine->getStato()|lower}">
+                                    {$ordine->getStato()|capitalize}
+                                </span>
+                            </td>
+                        </tr>
+                    {/foreach}
+                </tbody>
+            </table>
+        </section>
 
     <!-- Footer -->
     
@@ -110,7 +108,7 @@
 
     <!-- Script per i grafici -->
     <script>
-        // Grafico Fatturato
+        // grafico fatturato
         const revenueCtx = document.getElementById('revenueChart').getContext('2d');
         new Chart(revenueCtx, {
             type: 'bar',
@@ -118,7 +116,7 @@
                 labels: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
                 datasets: [{
                     label: 'Fatturato (€)',
-                    data: [850, 920, 1100, 1245, 1500, 1800, 2100],
+                    data: {$fatturatoSettimana|@json_encode},
                     backgroundColor: '#046C6D',
                     borderColor: '#035050',
                     borderWidth: 1
@@ -132,15 +130,15 @@
             }
         });
 
-        // Grafico Piatti Più Venduti
+        // grafico piatti più venduti
         const dishesCtx = document.getElementById('dishesChart').getContext('2d');
         new Chart(dishesCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Margherita', 'Diavola', 'Capricciosa', 'Quattro Stagioni', 'Patatine'],
+                labels: {$nomiPiatti|@json_encode},
                 datasets: [{
-                    data: [65, 40, 30, 25, 20],
-                    backgroundColor: ['#046C6D', '#035050', '#03A6A6', '#04B2B2', '#05C0C0']
+                    data: {$quantitaPiatti|@json_encode},
+                    backgroundColor: ['#046C6D',  '#035050',  '#03A6A6',  '#04B2B2',  '#05C0C0',  '#057878',  '#028484',  '#039393',  '#026969', '#064B4B']
                 }]
             },
             options: {

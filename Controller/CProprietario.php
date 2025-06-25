@@ -26,15 +26,124 @@ class CProprietario extends BaseController {
     }
 
     public function showDashboard(){
+        ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
         $this->requireRole('proprietario');
+
+        // ordini
         $allOrders = $this->persistent_manager->getAllOrders();
 
-        usort($allOrders, function($a, $b) { //ordina per data di esecuzione
+        usort($allOrders, function($a, $b) { 
             return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
         });
         $orders = array_slice($allOrders, 0, 5);
+
+        $oggi = new DateTime(); 
+        $inizioOggi = (clone $oggi)->setTime(0, 0, 0);
+        $fineOggi = (clone $oggi)->setTime(23, 59, 59);
+        $inizioSettimana = (clone $oggi)->modify('monday this week')->setTime(0, 0, 0);
+        $fineSettimana = (clone $inizioSettimana)->modify('+6 days')->setTime(23, 59, 59);
+
+        $totaleOggi = 0;
+
+        foreach ($allOrders as $ordine) {
+            $dataOrdine = $ordine->getDataEsecuzione();
+
+            if ($dataOrdine >= $inizioOggi && $dataOrdine <= $fineOggi) {
+                $totaleOggi += $ordine->getCosto();
+            }
+        }
+
+        $ordiniOggi = 0;
+
+        foreach ($allOrders as $ordine) {
+            $dataOrdine = $ordine->getDataEsecuzione();
+
+            if ($dataOrdine >= $inizioOggi && $dataOrdine <= $fineOggi) {
+                $ordiniOggi++;
+            }
+        }
+
+        $prodotti = $this->persistent_manager->getAllProducts();
+        $mappaProdotti = [];
+
+        foreach ($prodotti as $prodotto) {
+            $mappaProdotti[$prodotto->getId()] = $prodotto->getNome();
+        }
+
+        $conteggioPiatti = [];
+
+        foreach ($allOrders as $ordine) {
+            $items = $ordine->getItemOrdini();
+
+            foreach ($items as $item) {
+                $prodottoId = $item->getProdotto()->getId(); 
+                $quantita = $item->getQuantita();
+
+                if (!isset($conteggioPiatti[$prodottoId])) {
+                    $conteggioPiatti[$prodottoId] = 0;
+                }
+
+                $conteggioPiatti[$prodottoId] += $quantita;
+            }
+        }
+
+        arsort($conteggioPiatti);
+
+        $top10Piatti = array_slice($conteggioPiatti, 0, 10, true);
+
+        $nomiTopPiatti = [];
+        $quantitaTopPiatti = [];
+
+        foreach ($top10Piatti as $id => $quantita) {
+            $nome = $mappaProdotti[$id] ?? 'Sconosciuto';
+            $nomiTopPiatti[] = $nome;
+            $quantitaTopPiatti[] = $quantita;
+        }
+
+
+
+        // clienti
+        $numeroClienti = $this->persistent_manager->getAllClients();
+        $numeroClienti = count($numeroClienti);
+
+        // recensioni
+        $recensioni = $this->persistent_manager->getAllReviews();
+
+        $sommaValutazioni = 0;
+        $numeroRecensioni = count($recensioni);
+
+        if ($numeroRecensioni > 0) {
+            foreach ($recensioni as $recensione) {
+                $sommaValutazioni += $recensione->getVoto(); 
+            }
+            $mediaValutazioni = $sommaValutazioni / $numeroRecensioni;
+        } else {
+            $mediaValutazioni = 0; 
+        }
+
+        // fatturato della settimana
+        $fatturatoSettimana = [];
+
+        for ($i = 0; $i < 7; $i++) {
+            $data = (clone $inizioSettimana)->modify("+$i days")->format('Y-m-d');
+            $fatturatoSettimana[$data] = 0;
+        }
+
+        foreach ($allOrders as $ordine) {
+            $dataOrdine = $ordine->getDataEsecuzione();
+            $dataOrdineStr = $dataOrdine->format('Y-m-d');
+
+            if (array_key_exists($dataOrdineStr, $fatturatoSettimana)) {
+                $fatturatoSettimana[$dataOrdineStr] += $ordine->getCosto();
+            }
+        }
+
+
         $view = new VProprietario();
-        $view -> showDashboard($orders);
+        $view -> showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, array_values($fatturatoSettimana), $nomiTopPiatti, $quantitaTopPiatti);
         
     }
 
@@ -43,12 +152,12 @@ class CProprietario extends BaseController {
         $view = new VProprietario();
         $allOrders = $this->persistent_manager->getAllOrders();
 
-        usort($allOrders, function($a, $b) { //ordina per data di esecuzione
+        usort($allOrders, function($a, $b) { 
             return $b->getDataEsecuzione() <=> $a->getDataEsecuzione();
         });
         $orders = array_slice($allOrders, 0, 5);
 
-        $oggi = new DateTime(); // oggi
+        $oggi = new DateTime(); 
         $inizioSettimana = (clone $oggi)->modify('monday this week')->setTime(0, 0, 0);
         $fineSettimana = (clone $inizioSettimana)->modify('+6 days')->setTime(23, 59, 59);
         $ordiniSettimana = 0;
@@ -59,7 +168,7 @@ class CProprietario extends BaseController {
 
             if ($dataOrdine >= $inizioSettimana && $dataOrdine <= $fineSettimana) {
                 $ordiniSettimana++;
-                $totaleSettimana += $ordine->getCosto(); // somma il costo dell'ordine
+                $totaleSettimana += $ordine->getCosto(); 
             }
         }
 

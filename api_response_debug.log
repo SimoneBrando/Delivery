@@ -2,7 +2,7 @@ Array
 (
     [destination_addresses] => Array
         (
-            [0] => 65028 Tocco Da Casauria PE, Italy
+            [0] => Via Roma, 1, 65122 Pescara PE, Italy
         )
 
     [origin_addresses] => Array
@@ -20,14 +20,14 @@ Array
                                 (
                                     [distance] => Array
                                         (
-                                            [text] => 65.7 km
-                                            [value] => 65681
+                                            [text] => 114 km
+                                            [value] => 114064
                                         )
 
                                     [duration] => Array
                                         (
-                                            [text] => 1 hour 4 mins
-                                            [value] => 3811
+                                            [text] => 1 hour 32 mins
+                                            [value] => 5535
                                         )
 
                                     [status] => OK

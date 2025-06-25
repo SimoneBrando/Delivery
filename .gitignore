@@ -3,5 +3,5 @@
 /var/*
 # Ignora la cartella vendor/ (dipendenze Composer)
 /vendor/
-#Ignora il file config.php
-config/config.php
+#Ignora il file secrets.php (contiene la chiave API)
+secrets.php

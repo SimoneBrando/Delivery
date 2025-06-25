@@ -1,5 +1,7 @@
 <?php 
 
+require_once __DIR__ . "/../secrets.php";
+
 //Dati per la connessione al database
 define ('DB_HOST', '127.0.0.1');
 define( 'DB_PORT', '3306');
@@ -9,5 +11,5 @@ define ('DB_USER', 'root');
 define ('DB_PASS', '');
 define ('DB_CHARSET', 'utf8mb4');
 define ('DB_DRIVER', 'pdo_mysql');
-define ("API_KEY", 'AIzaSyChhUq-zbv3SMfvfs8pGxGSe0PKmDUDQhg');
+define ("API_KEY", $API_KEY);
 

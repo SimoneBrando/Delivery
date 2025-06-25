@@ -52,7 +52,7 @@ class UHTTPMethods {
         $raw = trim($_POST[$key]);
 
         // Lunghezza in cifre
-        $length = strlen((string)abs((int)$raw)); // Usa abs per evitare problemi con numeri negativi
+        $length = strlen($raw); // Usa abs per evitare problemi con numeri negativi
 
         if (($minLength !== null && $length < $minLength) || ($maxLength !== null && $length > $maxLength)) {
             throw new InvalidArgumentException("Il campo '$key' deve avere tra $minLength e $maxLength cifre. Valore fornito: $raw");

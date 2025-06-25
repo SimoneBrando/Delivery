@@ -53,7 +53,6 @@ class OrderTimeCalculator {
         $destinazione = urlencode($indirizzoDestinazione);
         $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=$origine&destinations=$destinazione&key={$this->apiKey}";
         $response = file_get_contents($url);
-        file_put_contents('api_response_debug.log', print_r($response, true));
         if ($response === false) {
             return 30; // fallback in caso di errore
         }

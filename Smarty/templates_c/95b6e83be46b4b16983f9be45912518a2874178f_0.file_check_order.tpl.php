@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-21 23:35:11
+/* Smarty version 5.5.1, created on 2025-06-24 15:40:16
   from 'file:check_order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6857258f7bcd19_50717242',
+  'unifunc' => 'content_685aaac0539320_55778575',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '95b6e83be46b4b16983f9be45912518a2874178f' => 
     array (
       0 => 'check_order.tpl',
-      1 => 1750527936,
+      1 => 1750772374,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6857258f7bcd19_50717242 (\Smarty\Template $_smarty_tpl) {
+function content_685aaac0539320_55778575 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -30,7 +30,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrello - Nome Ristorante</title>
-    <link rel="stylesheet" href="/Smarty/css/miei_ordini.css">
+    <link rel="stylesheet" href="/Smarty/css/check_order.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
 </head>
@@ -60,28 +60,12 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                     <form id="cartForm" method="POST" action="/Delivery/Ordine/confirmPayment">
                         <input type="hidden" name="cart_data" id="cartDataInput">
                         <input type="hidden" name="created_at" id="createdAtInput">
+
+                        <!-- Sezione Note -->
                         <div>
                             <label for="note">Inserisci Note</label>
                             <input type="text" name="note" id="note" value="">
                         </div>
-                        <div class="delivery-time-options">
-                            <strong>Scegli l'orario di consegna:</strong>
-                            <div>
-                                <input type="radio" id="default-time" name="delivery_time_option" value="default" checked>
-                                <label for="default-time">Orario proposto: <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('data_consegna'),"%H:%M %e %B %Y");?>
-</label>
-                            </div>
-                            <div>
-                                <input type="radio" id="custom-time" name="delivery_time_option" value="custom">
-                                <label for="custom-time">Scegli un altro orario</label>
-                                <input type="datetime-local" id="custom-delivery-time" name="custom_delivery_time" 
-                                       min="<?php echo $_smarty_tpl->getValue('data_consegna')->format('Y-m-d\TH:i');?>
-" 
-                                       style="display: none; margin-top: 5px;">
-                            </div>
-                        </div>
-                        <input type="hidden" name="dataConsegna" id="dataConsegna" value="<?php echo $_smarty_tpl->getValue('data_consegna')->format('Y-m-d H:i');?>
-">
 
                         <!-- Sezione Indirizzi -->
                         <div class="address-section">
@@ -120,7 +104,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                                 <?php } else { ?>
                                     <p>Nessun indirizzo registrato.</p>
                                 <?php }?>
-                                <a href="/Delivery/User/addAddress/" class="add-new-btn btn-link">
+                                <a href="/Delivery/User/showAddressForm/" class="add-new-btn btn-link">
                                     <i class="fas fa-plus"></i> Aggiungi nuovo indirizzo
                                 </a>
                             </div>
@@ -163,11 +147,28 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                                 <?php } else { ?>
                                     <p>Nessuna carta di credito registrata.</p>
                                 <?php }?>
-                                <a href="/Delivery/User/addCreditCard/" class="add-new-btn btn-link">
+                                <a href="/Delivery/User/showCreditCardForm/" class="add-new-btn btn-link">
                                     <i class="fas fa-plus"></i> Aggiungi nuova carta
                                 </a>
                             </div>
                         </div>
+
+                        <!-- Sezione Orario Consegna -->
+                        <div class="delivery-time-options">
+                            <strong>Scegli l'orario di consegna:</strong>
+                            <div>
+                                <input type="radio" id="default-time" name="delivery_time_option" value="default" checked>
+                                <label id="default-time-label" for="default-time">Orario proposto: --:--</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="custom-time" name="delivery_time_option" value="custom">
+                                <label for="custom-time">Scegli un altro orario</label>
+                                <input type="datetime-local" id="custom-delivery-time" name="custom_delivery_time"  
+                                       style="display: none;">
+                            </div>
+                        </div>
+                        <input type="hidden" name="dataConsegna" id="dataConsegna">
+
                         <button onclick="submitCart()" id="checkout-button" class="checkout-button">Procedi al pagamento</button>
                     </form>
                 </div>
@@ -186,81 +187,10 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
  src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
- src="/Smarty/Js/cart.js" defer><?php echo '</script'; ?>
+ src="/Smarty/Js/cart.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
->
-        document.addEventListener("DOMContentLoaded", () => {
-            confirmOrder();
-            const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-            const checkoutBtn = document.getElementById("checkout-button");
-
-            const total = cart.reduce((sum, item) => sum + item.qty * item.price, 0);
-
-            if (total === 0 || cart.length === 0) {
-                checkoutBtn.disabled = true;
-                checkoutBtn.classList.add("disabled");
-                checkoutBtn.textContent = "Carrello vuoto";
-            } else {
-                checkoutBtn.disabled = false;
-            }
-
-            // Gestione della selezione dell'orario di consegna
-            const defaultTimeRadio = document.getElementById('default-time');
-            const customTimeRadio = document.getElementById('custom-time');
-            const customTimeInput = document.getElementById('custom-delivery-time');
-            const dataConsegnaInput = document.getElementById('dataConsegna');
-
-            customTimeRadio.addEventListener('change', function() {
-                if (this.checked) {
-                    customTimeInput.style.display = 'block';
-                    // Imposta il valore minimo come l'orario proposto
-                    customTimeInput.min = dataConsegnaInput.value.replace(' ', 'T');
-                    // Imposta un valore di default (es. 1 ora dopo l'orario proposto)
-                    const defaultTime = new Date(dataConsegnaInput.value);
-                    defaultTime.setHours(defaultTime.getHours() + 1);
-                    customTimeInput.value = defaultTime.toISOString().slice(0, 16);
-                }
-            });
-
-            defaultTimeRadio.addEventListener('change', function() {
-                if (this.checked) {
-                    customTimeInput.style.display = 'none';
-                }
-            });
-
-            // Modifica la funzione submitCart per includere l'orario scelto
-            window.submitCart = function() {
-                const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-                const now = new Date();
-                
-                document.getElementById("cartDataInput").value = JSON.stringify(cart);
-                document.getElementById("createdAtInput").value = now.toISOString();
-                
-                // Aggiorna l'orario di consegna in base alla scelta dell'utente
-                if (customTimeRadio.checked && customTimeInput.value) {
-                    const customTime = new Date(customTimeInput.value);
-                    dataConsegnaInput.value = customTime.toISOString().replace('T', ' ').slice(0, 16);
-                }
-                
-                // Verifica che siano stati selezionati indirizzo e carta
-                const indirizzoSelezionato = document.querySelector('input[name="indirizzo_id"]:checked');
-                const cartaSelezionata = document.querySelector('input[name="numero_carta"]:checked');
-                
-                if (!indirizzoSelezionato) {
-                    alert("Seleziona un indirizzo di consegna");
-                    return;
-                }
-                
-                if (!cartaSelezionata) {
-                    alert("Seleziona un metodo di pagamento");
-                    return;
-                }
-
-                document.getElementById("cartForm").submit();
-            };
-        });
-    <?php echo '</script'; ?>
+ src="/Smarty/Js/check_order.js"><?php echo '</script'; ?>
 >
 </body>
 </html><?php }

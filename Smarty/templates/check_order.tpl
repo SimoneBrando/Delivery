@@ -58,7 +58,7 @@
                                 {else}
                                     <p>Nessun indirizzo registrato.</p>
                                 {/if}
-                                <a href="/Delivery/User/showAddressForm/" class="add-new-btn btn-link">
+                                <a href="/Delivery/User/showProfile/" class="add-new-btn btn-link">
                                     <i class="fas fa-plus"></i> Aggiungi nuovo indirizzo
                                 </a>
                             </div>
@@ -83,7 +83,7 @@
                                 {else}
                                     <p>Nessuna carta di credito registrata.</p>
                                 {/if}
-                                <a href="/Delivery/User/showCreditCardForm/" class="add-new-btn btn-link">
+                                <a href="/Delivery/User/showProfile/" class="add-new-btn btn-link">
                                     <i class="fas fa-plus"></i> Aggiungi nuova carta
                                 </a>
                             </div>

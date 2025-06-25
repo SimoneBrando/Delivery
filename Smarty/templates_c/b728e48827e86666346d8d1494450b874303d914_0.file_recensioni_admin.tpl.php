@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-16 12:08:35
+/* Smarty version 5.5.1, created on 2025-06-24 15:28:54
   from 'file:recensioni_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_684fed230e0851_32245914',
+  'unifunc' => 'content_685aa816abe0e4_31295920',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b728e48827e86666346d8d1494450b874303d914' => 
     array (
       0 => 'recensioni_admin.tpl',
-      1 => 1750068489,
+      1 => 1750771730,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_684fed230e0851_32245914 (\Smarty\Template $_smarty_tpl) {
+function content_685aa816abe0e4_31295920 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -50,30 +50,35 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
         </div>
         
         <!-- Filtri e Ricerca -->
+        <form method="get" action="/Delivery/Proprietario/showReviews/">
         <section class="filters-section">
             <div class="filters-grid">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchReviews" placeholder="Cerca recensioni...">
+                    <input type="text" name="search" value="<?php echo htmlspecialchars((string)(($tmp = $_GET['search'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+" placeholder="Cerca recensioni...">
                 </div>
                 <div class="filter-group">
-                    <label for="filterRating"><i class="fas fa-filter"></i> Filtra per voto:</label>
-                    <select id="filterRating">
-                        <option value="all">Tutti i voti</option>
-                        <option value="5">5 stelle</option>
-                        <option value="4">4 stelle</option>
-                        <option value="3">3 stelle</option>
-                        <option value="2">2 stelle</option>
-                        <option value="1">1 stella</option>
+                    <label for="stars"><i class="fas fa-filter"></i> Filtra per voto:</label>
+                    <select name="stars" id="stars">
+                        <option value="all" <?php if (((($tmp = $_GET['stars'] ?? null)===null||$tmp==='' ? 'all' ?? null : $tmp)) == 'all' || !$_GET['stars']) {?>selected<?php }?>>Tutti i voti</option>
+                        <option value="5" <?php if (((($tmp = $_GET['stars'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == '5') {?>selected<?php }?>>5 stelle</option>
+                        <option value="4" <?php if (((($tmp = $_GET['stars'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == '4') {?>selected<?php }?>>4 stelle</option>
+                        <option value="3" <?php if (((($tmp = $_GET['stars'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == '3') {?>selected<?php }?>>3 stelle</option>
+                        <option value="2" <?php if (((($tmp = $_GET['stars'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == '2') {?>selected<?php }?>>2 stelle</option>
+                        <option value="1" <?php if (((($tmp = $_GET['stars'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == '1') {?>selected<?php }?>>1 stelle</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <label for="filterDate"><i class="far fa-calendar-alt"></i> Ordina per:</label>
-                    <select id="filterDate">
-                        <option value="newest">Più recenti</option>
-                        <option value="oldest">Più vecchie</option>
+                    <label for="sort"><i class="far fa-calendar-alt"></i> Ordina per:</label>
+                    <select name="sort" id="sort">
+                        <option value="newest" <?php if (((($tmp = $_GET['sort'] ?? null)===null||$tmp==='' ? 'newest' ?? null : $tmp)) == 'newest' || !$_GET['sort']) {?>selected<?php }?>>Più recenti</option>
+                        <option value="oldest" <?php if (((($tmp = $_GET['sort'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'oldest') {?>selected<?php }?>>Più vecchie</option>
                     </select>
                 </div>
+                <div class="filter-group">
+                <button type="submit" class="btn-apply-filters">Applica filtri</button>
+            </div>
             </div>
         </section><br>
 
@@ -101,7 +106,7 @@ $foreach0DoElse = false;
                                         <h3><?php echo $_smarty_tpl->getValue('review')->getCliente()->getNome();?>
  <?php echo $_smarty_tpl->getValue('review')->getCliente()->getCognome();?>
  </h3>
-                                        <span class="review-date"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('review')->getData(),"%d/%m/%Y %H:%M");?>
+                                        <span class="review-date"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('review')->getData(),"%H:%M %e %B %Y");?>
 </span>
                                     </div>
                                 </div>

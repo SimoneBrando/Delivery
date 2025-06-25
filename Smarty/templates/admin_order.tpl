@@ -23,29 +23,33 @@
         </div>
         
         <!-- Filtri e Ricerca -->
+        <form method="get" action="/Delivery/Proprietario/showOrders/">
         <section class="filters-section">
             <div class="filters-grid">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="searchOrders" placeholder="Cerca ordini...">
+                    <input type="text" name="search" value="{$smarty.get.search|default:''|escape}" placeholder="Cerca ordini...">
                 </div>
                 <div class="filter-group">
                     <label for="filterStatus"><i class="fas fa-filter"></i> Filtra per stato:</label>
-                    <select id="filterStatus">
-                        <option value="all">Tutti gli stati</option>
-                        <option value="in_attesa">In attesa</option>
-                        <option value="in_preparazione">In preparazione</option>
-                        <option value="pronto">Pronto</option>
-                        <option value="consegnato">Consegnato</option>
-                        <option value="annullato">Annullato</option>
+                    <select name="status" id="filterStatus">
+                        <option value="all" {if ($smarty.get.status|default:'all') == 'all'}selected{/if}>Tutti gli stati</option>
+                        <option value="in_attesa" {if ($smarty.get.status|default:'') == 'in_attesa'}selected{/if}>In attesa</option>
+                        <option value="in_preparazione" {if ($smarty.get.status|default:'') == 'in_preparazione'}selected{/if}>In preparazione</option>
+                        <option value="pronto" {if ($smarty.get.status|default:'') == 'pronto'}selected{/if}>Pronto</option>
+                        <option value="consegnato" {if ($smarty.get.status|default:'') == 'consegnato'}selected{/if}>Consegnato</option>
+                        <option value="annullato" {if ($smarty.get.status|default:'') == 'annullato'}selected{/if}>Annullato</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label for="filterDate"><i class="far fa-calendar-alt"></i> Ordina per:</label>
-                    <select id="filterDate">
-                        <option value="newest">Più recenti</option>
-                        <option value="oldest">Più vecchi</option>
+                    <select name="sort" id="filterDate">
+                        <option value="newest" {if ($smarty.get.sort|default:'newest') == 'newest'}selected{/if}>Più recenti</option>
+                        <option value="oldest" {if ($smarty.get.sort|default:'') == 'oldest'}selected{/if}>Più vecchi</option>
                     </select>
+                </div>
+                <div class="filter-group">
+                    <button type="submit" class="btn-apply-filters">Applica filtri</button>
                 </div>
             </div>
         </section>

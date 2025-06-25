@@ -101,6 +101,21 @@
     cursor: pointer;
 }
 
+.btn-apply-filters {
+    background-color: var(--colore-primario);
+    color: var(--colore-bianco);
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}   
+
+.btn-apply-filters:hover {
+    scale: 1.15;
+}
+
 /* Header Lista Recensioni */
 .reviews-header {
     display: flex;

@@ -9,7 +9,7 @@ use Foundation\FPersistentManager;
 use Services\Utility\UCookie;
 use Services\Utility\USession;
 use View\VUser;
-use View\VErrors;
+use View\VErrors;   
 
 require_once __DIR__ . '/../View/VUser.php';
 require_once __DIR__ . '/../View/VErrors.php';
@@ -33,7 +33,7 @@ abstract class BaseController{
 
     public function requireLogin() {
         if(!($this->isLoggedIn())){
-            $view = new VUser($this->isLoggedIn());
+            $view = new VUser();
             $view->showLoginForm();
             exit;
         }

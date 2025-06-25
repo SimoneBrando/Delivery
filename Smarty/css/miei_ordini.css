@@ -2,6 +2,13 @@ main {
     max-width: auto;
     margin: 0 auto;
     padding: 20px;
+    flex:1;
+}
+
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .orders-section {

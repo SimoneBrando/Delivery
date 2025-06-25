@@ -41,6 +41,12 @@ class EIndirizzo
     private $citta;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $attivo;
+
+
+    /**
      * @ORM\ManyToMany(targetEntity="Entity\ECliente", mappedBy="indirizziConsegna")
      */
     private $clienti;
@@ -48,6 +54,7 @@ class EIndirizzo
     
 
     public function __construct(){
+        $this->attivo = true;
     }
     public function getId(): int
     {
@@ -97,6 +104,16 @@ class EIndirizzo
         $this->citta = $citta;
         return $this;
     }
+
+    public function getAttivo(): bool{
+        return $this->attivo;
+    }
+
+    public function setAttivo(bool $attivo): EIndirizzo{
+        $this->attivo = $attivo;
+        return $this;
+    }
+
     public function getClienti(): Collection
     {
         return $this->clienti;

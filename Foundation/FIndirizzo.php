@@ -22,6 +22,10 @@ class FIndirizzo {
         return FEntityManager::getInstance()->getAll(EIndirizzo::class);
     }
 
+    public static function getAllActiveAddresses(): array {
+        return FEntityManager::getInstance()->getObjListOnAttribute(EIndirizzo::class, 'attivo', true);
+    }
+
     public static function getAddressById(int $id): ?EIndirizzo
     {
         return FEntityManager::getInstance()->getObj(EIndirizzo::class, $id);

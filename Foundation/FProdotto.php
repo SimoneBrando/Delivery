@@ -21,4 +21,8 @@ class FProdotto
         return FEntityManager::getInstance()->getAll(EProdotto::class);
     }
 
+    public static function getAllActiveProducts(): array{
+        return FEntityManager::getInstance()->getObjListOnAttribute(EProdotto::class, 'attivo', true);
+    }
+
 }

@@ -1,11 +1,8 @@
 <?php 
 
 use Controller\BaseController;
-use Foundation\FPersistentManager;
 use View\VProprietario;
 use Utility\UHTTPMethods;
-use Services\Utility\UCookie;
-use Services\Utility\USession;
 use Entity\EProdotto;
 
 require_once __DIR__ . '/BaseController.php';
@@ -18,20 +15,14 @@ class CProprietario extends BaseController {
 
     public function inserisciProdotto(){
         $this->requireRole('proprietario');
-        $prodotto = new EProdotto(UHTTPMethods::post('inserisci_prodotto'));
+        $prodotto = new EProdotto();
         $this->persistent_manager->saveObj($prodotto);
     }
 
     public function modificaProdotto(){
         $this->requireRole('proprietario');
-        $prodotto = new EProdotto(UHTTPMethods::post('modifica_prodotto'));
+        $prodotto = new EProdotto();
         $this->persistent_manager->updateObj($prodotto);
-    }
-
-    public function eliminaProdotto(){
-        $this->requireRole('proprietario');
-        $prodotto = UHTTPMethods::post('elimina_prodotto');
-        $this->persistent_manager->deleteObj($prodotto);
     }
 
     public function showDashboard(){
@@ -157,7 +148,7 @@ class CProprietario extends BaseController {
     public function showMenu(){
         $this->requireRole('proprietario');
         $view = new VProprietario();
-        $prodotti = $this->persistent_manager->getAllProducts();
+        $prodotti = $this->persistent_manager->getAllActiveProduct();
 
         $search = $_GET['search'] ?? '';
         $categoryFilter = $_GET['category'] ?? 'all';
@@ -259,25 +250,19 @@ class CProprietario extends BaseController {
         header('Location: /Delivery/Proprietario/showMenu/'); 
             
     }
-/* da modificare per gli ordini
+
     public function deleteProduct(){
-        ini_set('display_errors', 1);
-        error_reporting(E_ALL);
         $this->requireRole('proprietario');
-    
-        $id = UHTTPMethods::post('product_id');
-        if (!$id) {
-            echo('ID prodotto mancante');
+        try{
+            $prodottoId = UHTTPMethods::post('product_id');
+            $prodotto = $this->persistent_manager->getObjOnAttribute(EProdotto::class, 'id', $prodottoId);
+            $prodotto->setAttivo(false);
+            $this->persistent_manager->updateObj($prodotto);
+            $this->showMenu();
+        } catch (Exception $e) {
+            $this->handleError($e);
         }
-
-        $prodotto = $this->persistent_manager->getObj(EProdotto::class, $id);
-        if (!$prodotto) {
-            die('Prodotto non trovato');
-        }
-        $result=$this->persistent_manager->deleteObj($prodotto);
-        var_dump($result);
-
-    }*/
+    }
 
     public function modifyProduct() {
         ini_set('display_errors', 1);

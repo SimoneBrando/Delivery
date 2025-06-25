@@ -27,7 +27,7 @@
                 <div class="login-form">
                     <h1>Registrati</h1>
 
-                    {if isset($error)}
+                    {if isset($error) && $error != ""}
                         <div class="error-message">{$error}</div>
                     {/if}
 

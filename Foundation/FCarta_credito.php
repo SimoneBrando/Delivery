@@ -22,6 +22,10 @@ class FCarta_credito
         return FEntityManager::getInstance()->getAll(ECarta_credito::class);
     }
 
+    public static function getAllActiveCreditCards(): array {
+        return FEntityManager::getInstance()->getObjListOnAttribute(ECarta_credito::class, 'attivo', true);
+    }
+
     public static function getCreditCardById(int $id): ?ECarta_credito
     {
         return FEntityManager::getInstance()->getObj(ECarta_credito::class, $id);

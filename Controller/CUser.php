@@ -346,16 +346,16 @@ class CUser extends BaseController{
     public function showProfile(){
         $this->requireLogin();
         $user = $this->getUser();
-        $userAddresses = $this->findUserAdresses();
+        $userAddresses = $this->findActiveUserAdresses();
         $userCreditCards = $this->findActiveUserCards(); 
         $view = new VUser($this->isLoggedIn());
         $view->showChangePassword($user, $userAddresses, $userCreditCards);
     }
 
-    public function findUserAdresses(){
+    public function findActiveUserAdresses(){
         $this->requireLogin();
         $user = $this->getUser();
-        $addresses = $this->persistent_manager->getAllAddresses();
+        $addresses = $this->persistent_manager->getAllActiveAddresses();
         $userAddresses = array_filter(
             $addresses, function($address) use ($user) {
             return $address->getClienti()->contains($user);
@@ -411,14 +411,18 @@ class CUser extends BaseController{
         }
     }
 
-    /* Da aggiustare in seguito
     public function removeAddress(){
-        $this->requireRole('cliente');
-        try {
-            $addressId = UHTTPMethods::post('address_id');
-            $address = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class,'id',$addressId);
-            $this->persistent_manager->deleteObj($address);
-            $this->showProfile();
+        try{
+            $this->requireRole('cliente');
+            $indirizzoId = UHTTPMethods::post('indirizzo_id');
+            $indirizzo = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class, 'id', $indirizzoId);
+            if (!$indirizzo) {
+                throw new InvalidArgumentException("Indirizzo non trovato.");
+            }
+            $indirizzo->setAttivo(false);
+            $this->persistent_manager->updateObj($indirizzo);
+            header("Location: /Delivery/User/showProfile");
+            exit;
         } catch (InvalidArgumentException $e) {
             $view = new VErrors();
             $view->showFatalError($e->getMessage());
@@ -429,10 +433,9 @@ class CUser extends BaseController{
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
             $view = new VErrors();
-            $view->showFatalError("Errore imprevisto".$th->getMessage(). $address->getVia());
+            $view->showFatalError("Errore imprevisto");
         }
     }
-    */
 
     //Gestione MetodiPagamento
     public function showCreditCardForm(){
@@ -448,8 +451,18 @@ class CUser extends BaseController{
             $nomeCarta = UHTTPMethods::post('nome_carta');
             $dataScadenza = UHTTPMethods::postDate('data_scadenza', 'm/y');
             $dataScadenza->modify('last day of this month 23:59:59');
+            if($dataScadenza < (new DateTime()) ){
+                throw (new InvalidArgumentException("Carta scaduta"));
+            }
             $cvv = UHTTPMethods::postInt('cvv',3,4);
             $nomeIntestatario = UHTTPMethods::postString('nome_intestatario');
+            if($this->persistent_manager->getObjOnAttribute(ECarta_credito::class,'numeroCarta',$numeroCarta)){
+               $creditCard =  $this->persistent_manager->getObjOnAttribute(ECarta_credito::class,'numeroCarta',$numeroCarta);
+               $creditCard->setCartaAttiva(true);
+               $this->persistent_manager->updateObj($creditCard);
+               header("Location: /Delivery/User/showProfile");
+               exit;
+            }
             $creditCard = new ECarta_credito();
             $creditCard->setNumeroCarta($numeroCarta)
                 ->setNominativo($nomeCarta)
@@ -462,8 +475,7 @@ class CUser extends BaseController{
             header("Location: /Delivery/User/showProfile");
             exit;
         } catch (InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
+            $this->handleError($e);
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
             $view = new VErrors();

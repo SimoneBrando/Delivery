@@ -31,6 +31,12 @@ class EProdotto {
      * @ORM\Column(type="decimal", scale=2)
      */
     private $costo;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $attivo;
+
     /**
      * @ORM\ManyToOne(targetEntity="Entity\ECategoria", inversedBy="piatti")
      * @ORM\JoinColumn(name="categoria_id", referencedColumnName="id", nullable=false)
@@ -42,8 +48,10 @@ class EProdotto {
      */
     private $itemOrdini;
 
-    public function __construct() {
 
+
+    public function __construct() {
+        $this->attivo = true;
     }
 
     // Getters
@@ -70,6 +78,10 @@ class EProdotto {
         return $this->itemOrdini;
     }
 
+    public function getAttivo(): bool{
+        return $this->attivo;
+    }
+
     // Setters
     public function setNome(string $nome) : EProdotto{
         $this->nome = $nome;
@@ -87,6 +99,11 @@ class EProdotto {
     }
     public function setCategoria(ECategoria $categoria) : EProdotto {
         $this->categoria = $categoria;
+        return $this;
+    }
+
+    public function setAttivo(bool $attivo): EProdotto{
+        $this->attivo = $attivo;
         return $this;
     }
 

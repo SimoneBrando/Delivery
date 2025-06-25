@@ -173,6 +173,10 @@ class FPersistentManager
         return FEntityManager::getInstance()->getAll(EIndirizzo::class);
     }
 
+    public static function getAllActiveAddresses(): array{
+        return FIndirizzo::getAllActiveAddresses();
+    }
+
 // <--------------------------------REVIEW--------------------------------------------> //
 
     /**
@@ -246,6 +250,10 @@ class FPersistentManager
         return FProdotto::getAllProducts();
     }
 
+    public static function getAllActiveProduct(): array{
+        return FProdotto::getAllActiveProducts();
+    }
+
 
 
     //<-------------------------CREDIT CARD------------------------->//
@@ -257,6 +265,10 @@ class FPersistentManager
      */
     public static function getAllCreditCards(): array{
         return FCarta_credito::getAllCreditCards();
+    }
+
+    public static function getAllActiveCreditCards(): array{
+        return FCarta_credito::getAllActiveCreditCards();
     }
 
     public static function getCreditCardById($id): ?FCarta_credito{

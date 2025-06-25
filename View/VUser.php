@@ -10,7 +10,7 @@ class VUser{
 
     private $smarty;
 
-    public function __construct(bool $logged){
+    public function __construct(bool $logged = false){
 
         $this->smarty = getSmartyInstance();
         $this->assignCommonVars($logged);

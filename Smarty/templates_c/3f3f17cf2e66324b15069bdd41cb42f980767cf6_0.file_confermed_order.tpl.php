@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:04:25
+/* Smarty version 5.5.1, created on 2025-06-26 16:34:19
   from 'file:confermed_order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c0ff97a1289_81222851',
+  'unifunc' => 'content_685d5a6b22e607_24554769',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3f3f17cf2e66324b15069bdd41cb42f980767cf6' => 
     array (
       0 => 'confermed_order.tpl',
-      1 => 1750607834,
+      1 => 1750948439,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685c0ff97a1289_81222851 (\Smarty\Template $_smarty_tpl) {
+function content_685d5a6b22e607_24554769 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -68,6 +68,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
             localStorage.removeItem("cart_createdAt");
         });
     <?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
 >
 </body>
 </html><?php }

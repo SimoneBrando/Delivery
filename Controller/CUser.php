@@ -76,8 +76,7 @@ class CUser extends BaseController{
                 }
             }
             $this->persistent_manager->saveObj($profile);
-            $this->auth_manager->login($email, $password);
-            header('Location: /Delivery/User/home');
+            header('Location: /Delivery/User/showLoginForm');
         } catch (\Delight\Auth\InvalidEmailException $e) {
             $this->showRegisterForm("Indirizzo email non valido");
         } catch (\Delight\Auth\InvalidPasswordException $e) {
@@ -322,8 +321,8 @@ class CUser extends BaseController{
 
     public function home(){
         ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+        ini_set('display_startup_errors', 1);
+        error_reporting(E_ALL);
 
         $view = new VUser($this->isLoggedIn(), $this->userRole);
         $allReviews = $this->persistent_manager->getAllReviews();
@@ -333,7 +332,6 @@ error_reporting(E_ALL);
     }
 
     public function order(){
-        $this->requireRole('cliente');
         $view = new VUser($this->isLoggedIn(), $this->userRole);
         $menu = $this->persistent_manager->getMenu();
         $view->order($menu);
@@ -379,11 +377,6 @@ error_reporting(E_ALL);
     }
 
     //Gestione Indirizzi
-    public function showAddressForm(){
-        $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showAddressForm();
-    }
     public function addAddress(){
         $this->requireRole('cliente');
         $user = $this->getUser();
@@ -442,11 +435,6 @@ error_reporting(E_ALL);
     }
 
     //Gestione MetodiPagamento
-    public function showCreditCardForm(){
-        $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showCreditCardForm();
-    }
     public function addCreditCard(){
         $this->requireRole('cliente');
         $user = $this->getUser();

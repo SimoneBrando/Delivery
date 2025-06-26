@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             timeLabel.textContent = `Orario proposto: ${formattedTime}`;
-            timeInputHidden.value = data.estimated_time;
+            defaultTimeRadio.value = estimatedTime;
 
             //Quello che segue è necesario per un problema di fusi orari (problema con toISOString)
             if (customTimeInput) {
@@ -120,7 +120,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     const defaultTime = new Date(data.estimated_time);
                     defaultTime.setHours(defaultTime.getHours() + 1);
                     customTimeInput.value = toLocalDatetimeString(defaultTime);
-                    timeInputHidden.value = customTimeInput.value;
             }
         })
         .catch(err => {
@@ -156,17 +155,23 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.getElementById("cartDataInput").value = JSON.stringify(cart);
         document.getElementById("createdAtInput").value = now.toISOString();
+
+        console.log("Stato radio button:", {
+                customTimeChecked: customTimeRadio.checked,
+                defaultTimeChecked: defaultTimeRadio.checked,
+                customTimeValue: customTimeInput.value,
+                defautlTime: defaultTimeRadio.value,
+            });
         
         // Aggiorna l'orario di consegna
         if (customTimeRadio.checked && customTimeInput.value) {
             const customTime = new Date(customTimeInput.value);
-            console.log("Stato radio button:", {
-                customTimeChecked: customTimeRadio.checked,
-                defaultTimeChecked: defaultTimeRadio.checked,
-                customTimeValue: customTimeInput.value
-            });
             customTime.setHours(customTime.getHours() + 2); //accorgimenti per il fuso orario
             timeInputHidden.value = customTime.toISOString().replace('T', ' ').slice(0, 16);
+        } else {
+            const defaultTime = new Date(defaultTimeRadio.value);
+            defaultTime.setHours(defaultTime.getHours() + 2); //accorgimenti per il fuso orario
+            timeInputHidden.value = defaultTime.toISOString().replace('T', ' ').slice(0, 16);
         }
 
         if (!validateDeliveryTime()) {

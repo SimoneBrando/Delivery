@@ -3,6 +3,7 @@
 namespace Foundation;
 
 use Entity\ECliente;
+use Entity\EOrdine;
 use Entity\ESegnalazione;
 use Exception;
 
@@ -38,5 +39,10 @@ class FSegnalazione
     {
         $client = FEntityManager::getInstance()->getObj(ECliente::class, $clientId);
         return $client->getSegnalazioni()->toArray();
+    }
+
+    public static function getWarningByOrderId($orderId)  {
+        $warning = FEntityManager::getInstance()->getObjOnAttribute(ESegnalazione::class, 'ordine',$orderId);
+        return $warning;
     }
 }

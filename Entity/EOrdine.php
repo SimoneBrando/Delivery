@@ -4,6 +4,7 @@ namespace Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Foundation\FPersistentManager;
 
 /**
  * @ORM\Entity
@@ -171,6 +172,14 @@ class EOrdine {
             //$item->setOrdine($this);
         }
         return $this;
+    }
+
+    //Sbagliato dal punto di vista architetturale
+    public function hasWarning(): bool{
+        if (FPersistentManager::getWarningByOrderId($this->getId())){
+            return true;
+        }
+        return false;
     }
 
     /*

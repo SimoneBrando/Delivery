@@ -14,8 +14,7 @@ class UHTTPMethods {
      * Recupera e valida una stringa dal metodo POST.
      *
      * - Elimina spazi iniziali e finali.
-     * - Lancia un'eccezione se il campo è vuoto o supera la lunghezza massima specificata.
-     * - Effettua l'escape HTML per prevenire XSS.
+     * - Lancia un'eccezione se il campo è vuoto o supera la lunghezza massima specificata..
      *
      * @param string $key Nome del campo POST.
      * @param int|null $maxLength Lunghezza massima consentita (facoltativa).
@@ -48,18 +47,13 @@ class UHTTPMethods {
         if (!isset($_POST[$key]) || !is_numeric($_POST[$key])) {
             throw new InvalidArgumentException("Il campo '$key' deve essere un numero.");
         }
-
         $raw = trim($_POST[$key]);
-
         // Lunghezza in cifre
-        $length = strlen($raw); // Usa abs per evitare problemi con numeri negativi
-
+        $length = strlen($raw);
         if (($minLength !== null && $length < $minLength) || ($maxLength !== null && $length > $maxLength)) {
             throw new InvalidArgumentException("Il campo '$key' deve avere tra $minLength e $maxLength cifre. Valore fornito: $raw");
         }
-
         $intVal = (int)$raw;
-
         if (($min !== null && $intVal < $min) || ($max !== null && $intVal > $max)) {
             throw new InvalidArgumentException("Il campo '$key' è fuori dai limiti consentiti. Valore: $intVal");
         }

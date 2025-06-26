@@ -188,6 +188,8 @@ class CProprietario extends BaseController {
         try {
             $user = new CUser();
             $user->registerUser($role, $extraData);
+            header("Location: /Delivery/Proprietario/showCreateAccount");
+            exit;
         } catch (Exception $e) {
             die('Unknown error');
         }

@@ -5,3 +5,5 @@
 /vendor/
 #Ignora il file secrets.php (contiene la chiave API)
 secrets.php
+#Ignora il file di log
+api_response_debug.log

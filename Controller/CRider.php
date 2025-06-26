@@ -21,11 +21,19 @@ class CRider extends BaseController{
     public function cambiaStatoOrdine(){
         $this->requireRole('rider');
         $ordineId = UHTTPMethods::post('ordineId');
-        $ordine = $this->persistent_manager->getObjOnAttribute(EOrdine::class,'id' ,$ordineId);
-        if($ordine){
-            $nuovoStato = UHTTPMethods::post('stato');
+        try{
+            $ordine = $this->persistent_manager->getObjOnAttribute(EOrdine::class,'id' ,$ordineId);
+            if (!$ordine){
+                throw new InvalidArgumentException("Ordine non valido");
+            }
+            $nuovoStato = UHTTPMethods::postString('stato');
             $ordine->setStato($nuovoStato);
+            if($nuovoStato == 'consegnato'){
+                $ordine->setDataConsegna(new DateTime());
+            }
             $this->persistent_manager->updateObj($ordine);  
+        } catch (Exception $e){
+            $this->handleError($e);
         }
     }
 

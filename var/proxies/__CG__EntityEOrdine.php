@@ -412,4 +412,15 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
         return parent::addItemOrdine($item);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function hasWarning(): bool
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'hasWarning', []);
+
+        return parent::hasWarning();
+    }
+
 }

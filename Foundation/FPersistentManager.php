@@ -200,6 +200,10 @@ class FPersistentManager
     {
         return FSegnalazione::getAllWarnings();
     }
+    
+    public static function getWarningByOrderId($orderId){
+        return FSegnalazione::getWarningByOrderId($orderId);
+    }
     //<----------------------------ORDER------------------------------------------->//
 
     /**

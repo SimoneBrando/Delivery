@@ -13,7 +13,7 @@ class CChef extends BaseController{
     public function showOrders(){
         $this->requireRole('cuoco');
         $ordini = $this->persistent_manager->getOrdersByState('in_preparazione');
-        $view = new VChef();
+        $view = new VChef($this->isLoggedIn(), $this->userRole);
         $view->showOrders($ordini);
     }
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 17:14:24
-  from 'file:confermed_order.tpl' */
+/* Smarty version 5.5.1, created on 2025-06-25 17:45:37
+  from 'file:access_denied.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ac0d08097a4_94438210',
+  'unifunc' => 'content_685c19a16f12f2_75049873',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '9a8502ad5ca5d7c951a911966d8db0b0b12dc120' => 
+    '8dc96b3f0d3bafa6453a61a894d50eb54def9995' => 
     array (
-      0 => 'confermed_order.tpl',
-      1 => 1750602402,
+      0 => 'access_denied.tpl',
+      1 => 1750788409,
       2 => 'file',
     ),
   ),
@@ -22,20 +22,17 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ac0d08097a4_94438210 (\Smarty\Template $_smarty_tpl) {
-$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
+function content_685c19a16f12f2_75049873 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conferma Ordine</title>
+    <title>Accesso Negato</title>
     <link rel="stylesheet" href="/Smarty/css/layout.css"></link>
-    <link rel="stylesheet" href="/Smarty/css/confirm.css">
+    <link rel="stylesheet" href="/Smarty/css/error.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <?php echo '<script'; ?>
- src="../Js/loadComponents.js" defer><?php echo '</script'; ?>
->
 </head>
 <body>
     <!-- Header -->
@@ -45,15 +42,15 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
 
     <!-- Main Content -->
     <main>
-        <section>
-            <div>
-                <h1>Ordine Confermato</h1>
+      <section class="accesso-negato-container">
+        <div class="crossed-utensils">
+          <i class="fas fa-utensils fork "></i>
+        </div>
 
-                <p>Il suo ordine è andato a buon fine! Grazie per aver scelto noi.</p>
-
-                <a class="button" href="/Delivery/User/home">Torna alla Homepage</a>
-            </div>
-        </section>
+        <h1>Accesso Negato</h1>
+        <p>Non hai i permessi necessari per accedere a questa sezione.</p>
+        <a class="button" href="/Delivery/User/home">Torna alla Homepage</a>
+      </section>
     </main>
 
     <!-- Footer -->
@@ -62,13 +59,12 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
 ?>
 
     <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
 >
-        document.addEventListener("DOMContentLoaded", () => {
-            localStorage.removeItem("cart");
-            localStorage.removeItem("cart_createdAt");
-        });
-    <?php echo '</script'; ?>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
 >
+
 </body>
 </html><?php }
 }

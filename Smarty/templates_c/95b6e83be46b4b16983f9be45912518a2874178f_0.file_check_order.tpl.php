@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 17:14:08
+/* Smarty version 5.5.1, created on 2025-06-25 17:01:02
   from 'file:check_order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ac0c0d608d8_07678865',
+  'unifunc' => 'content_685c0f2e03a025_69655032',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '70e138bfa7305869bc82b4b908254165ea21fb29' => 
+    '95b6e83be46b4b16983f9be45912518a2874178f' => 
     array (
       0 => 'check_order.tpl',
-      1 => 1750602402,
+      1 => 1750863148,
       2 => 'file',
     ),
   ),
@@ -22,8 +22,8 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ac0c0d608d8_07678865 (\Smarty\Template $_smarty_tpl) {
-$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
+function content_685c0f2e03a025_69655032 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
 <head>
@@ -47,7 +47,6 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 <div class="order-card">
                     <div class="order-header">
                         <h2>Riepilogo ordine</h2>
-                        <span class="order-date" id="order-date">--</span>
                     </div>
                     <div class="order-items">
                         <strong>Prodotti:</strong>
@@ -104,7 +103,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                                 <?php } else { ?>
                                     <p>Nessun indirizzo registrato.</p>
                                 <?php }?>
-                                <a href="/Delivery/User/showAddressForm/" class="add-new-btn btn-link">
+                                <a href="/Delivery/User/showProfile/" class="add-new-btn btn-link">
                                     <i class="fas fa-plus"></i> Aggiungi nuovo indirizzo
                                 </a>
                             </div>
@@ -147,7 +146,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                                 <?php } else { ?>
                                     <p>Nessuna carta di credito registrata.</p>
                                 <?php }?>
-                                <a href="/Delivery/User/showCreditCardForm/" class="add-new-btn btn-link">
+                                <a href="/Delivery/User/showProfile/" class="add-new-btn btn-link">
                                     <i class="fas fa-plus"></i> Aggiungi nuova carta
                                 </a>
                             </div>

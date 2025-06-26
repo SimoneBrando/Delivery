@@ -30,7 +30,7 @@ class COrdine extends BaseController{
         $userUtility = new CUser();
         $adresses = $userUtility->findActiveUserAdresses();
         $cards = $userUtility->findActiveUserCards();
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showConfirmOrder($user, $adresses, $cards);
     }
 
@@ -80,7 +80,7 @@ class COrdine extends BaseController{
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
             //Fine Transazione
-            $view = new VUser($this->isLoggedIn());
+            $view = new VUser($this->isLoggedIn(), $this->userRole);
             $view->confermedOrder();
         } catch (InvalidArgumentException $e){
             $this->persistent_manager->rollback();

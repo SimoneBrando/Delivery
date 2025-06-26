@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 15:05:26
+/* Smarty version 5.5.1, created on 2025-06-25 17:00:07
   from 'file:footer.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685aa2960b94f8_82252208',
+  'unifunc' => 'content_685c0ef7ae3d27_41719021',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '67d522a8f4db70872424a7d36d9b5383ad033d2a' => 
+    'b285251e36b05908cba6b5f600014c987e1e27f9' => 
     array (
       0 => 'footer.tpl',
-      1 => 1749809672,
+      1 => 1749814033,
       2 => 'file',
     ),
   ),
@@ -20,8 +20,8 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_685aa2960b94f8_82252208 (\Smarty\Template $_smarty_tpl) {
-$_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
+function content_685c0ef7ae3d27_41719021 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><footer>
     <div class="footer-container">
         <p>&copy; 2025 Home Restaurant. Tutti i diritti riservati.</p>

@@ -9,7 +9,7 @@ use Foundation\FPersistentManager;
 use Services\Utility\UCookie;
 use Services\Utility\USession;
 use View\VUser;
-use View\VErrors;
+use View\VErrors;   
 
 require_once __DIR__ . '/../View/VUser.php';
 require_once __DIR__ . '/../View/VErrors.php';
@@ -24,16 +24,21 @@ abstract class BaseController{
     protected FPersistentManager $persistent_manager;
     protected Auth $auth_manager;
     protected array $validRoles;
+    protected ?string $userRole = null;
 
     public function __construct() {
         $this->persistent_manager = FPersistentManager::getInstance();
         $this->auth_manager = getAuth();
         $this->validRoles = ['cliente', 'cuoco', 'rider', 'proprietario'];
+
+        if ($this->isLoggedIn()) {
+            $this->userRole = $this->getUser()->getRuolo();
+        }
     }
 
     public function requireLogin() {
         if(!($this->isLoggedIn())){
-            $view = new VUser($this->isLoggedIn());
+            $view = new VUser();
             $view->showLoginForm();
             exit;
         }

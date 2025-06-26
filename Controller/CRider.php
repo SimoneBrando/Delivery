@@ -13,7 +13,7 @@ class CRider extends BaseController{
 
     public function showOrders(){
         $this->requireRole('rider');
-        $view = new VRider();
+        $view = new VRider($this->isLoggedIn(), $this->userRole);
         $orders = $this->persistent_manager->getOrdersByState('in_attesa');
         $view->showOrders($orders);
     }
@@ -34,14 +34,14 @@ class CRider extends BaseController{
 
     public function showOnDeliveryOrders() {
         $this->requireRole('rider');
-        $view = new VRider();
+        $view = new VRider($this->isLoggedIn(), $this->userRole);
         $orders = $this->persistent_manager->getOrdersByState('in_consegna');
         $view->showOrders($orders);
     }
 
     public function showDeliveredOrders() {
         $this->requireRole('rider');
-        $view = new VRider();
+        $view = new VRider($this->isLoggedIn(), $this->userRole);
         $orders = $this->persistent_manager->getOrdersByState('consegnato');
         $view->showOrders($orders);
     }

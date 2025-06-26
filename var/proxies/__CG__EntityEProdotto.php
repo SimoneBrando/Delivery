@@ -67,10 +67,10 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'itemOrdini'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'attivo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'itemOrdini'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'itemOrdini'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'id', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'nome', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'descrizione', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'costo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'attivo', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'categoria', '' . "\0" . 'Entity\\EProdotto' . "\0" . 'itemOrdini'];
     }
 
     /**
@@ -250,6 +250,17 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getAttivo(): bool
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAttivo', []);
+
+        return parent::getAttivo();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setNome(string $nome): \Entity\EProdotto
     {
 
@@ -289,6 +300,17 @@ class EProdotto extends \Entity\EProdotto implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCategoria', [$categoria]);
 
         return parent::setCategoria($categoria);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAttivo(bool $attivo): \Entity\EProdotto
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAttivo', [$attivo]);
+
+        return parent::setAttivo($attivo);
     }
 
 }

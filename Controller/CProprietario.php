@@ -26,10 +26,6 @@ class CProprietario extends BaseController {
     }
 
     public function showDashboard(){
-        ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
         $this->requireRole('proprietario');
 
         // ordini
@@ -142,14 +138,14 @@ error_reporting(E_ALL);
         }
 
 
-        $view = new VProprietario();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
         $view -> showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, array_values($fatturatoSettimana), $nomiTopPiatti, $quantitaTopPiatti);
         
     }
 
     public function showPanel(){
         $this->requireRole('proprietario');
-        $view = new VProprietario();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
         $allOrders = $this->persistent_manager->getAllOrders();
 
         usort($allOrders, function($a, $b) { 
@@ -207,13 +203,13 @@ error_reporting(E_ALL);
 
     public function showCreationForm(){
         $this->requireRole('proprietario');
-        $view = new VProprietario();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
         $view -> showCreationForm();
     }
 
     public function showReviews(){
         $this->requireRole('proprietario');
-        $view = new VProprietario();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
 
         $allReviews = $this->persistent_manager->getAllReviews();
 
@@ -256,7 +252,7 @@ error_reporting(E_ALL);
 
     public function showMenu(){
         $this->requireRole('proprietario');
-        $view = new VProprietario();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
         $prodotti = $this->persistent_manager->getAllActiveProduct();
 
         $search = $_GET['search'] ?? '';
@@ -280,7 +276,7 @@ error_reporting(E_ALL);
 
     public function showOrders(){
         $this->requireRole('proprietario');
-        $view = new VProprietario();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
         $allOrders = $this->persistent_manager->getAllOrders();
 
         $search = $_GET['search'] ?? '';
@@ -322,7 +318,7 @@ error_reporting(E_ALL);
         $this->requireRole('proprietario');
         $chefs = $this->persistent_manager->getAllChefs();
         $riders= $this->persistent_manager->getAllRiders();
-        $view = new VProprietario();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
         $view -> showCreateAccount($chefs, $riders);
     }
 
@@ -374,9 +370,6 @@ error_reporting(E_ALL);
     }
 
     public function modifyProduct() {
-        ini_set('display_errors', 1);
-        error_reporting(E_ALL);
-
         $this->requireRole('proprietario');
 
         $id = UHTTPMethods::post('product_id') ?? null;

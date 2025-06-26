@@ -2,7 +2,7 @@ Array
 (
     [destination_addresses] => Array
         (
-            [0] => 65028 Tocco Da Casauria PE, Italy
+            [0] => Via Piscignola, 8, 67100 L'Aquila AQ, Italy
         )
 
     [origin_addresses] => Array
@@ -20,14 +20,14 @@ Array
                                 (
                                     [distance] => Array
                                         (
-                                            [text] => 65.7 km
-                                            [value] => 65681
+                                            [text] => 1.3 km
+                                            [value] => 1252
                                         )
 
                                     [duration] => Array
                                         (
-                                            [text] => 1 hour 4 mins
-                                            [value] => 3811
+                                            [text] => 6 mins
+                                            [value] => 359
                                         )
 
                                     [status] => OK

@@ -25,6 +25,9 @@ class CRider extends BaseController{
         if($ordine){
             $nuovoStato = UHTTPMethods::post('stato');
             $ordine->setStato($nuovoStato);
+            if($nuovoStato == 'consegnato'){
+                $ordine->setDataConsegna(new DateTime());
+            }
             $this->persistent_manager->updateObj($ordine);  
         }
     }

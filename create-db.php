@@ -23,6 +23,11 @@ try {
     $dbAuth = getAuthDb(); // Connessione al database auth_db
     $sqlAuth = file_get_contents(__DIR__ . '/vendor/delight-im/auth/Database/MySQL.sql');
     $statements = array_filter(array_map('trim', explode(';', $sqlAuth)));
+    $tablesToDrop = ['users', 'users_2fa', 'users_audit_log', 'users_confirmations', 'users_otps', 'users_remembered', 'users_resets', 'users_throttling'];
+    foreach ($tablesToDrop as $table) {
+        $dbAuth->exec("DROP TABLE IF EXISTS `{$table}`");
+        echo "Tabella {$table} eliminata con successo.";
+    }
     foreach ($statements as $stmt) {
         if ($stmt !== '') {
             $dbAuth->exec($stmt);
@@ -34,6 +39,8 @@ try {
 }
 
 $entityManager = getEntityManager(); // ottieni l'EntityManager
+$entityManager->getConnection()->executeStatement('SET FOREIGN_KEY_CHECKS = 0');
+$entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 
 
 $schemaTool = new SchemaTool($entityManager);
@@ -57,5 +64,6 @@ $classes = [
 
 $schemaTool->dropDatabase();
 $schemaTool->createSchema($classes);
+$entityManager->getConnection()->executeStatement('SET FOREIGN_KEY_CHECKS = 1');
 
 echo "Database creato con successo.\n";

@@ -58,6 +58,7 @@ class OrderTimeCalculator {
             return 30; // fallback in caso di errore
         }
         $data = json_decode($response, true);
+        file_put_contents('api_response_debug.log', print_r($data, true));
         if (!isset($data['rows'][0]['elements'][0]['duration']['value'])) {
             return 30; // fallback in caso di struttura errata
         }

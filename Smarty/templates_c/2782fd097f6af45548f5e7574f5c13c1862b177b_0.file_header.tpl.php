@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:00:07
+/* Smarty version 5.5.1, created on 2025-06-26 16:14:46
   from 'file:header.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c0ef7acefb2_42188290',
+  'unifunc' => 'content_685d55d631cc52_83945092',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2782fd097f6af45548f5e7574f5c13c1862b177b' => 
     array (
       0 => 'header.tpl',
-      1 => 1750063531,
+      1 => 1750947283,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_685c0ef7acefb2_42188290 (\Smarty\Template $_smarty_tpl) {
+function content_685d55d631cc52_83945092 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><header>
     <div class="header-container">
@@ -35,12 +35,22 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         <div class="nav-links" id="nav-menu">
             <a href="/Delivery/User/home/">Home</a>
             <a href="/Delivery/User/mostraMenu/">Menù</a>
+            <?php if ($_smarty_tpl->getValue('role') == "cliente" || !$_smarty_tpl->getValue('logged')) {?>
             <a href="/Delivery/User/order/">Ordina</a>
-            <?php if ($_smarty_tpl->getValue('logged')) {?>
+            <?php }?>
+            <?php if ($_smarty_tpl->getValue('logged') && $_smarty_tpl->getValue('role') == "cliente") {?>
                 <a href="/Delivery/User/showMyOrders/">I Miei Ordini</a>
             <?php }?>
+            <?php if ($_smarty_tpl->getValue('logged') && $_smarty_tpl->getValue('role') == "proprietario") {?>
+                <a href="/Delivery/Proprietario/showPanel/">Pannello di Controllo</a>
+            <?php }?>
+            <?php if ($_smarty_tpl->getValue('logged') && $_smarty_tpl->getValue('role') == "cuoco") {?>
+                <a href="/Delivery/Chef/showOrders/">Ordini in Cucina</a>
+            <?php }?>
+            <?php if ($_smarty_tpl->getValue('logged') && $_smarty_tpl->getValue('role') == "rider") {?>
+                <a href="/Delivery/Rider/showOrders/">Ordini da Consegnare</a>
+            <?php }?>
         </div>
-
         <div class="user-actions">
             <a href="admin_panel.html" title="Notifiche">
                 <i class="fas fa-bell"></i>

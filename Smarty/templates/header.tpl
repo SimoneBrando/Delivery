@@ -11,7 +11,7 @@
         <div class="nav-links" id="nav-menu">
             <a href="/Delivery/User/home/">Home</a>
             <a href="/Delivery/User/mostraMenu/">Menù</a>
-            {if $role == "cliente"}
+            {if $role == "cliente" or !$logged}
             <a href="/Delivery/User/order/">Ordina</a>
             {/if}
             {if $logged and $role == "cliente"}

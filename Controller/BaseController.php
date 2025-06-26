@@ -24,11 +24,16 @@ abstract class BaseController{
     protected FPersistentManager $persistent_manager;
     protected Auth $auth_manager;
     protected array $validRoles;
+    protected ?string $userRole = null;
 
     public function __construct() {
         $this->persistent_manager = FPersistentManager::getInstance();
         $this->auth_manager = getAuth();
         $this->validRoles = ['cliente', 'cuoco', 'rider', 'proprietario'];
+
+        if ($this->isLoggedIn()) {
+            $this->userRole = $this->getUser()->getRuolo();
+        }
     }
 
     public function requireLogin() {

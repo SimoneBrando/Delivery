@@ -15,7 +15,7 @@ class CSegnalazione extends BaseController{
         if($this->isLoggedIn()){
             $userId = USession::getSessionElement('user');
             $ordini = FPersistentManager::getInstance()->getOrdersByClient($userId);
-            $view = new VUser($this->isLoggedIn());
+            $view = new VUser($this->isLoggedIn(), $this->userRole);
             $view->showMyOrders($ordini);
         }
     }

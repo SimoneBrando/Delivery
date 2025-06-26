@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 17:44:28
+/* Smarty version 5.5.1, created on 2025-06-26 12:20:13
   from 'file:review_form.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ac7dc13ac71_53251461',
+  'unifunc' => 'content_685d1edda86ad7_32658513',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '4433c5e602b833dd85ccd6b33ebb9d7e808a311f' => 
     array (
       0 => 'review_form.tpl',
-      1 => 1750602402,
+      1 => 1750932642,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ac7dc13ac71_53251461 (\Smarty\Template $_smarty_tpl) {
+function content_685d1edda86ad7_32658513 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -31,7 +31,8 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
     <title>Scrivi una Recensione</title>
     <link rel="stylesheet" href="/Smarty/css/layout.css">
     <link rel="stylesheet" href="/Smarty/css/form.css">
-    <link rel="stylesheet" href="/Smarty/css/review.css"> <!-- opzionale -->
+    <link rel="stylesheet" href="/Smarty/css/recensioni.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
 

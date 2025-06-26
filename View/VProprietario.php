@@ -6,11 +6,16 @@ class VProprietario{
 
     private $smarty;
 
-    public function __construct(){
-
+    public function __construct(bool $logged = false, ?string $role = null) {
         $this->smarty = getSmartyInstance();
-
+        $this->assignCommonVars($logged, $role);
     }
+
+    public function assignCommonVars(bool $logged, ?string $role = null) {
+        $this->smarty->assign('logged', $logged);
+        $this->smarty->assign('role', $role);
+    }
+
 
     public function showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, $fatturatoSettimana, $nomiTopPiatti, $quantitaTopPiatti){
         $this->smarty->assign('ordini', $orders);

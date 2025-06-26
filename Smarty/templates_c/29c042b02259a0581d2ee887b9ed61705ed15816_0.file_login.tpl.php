@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 17:13:53
+/* Smarty version 5.5.1, created on 2025-06-26 12:13:32
   from 'file:login.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ac0b1920595_52846761',
+  'unifunc' => 'content_685d1d4c1977f3_26779634',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '29c042b02259a0581d2ee887b9ed61705ed15816' => 
     array (
       0 => 'login.tpl',
-      1 => 1749990303,
+      1 => 1750932642,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ac0b1920595_52846761 (\Smarty\Template $_smarty_tpl) {
+function content_685d1d4c1977f3_26779634 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -58,7 +58,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 <div class="login-form">
                     <h1>Accedi al tuo Account</h1>
 
-                    <?php if ((true && ($_smarty_tpl->hasVariable('error') && null !== ($_smarty_tpl->getValue('error') ?? null)))) {?>
+                    <?php if ((true && ($_smarty_tpl->hasVariable('error') && null !== ($_smarty_tpl->getValue('error') ?? null))) && $_smarty_tpl->getValue('error') != '') {?>
                         <div class="error-message"><?php echo $_smarty_tpl->getValue('error');?>
 </div>
                     <?php }?>

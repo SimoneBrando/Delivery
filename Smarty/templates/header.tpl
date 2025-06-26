@@ -11,12 +11,22 @@
         <div class="nav-links" id="nav-menu">
             <a href="/Delivery/User/home/">Home</a>
             <a href="/Delivery/User/mostraMenu/">Menù</a>
+            {if $role == "cliente"}
             <a href="/Delivery/User/order/">Ordina</a>
-            {if $logged}
+            {/if}
+            {if $logged and $role == "cliente"}
                 <a href="/Delivery/User/showMyOrders/">I Miei Ordini</a>
             {/if}
+            {if $logged and $role == "proprietario"}
+                <a href="/Delivery/Proprietario/showPanel/">Pannello di Controllo</a>
+            {/if}
+            {if $logged and $role == "cuoco"}
+                <a href="/Delivery/Chef/showOrders/">Ordini in Cucina</a>
+            {/if}
+            {if $logged and $role == "rider"}
+                <a href="/Delivery/Rider/showOrders/">Ordini da Consegnare</a>
+            {/if}
         </div>
-
         <div class="user-actions">
             <a href="admin_panel.html" title="Notifiche">
                 <i class="fas fa-bell"></i>

@@ -30,7 +30,7 @@ class CUser extends BaseController{
         if($this->isLoggedIn()){
             header('Location: /Delivery/User/home');
         }
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showRegisterForm();
     }
 
@@ -39,7 +39,7 @@ class CUser extends BaseController{
             header('Location: /Delivery/User/home');
             exit;
         }
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showLoginForm($error);
     }
 
@@ -315,13 +315,17 @@ class CUser extends BaseController{
     }
 
     public function mostraMenu(){
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $menu = $this->persistent_manager->getMenu();
         $view->showMenu($menu);
     }
 
     public function home(){
-        $view = new VUser($this->isLoggedIn());
+        ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $allReviews = $this->persistent_manager->getAllReviews();
         shuffle($allReviews);
         $reviews = array_slice($allReviews, 0, 3);
@@ -330,14 +334,14 @@ class CUser extends BaseController{
 
     public function order(){
         $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $menu = $this->persistent_manager->getMenu();
         $view->order($menu);
     }
 
     public function showMyOrders(){
         $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $id = $this->getUser()->getId();
         $orders = $this->persistent_manager->getOrdersByClient($id);
         $view->showMyOrders($orders);
@@ -348,7 +352,7 @@ class CUser extends BaseController{
         $user = $this->getUser();
         $userAddresses = $this->findActiveUserAdresses();
         $userCreditCards = $this->findActiveUserCards(); 
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showChangePassword($user, $userAddresses, $userCreditCards);
     }
 
@@ -377,7 +381,7 @@ class CUser extends BaseController{
     //Gestione Indirizzi
     public function showAddressForm(){
         $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showAddressForm();
     }
     public function addAddress(){
@@ -440,7 +444,7 @@ class CUser extends BaseController{
     //Gestione MetodiPagamento
     public function showCreditCardForm(){
         $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showCreditCardForm();
     }
     public function addCreditCard(){
@@ -514,7 +518,7 @@ class CUser extends BaseController{
 
     public function showReviewForm(){
         $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn());
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showReviewForm();
     }
 

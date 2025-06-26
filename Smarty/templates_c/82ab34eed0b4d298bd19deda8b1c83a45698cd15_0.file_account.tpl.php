@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 15:06:29
+/* Smarty version 5.5.1, created on 2025-06-26 12:14:01
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685aa2d5233e41_47238604',
+  'unifunc' => 'content_685d1d69602205_40036457',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '82ab34eed0b4d298bd19deda8b1c83a45698cd15' => 
     array (
       0 => 'account.tpl',
-      1 => 1750765907,
+      1 => 1750932642,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685aa2d5233e41_47238604 (\Smarty\Template $_smarty_tpl) {
+function content_685d1d69602205_40036457 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -112,6 +112,13 @@ $foreach0DoElse = false;
  <?php echo $_smarty_tpl->getValue('indirizzo')->getCitta();?>
 
                                 </span>
+                                <form action="/Delivery/User/removeAddress" method="POST" class="remove-address-form">
+                                    <input type="hidden" name="indirizzo_id" value="<?php echo $_smarty_tpl->getValue('indirizzo')->getId();?>
+">
+                                    <button type="submit" class="remove-address-btn" title="Rimuovi Indirizzo">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </form>
                             </li>
                         <?php
 }
@@ -208,12 +215,14 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 
                         <div class="form-group">
                             <label for="citta">Città</label>
-                            <input type="text" id="citta" name="citta" pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$" title="Solo lettere ammesse" autocapitalize="on" required>
+                            <select id="citta" name="citta" required>
+                                <option value="">-- Seleziona una città --</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
                             <label for="cap">CAP</label>
-                            <input type="text" id="cap" name="cap" pattern="\d&#123;5&#125;" inputmode="numeric" maxlength="5" title="Inserisci un CAP valido (5 cifre)" required>
+                            <input type="text" id="cap" name="cap" pattern="\d&#123;5&#125;" inputmode="numeric" maxlength="5" title="Inserisci un CAP valido (5 cifre)"  readonly required>
                         </div>
 
                         <button type="submit">Salva Indirizzo</button>
@@ -263,6 +272,37 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
         </div>
 
     
+    <?php echo '<script'; ?>
+>
+        document.addEventListener('DOMContentLoaded', function () {
+            const select = document.getElementById('citta');
+            const capInput = document.getElementById('cap');
+
+            fetch('/Smarty/comuni_aq.json')
+                .then(response => response.json())
+                .then(comuni => {
+                    comuni.forEach(comune => {
+                        const option = document.createElement('option');
+                        option.value = comune.nome;
+                        option.textContent = comune.nome;
+                        option.dataset.cap = comune.cap[0]; // usa il primo CAP disponibile
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error('Errore nel caricamento dei comuni:', error);
+                });
+
+            select.addEventListener('change', function () {
+                const selectedOption = this.options[this.selectedIndex];
+                const cap = selectedOption.dataset.cap;
+                if (cap) {
+                    capInput.value = cap;
+                }
+            });
+        });
+    <?php echo '</script'; ?>
+>
 
     <?php echo '<script'; ?>
  src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>

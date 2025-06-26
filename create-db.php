@@ -40,7 +40,6 @@ try {
 
 $entityManager = getEntityManager(); // ottieni l'EntityManager
 $entityManager->getConnection()->executeStatement('SET FOREIGN_KEY_CHECKS = 0');
-$entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('enum', 'string');
 
 
 $schemaTool = new SchemaTool($entityManager);

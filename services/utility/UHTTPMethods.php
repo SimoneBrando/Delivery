@@ -1,6 +1,6 @@
 <?php 
 
-namespace Utility;
+namespace Services\Utility;
 
 use InvalidArgumentException;
 

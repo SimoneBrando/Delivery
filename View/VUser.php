@@ -2,10 +2,6 @@
 
 namespace View;
 
-use CUser;
-
-require_once __DIR__ . '/../Controller/CUser.php';
-
 class VUser{
 
     private $smarty;

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/../vendor/autoload.php";
+
 class CFrontController{
     
     public function run($requestUri){
@@ -30,11 +32,9 @@ class CFrontController{
         $methodName = !empty($uriParts[1]) ? $uriParts[1] : 'home';
 
 
-        $controllerClass = 'C' . $controllerName;
-        $controllerFile = __DIR__ . "/{$controllerClass}.php";
+        $controllerClass = 'Controller\\C' . $controllerName;
 
-        if (file_exists($controllerFile)) {
-            require_once $controllerFile;
+        if (class_exists($controllerClass)) {
 
             //If the required method exists parameters are extracted and passed
             // to the method (ex. : /User/details/5 → parameter: ['5'])
@@ -48,9 +48,8 @@ class CFrontController{
             }
         } else {
             http_response_code(404);
-echo "Pagina non .";
-exit;
-
+            echo "Pagina non .";
+            exit;
         }
     }
 }

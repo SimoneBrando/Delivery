@@ -1,15 +1,12 @@
 <?php 
+namespace Controller;
+
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use View\VProprietario;
-use Utility\UHTTPMethods;
+use Services\Utility\UHTTPMethods;
 use Entity\EProdotto;
-
-require_once __DIR__ . '/BaseController.php';
-require_once __DIR__ . '/../View/VProprietario.php';
-require_once __DIR__ . '/../Foundation/FPersistentManager.php';
-require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
-require_once __DIR__ . '/CUser.php';
 
 class CProprietario extends BaseController {
 
@@ -36,7 +33,7 @@ class CProprietario extends BaseController {
         });
         $orders = array_slice($allOrders, 0, 5);
 
-        $oggi = new DateTime(); 
+        $oggi = new \DateTime(); 
         $inizioOggi = (clone $oggi)->setTime(0, 0, 0);
         $fineOggi = (clone $oggi)->setTime(23, 59, 59);
         $inizioSettimana = (clone $oggi)->modify('monday this week')->setTime(0, 0, 0);
@@ -153,7 +150,7 @@ class CProprietario extends BaseController {
         });
         $orders = array_slice($allOrders, 0, 5);
 
-        $oggi = new DateTime(); 
+        $oggi = new \DateTime(); 
         $inizioSettimana = (clone $oggi)->modify('monday this week')->setTime(0, 0, 0);
         $fineSettimana = (clone $inizioSettimana)->modify('+6 days')->setTime(23, 59, 59);
         $ordiniSettimana = 0;
@@ -190,7 +187,7 @@ class CProprietario extends BaseController {
             $user->registerUser($role, $extraData);
             header("Location: /Delivery/Proprietario/showCreateAccount");
             exit;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             die('Unknown error');
         }
     }
@@ -366,7 +363,7 @@ class CProprietario extends BaseController {
             $prodotto->setAttivo(false);
             $this->persistent_manager->updateObj($prodotto);
             $this->showMenu();
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->handleError($e);
         }
     }

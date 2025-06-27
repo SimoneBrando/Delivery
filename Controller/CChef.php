@@ -1,12 +1,12 @@
 <?php
+namespace Controller;
+
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use View\VChef;
-use Utility\UHTTPMethods;
+use Services\Utility\UHTTPMethods;
 use Entity\EOrdine;
-
-require_once __DIR__ . '/../View/VChef.php';
-require_once __DIR__ . '/BaseController.php';
 
 class CChef extends BaseController{
 
@@ -20,13 +20,21 @@ class CChef extends BaseController{
     public function cambiaStatoOrdine(){
         $this->requireRole('cuoco');
         $ordineId = UHTTPMethods::post('ordineId');
-        $ordine = $this->persistent_manager->getObjOnAttribute(EOrdine::class, 'id',$ordineId);
-        if($ordine){
-            $nuovoStato = UHTTPMethods::post('stato');
+        $nuovoStato = UHTTPMethods::postString('stato');
+        $this->persistent_manager->beginTransaction();
+        try{
+            $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
             $ordine->setStato($nuovoStato);
-            $this->persistent_manager->updateObj($ordine);
+            $this->persistent_manager->flush();
+            $this->persistent_manager->commit();
+            header("Location: /Delivery/Rider/showOrders");
+            exit;
+        } catch (\Exception $e) {
+            if ($this->persistent_manager->isTransactionActive()){
+                $this->persistent_manager->rollback();
+            }
+            $this->handleError($e);            
         }
-        echo "Ordine aggiornato con ID: $ordineId, nuovo stato: $nuovoStato";
     }
 
 }

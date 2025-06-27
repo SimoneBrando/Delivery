@@ -1,13 +1,14 @@
 <?php
 
+namespace Controller;
+
+require_once __DIR__ . "/../vendor/autoload.php";
+
 use Controller\BaseController;
 use Entity\EOrdine;
 use Foundation\FPersistentManager;
 use View\VRider;
-use Utility\UHTTPMethods;
-
-require_once __DIR__ . '/../View/VRider.php';
-require_once __DIR__ . '/BaseController.php';
+use Services\Utility\UHTTPMethods;
 
 class CRider extends BaseController{
 
@@ -21,19 +22,23 @@ class CRider extends BaseController{
     public function cambiaStatoOrdine(){
         $this->requireRole('rider');
         $ordineId = UHTTPMethods::post('ordineId');
+        $nuovoStato = UHTTPMethods::postString('stato');
+        $this->persistent_manager->beginTransaction();
         try{
-            $ordine = $this->persistent_manager->getObjOnAttribute(EOrdine::class,'id' ,$ordineId);
-            if (!$ordine){
-                throw new InvalidArgumentException("Ordine non valido");
-            }
-            $nuovoStato = UHTTPMethods::postString('stato');
+            $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
             $ordine->setStato($nuovoStato);
             if($nuovoStato == 'consegnato'){
-                $ordine->setDataConsegna(new DateTime());
+                $ordine->setDataConsegna(new \DateTime());
             }
-            $this->persistent_manager->updateObj($ordine);  
-        } catch (Exception $e){
-            $this->handleError($e);
+            $this->persistent_manager->flush();
+            $this->persistent_manager->commit();
+            header("Location: /Delivery/Rider/showOrders");
+            exit;
+        } catch (\Exception $e) {
+            if ($this->persistent_manager->isTransactionActive()){
+                $this->persistent_manager->rollback();
+            }
+            $this->handleError($e);            
         }
     }
 

@@ -1,6 +1,7 @@
 <?php
 namespace Foundation;
 
+use Doctrine\DBAL\LockMode;
 use Entity\ECliente;
 use Entity\EIndirizzo;
 use Entity\EItemOrdine;
@@ -33,6 +34,10 @@ class FPersistentManager
         $this->emORM->getConnection()->beginTransaction();
     }
 
+    public function isTransactionActive(): bool {
+        return $this->emORM->getConnection()->isTransactionActive();
+    }
+
     public function commit(){
         $this->emORM->getConnection()->commit();
     }
@@ -47,6 +52,10 @@ class FPersistentManager
 
     public function persist($obj){
         $this->emORM->persist($obj);
+    }
+
+    public function locking($entityClass, $id, int $lockMode = LockMode::PESSIMISTIC_WRITE){
+        return $this->emORM->find($entityClass, $id, $lockMode);
     }
 
 

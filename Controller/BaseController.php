@@ -2,6 +2,8 @@
 
 namespace Controller;
 
+require_once __DIR__ . "/../vendor/autoload.php";
+
 use Delight\Auth\Auth;
 use Entity\EUtente;
 use Exception;
@@ -10,15 +12,6 @@ use Services\Utility\UCookie;
 use Services\Utility\USession;
 use View\VUser;
 use View\VErrors;   
-
-require_once __DIR__ . '/../View/VUser.php';
-require_once __DIR__ . '/../View/VErrors.php';
-require_once __DIR__ . '/../Foundation/FPersistentManager.php';
-require_once __DIR__ . '/../Entity/EUtente.php';
-require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
-require_once __DIR__ . '/../services/utility/USession.php';
-require_once __DIR__ . '/../services/utility/UCookie.php';
-
 
 abstract class BaseController{
     protected FPersistentManager $persistent_manager;

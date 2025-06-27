@@ -2,6 +2,12 @@
     RewriteEngine On
     RewriteBase /
 
+    # Redirect da HTTP a HTTPS
+    RewriteCond %{HTTP_HOST} !^localhost$ [NC]
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
     # Escludi cartelle specifiche
     RewriteCond %{REQUEST_URI} ^/Delivery/(Smarty/css|Smarty/Js|images|altro)/ [NC]
     RewriteRule ^ - [L]

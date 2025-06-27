@@ -1,4 +1,7 @@
 <?php
+namespace Controller;
+
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Doctrine\ORM\Exception\ORMException;
@@ -8,21 +11,9 @@ use Entity\EUtente;
 use View\VErrors;
 use View\VUser;
 use Services\Utility\USession;
-use Utility\UHTTPMethods;
+use Services\Utility\UHTTPMethods;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-require_once __DIR__ . '/BaseController.php';
-require_once __DIR__ . '/../View/VUser.php';
-require_once __DIR__ . '/../View/VErrors.php';
-require_once __DIR__ . '/../Foundation/FPersistentManager.php';
-require_once __DIR__ . '/../Entity/ECliente.php';
-require_once __DIR__ . '/../Entity/EUtente.php';
-require_once __DIR__ . '/../Entity/EIndirizzo.php';
-require_once __DIR__ . '/../Entity/ECarta_credito.php';
-require_once __DIR__ . '/../services/utility/UHTTPMethods.php';
-require_once __DIR__ . '/../services/utility/USession.php';
-require_once __DIR__ . '/../services/utility/UCookie.php';
 
 class CUser extends BaseController{
 
@@ -394,7 +385,7 @@ class CUser extends BaseController{
             $this->persistent_manager->saveObj($address);
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             $view = new VErrors();
             $view->showFatalError($e->getMessage());
         } catch (\PDOException $e) {
@@ -414,13 +405,13 @@ class CUser extends BaseController{
             $indirizzoId = UHTTPMethods::post('indirizzo_id');
             $indirizzo = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class, 'id', $indirizzoId);
             if (!$indirizzo) {
-                throw new InvalidArgumentException("Indirizzo non trovato.");
+                throw new \InvalidArgumentException("Indirizzo non trovato.");
             }
             $indirizzo->setAttivo(false);
             $this->persistent_manager->updateObj($indirizzo);
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             $view = new VErrors();
             $view->showFatalError($e->getMessage());
         } catch (\PDOException $e) {
@@ -443,8 +434,8 @@ class CUser extends BaseController{
             $nomeCarta = UHTTPMethods::post('nome_carta');
             $dataScadenza = UHTTPMethods::postDate('data_scadenza', 'm/y');
             $dataScadenza->modify('last day of this month 23:59:59');
-            if($dataScadenza < (new DateTime()) ){
-                throw (new InvalidArgumentException("Carta scaduta"));
+            if($dataScadenza < (new \DateTime()) ){
+                throw (new \InvalidArgumentException("Carta scaduta"));
             }
             $cvv = UHTTPMethods::postInt('cvv',3,4);
             $nomeIntestatario = UHTTPMethods::postString('nome_intestatario');
@@ -466,7 +457,7 @@ class CUser extends BaseController{
             $this->persistent_manager->saveObj($creditCard);
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             $this->handleError($e);
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
@@ -484,13 +475,13 @@ class CUser extends BaseController{
             $numeroCarta = UHTTPMethods::postInt('numero_carta',16,16);
             $creditCard = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', $numeroCarta);
             if (!$creditCard) {
-                throw new InvalidArgumentException("Carta di credito non trovata.");
+                throw new \InvalidArgumentException("Carta di credito non trovata.");
             }
             $creditCard->setCartaAttiva(false);
             $this->persistent_manager->updateObj($creditCard);
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException $e) {
             $view = new VErrors();
             $view->showFatalError($e->getMessage());
         } catch (\PDOException $e) {

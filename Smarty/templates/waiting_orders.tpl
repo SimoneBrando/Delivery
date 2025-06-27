@@ -35,7 +35,8 @@
                         <div class="delivery-info">
                             <p><strong>Note:</strong> {$order->getNote()|escape}</p>
                             <p><strong>Data esecuzione:</strong> {$order->getDataEsecuzione()->format('d/m/Y H:i:s')}</p>
-                            <p><strong>Data ricezione:</strong> {$order->getDataRicezione()->format('d/m/Y H:i:s')}</p>
+                            <p><strong>Data consegna prevista:</strong> {$order->getDataRicezione()->format('d/m/Y H:i:s')}</p>
+                            <p><strong>Indirizzo :</strong> {$order->getIndirizzoConsegna()->getVia()} {$order->getIndirizzoConsegna()->getCivico()}, {$order->getIndirizzoConsegna()->getCitta()}</p>
                             <p><strong>Costo totale:</strong> €{$order->getCosto()}</p>
                             <p><strong>Prodotti:</strong></p>
                             <ul>
@@ -44,22 +45,21 @@
                                 {/foreach}
                             </ul>
                         </div>
-                        <form method="POST" action="/Delivery/Chef/cambiaStatoOrdine" class="status-form">
-                            <input type="hidden" name="ordineId" value="{$order->getId()}">
-                            <label for="status{$order->getId()}">Modifica stato:</label>
-                            <select name="stato" id="status{$order->getId()}" class="status-select">
-                                <option value="">-- Seleziona stato --</option>
-                                <option value="annullato" {if $statoClasse == 'annullato'}selected{/if}>Annullato</option>
-                                <option value="consegnato" {if $statoClasse == 'consegnato'}selected{/if}>Consegnato</option>
-                                <option value="pronto" {if $statoClasse == 'pronto'}selected{/if}>Pronto</option>
-                                <option value="in_preparazione" {if $statoClasse == 'in_preparazione'}selected{/if}>In Preparazione</option>
-                                <option value="in_attesa" {if $statoClasse == 'in_attesa'}selected{/if}>In Attesa</option>
-                            </select>
-                        </form>
+                        <div class="delivery-actions">
+                            <form action="/Delivery/Chef/accettaOrdine" method="POST" style="display:inline-block; margin-right: 10px;">
+                                <input type="hidden" name="ordine_id" value="{$order->getId()}" />
+                                <button type="submit" class="btn btn-success">Accetta</button>
+                            </form>
+
+                            <form action="/Delivery/Chef/rifiutaOrdine" method="POST" style="display:inline-block;">
+                                <input type="hidden" name="ordine_id" value="{$order->getId()}" />
+                                <button type="submit" class="btn btn-danger">Rifiuta</button>
+                            </form>
+                        </div>
                     </div>
                 {/foreach}
             {else}
-                <p>Nessun ordine in cucina.</p>
+                <p>Nessun ordine in attesa.</p>
             {/if}
         </div>
     </main>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:00:07
+/* Smarty version 5.5.1, created on 2025-06-27 14:55:06
   from 'file:home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c0ef7aa2fa3_57520589',
+  'unifunc' => 'content_685e94aae50de9_79929552',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '14480e0397d18fd823be1c34e12f9063673c3c8c' => 
     array (
       0 => 'home.tpl',
-      1 => 1750607834,
+      1 => 1751028905,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685c0ef7aa2fa3_57520589 (\Smarty\Template $_smarty_tpl) {
+function content_685e94aae50de9_79929552 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -61,6 +61,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </section>
 
         <!-- Story Sections -->
+        <?php if ($_smarty_tpl->getValue('logout') == true) {?>
+            <p> True </p>
+        <?php }?>
         <section id="storia" class="story-section">
             <div class="storia-container">
                 <div class="storia-text">
@@ -177,6 +180,14 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     <?php echo '<script'; ?>
  src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
 >
+    <?php if ($_smarty_tpl->getValue('logout')) {?>
+        <?php echo '<script'; ?>
+>
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cart_createdAt');
+        <?php echo '</script'; ?>
+>
+    <?php }?>
 </body>
 
 </html><?php }

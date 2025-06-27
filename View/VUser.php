@@ -2,10 +2,6 @@
 
 namespace View;
 
-use CUser;
-
-require_once __DIR__ . '/../Controller/CUser.php';
-
 class VUser{
 
     private $smarty;
@@ -27,8 +23,9 @@ class VUser{
         $this->smarty->display('menu.tpl');
     }
 
-    public function showHome($reviews){
+    public function showHome($reviews, bool $logout = false){
         $this->smarty->assign('reviews', $reviews);
+        $this->smarty->assign('logout', $logout);
         $this->smarty->display('home.tpl');
     }
 

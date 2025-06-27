@@ -22,6 +22,11 @@ class VChef{
         $this->smarty->display('chef_orders.tpl');
     }
 
+    public function showOrdiniInAttesa($orders){
+        $this->smarty->assign('orders', $orders);
+        $this->smarty->display('waiting_orders.tpl');
+    }
+
 
 
 

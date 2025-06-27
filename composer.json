@@ -14,9 +14,12 @@
     "autoload": {
         "psr-4": {
             "Entity\\": "Entity/",
+            "Foundation\\": "Foundation",
+            "Controller\\": "Controller",
+            "View\\": "View",
             "Testing\\": "Testing/",
             "Testing\\Fixtures\\": "Testing/Fixtures",
-            "Foundation\\": "Foundation"
+            "Services\\": "services"
         }
     }
 }

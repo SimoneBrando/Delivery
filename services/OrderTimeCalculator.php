@@ -2,11 +2,11 @@
 
 namespace Services;
 
-use DateTime;
-use Entity\EOrdine;
-
-require_once __DIR__ . "/../Entity/EOrdine.php";
+require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/config.php';
+
+use DateTime;
+
 
 class OrderTimeCalculator {
     private array $tempiPerCategoria = [

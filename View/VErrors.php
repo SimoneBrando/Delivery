@@ -13,8 +13,9 @@ class VErrors{
         $this->smarty->display('access_denied.tpl');
     }
 
-    public function showFatalError($message){
+    public function showFatalError($message, bool $cartError = false){
         $this->smarty->assign('message', $message);
+        $this->smarty->assign('cartError', $cartError);
         $this->smarty->display('fatal_error.tpl');
     }
 }

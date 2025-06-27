@@ -1,4 +1,7 @@
 <?php
+namespace Controller;
+
+require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Entity\ECarta_credito;
@@ -6,17 +9,12 @@ use Entity\EIndirizzo;
 use Entity\EItemOrdine;
 use Foundation\FPersistentManager;
 use Services\OrderTimeCalculator;
-use Utility\UHTTPMethods;
+use Services\Utility\UHTTPMethods;
 use Services\Utility\USession;
 use Entity\EOrdine;
 use Entity\EProdotto;
 use View\VErrors;
 use View\VUser;
-
-require_once __DIR__ . '/BaseController.php';
-require_once __DIR__ . '/../Entity/EProdotto.php';
-require_once __DIR__ . '/../services/OrderTimeCalculator.php';
-
 
 class COrdine extends BaseController{
 
@@ -24,7 +22,7 @@ class COrdine extends BaseController{
         $this->requireRole('cliente');
         $cart = json_decode(UHTTPMethods::post('cart_data'), true);
         if (!is_array($cart) || empty($cart)) {
-            throw new InvalidArgumentException("Carrello non valido o vuoto.");
+            throw new \InvalidArgumentException("Carrello non valido o vuoto.");
         }    
         $user = $this->getUser();
         $userUtility = new CUser();
@@ -40,19 +38,23 @@ class COrdine extends BaseController{
             $user = $this->getUser();
             $cart = json_decode(UHTTPMethods::post('cart_data'), true);
             if (!is_array($cart) || empty($cart)) {
-                throw new InvalidArgumentException("Carrello non valido o vuoto.");
+                throw new \InvalidArgumentException("Carrello non valido o vuoto.");
             }
             $note = UHTTPMethods::post("note");
-            $dataConsegna = new DateTime(UHTTPMethods::post('dataConsegna'));
+            $dataConsegna = new \DateTime(UHTTPMethods::post('dataConsegna'));
             $indirizzoConsegna = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class,'id', UHTTPMethods::post('indirizzo_id'));
-            $metodoPagamento = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', UHTTPMethods::post('numero_carta')); 
+            $metodoPagamento = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', UHTTPMethods::post('numero_carta'));
+            $stato = ($this->persistent_manager->getOrdersByState('in_preparazione') > 10) ? "in_attesa" : "in_preparazione";
             $order = new EOrdine();
             $itemOrderList = [];
             $totalPrice = 0;
             foreach ($cart as $item){
                 $prodotto = $this->persistent_manager->getObjOnAttribute(EProdotto::class,'id',$item['id']);
                 if (!$prodotto) {
-                    throw new InvalidArgumentException("Prodotto {$item['name']} non trovato.");
+                    throw new \InvalidArgumentException("Prodotto {$item['name']} non trovato.");
+                }
+                if($prodotto->getCosto() != $item['price']) {
+                    throw new \InvalidArgumentException("Il prezzo del prodotto {$item['name']} è stato modificato, ora è {$prodotto->getCosto()} Riprovare!", 1);
                 }
                 $itemOrder = new EItemOrdine;
                 $itemOrder->setOrdine($order)
@@ -63,11 +65,11 @@ class COrdine extends BaseController{
                 $itemOrderList[] = $itemOrder;
                 $totalPrice += $item['price'] * $item['qty'];
             }
-            $order->setDataEsecuzione(new DateTime())
+            $order->setDataEsecuzione(new \DateTime())
                 ->setDataRicezione($dataConsegna)
                 ->setCosto($totalPrice)
                 ->setCliente($user)
-                ->setStato('in_preparazione')
+                ->setStato($stato)
                 ->setNote($note)
                 ->setIndirizzoConsegna($indirizzoConsegna)
                 ->setMetodoPagamento($metodoPagamento);
@@ -82,12 +84,17 @@ class COrdine extends BaseController{
             //Fine Transazione
             $view = new VUser($this->isLoggedIn(), $this->userRole);
             $view->confermedOrder();
-        } catch (InvalidArgumentException $e){
-            $this->persistent_manager->rollback();
+        } catch (\InvalidArgumentException $e){
+            if ($this->persistent_manager->isTransactionActive()){
+                $this->persistent_manager->rollback();
+            }
+            $cartError = ($e->getCode()==1) ? true : false;
             error_log("Errore input utente: " . $e->getMessage());
-            $this->handleError($e);
-        } catch (Exception $e) {
-            $this->persistent_manager->rollback();
+            $this->handleError($e, $cartError);
+        } catch (\Exception $e) {
+            if ($this->persistent_manager->isTransactionActive()){
+                $this->persistent_manager->rollback();
+            }
             error_log("Errore database: " . $e->getMessage());
             $this->handleError($e);
         }
@@ -101,13 +108,13 @@ class COrdine extends BaseController{
             $indirizzoCliente = "{$indirizzo->getVia()} {$indirizzo->getCivico()}, {$indirizzo->getCitta()}";
             $cart = json_decode(UHTTPMethods::post('cart_data'), true);
             if (!is_array($cart) || empty($cart)) {
-                throw new InvalidArgumentException("Carrello non valido");
+                throw new \InvalidArgumentException("Carrello non valido");
             }
             $order = new EOrdine();
             foreach ($cart as $item){
                 $prodotto = $this->persistent_manager->getObjOnAttribute(EProdotto::class,'id',$item['id']);
                 if (!$prodotto) {
-                    throw new InvalidArgumentException("Prodotto {$item} non trovato");
+                    throw new \InvalidArgumentException("Prodotto {$item} non trovato");
                     }
                 $itemOrder = new EItemOrdine;
                 $itemOrder->setOrdine($order)
@@ -119,7 +126,7 @@ class COrdine extends BaseController{
             try {
                 $ordiniAttivi = $this->persistent_manager->getOrdersByState('in_preparazione');
                 $numeroOrdini = is_array($ordiniAttivi) ? count($ordiniAttivi) : 10;
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 error_log("Errore nel recupero degli ordini in preparazione: " . $e->getMessage());
                 // Fallback: impostiamo un numero fittizio per forzare il ritardo
                 $numeroOrdini = 10;
@@ -132,7 +139,7 @@ class COrdine extends BaseController{
             echo json_encode([
                 'estimated_time' => $estimatedTime->format('Y-m-d\TH:i')
             ]);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             header('Content-Type: application/json');
             http_response_code(500);
             echo json_encode([

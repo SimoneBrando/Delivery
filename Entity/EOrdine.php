@@ -58,7 +58,7 @@ class EOrdine {
     private $segnalazione;
 
     /**
-     * @ORM\Column(type="string", columnDefinition="ENUM('in_attesa', 'in_preparazione', 'pronto' , 'consegnato', 'annullato')")
+     * @ORM\Column(type="string", columnDefinition="ENUM('in_attesa', 'in_preparazione', 'pronto' , 'in_consegna' , 'consegnato', 'annullato')")
      */
     private $stato;
 

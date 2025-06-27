@@ -25,6 +25,7 @@
             {/if}
             {if $logged and $role == "cuoco"}
                 <a href="/Delivery/Chef/showOrders/">Ordini in Cucina</a>
+                <a href="/Delivery/Chef/showOrdiniInAttesa/">Ordini in Attesa</a>
             {/if}
             {if $logged and $role == "rider"}
                 <a href="/Delivery/Rider/showOrders/">Ordini da Consegnare</a>

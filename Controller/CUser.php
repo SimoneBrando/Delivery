@@ -22,7 +22,7 @@ class CUser extends BaseController{
             header('Location: /Delivery/User/home');
         }
         $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showRegisterForm();
+        $view->showRegisterForm($error);
     }
 
     public function showLoginForm(string $error = ""){
@@ -130,9 +130,9 @@ class CUser extends BaseController{
     }
 
     public function logoutUser(){
-        USession::destroySession();
         $this->auth_manager->logout();
         USession::unsetSessionElement('user');
+        USession::setSessionElement('logout', true);
         header('Location: /Delivery/User/home');
     }
 
@@ -298,7 +298,7 @@ class CUser extends BaseController{
             header("Location: /Delivery/User/home");
             exit;
         }
-        $userId = USession::getSessionElement('user');
+        $userId = $this->getUserId();
         $this->logoutUser();
         $this->removeAccount($userId);
         header("Location: /Delivery/User/home");
@@ -319,7 +319,14 @@ class CUser extends BaseController{
         $allReviews = $this->persistent_manager->getAllReviews();
         shuffle($allReviews);
         $reviews = array_slice($allReviews, 0, 3);
-        $view->showHome($reviews);
+        //Per la rimuozione del carrello dal localStorage dopo un logout
+        if (USession::isSetSessionElement('logout')) {
+            $logout = USession::getSessionElement('logout');
+            USession::unsetSessionElement('logout');
+        } else {
+            $logout = false;
+        }
+        $view->showHome($reviews, $logout);
     }
 
     public function order(){

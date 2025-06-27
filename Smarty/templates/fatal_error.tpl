@@ -20,7 +20,7 @@
             <div>
                 <h1>Problema Insolito</h1>
 
-                <p>C'è stato un problema indesiderato. {$message}. La invitiamo a tornare alla Homepage ed eseguire nuovamente l'accesso.</p>
+                <p>C'è stato un problema indesiderato. {$message}. La invitiamo a tornare alla Homepage.</p>
 
                 <a class="button" href="/Delivery/User/home">Torna alla Homepage</a>
             </div>
@@ -30,6 +30,13 @@
     <!-- Footer -->
     
     {include file="footer.tpl"}
+
+    {if $cartError}
+        <script>
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cart_createdAt');
+        </script>
+    {/if}
 
 </body>
 </html>

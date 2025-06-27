@@ -15,7 +15,7 @@ class CRider extends BaseController{
     public function showOrders(){
         $this->requireRole('rider');
         $view = new VRider($this->isLoggedIn(), $this->userRole);
-        $orders = $this->persistent_manager->getOrdersByState('in_attesa');
+        $orders = $this->persistent_manager->getOrdersByState('pronto');
         $view->showOrders($orders);
     }
 

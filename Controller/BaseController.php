@@ -103,8 +103,8 @@ abstract class BaseController{
         $view->showFatalError($error->getMessage());
     }
 
-    public function handleError(Exception $error){
+    public function handleError(Exception $error, bool $cartError = false){
         $view = new VErrors();
-        $view->showFatalError($error->getMessage());
+        $view->showFatalError($error->getMessage(), $cartError);
     }
 }

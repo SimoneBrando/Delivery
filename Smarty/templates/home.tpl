@@ -34,6 +34,9 @@
         </section>
 
         <!-- Story Sections -->
+        {if $logout == true}
+            <p> True </p>
+        {/if}
         <section id="storia" class="story-section">
             <div class="storia-container">
                 <div class="storia-text">
@@ -135,6 +138,12 @@
     
     <script src="/Smarty/js/hamburger.js"></script>
     <script src="/Smarty/js/theme.js" defer></script>
+    {if $logout}
+        <script>
+            localStorage.removeItem('cart');
+            localStorage.removeItem('cart_createdAt');
+        </script>
+    {/if}
 </body>
 
 </html>

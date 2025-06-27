@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-26 16:42:42
+/* Smarty version 5.5.1, created on 2025-06-27 13:10:38
   from 'file:header.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685d5c623ee886_36153731',
+  'unifunc' => 'content_685e7c2ed02b75_23883447',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2782fd097f6af45548f5e7574f5c13c1862b177b' => 
     array (
       0 => 'header.tpl',
-      1 => 1750948937,
+      1 => 1751022537,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_685d5c623ee886_36153731 (\Smarty\Template $_smarty_tpl) {
+function content_685e7c2ed02b75_23883447 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><header>
     <div class="header-container">
@@ -49,6 +49,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
             <?php }?>
             <?php if ($_smarty_tpl->getValue('logged') && $_smarty_tpl->getValue('role') == "cuoco") {?>
                 <a href="/Delivery/Chef/showOrders/">Ordini in Cucina</a>
+                <a href="/Delivery/Chef/showOrdiniInAttesa/">Ordini in Attesa</a>
             <?php }?>
             <?php if ($_smarty_tpl->getValue('logged') && $_smarty_tpl->getValue('role') == "rider") {?>
                 <a href="/Delivery/Rider/showOrders/">Ordini da Consegnare</a>

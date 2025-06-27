@@ -43,7 +43,8 @@ class COrdine extends BaseController{
             $note = UHTTPMethods::post("note");
             $dataConsegna = new \DateTime(UHTTPMethods::post('dataConsegna'));
             $indirizzoConsegna = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class,'id', UHTTPMethods::post('indirizzo_id'));
-            $metodoPagamento = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', UHTTPMethods::post('numero_carta')); 
+            $metodoPagamento = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', UHTTPMethods::post('numero_carta'));
+            $stato = ($this->persistent_manager->getOrdersByState('in_preparazione') > 10) ? "in_attesa" : "in_preparazione";
             $order = new EOrdine();
             $itemOrderList = [];
             $totalPrice = 0;
@@ -51,6 +52,9 @@ class COrdine extends BaseController{
                 $prodotto = $this->persistent_manager->getObjOnAttribute(EProdotto::class,'id',$item['id']);
                 if (!$prodotto) {
                     throw new \InvalidArgumentException("Prodotto {$item['name']} non trovato.");
+                }
+                if($prodotto->getCosto() != $item['price']) {
+                    throw new \InvalidArgumentException("Il prezzo del prodotto {$item['name']} è stato modificato, ora è {$prodotto->getCosto()} Riprovare!", 1);
                 }
                 $itemOrder = new EItemOrdine;
                 $itemOrder->setOrdine($order)
@@ -65,7 +69,7 @@ class COrdine extends BaseController{
                 ->setDataRicezione($dataConsegna)
                 ->setCosto($totalPrice)
                 ->setCliente($user)
-                ->setStato('in_preparazione')
+                ->setStato($stato)
                 ->setNote($note)
                 ->setIndirizzoConsegna($indirizzoConsegna)
                 ->setMetodoPagamento($metodoPagamento);
@@ -81,11 +85,16 @@ class COrdine extends BaseController{
             $view = new VUser($this->isLoggedIn(), $this->userRole);
             $view->confermedOrder();
         } catch (\InvalidArgumentException $e){
-            $this->persistent_manager->rollback();
+            if ($this->persistent_manager->isTransactionActive()){
+                $this->persistent_manager->rollback();
+            }
+            $cartError = ($e->getCode()==1) ? true : false;
             error_log("Errore input utente: " . $e->getMessage());
-            $this->handleError($e);
+            $this->handleError($e, $cartError);
         } catch (\Exception $e) {
-            $this->persistent_manager->rollback();
+            if ($this->persistent_manager->isTransactionActive()){
+                $this->persistent_manager->rollback();
+            }
             error_log("Errore database: " . $e->getMessage());
             $this->handleError($e);
         }

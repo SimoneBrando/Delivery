@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-26 12:14:01
+/* Smarty version 5.5.1, created on 2025-06-27 12:14:52
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685d1d69602205_40036457',
+  'unifunc' => 'content_685e6f1c503be5_76463210',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '82ab34eed0b4d298bd19deda8b1c83a45698cd15' => 
     array (
       0 => 'account.tpl',
-      1 => 1750932642,
+      1 => 1751019290,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685d1d69602205_40036457 (\Smarty\Template $_smarty_tpl) {
+function content_685e6f1c503be5_76463210 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -92,6 +92,7 @@ $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/te
                 </form>
             </div>
 
+            <?php if ($_smarty_tpl->getValue('role') == "cliente") {?>
             <!-- Sezione Indirizzi -->
             <div class="address-section">
                 <h3>I miei indirizzi</h3>
@@ -168,6 +169,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         <i class="fas fa-plus"></i> Aggiungi carta
                     </button>
             </div>
+            <?php }?>
 
             <!-- Link ai miei ordini -->
             <div class="orders-link">

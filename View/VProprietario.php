@@ -62,4 +62,9 @@ class VProprietario{
         $this->smarty->display('create_account_admin.tpl');
     }
 
+    public function showSegnalazioni($segnalazioni){
+        $this->smarty->assign('segnalazioni', $segnalazioni);
+        $this->smarty->display('admin_segnalazioni.tpl');
+    }
+
 }

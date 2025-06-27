@@ -51,6 +51,14 @@
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>
+            <a href="/Delivery/Proprietario/showSegnalazioni" class="admin-section-card">
+                <div class="section-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="section-content">
+                    <h2>Segnalazioni</h2>
+                    <p>Leggi le segnalazioni degli ordini</p>
+                </div>
+                <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
+            </a>
             <a href="/Delivery/Proprietario/showCreateAccount" class="admin-section-card">
                 <div class="section-icon"><i class="fas fa-cog"></i></div>
                 <div class="section-content">

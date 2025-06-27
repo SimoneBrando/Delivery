@@ -63,6 +63,7 @@
                 </form>
             </div>
 
+            {if $role=="cliente"}
             <!-- Sezione Indirizzi -->
             <div class="address-section">
                 <h3>I miei indirizzi</h3>
@@ -118,6 +119,7 @@
                         <i class="fas fa-plus"></i> Aggiungi carta
                     </button>
             </div>
+            {/if}
 
             <!-- Link ai miei ordini -->
             <div class="orders-link">

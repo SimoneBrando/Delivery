@@ -68,22 +68,22 @@
                     <tbody>
                         {foreach from=$products item=product}
                             <tr data-id="{$product->getId()}">
-                                <td>{$product->getId()}</td>
-                                <td>{$product->getNome()}</td>
-                                <td>{$product->getDescrizione()}</td>
-                                <td>{$product->getCategoria()->getNome()}</td>
-                                <td>€{$product->getCosto()|number_format:2}</td>
+                                <td data-label="ID">{$product->getId()}</td>
+                                <td data-label="Nome">{$product->getNome()}</td>
+                                <td data-label="Descrizione">{$product->getDescrizione()}</td>
+                                <td data-label="Categoria">{$product->getCategoria()->getNome()}</td>
+                                <td data-label="Prezzo">€{$product->getCosto()|number_format:2}</td>
                                 <td class="actions">
                                     <button type="button"
-                                        class="btn btn-edit"
-                                        data-modal-target="editProductModal"
-                                        data-id="{$product->getId()}"
-                                        data-nome="{$product->getNome()|escape:'html'}"
-                                        data-descrizione="{$product->getDescrizione()|escape:'html'}"
-                                        data-prezzo="{$product->getCosto()}"
-                                        data-categoria="{$product->getCategoria()->getId()}">
-                                    <i class="fas fa-edit"></i> Modifica
-                                </button>
+                                            class="btn btn-edit"
+                                            data-modal-target="editProductModal"
+                                            data-id="{$product->getId()}"
+                                            data-nome="{$product->getNome()|escape:'html'}"
+                                            data-descrizione="{$product->getDescrizione()|escape:'html'}"
+                                            data-prezzo="{$product->getCosto()}"
+                                            data-categoria="{$product->getCategoria()->getId()}">
+                                        <i class="fas fa-edit"></i> Modifica
+                                    </button>
                                     <form action="/Delivery/Proprietario/deleteProduct/" method="post" class="inline-delete-form">
                                         <input type="hidden" name="product_id" value="{$product->getId()}">
                                         <button type="submit" class="btn btn-delete" data-product-id="{$product->getId()}">
@@ -210,7 +210,6 @@
     document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-modal-target="editProductModal"]').forEach(button => {
         button.addEventListener('click', function () {
-        // Inserisci i dati del prodotto nella modale
         document.getElementById('editProductId').value = this.dataset.id;
         document.getElementById('editNome').value = this.dataset.nome;
         document.getElementById('editDescrizione').value = this.dataset.descrizione;

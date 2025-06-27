@@ -232,29 +232,6 @@
     font-size: 1.1rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-    .orders-table {
-        display: block;
-        overflow-x: auto;
-    }
-    
-    .filters-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 480px) {
-    .orders-table .actions {
-        flex-direction: column;
-    }
-    
-    .btn {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
 /* Tema scuro */
 body[data-theme="dark"] {
     .orders-table,
@@ -264,5 +241,112 @@ body[data-theme="dark"] {
     
     .btn-details {
         background-color: var(--colore-bordo);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .orders-table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .orders-table th, .orders-table td {
+        white-space: nowrap;
+        min-width: 120px;
+    }
+
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-group,
+    .search-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .filter-group label {
+        margin-bottom: 5px;
+    }
+
+    .orders-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 580px) {
+    .orders-table {
+        display: block;
+        width: 100%;
+        overflow-x: hidden; /* no scroll */
+        border: none;
+    }
+
+    .orders-table thead {
+        display: none; /* nascondi intestazione */
+    }
+
+    .orders-table tbody,
+    .orders-table tr {
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        background-color: var(--colore-bianco);
+        box-shadow: 0 2px 8px var(--colore-ombra-leggera);
+        padding: 15px 20px;
+    }
+
+    .orders-table tr {
+        border: 1px solid var(--colore-bordo-chiaro);
+    }
+
+    .orders-table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        border: none;
+        border-bottom: 1px solid var(--colore-bordo-chiaro);
+        font-size: 0.95rem;
+    }
+
+    .orders-table td:last-child {
+        border-bottom: none;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.9rem;
+        padding: 8px 0;
+    }
+
+    .form-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .admin-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .admin-subtitle {
+        font-size: 1rem;
+    }
+
+    .form-group.full-width {
+        width: 100%;
+    }
+
+    .back-button {
+        margin: 10px 0;
+        position: relative;
     }
 }

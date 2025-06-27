@@ -276,6 +276,78 @@ body[data-theme="dark"] .btn-edit {
     .admin-header h1 {
         font-size: 1.8rem;
     }
+    .collaborators-table thead {
+    display: none; 
+  }
+
+  .collaborators-table,
+  .collaborators-table tbody,
+  .collaborators-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  .collaborators-table tr {
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--colore-bordo);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 8px var(--colore-ombra-leggera);
+  }
+
+  .collaborators-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 1px solid var(--colore-bordo-chiaro);
+    font-size: 1rem;
+  }
+
+  .collaborators-table td:last-child {
+    border-bottom: none;
+  }
+
+  .collaborators-table tr td:nth-child(1)::before {
+    content: "Nome";
+    font-weight: 600;
+    color: var(--colore-primario);
+  }
+
+  .collaborators-table tr td:nth-child(2)::before {
+    content: "Email";
+    font-weight: 600;
+    color: var(--colore-primario);
+  }
+
+  .collaborators-table tr td:nth-child(3)::before {
+    content: "Azioni";
+    font-weight: 600;
+    color: var(--colore-primario);
+  }
+
+  .collaborators-table td::before {
+    flex-basis: 35%;
+    text-align: left;
+    display: inline-block;
+  }
+
+  .collaborators-table td {
+    flex-basis: 65%;
+  }
+
+  .collaborators-table .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .btn {
+    flex: 1 1 auto;
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {

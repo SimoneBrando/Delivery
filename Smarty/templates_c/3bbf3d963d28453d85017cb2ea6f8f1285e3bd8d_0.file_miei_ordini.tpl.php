@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-24 17:14:29
+/* Smarty version 5.5.1, created on 2025-06-27 12:21:31
   from 'file:miei_ordini.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ac0d5bc9475_63749890',
+  'unifunc' => 'content_685e70ab597d57_83612035',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3bbf3d963d28453d85017cb2ea6f8f1285e3bd8d' => 
     array (
       0 => 'miei_ordini.tpl',
-      1 => 1750765907,
+      1 => 1751012392,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ac0d5bc9475_63749890 (\Smarty\Template $_smarty_tpl) {
+function content_685e70ab597d57_83612035 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = '/Applications/XAMPP/xamppfiles/htdocs/Delivery/Smarty/templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -94,15 +94,22 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 </p>
                             <p><strong>Stato:</strong> <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getValue('order')->getStato());?>
 </p>
-                        </div>
-                        <div class="order_info">
-                            <p>Indirizzo: <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCitta();?>
+                            <p><strong>Indirizzo:</strong> <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCitta();?>
 , <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getVia();?>
 , <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCivico();?>
 </p>
-                            <p>Metodo Pagamento: <?php echo $_smarty_tpl->getValue('order')->getMetodoPagamento()->getNominativo();?>
+                            <p><strong>Metodo Pagamento:</strong> <?php echo $_smarty_tpl->getValue('order')->getMetodoPagamento()->getNominativo();?>
 </p>
                         </div>
+                    <!-- DA MODIFICARE -->
+                        <?php if (!($_smarty_tpl->getValue('order')->hasWarning())) {?>
+                            <div class="order-problems">
+                                <button type="button" data-modal-target="reportModal" class="btn-link-modal" data-order-id="<?php echo $_smarty_tpl->getValue('order')->getId();?>
+">
+                                    <i class="fas fa-exclamation-triangle"></i> Segnala problema
+                                </button>
+                            </div>
+                        <?php }?>
                     </div>
                 <?php
 }
@@ -124,11 +131,41 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
 
+    <!-- Modal Aggiungi Segnalazione -->
+        <div id="reportModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+
+                <h2>Crea segnalazione <span id="modal-order-id"></span></h2>
+
+                <form method="POST" action="/Delivery/Segnalazione/writeReport" class="form">
+
+                        <div class="form-group">
+                            <label for="descrizione">Descrizione</label>
+                            <input type="text" id="descrizione" name="descrizione" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="testo">Testo</label>
+                            <input type="text" id="testo" name="testo" required>
+                        </div>
+
+                        <input type="hidden" id="ordine_id" name="ordine_id" required>
+
+                        <button type="submit">Invia Segnalazione</button>
+
+                </form>
+            </div>
+        </div>
+
     <?php echo '<script'; ?>
  src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
  src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/report_modal.js"><?php echo '</script'; ?>
 >
 </body>
 </html>

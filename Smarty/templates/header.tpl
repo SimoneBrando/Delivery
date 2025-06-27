@@ -14,9 +14,6 @@
             {if $role == "cliente" or !$logged}
             <a href="/Delivery/User/order/">Ordina</a>
             {/if}
-            {if !($logged) }
-                <a href="/Delivery/User/order/">Ordina</a>
-            {/if}
             {if $logged and $role == "cliente"}
                 <a href="/Delivery/User/showMyOrders/">I Miei Ordini</a>
             {/if}

@@ -251,6 +251,48 @@ class CProprietario extends BaseController {
         $view->showReviews($allReviews);
     }
 
+    public function showSegnalazioni() {
+        $this->requireRole('proprietario');
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
+
+        $segnalazioni = $this->persistent_manager->getAllWarnings();
+
+        $sort = $_GET['sort'] ?? 'newest';
+        $search = $_GET['search'] ?? '';
+
+        if (!empty($search)) {
+            $searchLower = mb_strtolower($search);
+
+            $segnalazioni = array_filter($segnalazioni, function($segnalazione) use ($searchLower) {
+                $descrizione = mb_strtolower($segnalazione->getDescrizione());
+                $nome = '';
+                $cognome = '';
+
+                $cliente = $segnalazione->getOrdine()?->getCliente();
+                if ($cliente) {
+                    $nome = mb_strtolower($cliente->getNome());
+                    $cognome = mb_strtolower($cliente->getCognome());
+                }
+
+                return (mb_stripos($descrizione, $searchLower) !== false)
+                    || (mb_stripos($nome, $searchLower) !== false)
+                    || (mb_stripos($cognome, $searchLower) !== false);
+            });
+        }
+
+        if ($sort === 'newest') {
+            usort($segnalazioni, function($a, $b) {
+                return $b->getData() <=> $a->getData();
+            });
+        } elseif ($sort === 'oldest') {
+            usort($segnalazioni, function($a, $b) {
+                return $a->getData() <=> $b->getData();
+            });
+        }
+
+        $view->showSegnalazioni($segnalazioni);
+    }
+
 
     public function showMenu(){
         $this->requireRole('proprietario');

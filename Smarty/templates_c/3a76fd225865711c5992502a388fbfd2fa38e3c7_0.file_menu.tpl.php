@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:00:38
+/* Smarty version 5.5.1, created on 2025-06-27 18:08:40
   from 'file:menu.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c0f16cf2cd5_72520683',
+  'unifunc' => 'content_685ec208dafa44_40633890',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3a76fd225865711c5992502a388fbfd2fa38e3c7' => 
     array (
       0 => 'menu.tpl',
-      1 => 1750063531,
+      1 => 1751039408,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685c0f16cf2cd5_72520683 (\Smarty\Template $_smarty_tpl) {
+function content_685ec208dafa44_40633890 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">

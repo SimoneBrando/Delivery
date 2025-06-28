@@ -15,6 +15,9 @@ html, body {
     padding: 30px;
     box-shadow: 0 2px 10px var(--colore-ombra-leggera);
     border: 1px solid var(--colore-bordo);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .orders-section h1 {

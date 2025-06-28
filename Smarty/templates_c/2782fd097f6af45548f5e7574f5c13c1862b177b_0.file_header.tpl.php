@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 13:10:38
+/* Smarty version 5.5.1, created on 2025-06-27 18:03:41
   from 'file:header.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685e7c2ed02b75_23883447',
+  'unifunc' => 'content_685ec0ddab4645_54205500',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2782fd097f6af45548f5e7574f5c13c1862b177b' => 
     array (
       0 => 'header.tpl',
-      1 => 1751022537,
+      1 => 1751039408,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_685e7c2ed02b75_23883447 (\Smarty\Template $_smarty_tpl) {
+function content_685ec0ddab4645_54205500 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><header>
     <div class="header-container">
@@ -35,11 +35,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         <div class="nav-links" id="nav-menu">
             <a href="/Delivery/User/home/">Home</a>
             <a href="/Delivery/User/mostraMenu/">Menù</a>
-            <?php if ($_smarty_tpl->getValue('role') == "cliente") {?>
+            <?php if ($_smarty_tpl->getValue('role') == "cliente" || !$_smarty_tpl->getValue('logged')) {?>
             <a href="/Delivery/User/order/">Ordina</a>
-            <?php }?>
-            <?php if (!($_smarty_tpl->getValue('logged'))) {?>
-                <a href="/Delivery/User/order/">Ordina</a>
             <?php }?>
             <?php if ($_smarty_tpl->getValue('logged') && $_smarty_tpl->getValue('role') == "cliente") {?>
                 <a href="/Delivery/User/showMyOrders/">I Miei Ordini</a>

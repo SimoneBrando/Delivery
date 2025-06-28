@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:21:59
+/* Smarty version 5.5.1, created on 2025-06-27 18:03:46
   from 'file:admin_panel.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c14179f7396_54415243',
+  'unifunc' => 'content_685ec0e2732db6_76488080',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '624e5bbb3f25a3d609755223230f47628ffb82bb' => 
     array (
       0 => 'admin_panel.tpl',
-      1 => 1750091661,
+      1 => 1751039408,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685c14179f7396_54415243 (\Smarty\Template $_smarty_tpl) {
+function content_685ec0e2732db6_76488080 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -75,6 +75,14 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                 <div class="section-content">
                     <h2>Recensioni</h2>
                     <p>Leggi le recensioni dei clienti</p>
+                </div>
+                <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
+            </a>
+            <a href="/Delivery/Proprietario/showSegnalazioni" class="admin-section-card">
+                <div class="section-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                <div class="section-content">
+                    <h2>Segnalazioni</h2>
+                    <p>Leggi le segnalazioni degli ordini</p>
                 </div>
                 <div class="section-arrow"><i class="fas fa-chevron-right"></i></div>
             </a>

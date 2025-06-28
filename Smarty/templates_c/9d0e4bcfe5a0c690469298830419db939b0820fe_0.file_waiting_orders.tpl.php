@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 19:24:59
-  from 'file:chef_orders.tpl' */
+/* Smarty version 5.5.1, created on 2025-06-27 19:24:47
+  from 'file:waiting_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ed3eb1064b7_21815360',
+  'unifunc' => 'content_685ed3df7b9087_54485038',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'decb6ce08fb6c6ed0387514e5b3b2ce9ea585252' => 
+    '9d0e4bcfe5a0c690469298830419db939b0820fe' => 
     array (
-      0 => 'chef_orders.tpl',
+      0 => 'waiting_orders.tpl',
       1 => 1751039408,
       2 => 'file',
     ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ed3eb1064b7_21815360 (\Smarty\Template $_smarty_tpl) {
+function content_685ed3df7b9087_54485038 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -72,7 +72,11 @@ $foreach0DoElse = false;
 </p>
                             <p><strong>Data esecuzione:</strong> <?php echo $_smarty_tpl->getValue('order')->getDataEsecuzione()->format('d/m/Y H:i:s');?>
 </p>
-                            <p><strong>Data ricezione:</strong> <?php echo $_smarty_tpl->getValue('order')->getDataRicezione()->format('d/m/Y H:i:s');?>
+                            <p><strong>Data consegna prevista:</strong> <?php echo $_smarty_tpl->getValue('order')->getDataRicezione()->format('d/m/Y H:i:s');?>
+</p>
+                            <p><strong>Indirizzo :</strong> <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getVia();?>
+ <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCivico();?>
+, <?php echo $_smarty_tpl->getValue('order')->getIndirizzoConsegna()->getCitta();?>
 </p>
                             <p><strong>Costo totale:</strong> €<?php echo $_smarty_tpl->getValue('order')->getCosto();?>
 </p>
@@ -94,27 +98,25 @@ $foreach1DoElse = false;
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             </ul>
                         </div>
-                        <form method="POST" action="/Delivery/Chef/cambiaStatoOrdine" class="status-form">
-                            <input type="hidden" name="ordineId" value="<?php echo $_smarty_tpl->getValue('order')->getId();?>
-">
-                            <label for="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
-">Modifica stato:</label>
-                            <select name="stato" id="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
-" class="status-select">
-                                <option value="">-- Seleziona stato --</option>
-                                <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
-                                <option value="consegnato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'consegnato') {?>selected<?php }?>>Consegnato</option>
-                                <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
-                                <option value="in_preparazione" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_preparazione') {?>selected<?php }?>>In Preparazione</option>
-                                <option value="in_attesa" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_attesa') {?>selected<?php }?>>In Attesa</option>
-                            </select>
-                        </form>
+                        <div class="delivery-actions">
+                            <form action="/Delivery/Chef/accettaOrdine" method="POST" style="display:inline-block; margin-right: 10px;">
+                                <input type="hidden" name="ordine_id" value="<?php echo $_smarty_tpl->getValue('order')->getId();?>
+" />
+                                <button type="submit" class="btn btn-success">Accetta</button>
+                            </form>
+
+                            <form action="/Delivery/Chef/rifiutaOrdine" method="POST" style="display:inline-block;">
+                                <input type="hidden" name="ordine_id" value="<?php echo $_smarty_tpl->getValue('order')->getId();?>
+" />
+                                <button type="submit" class="btn btn-danger">Rifiuta</button>
+                            </form>
+                        </div>
                     </div>
                 <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <?php } else { ?>
-                <p>Nessun ordine in cucina.</p>
+                <p>Nessun ordine in attesa.</p>
             <?php }?>
         </div>
     </main>

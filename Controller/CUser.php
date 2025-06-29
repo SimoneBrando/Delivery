@@ -4,10 +4,12 @@ namespace Controller;
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
+use Delight\Auth\InvalidPasswordException;
 use Doctrine\ORM\Exception\ORMException;
 use Entity\ECarta_credito;
 use Entity\EIndirizzo;
 use Entity\EUtente;
+use InvalidArgumentException;
 use View\VErrors;
 use View\VUser;
 use Services\Utility\USession;
@@ -17,21 +19,23 @@ use PHPMailer\PHPMailer\Exception;
 
 class CUser extends BaseController{
 
-    public function showRegisterForm(string $error = ""){
+    public function showRegisterForm(){
         if($this->isLoggedIn()){
             header('Location: /Delivery/User/home');
         }
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showRegisterForm($error);
+        $error = $this->getErrorFromSession();
+        $view = new VUser($this->isLoggedIn(), $this->userRole, $error);
+        $view->showRegisterForm();
     }
 
-    public function showLoginForm(string $error = ""){
+    public function showLoginForm(){
         if($this->isLoggedIn()){
             header('Location: /Delivery/User/home');
             exit;
         }
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showLoginForm($error);
+        $error = $this->getErrorFromSession();
+        $view = new VUser($this->isLoggedIn(), $this->userRole, $error);
+        $view->showLoginForm();
     }
 
     public function registerUser(string $role = 'Cliente', array $extraData = []){
@@ -39,10 +43,10 @@ class CUser extends BaseController{
         $email = UHTTPMethods::post('email');
         $name = UHTTPMethods::post('nome');
         $surname = UHTTPMethods::post('cognome');
-        if (strlen($password) < 8) {
-            die("Please enter a stronger password");
-        }
         try {
+            if (strlen($password) < 8) {
+                throw new InvalidPasswordException("Password troppo debole");
+            }
             $userId = $this->auth_manager->register(
                 email: $email,
                 password:  $password,
@@ -69,11 +73,11 @@ class CUser extends BaseController{
             $this->persistent_manager->saveObj($profile);
             header('Location: /Delivery/User/showLoginForm');
         } catch (\Delight\Auth\InvalidEmailException $e) {
-            $this->showRegisterForm("Indirizzo email non valido");
-        } catch (\Delight\Auth\InvalidPasswordException $e) {
-            $this->showRegisterForm("Password non valida");
+            $this->catchError("Indirizzo email non valido.", "User/showRegisterForm");
+        } catch (InvalidPasswordException $e) {
+            $this->catchError("Password non valida.", "User/showRegisterForm");
         } catch (\Delight\Auth\UserAlreadyExistsException $e) {
-            $this->showRegisterForm("Utente già registrato");
+            $this->catchError("Utente già registrato.", "User/showRegisterForm");
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             $this->handleFatalError($e);
         } catch (ORMException $e) {
@@ -117,11 +121,11 @@ class CUser extends BaseController{
             header('Location: /Delivery/User/home');
             exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
-            $this->showLoginForm("Email o password errati");
+            $this->catchError("Email o password errati.", "User/showLoginForm");
         } catch (\Delight\Auth\InvalidPasswordException $e) {
-            $this->showLoginForm("Email o password errati");
+            $this->catchError("Email o password errati.", "User/showLoginForm");
         } catch (\Delight\Auth\EmailNotVerifiedException $e) {
-            $this->showLoginForm("Email non verificata");
+            $this->catchError("Email non verificata.", "User/showLoginForm");
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             $this->handleFatalError($e);
         } catch (\Delight\Auth\AttemptCancelledException|\Delight\Auth\AuthError $e) {
@@ -245,23 +249,23 @@ class CUser extends BaseController{
             $this->persistent_manager->updateObj($client); //salvataggio sul database
             header("Location: /Delivery/User/home");
         } catch (\Delight\Auth\NotLoggedInException $e) {
-            die('Not logged in');
+            header("Location: /Delivery/User/home");
         } catch (\Delight\Auth\InvalidPasswordException $e) {
-            die('Invalid password(s)');
+            $this->catchError("Passwords non valide.", "User/showProfile");
         } catch (\Delight\Auth\TooManyRequestsException $e) {
-            die('Too many requests');
+            $this->catchError("Errore insolito, riprova più tardi.", "User/showProfile");
         } catch (ORMException $e) {
             //Tentativo di rollback manuale
             if(isset($userId)){
                 try {
                     $this->auth_manager->changePassword($$newPassword,$oldPassword); //ripristino la vecchia password in caso di errore
                 } catch (\Delight\Auth\InvalidPasswordException $e) {
-                    die('Invalid password(s)');
+                    $this->catchError("Passwords non valide", "User/showProfile");
                 } catch (\Delight\Auth\TooManyRequestsException $e) {
-                    die('Too many requests');
+                    $this->catchError("Errore insolito, riprova più tardi.", "User/showProfile");
                 }
             }
-            die('ORM error');
+            $this->handleFatalError($e);
         }
     }
 
@@ -274,13 +278,17 @@ class CUser extends BaseController{
             $user->setNome($newName)
                 ->setCognome($newSurname);
             $this->persistent_manager->updateObj($user);
-            header("Location: /Delivery/User/showChangePassword");
+            header("Location: /Delivery/User/showProfile");
+            exit;
         } catch (ORMException $e) {
-            die("ORM Exception");
+            $this->catchError("Errore durante il salvataggio, riprovare.", "User/showProfile");
+        } catch (Exception $e) {
+            $this->catchError("Errore durante il salvataggio, riprovare.", "User/showProfile");
         }
     }
 
     public function removeAccount(string $userId = "") {
+        $this->requireLogin();
         try{
             $this->auth_manager->admin()->deleteUserById($userId);
             $user = $this->persistent_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
@@ -337,7 +345,8 @@ class CUser extends BaseController{
 
     public function showMyOrders(){
         $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
+        $error = $this->getErrorFromSession();
+        $view = new VUser($this->isLoggedIn(), $this->userRole, $error);
         $id = $this->getUser()->getId();
         $orders = $this->persistent_manager->getOrdersByClient($id);
         $view->showMyOrders($orders);
@@ -346,14 +355,15 @@ class CUser extends BaseController{
     public function showProfile(){
         $this->requireLogin();
         $user = $this->getUser();
-        $userAddresses = $this->findActiveUserAdresses();
-        $userCreditCards = $this->findActiveUserCards(); 
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
+        $error = $this->getErrorFromSession();
+        $userAddresses = ($user->getRuolo() == "cliente") ? $this->findActiveUserAdresses() : [];
+        $userCreditCards = ($user->getRuolo() == "cliente") ? $this->findActiveUserCards() : []; 
+        $view = new VUser($this->isLoggedIn(), $this->userRole, $error);
         $view->showChangePassword($user, $userAddresses, $userCreditCards);
     }
 
     public function findActiveUserAdresses(){
-        $this->requireLogin();
+        $this->requireRole('cliente');
         $user = $this->getUser();
         $addresses = $this->persistent_manager->getAllActiveAddresses();
         $userAddresses = array_filter(
@@ -393,16 +403,13 @@ class CUser extends BaseController{
             header("Location: /Delivery/User/showProfile");
             exit;
         } catch (\InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
+            $this->catchError("Errore nei dati inseriti.", "User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
+            $this->catchError("Errore durante il salvataggio, riprovare.", "Use/showProfile");
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto".$th->getMessage());
+            $this->catchError("Errore imprevisto, riprovare.", "User/showProfile");
         }
     }
 
@@ -419,16 +426,13 @@ class CUser extends BaseController{
             header("Location: /Delivery/User/showProfile");
             exit;
         } catch (\InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
+            $this->catchError($e->getMessage(),"User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
+            $this->catchError("Errore durante il salvataggio, riprovare.", "Use/showProfile");
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto");
+            $this->catchError("Errore imprevisto, riprovare.", "User/showProfile");
         }
     }
 
@@ -442,12 +446,12 @@ class CUser extends BaseController{
             $dataScadenza = UHTTPMethods::postDate('data_scadenza', 'm/y');
             $dataScadenza->modify('last day of this month 23:59:59');
             if($dataScadenza < (new \DateTime()) ){
-                throw (new \InvalidArgumentException("Carta scaduta"));
+                throw new InvalidArgumentException("Carta scaduta");
             }
             $cvv = UHTTPMethods::postInt('cvv',3,4);
             $nomeIntestatario = UHTTPMethods::postString('nome_intestatario');
-            if($this->persistent_manager->getObjOnAttribute(ECarta_credito::class,'numeroCarta',$numeroCarta)){
-               $creditCard =  $this->persistent_manager->getObjOnAttribute(ECarta_credito::class,'numeroCarta',$numeroCarta);
+            $creditCard =  $this->persistent_manager->getObjOnAttribute(ECarta_credito::class,'numeroCarta',$numeroCarta);
+            if($creditCard){               
                $creditCard->setCartaAttiva(true);
                $this->persistent_manager->updateObj($creditCard);
                header("Location: /Delivery/User/showProfile");
@@ -465,15 +469,13 @@ class CUser extends BaseController{
             header("Location: /Delivery/User/showProfile");
             exit;
         } catch (\InvalidArgumentException $e) {
-            $this->handleError($e);
+            $this->catchError($e->getMessage(), "User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
+            $this->catchError("Errore durante il salvataggio, riprovare.", "Use/showProfile");
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto".$th->getMessage());
+            $this->catchError("Errore imprevisto, riprovare.", "User/showProfile");
         }
     }
     public function removeCreditCard(){
@@ -489,16 +491,13 @@ class CUser extends BaseController{
             header("Location: /Delivery/User/showProfile");
             exit;
         } catch (\InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
+            $this->catchError($e->getMessage(), "User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
+            $this->catchError("Errore durante il salvataggio, riprovare.", "Use/showProfile");
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto");
+            $this->catchError("Errore imprevisto, riprovare.", "User/showProfile");
         }
     }
 

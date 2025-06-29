@@ -18,6 +18,10 @@
 
         <!-- Orders Section -->
         <section class="orders-section">
+
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+            
             <h1>I Miei Ordini</h1>
 
             {if $orders|@count > 0}

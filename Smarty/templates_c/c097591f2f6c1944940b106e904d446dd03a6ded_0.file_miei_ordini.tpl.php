@@ -1,28 +1,29 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-26 16:35:26
+/* Smarty version 5.5.1, created on 2025-06-29 12:17:09
   from 'file:miei_ordini.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685d5aaeee1711_04231349',
+  'unifunc' => 'content_686112a5e0d319_66488937',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c097591f2f6c1944940b106e904d446dd03a6ded' => 
     array (
       0 => 'miei_ordini.tpl',
-      1 => 1750948524,
+      1 => 1751191073,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685d5aaeee1711_04231349 (\Smarty\Template $_smarty_tpl) {
+function content_686112a5e0d319_66488937 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -45,6 +46,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 
         <!-- Orders Section -->
         <section class="orders-section">
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+            
             <h1>I Miei Ordini</h1>
 
             <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('orders')) > 0) {?>

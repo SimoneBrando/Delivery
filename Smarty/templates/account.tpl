@@ -27,6 +27,9 @@
         <section class="account-container">
             <h2>Gestione Account</h2>
 
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+
             <!-- Modifica Profile -->
             <div class="password-section">
                 <h3>Modifica Profilo</h3>
@@ -119,7 +122,7 @@
                         <i class="fas fa-plus"></i> Aggiungi carta
                     </button>
             </div>
-            {/if}
+            
 
             <!-- Link ai miei ordini -->
             <div class="orders-link">
@@ -127,6 +130,7 @@
                     <i class="fas fa-box-open"></i> I miei ordini
                 </a>
             </div>
+            {/if}
 
             <!-- Logout -->
             <div class="logout-section">

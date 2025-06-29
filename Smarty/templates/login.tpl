@@ -31,9 +31,9 @@
                 <div class="login-form">
                     <h1>Accedi al tuo Account</h1>
 
-                    {if isset($error) && $error != ""}
-                        <div class="error-message">{$error}</div>
-                    {/if}
+                    <!-- Error Section -->
+                    {include file="error_section.tpl"}
+
 
                     <form action="/Delivery/User/loginUser" method="POST">
                         <div class="form-group">

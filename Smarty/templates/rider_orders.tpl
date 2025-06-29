@@ -13,6 +13,10 @@
 
     <main>
         <div class="deliveries-container">
+
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+            
             {foreach $orders as $order}
                 <div class="delivery-card">
                     <div class="delivery-header">

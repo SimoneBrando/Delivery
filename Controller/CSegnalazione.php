@@ -34,7 +34,7 @@ class CSegnalazione extends BaseController{
             header("Location: /Delivery/User/showMyOrders");
             exit;
         } catch (\Exception $e){
-            $this->handleError($e);
+            $this->catchError($e->getMessage(),"User/showMyOrders");
         }
     }
 }

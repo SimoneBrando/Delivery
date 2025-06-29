@@ -107,4 +107,20 @@ abstract class BaseController{
         $view = new VErrors();
         $view->showFatalError($error->getMessage(), $cartError);
     }
+
+    public function catchError(string $error ="Errore insolito, riprovare.", string $redirect = "User/home"){
+        USession::setSessionElement("error", $error);
+        header("Location: /Delivery/".$redirect);
+        exit;
+    }
+
+    public function getErrorFromSession(): string{
+        if (USession::isSetSessionElement("error")){
+            $error = USession::getSessionElement("error");
+            USession::unsetSessionElement("error");
+        } else {
+            $error ="";
+        }
+        return $error;
+    }
 }

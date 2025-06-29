@@ -1,28 +1,29 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 13:40:45
+/* Smarty version 5.5.1, created on 2025-06-27 21:27:49
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685e833d7929d1_91197545',
+  'unifunc' => 'content_685ef0b5128667_14840099',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f45da135237bbd958ce3abfce3ac99e643d0fa06' => 
     array (
       0 => 'account.tpl',
-      1 => 1751024062,
+      1 => 1751052184,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685e833d7929d1_91197545 (\Smarty\Template $_smarty_tpl) {
+function content_685ef0b5128667_14840099 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -53,6 +54,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 
         <section class="account-container">
             <h2>Gestione Account</h2>
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
             <!-- Modifica Profile -->
             <div class="password-section">
@@ -92,6 +97,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                 </form>
             </div>
 
+            <?php if ($_smarty_tpl->getValue('role') == "cliente") {?>
             <!-- Sezione Indirizzi -->
             <div class="address-section">
                 <h3>I miei indirizzi</h3>
@@ -168,6 +174,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         <i class="fas fa-plus"></i> Aggiungi carta
                     </button>
             </div>
+            
 
             <!-- Link ai miei ordini -->
             <div class="orders-link">
@@ -175,6 +182,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                     <i class="fas fa-box-open"></i> I miei ordini
                 </a>
             </div>
+            <?php }?>
 
             <!-- Logout -->
             <div class="logout-section">

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 14:55:06
+/* Smarty version 5.5.1, created on 2025-06-27 18:20:28
   from 'file:home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685e94aae50de9_79929552',
+  'unifunc' => 'content_685ec4cca08817_21766676',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '14480e0397d18fd823be1c34e12f9063673c3c8c' => 
     array (
       0 => 'home.tpl',
-      1 => 1751028905,
+      1 => 1751041221,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685e94aae50de9_79929552 (\Smarty\Template $_smarty_tpl) {
+function content_685ec4cca08817_21766676 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -61,9 +61,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </section>
 
         <!-- Story Sections -->
-        <?php if ($_smarty_tpl->getValue('logout') == true) {?>
-            <p> True </p>
-        <?php }?>
+        
         <section id="storia" class="story-section">
             <div class="storia-container">
                 <div class="storia-text">

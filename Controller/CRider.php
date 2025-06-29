@@ -14,7 +14,8 @@ class CRider extends BaseController{
 
     public function showOrders(){
         $this->requireRole('rider');
-        $view = new VRider($this->isLoggedIn(), $this->userRole);
+        $error = $this->getErrorFromSession();
+        $view = new VRider($this->isLoggedIn(), $this->userRole, $error);
         $orders = $this->persistent_manager->getOrdersByState('pronto');
         $view->showOrders($orders);
     }
@@ -38,7 +39,7 @@ class CRider extends BaseController{
             if ($this->persistent_manager->isTransactionActive()){
                 $this->persistent_manager->rollback();
             }
-            $this->handleError($e);            
+            $this->catchError($e->getMessage(),"Rider/showOrders");            
         }
     }
 

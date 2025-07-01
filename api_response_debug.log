@@ -2,7 +2,7 @@ Array
 (
     [destination_addresses] => Array
         (
-            [0] => Via della Chiesa, 32, 67020 San Lorenzo AQ, Italy
+            [0] => 67030 Alfedena, Province of L'Aquila, Italy
         )
 
     [origin_addresses] => Array
@@ -20,14 +20,14 @@ Array
                                 (
                                     [distance] => Array
                                         (
-                                            [text] => 33.2 km
-                                            [value] => 33174
+                                            [text] => 120 km
+                                            [value] => 120048
                                         )
 
                                     [duration] => Array
                                         (
-                                            [text] => 40 mins
-                                            [value] => 2420
+                                            [text] => 1 hour 58 mins
+                                            [value] => 7056
                                         )
 
                                     [status] => OK

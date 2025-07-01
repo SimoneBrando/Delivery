@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Scrivi una Recensione</title>
+    <link rel="icon" type="image/x-icon" href="/Smarty/Immagini/favicon.ico">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
     <link rel="stylesheet" href="/Smarty/css/form.css">
     <link rel="stylesheet" href="/Smarty/css/recensioni.css">

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nuovo Metodo di Pagamento</title>
+    <link rel="icon" type="image/x-icon" href="/Smarty/Immagini/favicon.ico">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
     <link rel="stylesheet" href="/Smarty/css/form.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">

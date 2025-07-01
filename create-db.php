@@ -50,7 +50,7 @@ if (!$platform->hasDoctrineTypeMappingFor('enum')) {
 
 $entityManager->getConnection()->executeStatement('SET FOREIGN_KEY_CHECKS = 0');
 
-// Generazione dello schema
+// Generazione dello schema delle entità
 $schemaTool = new SchemaTool($entityManager);
 $classes = [
     $entityManager->getClassMetadata(EUtente::class),
@@ -74,4 +74,4 @@ $schemaTool->createSchema($classes);
 
 $entityManager->getConnection()->executeStatement('SET FOREIGN_KEY_CHECKS = 1');
 
-echo "Database creato con successo.\n";
+echo "Database creato con successo, tutte le tabelle sono nello stesso database.\n";

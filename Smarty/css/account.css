@@ -61,6 +61,57 @@
     background-color: var(--colore-primario-hover);
 }
 
+.remove-address-btn, .remove-card-btn {
+    background-color: var(--colore-cart-badge) ; 
+    color: #fff;
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease; 
+    font-size: 1rem;
+    text-align: center;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 40px;
+    height: 40px;
+}
+
+
+.remove-address-btn:hover, .remove-card-btn:hover {
+    background-color: #d93838; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    transform: translateY(-2px);
+}
+
+
+.remove-address-btn:focus, .remove-card-btn:focus {
+    outline: none;
+    border: 2px solid #FF4C4C;
+    box-shadow: 0 0 5px rgba(255, 76, 76, 0.5); 
+}
+
+
+.remove-address-btn i, .remove-card-btn i {
+    margin-right: 5px;
+    font-size: 1.2rem; 
+}
+
+
+.remove-address-btn, .remove-card-btn {
+    opacity: 0.9;
+}
+
+.remove-address-btn:hover, .remove-card-btn:hover {
+    opacity: 1;
+}
+
+
+
+
+
 .orders-link {
     margin-top: 30px;
     text-align: center;
@@ -198,32 +249,6 @@
 
 .modal-content button[type="submit"]:hover {
   background: var(--colore-primario-hover);
-}
-
-select {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: var(--colore-bianco);
-    color: #333;
-    appearance: none; /* rimuove lo stile nativo su alcuni browser */
-    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 16px 16px;
-    cursor: pointer;
-}
-
-select:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 0 3px rgba(0,123,255,0.2);
-    outline: none;
-}
-
-.form-group select {
-    width: 100%;
-    box-sizing: border-box;
 }
 
 /* Animazione apertura modale */

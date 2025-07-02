@@ -1,5 +1,7 @@
-<section class="error-section">
-    {if isset($error) && $error != ""}
-        <div class="error-message">{$error}</div>
-    {/if}
+<section class="message-section">
+    {foreach $messages as $type => $message}
+        {foreach $message as $msg}
+            <div class="alert alert-{$type}">{$msg}</div>
+        {/foreach}
+    {/foreach}
 </section>

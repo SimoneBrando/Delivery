@@ -7,13 +7,10 @@ use Controller\BaseController;
 use Entity\ECarta_credito;
 use Entity\EIndirizzo;
 use Entity\EItemOrdine;
-use Foundation\FPersistentManager;
 use Services\OrderTimeCalculator;
 use Services\Utility\UHTTPMethods;
-use Services\Utility\USession;
 use Entity\EOrdine;
 use Entity\EProdotto;
-use View\VErrors;
 use View\VUser;
 
 class COrdine extends BaseController{

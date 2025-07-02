@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:04:40
+/* Smarty version 5.5.1, created on 2025-07-02 10:26:37
   from 'file:review_form.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c10084d8199_33028503',
+  'unifunc' => 'content_6864ed3d5d1458_20528189',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fd18b60637374dd3b818da556388da807420ee01' => 
     array (
       0 => 'review_form.tpl',
-      1 => 1750863148,
+      1 => 1751444792,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685c10084d8199_33028503 (\Smarty\Template $_smarty_tpl) {
+function content_6864ed3d5d1458_20528189 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -74,6 +74,12 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
 
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+>
 </body>
 </html>
 <?php }

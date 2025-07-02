@@ -6,17 +6,17 @@ class VUser{
 
     private $smarty;
 
-    public function __construct(bool $logged = false, ?string $role = null, string $error =""){
+    public function __construct(bool $logged = false, ?string $role = null, array $messages = []){
 
         $this->smarty = getSmartyInstance();
-        $this->assignCommonVars($logged, $role, $error);
+        $this->assignCommonVars($logged, $role, $messages);
 
     }
 
-    public function assignCommonVars(bool $logged, ?string $role = null, string $error = "") {
+    public function assignCommonVars(bool $logged, ?string $role = null, array $messages = []) {
         $this->smarty->assign('logged', $logged);
         $this->smarty->assign('role', $role);
-        $this->smarty->assign('error', $error);
+        $this->smarty->assign('messages', $messages);
     }
 
     public function showMenu($menu){

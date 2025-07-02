@@ -6,7 +6,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Entity\EOrdine;
-use Foundation\FPersistentManager;
+use Services\Utility\UFlashMessage;
 use View\VRider;
 use Services\Utility\UHTTPMethods;
 
@@ -14,8 +14,8 @@ class CRider extends BaseController{
 
     public function showOrders(){
         $this->requireRole('rider');
-        $error = $this->getErrorFromSession();
-        $view = new VRider($this->isLoggedIn(), $this->userRole, $error);
+        $messages = UFlashMessage::getMessage();
+        $view = new VRider($this->isLoggedIn(), $this->userRole, $messages);
         $orders = $this->persistent_manager->getOrdersByState('pronto');
         $view->showOrders($orders);
     }
@@ -33,6 +33,7 @@ class CRider extends BaseController{
             }
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
+            UFlashMessage::addMessage('success', 'Ordine modificato con successo');
             header("Location: /Delivery/Rider/showOrders");
             exit;
         } catch (\Exception $e) {

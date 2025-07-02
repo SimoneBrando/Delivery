@@ -188,16 +188,16 @@ footer {
     text-align: center;
 }
 
-/* Error Section */
-.error-message {
-    color: var(--colore-cart-badge);
-    background-color: rgba(255, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 5px;
+/* Message Section */
+.alert {
+    padding: 10px; 
+    border-radius: 5px; 
     margin-bottom: 20px;
-    border: 1px solid var(--colore-cart-badge);
+    border: 1px solid;
     text-align: center;
 }
+.alert-error { background: #d32f2f; color: var(--colore-bianco); }
+.alert-success { background: #2e7d32; color: var(--colore-bianco); }
 
 /*  Scuro e chiaro  */
 .theme-toggle {

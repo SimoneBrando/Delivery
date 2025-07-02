@@ -1,28 +1,29 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:55:54
+/* Smarty version 5.5.1, created on 2025-07-02 10:45:34
   from 'file:create_account_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c1c0aa9a5f0_15225174',
+  'unifunc' => 'content_6864f1ae3d9eb2_76096211',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3bb7c659ad81063221017a799bcb607577281cc3' => 
     array (
       0 => 'create_account_admin.tpl',
-      1 => 1750607834,
+      1 => 1751445931,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685c1c0aa9a5f0_15225174 (\Smarty\Template $_smarty_tpl) {
+function content_6864f1ae3d9eb2_76096211 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -50,6 +51,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </div>
 
         <section class="form-container">
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
             <div class="form-card">
                 <form action="/Delivery/Proprietario/createEmployee" method="POST">
                     <div class="form-grid">
@@ -136,10 +142,6 @@ $foreach0DoElse = false;
                                     <td><?php echo $_smarty_tpl->getValue('chef')->getEmail();?>
 </td>
                                     <td class="actions">
-                                        <button class="btn btn-edit" data-id="<?php echo $_smarty_tpl->getValue('chef')->getId();?>
-">
-                                            <i class="fas fa-edit"></i> Modifica
-                                        </button>
                                         <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
                                             <input type="hidden" name="employeeId" value="<?php echo $_smarty_tpl->getValue('chef')->getUserId();?>
 ">

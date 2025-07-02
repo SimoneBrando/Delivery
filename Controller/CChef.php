@@ -4,6 +4,7 @@ namespace Controller;
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
+use Services\Utility\UFlashMessage;
 use View\VChef;
 use Services\Utility\UHTTPMethods;
 use Entity\EOrdine;
@@ -13,16 +14,16 @@ class CChef extends BaseController{
     public function showOrders(){
         $this->requireRole('cuoco');
         $ordiniInPreparazione = $this->persistent_manager->getOrdersByState('in_preparazione');
-        $error = $this->getErrorFromSession();
-        $view = new VChef($this->isLoggedIn(), $this->userRole, $error);
+        $messages = UFlashMessage::getMessage();
+        $view = new VChef($this->isLoggedIn(), $this->userRole, $messages);
         $view->showOrders($ordiniInPreparazione);
     }
 
     public function showOrdiniInAttesa(){
         $this->requireRole('cuoco');
         $ordiniInAttesa = $this->persistent_manager->getOrdersByState('in_attesa');
-        $error = $this->getErrorFromSession();
-        $view = new VChef($this->isLoggedIn(), $this->userRole, $error);
+        $messages = UFlashMessage::getMessage();
+        $view = new VChef($this->isLoggedIn(), $this->userRole, $messages);
         $view->showOrdiniInAttesa($ordiniInAttesa);
     }
 
@@ -36,6 +37,7 @@ class CChef extends BaseController{
             $ordine->setStato($nuovoStato);
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
+            UFlashMessage::addMessage('success', 'Ordine modificato con successo');
             header("Location: /Delivery/Chef/showOrders");
             exit;
         } catch (\Exception $e) {
@@ -55,6 +57,7 @@ class CChef extends BaseController{
             $ordine->setStato("in_preparazione");
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
+            UFlashMessage::addMessage('success', 'Ordine accettato con successo');
             header("Location: /Delivery/Chef/showOrdiniInAttesa");
             exit;
         } catch (\Exception $e) {
@@ -74,6 +77,7 @@ class CChef extends BaseController{
             $ordine->setStato("annullato");
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
+            UFlashMessage::addMessage('success', 'Ordine rifiutato con successo');
             header("Location: /Delivery/Chef/showOrdiniInAttesa");
             exit;
         } catch (\Exception $e) {

@@ -23,6 +23,10 @@
         </div>
 
         <section class="form-container">
+
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+
             <div class="form-card">
                 <form action="/Delivery/Proprietario/createEmployee" method="POST">
                     <div class="form-grid">
@@ -100,9 +104,6 @@
                                     <td>{$chef->getNome()} {$chef->getCognome()}</td>
                                     <td>{$chef->getEmail()}</td>
                                     <td class="actions">
-                                        <button class="btn btn-edit" data-id="{$chef->getId()}">
-                                            <i class="fas fa-edit"></i> Modifica
-                                        </button>
                                         <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
                                             <input type="hidden" name="employeeId" value="{$chef->getUserId()}">
                                             <button type="submit" class="btn btn-delete">

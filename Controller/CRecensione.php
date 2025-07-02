@@ -5,8 +5,8 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Entity\ERecensione;
+use Services\Utility\UFlashMessage;
 use Services\Utility\UHTTPMethods;
-use View\VErrors;
 
 class CRecensione extends BaseController{
 
@@ -22,6 +22,7 @@ class CRecensione extends BaseController{
                 ->setVoto($vote)
                 ->setData(new \DateTime());
             $this->persistent_manager->saveObj($review);
+            UFlashMessage::addMessage('success', 'Recensione aggiunta con successo');
             header("Location: /Delivery/User/showMyOrders");
             exit;
         } catch (\InvalidArgumentException $e) {

@@ -5,6 +5,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Entity\EOrdine;
+use Services\Utility\UFlashMessage;
 use Services\Utility\UHTTPMethods;
 use Entity\ESegnalazione;
 
@@ -31,6 +32,7 @@ class CSegnalazione extends BaseController{
                 ->setOrdine($ordine)
                 ->setTesto($testo);
             $this->persistent_manager->saveObj($segnalazione);
+            UFlashMessage::addMessage('success', 'Segnalazione aggiunta con successo');
             header("Location: /Delivery/User/showMyOrders");
             exit;
         } catch (\Exception $e){

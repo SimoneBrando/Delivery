@@ -10,6 +10,7 @@ use Entity\EItemOrdine;
 use Foundation\FPersistentManager;
 use Services\OrderTimeCalculator;
 use Services\Utility\UHTTPMethods;
+use Services\MailingService;
 use Entity\EOrdine;
 use Entity\EProdotto;
 use View\VUser;
@@ -83,10 +84,10 @@ class COrdine extends BaseController{
 
 
             $mailService = new MailingService();
-            $cliente = $ordine->getCliente(); 
+            $cliente = $order->getCliente(); 
             $email = $cliente->getEmail();
             $name = $cliente->getNome(); 
-            $orderId = $ordine->getId();
+            $orderId = $order->getId();
 
             $message = "
                     <h2>Il tuo ordine è in attesa</h2>

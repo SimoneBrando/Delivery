@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-02 16:16:52
+/* Smarty version 5.5.1, created on 2025-07-02 17:49:07
   from 'file:rider_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68653f54db97e7_43833004',
+  'unifunc' => 'content_686554f3d8c552_69010268',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9e932e4f6c2f580ad1cc62e005964a60ffefeb46' => 
     array (
       0 => 'rider_orders.tpl',
-      1 => 1751465810,
+      1 => 1751469988,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_68653f54db97e7_43833004 (\Smarty\Template $_smarty_tpl) {
+function content_686554f3d8c552_69010268 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">

@@ -1,28 +1,29 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-02 17:02:11
+/* Smarty version 5.5.1, created on 2025-07-02 17:52:04
   from 'file:waiting_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_686549f37734e4_98374950',
+  'unifunc' => 'content_686555a4ee52e3_92204352',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9d0e4bcfe5a0c690469298830419db939b0820fe' => 
     array (
       0 => 'waiting_orders.tpl',
-      1 => 1751468527,
+      1 => 1751469988,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_686549f37734e4_98374950 (\Smarty\Template $_smarty_tpl) {
+function content_686555a4ee52e3_92204352 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -41,6 +42,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 
      <main>
         <div class="deliveries-container">
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+            
             <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('orders')) > 0) {?>
                 <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('orders'), 'order');

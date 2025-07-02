@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-02 11:17:48
+/* Smarty version 5.5.1, created on 2025-07-02 17:35:07
   from 'file:account.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6864f93cd875f8_16139691',
+  'unifunc' => 'content_686551ab99fea4_45520652',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f45da135237bbd958ce3abfce3ac99e643d0fa06' => 
     array (
       0 => 'account.tpl',
-      1 => 1751368391,
+      1 => 1751469988,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6864f93cd875f8_16139691 (\Smarty\Template $_smarty_tpl) {
+function content_686551ab99fea4_45520652 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -175,7 +175,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         <i class="fas fa-plus"></i> Aggiungi carta
                     </button>
             </div>
-            <?php }?>
+            
 
             <!-- Link ai miei ordini -->
             <div class="orders-link">

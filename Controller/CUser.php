@@ -230,6 +230,32 @@ class CUser extends BaseController{
             $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
             $this->persistent_manager->updateObj($client); //salvataggio sul database
             UFlashMessage::addMessage('success', 'Password cambiata correttamente');
+
+              // Invio email di notifica
+            $mailService = new MailingService();
+            $name = htmlspecialchars($client->getNome());
+            $email = $client->getEmail();
+
+            $message = "
+                <h2>La tua password è stata cambiata 🔐</h2>
+                <p>Ciao <strong>$name</strong>,</p>
+                <p>Ti confermiamo che la tua password è stata modificata con successo sul tuo account Delivery.</p>
+                <p>Se sei stato tu ad effettuare questa modifica, non è richiesta alcuna azione.</p>
+                <p>Se invece non riconosci questa attività, ti invitiamo a contattarci immediatamente:</p>
+                <ul>
+                    <li>Email: <a href='mailto:info@homerestaurant.it'>info@homerestaurant.it</a></li>
+                    <li>Telefono: 345 678 9012 – 06 1234 5678</li>
+                </ul>
+                <br>
+                <p>Grazie,<br>Il team di Delivery</p>
+                <img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+            ";
+
+            $mailService->mailTo(
+                $email,
+                "Conferma cambio password sul tuo account",
+                $message
+            );
             header("Location: /Delivery/User/showProfile");
         } catch (\Delight\Auth\NotLoggedInException $e) {
             header("Location: /Delivery/User/home");
@@ -656,312 +682,5 @@ class CUser extends BaseController{
             die('ORM error');
         }
     }
-
-<<<<<<< HEAD
-    //Quando l'utente è già loggato
-    public function changePassword() {
-        if (!($this->isLogged())){
-            header("/Delivery/User/home");
-            exit;
-        }
-        try {
-            $oldPassword = UHTTPMethods::post('oldPassword');
-            $newPassword = UHTTPMethods::post('newPassword');
-            $this->auth_manager->changePassword($oldPassword,$newPassword);
-            $userId= $this->auth_manager->getUserId(); //recupero userId dell'utente loggato
-            $client = $this->persistent_manager->getObjOnAttribute(EUtente::class,"user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
-            $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
-            $this->persistent_manager->updateObj($client); //salvataggio sul database
-              // Invio email di notifica
-            $mailService = new MailingService();
-            $name = htmlspecialchars($client->getNome());
-            $email = $client->getEmail();
-
-            $message = "
-                <h2>La tua password è stata cambiata 🔐</h2>
-                <p>Ciao <strong>$name</strong>,</p>
-                <p>Ti confermiamo che la tua password è stata modificata con successo sul tuo account Delivery.</p>
-                <p>Se sei stato tu ad effettuare questa modifica, non è richiesta alcuna azione.</p>
-                <p>Se invece non riconosci questa attività, ti invitiamo a contattarci immediatamente:</p>
-                <ul>
-                    <li>Email: <a href='mailto:info@homerestaurant.it'>info@homerestaurant.it</a></li>
-                    <li>Telefono: 345 678 9012 – 06 1234 5678</li>
-                </ul>
-                <br>
-                <p>Grazie,<br>Il team di Delivery</p>
-                <img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
-            ";
-
-            $mailService->mailTo(
-                $email,
-                "Conferma cambio password sul tuo account",
-                $message
-            );
-            header("Location: /Delivery/User/home");
-        } catch (\Delight\Auth\NotLoggedInException $e) {
-            die('Not logged in');
-        } catch (\Delight\Auth\InvalidPasswordException $e) {
-            die('Invalid password(s)');
-        } catch (\Delight\Auth\TooManyRequestsException $e) {
-            die('Too many requests');
-        } catch (ORMException $e) {
-            //Tentativo di rollback manuale
-            if(isset($userId)){
-                try {
-                    $this->auth_manager->changePassword($$newPassword,$oldPassword); //ripristino la vecchia password in caso di errore
-                } catch (\Delight\Auth\InvalidPasswordException $e) {
-                    die('Invalid password(s)');
-                } catch (\Delight\Auth\TooManyRequestsException $e) {
-                    die('Too many requests');
-                }
-            }
-            die('ORM error');
-        }
-    }
-
-    public function modifyProfile(){
-        $this->requireLogin();
-        try {
-            $newName = UHTTPMethods::post('newName');
-            $newSurname = UHTTPMethods::post('newSurname');
-            $user = $this->getUser();
-            $user->setNome($newName)
-                ->setCognome($newSurname);
-            $this->persistent_manager->updateObj($user);
-            header("Location: /Delivery/User/showChangePassword");
-        } catch (ORMException $e) {
-            die("ORM Exception");
-        }
-    }
-
-    public function removeAccount(string $userId = "") {
-        try{
-            $this->auth_manager->admin()->deleteUserById($userId);
-            $user = $this->persistent_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
-            $this->persistent_manager->deleteObj($user);
-        } catch (\Delight\Auth\UnknownIdException $e) {
-            die('Unknown ID');
-        } catch (\Exception $e) {
-            die ("Unknown exception $e");
-        } catch (\ArgumentCountError $e) {
-            die ("Argument passed not valid");
-        }
-    }
-    public function deleteAccount(){
-        if (!($this->isLogged())){
-            header("Location: /Delivery/User/home");
-            exit;
-        }
-        $userId = $this->getUserId();
-        $this->logoutUser();
-        $this->removeAccount($userId);
-        header("Location: /Delivery/User/home");
-    }
-
-    public function mostraMenu(){
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $menu = $this->persistent_manager->getMenu();
-        $view->showMenu($menu);
-    }
-
-    public function home(){
-        ini_set('display_errors', 1);
-        ini_set('display_startup_errors', 1);
-        error_reporting(E_ALL);
-
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $allReviews = $this->persistent_manager->getAllReviews();
-        shuffle($allReviews);
-        $reviews = array_slice($allReviews, 0, 3);
-        //Per la rimuozione del carrello dal localStorage dopo un logout
-        if (USession::isSetSessionElement('logout')) {
-            $logout = USession::getSessionElement('logout');
-            USession::unsetSessionElement('logout');
-        } else {
-            $logout = false;
-        }
-        $view->showHome($reviews, $logout);
-    }
-
-    public function order(){
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $menu = $this->persistent_manager->getMenu();
-        $view->order($menu);
-    }
-
-    public function showMyOrders(){
-        $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $id = $this->getUser()->getId();
-        $orders = $this->persistent_manager->getOrdersByClient($id);
-        $view->showMyOrders($orders);
-    }
-
-    public function showProfile(){
-        $this->requireLogin();
-        $user = $this->getUser();
-        $userAddresses = $this->findActiveUserAdresses();
-        $userCreditCards = $this->findActiveUserCards(); 
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showChangePassword($user, $userAddresses, $userCreditCards);
-    }
-
-    public function findActiveUserAdresses(){
-        $this->requireLogin();
-        $user = $this->getUser();
-        $addresses = $this->persistent_manager->getAllActiveAddresses();
-        $userAddresses = array_filter(
-            $addresses, function($address) use ($user) {
-            return $address->getClienti()->contains($user);
-        });
-        return $userAddresses;
-    }
-
-    public function findActiveUserCards(){
-        $this->requireLogin();
-        $user = $this->getUser();
-        $credtCards = $this->persistent_manager->getAllCreditCards();
-        $userCreditCard = array_filter(
-            $credtCards,
-            fn($carta) => $carta->getCliente()->getId() === $user->getId() && $carta->getCartaAttiva() === true
-        );
-        return $userCreditCard;
-    }
-
-    //Gestione Indirizzi
-    public function addAddress(){
-        $this->requireRole('cliente');
-        $user = $this->getUser();
-        try {
-            $via = UHTTPMethods::post('via');
-            $civico = UHTTPMethods::post('civico');
-            $cap = UHTTPMethods::postInt('cap',5,5);
-            $citta = UHTTPMethods::postString('citta');
-            $address = new EIndirizzo();
-            $address->setVia($via)
-                ->setCivico($civico)
-                ->setCap($cap)
-                ->setCitta($citta)
-                ->addCliente($user);
-            $this->persistent_manager->saveObj($address);
-            header("Location: /Delivery/User/showProfile");
-            exit;
-        } catch (\InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
-        } catch (\PDOException $e) {
-            error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
-        } catch (\Throwable $th) {
-            error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto".$th->getMessage());
-        }
-    }
-
-    public function removeAddress(){
-        try{
-            $this->requireRole('cliente');
-            $indirizzoId = UHTTPMethods::post('indirizzo_id');
-            $indirizzo = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class, 'id', $indirizzoId);
-            if (!$indirizzo) {
-                throw new \InvalidArgumentException("Indirizzo non trovato.");
-            }
-            $indirizzo->setAttivo(false);
-            $this->persistent_manager->updateObj($indirizzo);
-            header("Location: /Delivery/User/showProfile");
-            exit;
-        } catch (\InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
-        } catch (\PDOException $e) {
-            error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
-        } catch (\Throwable $th) {
-            error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto");
-        }
-    }
-
-    //Gestione MetodiPagamento
-    public function addCreditCard(){
-        $this->requireRole('cliente');
-        $user = $this->getUser();
-        try{
-            $numeroCarta = UHTTPMethods::postInt('numero_carta',16,16);
-            $nomeCarta = UHTTPMethods::post('nome_carta');
-            $dataScadenza = UHTTPMethods::postDate('data_scadenza', 'm/y');
-            $dataScadenza->modify('last day of this month 23:59:59');
-            if($dataScadenza < (new \DateTime()) ){
-                throw (new \InvalidArgumentException("Carta scaduta"));
-            }
-            $cvv = UHTTPMethods::postInt('cvv',3,4);
-            $nomeIntestatario = UHTTPMethods::postString('nome_intestatario');
-            if($this->persistent_manager->getObjOnAttribute(ECarta_credito::class,'numeroCarta',$numeroCarta)){
-               $creditCard =  $this->persistent_manager->getObjOnAttribute(ECarta_credito::class,'numeroCarta',$numeroCarta);
-               $creditCard->setCartaAttiva(true);
-               $this->persistent_manager->updateObj($creditCard);
-               header("Location: /Delivery/User/showProfile");
-               exit;
-            }
-            $creditCard = new ECarta_credito();
-            $creditCard->setNumeroCarta($numeroCarta)
-                ->setNominativo($nomeCarta)
-                ->setDataScadenza($dataScadenza)
-                ->setCvv($cvv)
-                ->setNomeIntestatario($nomeIntestatario)
-                ->setUtente($user)
-                ->setCartaAttiva(true);
-            $this->persistent_manager->saveObj($creditCard);
-            header("Location: /Delivery/User/showProfile");
-            exit;
-        } catch (\InvalidArgumentException $e) {
-            $this->handleError($e);
-        } catch (\PDOException $e) {
-            error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
-        } catch (\Throwable $th) {
-            error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto".$th->getMessage());
-        }
-    }
-    public function removeCreditCard(){
-        try{
-            $this->requireRole('cliente');
-            $numeroCarta = UHTTPMethods::postInt('numero_carta',16,16);
-            $creditCard = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', $numeroCarta);
-            if (!$creditCard) {
-                throw new \InvalidArgumentException("Carta di credito non trovata.");
-            }
-            $creditCard->setCartaAttiva(false);
-            $this->persistent_manager->updateObj($creditCard);
-            header("Location: /Delivery/User/showProfile");
-            exit;
-        } catch (\InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
-        } catch (\PDOException $e) {
-            error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
-        } catch (\Throwable $th) {
-            error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto");
-        }
-    }
-
-    public function showReviewForm(){
-        $this->requireRole('cliente');
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showReviewForm();
-    }
-
-=======
->>>>>>> 558cda8ab2f92dc3a5d7e6be8e8a016f960c9499
+    
 }

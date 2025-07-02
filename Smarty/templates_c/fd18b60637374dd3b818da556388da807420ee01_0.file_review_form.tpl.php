@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 19:01:26
+/* Smarty version 5.5.1, created on 2025-07-02 17:41:04
   from 'file:review_form.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ece66680af5_98197963',
+  'unifunc' => 'content_68655310b2e1d1_32820290',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'fd18b60637374dd3b818da556388da807420ee01' => 
     array (
       0 => 'review_form.tpl',
-      1 => 1751039408,
+      1 => 1751469988,
       2 => 'file',
     ),
   ),
@@ -22,13 +22,14 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ece66680af5_98197963 (\Smarty\Template $_smarty_tpl) {
+function content_68655310b2e1d1_32820290 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <title>Scrivi una Recensione</title>
+    <link rel="icon" type="image/x-icon" href="/Smarty/Immagini/favicon.ico">
     <link rel="stylesheet" href="/Smarty/css/layout.css">
     <link rel="stylesheet" href="/Smarty/css/form.css">
     <link rel="stylesheet" href="/Smarty/css/recensioni.css">

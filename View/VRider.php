@@ -6,24 +6,22 @@ class VRider{
 
     private $smarty;
 
-    public function __construct(bool $logged = false, ?string $role = null) {
+    public function __construct(bool $logged = false, ?string $role = null, array $messages = []) {
         $this->smarty = getSmartyInstance();
-        $this->assignCommonVars($logged, $role);
+        $this->assignCommonVars($logged, $role, $messages);
     }
 
 
-    public function assignCommonVars(bool $logged, ?string $role = null) {
+    public function assignCommonVars(bool $logged, ?string $role = null, array $messages = []) {
+        $this->smarty->assign('messages', $messages);
         $this->smarty->assign('logged', $logged);
         $this->smarty->assign('role', $role);
     }
 
 
-    public function showOrders($orders){
+    public function showOrders($orders, $ordersOnDelivery){
         $this->smarty->assign('orders', $orders);
+        $this->smarty->assign('ordersOnDelivery', $ordersOnDelivery);
         $this->smarty->display('rider_orders.tpl');
     }
-
-
-
-
 }

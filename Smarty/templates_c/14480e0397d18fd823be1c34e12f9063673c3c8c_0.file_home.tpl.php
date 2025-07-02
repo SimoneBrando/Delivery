@@ -61,9 +61,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </section>
 
         <!-- Story Sections -->
-        <?php if ($_smarty_tpl->getValue('logout') == true) {?>
-            <p> True </p>
-        <?php }?>
+        
         <section id="storia" class="story-section">
             <div class="storia-container">
                 <div class="storia-text">

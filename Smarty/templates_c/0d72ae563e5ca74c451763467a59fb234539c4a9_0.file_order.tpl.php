@@ -57,10 +57,11 @@ $foreach0DoElse = false;
 ?>
                 <div class="menu-category">
                     <h2>
-                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "PIZZE") {?><i class="fas fa-pizza-slice"></i><?php }?>
-                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "CALZONI") {?><i class="fas fa-bread-slice"></i><?php }?>
-                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "CONTORNI") {?><i class="fas fa-carrot"></i><?php }?>
-                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "BEVANDE") {?><i class="fas fa-glass-whiskey"></i><?php }?>
+                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "Antipasti") {?><i class="fa-solid fa-martini-glass-citrus"></i><?php }?>
+                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "Primi") {?><i class="fas fa-bread-slice"></i><?php }?>
+                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "Secondi") {?><i class="fas fa-pizza-slice"></i><?php }?>
+                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "Dolci") {?><i class="fa-solid fa-ice-cream"></i><?php }?>
+                        <?php if ($_smarty_tpl->getValue('categoria')['categoria'] == "Bevande") {?><i class="fas fa-glass-whiskey"></i><?php }?>
                         <?php echo htmlspecialchars((string)$_smarty_tpl->getValue('categoria')['categoria'], ENT_QUOTES, 'UTF-8', true);?>
 
                     </h2>

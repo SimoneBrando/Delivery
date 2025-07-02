@@ -6,12 +6,13 @@ class VChef{
 
     private $smarty;
 
-    public function __construct(bool $logged = false, ?string $role = null) {
+    public function __construct(bool $logged = false, ?string $role = null, array $messages = []) {
         $this->smarty = getSmartyInstance();
-        $this->assignCommonVars($logged, $role);
+        $this->assignCommonVars($logged, $role, $messages);
     }
 
-    public function assignCommonVars(bool $logged, ?string $role = null) {
+    public function assignCommonVars(bool $logged, ?string $role = null, array $messages = []) {
+        $this->smarty->assign('messages', $messages);
         $this->smarty->assign('logged', $logged);
         $this->smarty->assign('role', $role);
     }

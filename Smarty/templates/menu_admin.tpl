@@ -24,6 +24,10 @@
         </div>
         
         <!-- Filtri e Ricerca -->
+
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+        
         <form method="get" action="/Delivery/Proprietario/showMenu/">
         <section class="filters-section">
             <div class="filters-grid">

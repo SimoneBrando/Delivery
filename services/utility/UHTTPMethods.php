@@ -75,8 +75,7 @@ class UHTTPMethods {
     public static function postDate(string $key, string $format): \DateTime {
         $value = $_POST[$key] ?? '';
         $date = \DateTime::createFromFormat($format, $value);
-        $errors = \DateTime::getLastErrors();
-        if (!$date || $errors['warning_count'] > 0 || $errors['error_count'] > 0) {
+        if (!$date) {
             throw new InvalidArgumentException("Data non valida per il campo '$key'.");
         }
         return $date;

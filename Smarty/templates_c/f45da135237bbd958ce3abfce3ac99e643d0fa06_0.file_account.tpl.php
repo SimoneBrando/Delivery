@@ -19,6 +19,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
@@ -53,6 +54,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 
         <section class="account-container">
             <h2>Gestione Account</h2>
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
             <!-- Modifica Profile -->
             <div class="password-section">
@@ -177,14 +182,15 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                     <i class="fas fa-box-open"></i> I miei ordini
                 </a>
             </div>
+            <?php }?>
 
             <!-- Logout -->
             <div class="logout-section">
                 <a href="/Delivery/User/logoutUser/" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
-                <a href="/Delivery/User/deleteAccount/" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Delete Account
+                <a href="#" class="btn-logout" onclick="openDeleteModal()">
+                    <i class="fas fa-sign-out-alt"></i> Elimina Account
                 </a>
             </div>
         </section>
@@ -272,7 +278,16 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 </form>
             </div>
         </div>
-
+    
+        <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <p>Sei sicuro di voler <strong>eliminare definitivamente</strong> il tuo account?</p>
+            <div class="modal-buttons">
+                <a href="/Delivery/User/deleteAccount/" class="btn-confirm">Conferma eliminazione</a>
+                <button onclick="closeModal()" class="btn-cancel">Annulla</button>
+            </div>
+        </div>
+    </div>
     
     <?php echo '<script'; ?>
 >
@@ -303,9 +318,26 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 }
             });
         });
+
+        function openDeleteModal() {
+            event.preventDefault();
+            document.getElementById('deleteConfirmModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('deleteConfirmModal').style.display = 'none';
+        }
+
+        // Chiudi il modal cliccando fuori dall'area del contenuto
+        window.onclick = function(event) {
+            const modal = document.getElementById('deleteConfirmModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
     <?php echo '</script'; ?>
 >
-
+    
     <?php echo '<script'; ?>
  src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
 >

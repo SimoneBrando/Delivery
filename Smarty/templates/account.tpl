@@ -28,6 +28,9 @@
         <section class="account-container">
             <h2>Gestione Account</h2>
 
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+
             <!-- Modifica Profile -->
             <div class="password-section">
                 <h3>Modifica Profilo</h3>
@@ -120,7 +123,7 @@
                         <i class="fas fa-plus"></i> Aggiungi carta
                     </button>
             </div>
-            {/if}
+            
 
             <!-- Link ai miei ordini -->
             <div class="orders-link">
@@ -128,14 +131,15 @@
                     <i class="fas fa-box-open"></i> I miei ordini
                 </a>
             </div>
+            {/if}
 
             <!-- Logout -->
             <div class="logout-section">
                 <a href="/Delivery/User/logoutUser/" class="btn-logout">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
-                <a href="/Delivery/User/deleteAccount/" class="btn-logout">
-                    <i class="fas fa-sign-out-alt"></i> Delete Account
+                <a href="#" class="btn-logout" onclick="openDeleteModal()">
+                    <i class="fas fa-sign-out-alt"></i> Elimina Account
                 </a>
             </div>
         </section>
@@ -222,7 +226,17 @@
                 </form>
             </div>
         </div>
-
+    
+    {* Modale personalizzato - versione semplificata *}
+    <div id="deleteConfirmModal" class="modal">
+        <div class="modal-content">
+            <p>Sei sicuro di voler <strong>eliminare definitivamente</strong> il tuo account?</p>
+            <div class="modal-buttons">
+                <a href="/Delivery/User/deleteAccount/" class="btn-confirm">Conferma eliminazione</a>
+                <button onclick="closeModal()" class="btn-cancel">Annulla</button>
+            </div>
+        </div>
+    </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -252,8 +266,25 @@
                 }
             });
         });
-    </script>
 
+        function openDeleteModal() {
+            event.preventDefault();
+            document.getElementById('deleteConfirmModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('deleteConfirmModal').style.display = 'none';
+        }
+
+        // Chiudi il modal cliccando fuori dall'area del contenuto
+        window.onclick = function(event) {
+            const modal = document.getElementById('deleteConfirmModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+    
     <script src="/Smarty/js/hamburger.js"></script>
     <script src="/Smarty/js/theme.js" defer></script>
     <script src="/Smarty/js/modal.js" defer></script>

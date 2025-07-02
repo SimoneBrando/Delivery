@@ -19,6 +19,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
@@ -50,6 +51,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </div>
 
         <section class="form-container">
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
             <div class="form-card">
                 <form action="/Delivery/Proprietario/createEmployee" method="POST">
                     <div class="form-grid">
@@ -136,10 +142,6 @@ $foreach0DoElse = false;
                                     <td><?php echo $_smarty_tpl->getValue('chef')->getEmail();?>
 </td>
                                     <td class="actions">
-                                        <button class="btn btn-edit" data-id="<?php echo $_smarty_tpl->getValue('chef')->getId();?>
-">
-                                            <i class="fas fa-edit"></i> Modifica
-                                        </button>
                                         <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
                                             <input type="hidden" name="employeeId" value="<?php echo $_smarty_tpl->getValue('chef')->getUserId();?>
 ">

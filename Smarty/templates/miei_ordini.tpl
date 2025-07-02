@@ -19,6 +19,10 @@
 
         <!-- Orders Section -->
         <section class="orders-section">
+
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+            
             <h1>I Miei Ordini</h1>
 
             {if $orders|@count > 0}
@@ -47,14 +51,11 @@
                             <p><strong>Indirizzo:</strong> {$order->getIndirizzoConsegna()->getCitta()}, {$order->getIndirizzoConsegna()->getVia()}, {$order->getIndirizzoConsegna()->getCivico()}</p>
                             <p><strong>Metodo Pagamento:</strong> {$order->getMetodoPagamento()->getNominativo()}</p>
                         </div>
-                    <!-- DA MODIFICARE -->
-                        {if !($order->hasWarning())}
-                            <div class="order-problems">
-                                <button type="button" data-modal-target="reportModal" class="btn-link-modal" data-order-id="{$order->getId()}">
-                                    <i class="fas fa-exclamation-triangle"></i> Segnala problema
-                                </button>
-                            </div>
-                        {/if}
+                        <div class="order-problems">
+                            <button type="button" data-modal-target="reportModal" class="btn-link-modal" data-order-id="{$order->getId()}">
+                                <i class="fas fa-exclamation-triangle"></i> Segnala problema
+                            </button>
+                        </div>
                     </div>
                 {/foreach}
             {else}

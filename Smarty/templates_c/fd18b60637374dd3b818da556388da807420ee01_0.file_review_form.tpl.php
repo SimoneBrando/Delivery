@@ -74,6 +74,12 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
 
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+>
 </body>
 </html>
 <?php }

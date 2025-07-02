@@ -32,9 +32,9 @@
                 <div class="login-form">
                     <h1>Accedi al tuo Account</h1>
 
-                    {if isset($error) && $error != ""}
-                        <div class="error-message">{$error}</div>
-                    {/if}
+                    <!-- Error Section -->
+                    {include file="error_section.tpl"}
+
 
                     <form action="/Delivery/User/loginUser" method="POST">
                         <div class="form-group">
@@ -66,6 +66,9 @@
                         </div>
                         <div class="form-group">
                             <p>Non hai un account? <a href="/Delivery/User/showRegisterForm">Registrati</a></p>
+                        </div>
+                        <div class="form-group">
+                            <a href="/Delivery/User/forgotPassword">Password dimenticata</a>
                         </div>
                     </form>
                 </div>

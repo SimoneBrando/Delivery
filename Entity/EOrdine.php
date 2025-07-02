@@ -174,14 +174,6 @@ class EOrdine {
         return $this;
     }
 
-    //Sbagliato dal punto di vista architetturale
-    public function hasWarning(): bool{
-        if (FPersistentManager::getWarningByOrderId($this->getId())){
-            return true;
-        }
-        return false;
-    }
-
     /*
     public function removeItemOrdine(EItemOrdine $item): self {
         if ($this->itemOrdini->contains($item)) {

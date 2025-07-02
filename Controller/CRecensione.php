@@ -5,8 +5,8 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Entity\ERecensione;
+use Services\Utility\UFlashMessage;
 use Services\Utility\UHTTPMethods;
-use View\VErrors;
 
 class CRecensione extends BaseController{
 
@@ -22,19 +22,17 @@ class CRecensione extends BaseController{
                 ->setVoto($vote)
                 ->setData(new \DateTime());
             $this->persistent_manager->saveObj($review);
-            header("Location: /Delivery/User/showProfile");
+            UFlashMessage::addMessage('success', 'Recensione aggiunta con successo');
+            header("Location: /Delivery/User/showMyOrders");
             exit;
         } catch (\InvalidArgumentException $e) {
-            $view = new VErrors();
-            $view->showFatalError($e->getMessage());
+            $this->catchError($e->getMessage(), "User/showMyOrders");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore durante il salvataggio");
+            $this->catchError("Errore durante il salvataggio, riprovare.", "User/showMyOrders");
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
-            $view = new VErrors();
-            $view->showFatalError("Errore imprevisto".$th->getMessage());
+            $this->catchError("Errore imprevisto, riprovare.", "User/showMyOrders");
         }
     }
 }

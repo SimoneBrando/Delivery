@@ -19,6 +19,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
@@ -45,6 +46,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 
         <!-- Orders Section -->
         <section class="orders-section">
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+            
             <h1>I Miei Ordini</h1>
 
             <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('orders')) > 0) {?>
@@ -101,15 +107,12 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <p><strong>Metodo Pagamento:</strong> <?php echo $_smarty_tpl->getValue('order')->getMetodoPagamento()->getNominativo();?>
 </p>
                         </div>
-                    <!-- DA MODIFICARE -->
-                        <?php if (!($_smarty_tpl->getValue('order')->hasWarning())) {?>
-                            <div class="order-problems">
-                                <button type="button" data-modal-target="reportModal" class="btn-link-modal" data-order-id="<?php echo $_smarty_tpl->getValue('order')->getId();?>
+                        <div class="order-problems">
+                            <button type="button" data-modal-target="reportModal" class="btn-link-modal" data-order-id="<?php echo $_smarty_tpl->getValue('order')->getId();?>
 ">
-                                    <i class="fas fa-exclamation-triangle"></i> Segnala problema
-                                </button>
-                            </div>
-                        <?php }?>
+                                <i class="fas fa-exclamation-triangle"></i> Segnala problema
+                            </button>
+                        </div>
                     </div>
                 <?php
 }

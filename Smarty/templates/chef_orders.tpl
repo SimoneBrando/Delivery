@@ -14,6 +14,10 @@
 
      <main>
         <div class="deliveries-container">
+
+            <!-- Error Section -->
+            {include file="error_section.tpl"}
+            
             {if $orders|@count > 0}
                 {foreach $orders as $order}
                     <div class="delivery-card">
@@ -50,11 +54,9 @@
                             <label for="status{$order->getId()}">Modifica stato:</label>
                             <select name="stato" id="status{$order->getId()}" class="status-select">
                                 <option value="">-- Seleziona stato --</option>
-                                <option value="annullato" {if $statoClasse == 'annullato'}selected{/if}>Annullato</option>
-                                <option value="consegnato" {if $statoClasse == 'consegnato'}selected{/if}>Consegnato</option>
-                                <option value="pronto" {if $statoClasse == 'pronto'}selected{/if}>Pronto</option>
                                 <option value="in_preparazione" {if $statoClasse == 'in_preparazione'}selected{/if}>In Preparazione</option>
-                                <option value="in_attesa" {if $statoClasse == 'in_attesa'}selected{/if}>In Attesa</option>
+                                <option value="pronto" {if $statoClasse == 'pronto'}selected{/if}>Pronto</option>
+                                <option value="annullato" {if $statoClasse == 'annullato'}selected{/if}>Annullato</option>
                             </select>
                         </form>
                     </div>

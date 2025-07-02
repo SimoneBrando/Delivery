@@ -35,9 +35,7 @@
         </section>
 
         <!-- Story Sections -->
-        {if $logout == true}
-            <p> True </p>
-        {/if}
+        
         <section id="storia" class="story-section">
             <div class="storia-container">
                 <div class="storia-text">

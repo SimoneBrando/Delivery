@@ -19,4 +19,14 @@
 
     # Altrimenti riscrivi tutto a public/index.php
     RewriteRule ^(.*)$ /index.php [QSA,L]
+
+
+    <Files .env>
+		Order allow,deny
+		Deny from all
+	</Files>
+
+
+
+
 </IfModule>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 18:55:41
+/* Smarty version 5.5.1, created on 2025-07-02 15:49:12
   from 'file:miei_ordini.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ecd0d9bd741_95015430',
+  'unifunc' => 'content_686538d8ba6ba3_65335622',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'c097591f2f6c1944940b106e904d446dd03a6ded' => 
     array (
       0 => 'miei_ordini.tpl',
-      1 => 1751039408,
+      1 => 1751368391,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ecd0d9bd741_95015430 (\Smarty\Template $_smarty_tpl) {
+function content_686538d8ba6ba3_65335622 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -30,6 +30,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu - Nome Ristorante</title>
+    <link rel="icon" type="image/x-icon" href="/Smarty/Immagini/favicon.ico">
     <link rel="stylesheet" href="/Smarty/css/miei_ordini.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css">

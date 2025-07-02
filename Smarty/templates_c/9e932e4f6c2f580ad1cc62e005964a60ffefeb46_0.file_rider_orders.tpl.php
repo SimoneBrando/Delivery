@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 19:17:07
+/* Smarty version 5.5.1, created on 2025-07-02 16:16:52
   from 'file:rider_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ed213690858_90968545',
+  'unifunc' => 'content_68653f54db97e7_43833004',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9e932e4f6c2f580ad1cc62e005964a60ffefeb46' => 
     array (
       0 => 'rider_orders.tpl',
-      1 => 1751039408,
+      1 => 1751465810,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ed213690858_90968545 (\Smarty\Template $_smarty_tpl) {
+function content_68653f54db97e7_43833004 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -30,6 +30,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consegne - Nome Ristorante</title>
+    <link rel="icon" type="image/x-icon" href="/Smarty/Immagini/favicon.ico">
     <link rel="stylesheet" href="/Smarty/css/personale_consegne.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css"></link>
@@ -103,6 +104,7 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <option value="">-- Seleziona stato --</option>
                             <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
                             <option value="consegnato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'consegnato') {?>selected<?php }?>>Consegnato</option>
+                            <option value="in_consegna" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_consegna') {?>selected<?php }?>>In Consegna</option>
                             <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
                             <option value="in_preparazione" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_preparazione') {?>selected<?php }?>>In Preparazione</option>
                             <option value="in_attesa" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_attesa') {?>selected<?php }?>>In Attesa</option>

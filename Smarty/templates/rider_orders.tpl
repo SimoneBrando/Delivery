@@ -51,6 +51,7 @@
                             <option value="">-- Seleziona stato --</option>
                             <option value="annullato" {if $statoClasse == 'annullato'}selected{/if}>Annullato</option>
                             <option value="consegnato" {if $statoClasse == 'consegnato'}selected{/if}>Consegnato</option>
+                            <option value="in_consegna" {if $statoClasse == 'in_consegna'}selected{/if}>In Consegna</option>
                             <option value="pronto" {if $statoClasse == 'pronto'}selected{/if}>Pronto</option>
                             <option value="in_preparazione" {if $statoClasse == 'in_preparazione'}selected{/if}>In Preparazione</option>
                             <option value="in_attesa" {if $statoClasse == 'in_attesa'}selected{/if}>In Attesa</option>

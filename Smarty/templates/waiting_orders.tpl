@@ -54,6 +54,8 @@
 
                             <form action="/Delivery/Chef/rifiutaOrdine" method="POST" style="display:inline-block;">
                                 <input type="hidden" name="ordine_id" value="{$order->getId()}" />
+                                <textarea name="motivazione_rifiuto" placeholder="Motivazione rifiuto" rows="2" cols="30" required style="resize: none; margin-bottom: 5px;"></textarea>
+                                <br>
                                 <button type="submit" class="btn btn-danger">Rifiuta</button>
                             </form>
                         </div>

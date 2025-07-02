@@ -9,6 +9,7 @@ use Entity\EOrdine;
 use Foundation\FPersistentManager;
 use View\VRider;
 use Services\Utility\UHTTPMethods;
+use Services\MailingService;
 
 class CRider extends BaseController{
 
@@ -23,18 +24,123 @@ class CRider extends BaseController{
         $this->requireRole('rider');
         $ordineId = UHTTPMethods::post('ordineId');
         $nuovoStato = UHTTPMethods::postString('stato');
+        $mailService = new MailingService();
         $this->persistent_manager->beginTransaction();
         try{
             $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
             $ordine->setStato($nuovoStato);
             if($nuovoStato == 'consegnato'){
                 $ordine->setDataConsegna(new \DateTime());
+                $dataConsegna = $ordine->getDataConsegna()->format('d/m/Y H:i');
+                $cliente = $ordine->getCliente(); 
+                $email = $cliente->getEmail();
+                $orderId = $ordine->getId();
+                $name = $cliente->getNome(); 
+                $indirizzo = $ordine->getIndirizzoConsegna(); 
+                $via = htmlspecialchars($indirizzo->getVia() . ' ' . $indirizzo->getCivico() . ', ' . $indirizzo->getCap() . ' ' . $indirizzo->getCitta());
+                $pagamento = $ordine->getMetodoPagamento();
+                $message = "
+                <h2>Il tuo ordine è stato consegnato! 🎉</h2>
+                <p>Ciao <strong>$name</strong>,</p>
+                <p>Confermiamo che l'ordine <strong>#{$orderId}</strong> ti è stato consegnato in data <strong>$dataConsegna</strong>.</p>
+                <p>Speriamo che il tuo pasto sia stato di tuo gradimento!</p>
+                <p>Se vuoi lasciarci un feedback o segnalare un problema, puoi farlo dalla tua sezione ordini: 
+                    <a href='https://deliveryhomerestaurant.altervista.org/Delivery/User/showMyOrders/'>Vai ai tuoi ordini</a>
+                </p>
+                <br>
+                <p><strong>Indirizzo di consegna:</strong><br>$via</p>
+                <p><strong>Metodo di pagamento:</strong> " . htmlspecialchars($pagamento->getNominativo()) . "</p>
+                <p>Grazie per aver ordinato con Delivery!</p>
+                <br><p>Il team di Delivery</p>
+                <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+                ";
+                $mailService->mailTo(
+                    $email,
+                    "Ordine #$orderId consegnato con successo!",
+                    $message
+                );
+                $ordine->setDataConsegna(new \DateTime());
             }
+            if($nuovoStato == 'in_consegna'){
+                $mailService = new MailingService();
+                $cliente = $ordine->getCliente(); 
+                $email = $cliente->getEmail();
+                $name = $cliente->getNome(); 
+
+                $dataPrevista = $ordine->getDataRicezione()->format('d/m/Y H:i');
+                $orderId = $ordine->getId();
+                $indirizzo = $ordine->getIndirizzoConsegna(); 
+                $via = htmlspecialchars($indirizzo->getVia() . ' ' . $indirizzo->getCivico() . ', ' . $indirizzo->getCap() . ' ' . $indirizzo->getCitta());
+                $pagamento = $ordine->getMetodoPagamento();
+
+                $message = "
+                    <h2>Il tuo ordine e' in consegna! 🚴‍♂️</h2>
+                    <p>Ciao <strong>$name</strong>,</p>
+                    <p>Il tuo ordine <strong>#{$orderId}</strong> è stato preso in carico dal nostro rider e arriverà approssimativamente entro le <strong>$dataPrevista</strong>.</p>
+                    <p><strong>Indirizzo di consegna:</strong><br>$via</p>
+                    <p><strong>Metodo di pagamento:</strong> " . htmlspecialchars($pagamento->getNominativo()) . "</p>
+                    <p>Grazie per aver scelto Delivery!</p>
+                    <br><p>Il team di Delivery</p>
+                    <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+                ";
+
+                $mailService->mailTo(
+                    $email,
+                    "Il tuo ordine #$orderId è in consegna!",
+                    $message
+                );
+            }
+            if($nuovoStato == 'annullato'){
+                $mailService = new MailingService();
+                $cliente = $ordine->getCliente(); 
+                $email = $cliente->getEmail();
+                $name = $cliente->getNome(); 
+                $orderId = $ordine->getId();
+
+                $message = "
+                    <h2>Il tuo ordine è stato annullato</h2>
+                    <p>Ciao <strong>$name</strong>,</p>
+                    <p>Ci dispiace informarti che l'ordine <strong>#{$orderId}</strong> è stato annullato.</p>
+                    <p>Se hai domande o dubbi, non esitare a contattarci.</p>
+                    <br><p>Il team di Delivery</p>
+                    <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+                ";
+
+                $mailService->mailTo(
+                    $email,
+                    "Ordine #$orderId annullato",
+                    $message
+                );
+            }
+            if($nuovoStato == 'in_attesa'){
+                $mailService = new MailingService();
+                $cliente = $ordine->getCliente(); 
+                $email = $cliente->getEmail();
+                $name = $cliente->getNome(); 
+                $orderId = $ordine->getId();
+
+                $message = "
+                    <h2>Il tuo ordine è in attesa</h2>
+                    <p>Ciao <strong>$name</strong>,</p>
+                    <p>Il tuo ordine <strong>#{$orderId}</strong> è attualmente in attesa di essere elaborato.</p>
+                    <p>Ti informeremo non appena ci saranno aggiornamenti.</p>
+                    <br><p>Il team di Delivery</p>
+                    <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+                ";
+
+                $mailService->mailTo(
+                    $email,
+                    "Ordine #$orderId in attesa",
+                    $message
+                );
+            }
+                
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
             header("Location: /Delivery/Rider/showOrders");
             exit;
-        } catch (\Exception $e) {
+        }
+        catch (Exception $e) {
             if ($this->persistent_manager->isTransactionActive()){
                 $this->persistent_manager->rollback();
             }

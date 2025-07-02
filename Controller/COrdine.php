@@ -8,6 +8,7 @@ use Entity\ECarta_credito;
 use Entity\EIndirizzo;
 use Entity\EItemOrdine;
 use Foundation\FPersistentManager;
+use Services\MailingService;
 use Services\OrderTimeCalculator;
 use Services\Utility\UHTTPMethods;
 use Services\Utility\USession;
@@ -82,6 +83,31 @@ class COrdine extends BaseController{
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
             //Fine Transazione
+
+
+            $mailService = new MailingService();
+            $cliente = $ordine->getCliente(); 
+            $email = $cliente->getEmail();
+            $name = $cliente->getNome(); 
+            $orderId = $ordine->getId();
+
+            $message = "
+                    <h2>Il tuo ordine è in attesa</h2>
+                    <p>Ciao <strong>$name</strong>,</p>
+                    <p>Il tuo ordine <strong>#{$orderId}</strong> è attualmente in attesa di essere elaborato.</p>
+                    <p>Ti informeremo non appena ci saranno aggiornamenti.</p>
+                    <br><p>Il team di Delivery</p>
+                    <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+                ";
+
+            $mailService->mailTo(
+                    $email,
+                    "Ordine #$orderId in attesa",
+                    $message
+            );
+
+          
+
             $view = new VUser($this->isLoggedIn(), $this->userRole);
             $view->confermedOrder();
         } catch (\InvalidArgumentException $e){

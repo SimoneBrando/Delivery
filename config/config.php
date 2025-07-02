@@ -15,3 +15,4 @@ define ('DB_DRIVER', 'pdo_mysql');
 define ("INDIRIZZO_RISTORANTE", "Piazza Duomo 1, L'Aquila");
 define ("API_KEY", $API_KEY);
 
+

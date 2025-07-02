@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 19:24:47
+/* Smarty version 5.5.1, created on 2025-07-02 17:02:11
   from 'file:waiting_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ed3df7b9087_54485038',
+  'unifunc' => 'content_686549f37734e4_98374950',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9d0e4bcfe5a0c690469298830419db939b0820fe' => 
     array (
       0 => 'waiting_orders.tpl',
-      1 => 1751039408,
+      1 => 1751468527,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ed3df7b9087_54485038 (\Smarty\Template $_smarty_tpl) {
+function content_686549f37734e4_98374950 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -30,6 +30,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consegne - Nome Ristorante</title>
+    <link rel="icon" type="image/x-icon" href="/Smarty/Immagini/favicon.ico">
     <link rel="stylesheet" href="/Smarty/css/personale_consegne.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/Smarty/css/layout.css"></link>
@@ -108,6 +109,8 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <form action="/Delivery/Chef/rifiutaOrdine" method="POST" style="display:inline-block;">
                                 <input type="hidden" name="ordine_id" value="<?php echo $_smarty_tpl->getValue('order')->getId();?>
 " />
+                                <textarea name="motivazione_rifiuto" placeholder="Motivazione rifiuto" rows="2" cols="30" required style="resize: none; margin-bottom: 5px;"></textarea>
+                                <br>
                                 <button type="submit" class="btn btn-danger">Rifiuta</button>
                             </form>
                         </div>

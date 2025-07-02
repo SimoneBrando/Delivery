@@ -10,10 +10,9 @@ use Entity\EIndirizzo;
 use Entity\EUtente;
 use View\VErrors;
 use View\VUser;
+use Services\MailingService;
 use Services\Utility\USession;
 use Services\Utility\UHTTPMethods;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 class CUser extends BaseController{
 
@@ -67,6 +66,33 @@ class CUser extends BaseController{
                 }
             }
             $this->persistent_manager->saveObj($profile);
+            $mailService = new MailingService();
+            
+            $welcomeText = 'Ciao ' . $name . ',<br><br>
+            Grazie per esserti registrato su Delivery!<br><br>
+                        
+            Ora puoi esplorare il nostro vasto menu, scegliere i tuoi piatti preferiti e riceverli comodamente dove vuoi, in tutta semplicità.<br><br>
+                        
+            Per iniziare, accedi con le tue credenziali: 
+            <a href="https://deliveryhomerestaurant.altervista.org/Delivery/User/showProfile">Il tuo profilo Delivery</a><br><br>
+                        
+            Buon appetito! Il team di Delivery<br><br>
+                        
+            Per qualsiasi problema, contattaci all\'indirizzo email: <a href="mailto:info@homerestaurant.it">info@homerestaurant.it</a><br>
+            Oppure ai nostri recapiti telefonici: 345 678 9012 -  06 1234 5678<br><br>
+                        
+            Il team di Delivery
+
+            <br><br><img src="https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png" alt="Logo Delivery Home Restaurant" style="width:150px; height:auto;">
+            ';
+
+
+   
+
+
+
+            
+            $mailService->mailTo($email, 'Benvenuto su Delivery', $welcomeText);
             header('Location: /Delivery/User/showLoginForm');
         } catch (\Delight\Auth\InvalidEmailException $e) {
             $this->showRegisterForm("Indirizzo email non valido");
@@ -114,6 +140,7 @@ class CUser extends BaseController{
             $this->auth_manager->login($email, $password, $duration);
             $profile = $this->getUser();
             USession::setSessionElement("user", $profile->getId());
+
             header('Location: /Delivery/User/home');
             exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
@@ -243,6 +270,31 @@ class CUser extends BaseController{
             $client = $this->persistent_manager->getObjOnAttribute(EUtente::class,"user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
             $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
             $this->persistent_manager->updateObj($client); //salvataggio sul database
+              // Invio email di notifica
+            $mailService = new MailingService();
+            $name = htmlspecialchars($client->getNome());
+            $email = $client->getEmail();
+
+            $message = "
+                <h2>La tua password è stata cambiata 🔐</h2>
+                <p>Ciao <strong>$name</strong>,</p>
+                <p>Ti confermiamo che la tua password è stata modificata con successo sul tuo account Delivery.</p>
+                <p>Se sei stato tu ad effettuare questa modifica, non è richiesta alcuna azione.</p>
+                <p>Se invece non riconosci questa attività, ti invitiamo a contattarci immediatamente:</p>
+                <ul>
+                    <li>Email: <a href='mailto:info@homerestaurant.it'>info@homerestaurant.it</a></li>
+                    <li>Telefono: 345 678 9012 – 06 1234 5678</li>
+                </ul>
+                <br>
+                <p>Grazie,<br>Il team di Delivery</p>
+                <img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+            ";
+
+            $mailService->mailTo(
+                $email,
+                "Conferma cambio password sul tuo account",
+                $message
+            );
             header("Location: /Delivery/User/home");
         } catch (\Delight\Auth\NotLoggedInException $e) {
             die('Not logged in');

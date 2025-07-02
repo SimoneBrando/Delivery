@@ -1,28 +1,29 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-25 17:55:29
+/* Smarty version 5.5.1, created on 2025-07-02 14:40:40
   from 'file:admin_order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685c1bf10ceef7_89319154',
+  'unifunc' => 'content_686528c82d7bf9_23789071',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '28d10ed16d04c9887025d3bc3415bb95cc1cd855' => 
     array (
       0 => 'admin_order.tpl',
-      1 => 1750788409,
+      1 => 1751460025,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685c1bf10ceef7_89319154 (\Smarty\Template $_smarty_tpl) {
+function content_686528c82d7bf9_23789071 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -50,6 +51,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </div>
         
         <!-- Filtri e Ricerca -->
+        
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
         <form method="get" action="/Delivery/Proprietario/showOrders/">
         <section class="filters-section">
             <div class="filters-grid">
@@ -65,6 +71,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                         <option value="in_attesa" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_attesa') {?>selected<?php }?>>In attesa</option>
                         <option value="in_preparazione" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_preparazione') {?>selected<?php }?>>In preparazione</option>
                         <option value="pronto" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'pronto') {?>selected<?php }?>>Pronto</option>
+                        <option value="in_consegna" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_consegna') {?>selected<?php }?>>In Consegna</option>
                         <option value="consegnato" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'consegnato') {?>selected<?php }?>>Consegnato</option>
                         <option value="annullato" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'annullato') {?>selected<?php }?>>Annullato</option>
                     </select>

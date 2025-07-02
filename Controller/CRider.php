@@ -16,8 +16,9 @@ class CRider extends BaseController{
         $this->requireRole('rider');
         $messages = UFlashMessage::getMessage();
         $view = new VRider($this->isLoggedIn(), $this->userRole, $messages);
-        $orders = $this->persistent_manager->getOrdersByState('pronto');
-        $view->showOrders($orders);
+        $ordersReady = $this->persistent_manager->getOrdersByState('pronto');
+        $ordersOnDelivery = $this->persistent_manager->getOrdersByState('in_consegna');
+        $view->showOrders($ordersReady, $ordersOnDelivery);
     }
 
     public function cambiaStatoOrdine(){
@@ -42,19 +43,5 @@ class CRider extends BaseController{
             }
             $this->catchError($e->getMessage(),"Rider/showOrders");            
         }
-    }
-
-    public function showOnDeliveryOrders() {
-        $this->requireRole('rider');
-        $view = new VRider($this->isLoggedIn(), $this->userRole);
-        $orders = $this->persistent_manager->getOrdersByState('in_consegna');
-        $view->showOrders($orders);
-    }
-
-    public function showDeliveredOrders() {
-        $this->requireRole('rider');
-        $view = new VRider($this->isLoggedIn(), $this->userRole);
-        $orders = $this->persistent_manager->getOrdersByState('consegnato');
-        $view->showOrders($orders);
     }
 }

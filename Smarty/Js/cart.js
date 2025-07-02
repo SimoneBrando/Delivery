@@ -35,7 +35,12 @@
     }
 
     function removeFromCart(id) {
-        cart = cart.filter(item => item.id !== id);
+        const existing = cart.find(item => item.id === id);
+        if (existing && existing.qty > 1) {
+            existing.qty -= 1;
+        } else {
+            cart = cart.filter(item => item.id !== id);
+        }
         localStorage.setItem('cart', JSON.stringify(cart));
         renderCart();
         showCartIcon();

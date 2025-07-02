@@ -19,12 +19,9 @@ class VRider{
     }
 
 
-    public function showOrders($orders){
+    public function showOrders($orders, $ordersOnDelivery){
         $this->smarty->assign('orders', $orders);
+        $this->smarty->assign('ordersOnDelivery', $ordersOnDelivery);
         $this->smarty->display('rider_orders.tpl');
     }
-
-
-
-
 }

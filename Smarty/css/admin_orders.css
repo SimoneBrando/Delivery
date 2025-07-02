@@ -187,6 +187,11 @@
     color: #155724;
 }
 
+.status-badge.in_consegna {
+    background-color: #e4ee5c;
+    color: #59600c;
+}
+
 .status-badge.consegnato {
     background-color: #d1ecf1;
     color: #0c5460;

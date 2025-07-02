@@ -66,6 +66,9 @@
                         <div class="form-group">
                             <p>Non hai un account? <a href="/Delivery/User/showRegisterForm">Registrati</a></p>
                         </div>
+                        <div class="form-group">
+                            <a href="/Delivery/User/forgotPassword">Password dimenticata</a>
+                        </div>
                     </form>
                 </div>
             </div>

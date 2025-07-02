@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-02 10:31:56
+/* Smarty version 5.5.1, created on 2025-07-02 14:35:43
   from 'file:rider_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6864ee7ccd6062_98700118',
+  'unifunc' => 'content_6865279fb24ec0_13487713',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '9e932e4f6c2f580ad1cc62e005964a60ffefeb46' => 
     array (
       0 => 'rider_orders.tpl',
-      1 => 1751445103,
+      1 => 1751459739,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6864ee7ccd6062_98700118 (\Smarty\Template $_smarty_tpl) {
+function content_6865279fb24ec0_13487713 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -40,12 +40,16 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?>
 
     <main>
-        <div class="deliveries-container">
 
-            <!-- Error Section -->
-            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+        
+        <!-- Error Section -->
+        <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
 ?>
+
+        <div class="deliveries-container">
             
+            <!-- Ordini Pronti -->
+            <h2>Ordini Pronti</h2>
             <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('orders'), 'order');
 $foreach0DoElse = true;
@@ -67,6 +71,8 @@ $foreach0DoElse = false;
                             <?php $_smarty_tpl->assign('statoClasse', 'in_preparazione', false, NULL);?>
                         <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_attesa') {?>
                             <?php $_smarty_tpl->assign('statoClasse', 'errore', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_consegna') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'in_consegna', false, NULL);?>
                         <?php }?>
                         <span class="order-status <?php echo htmlspecialchars((string)$_smarty_tpl->getValue('statoClasse'), ENT_QUOTES, 'UTF-8', true);?>
 "><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getSmarty()->getModifierCallback('replace')($_smarty_tpl->getValue('order')->getStato(),"_"," "));?>
@@ -107,11 +113,90 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                         <select name="stato" id="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
 " class="status-select">
                             <option value="">-- Seleziona stato --</option>
-                            <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
+                            <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>
+                                <option value="pronto" selected>Pronto</option>
+                            <?php }?>
+                            <option value="in_consegna" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_consegna') {?>selected<?php }?>>In Consega</option>
                             <option value="consegnato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'consegnato') {?>selected<?php }?>>Consegnato</option>
-                            <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
-                            <option value="in_preparazione" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_preparazione') {?>selected<?php }?>>In Preparazione</option>
-                            <option value="in_attesa" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_attesa') {?>selected<?php }?>>In Attesa</option>
+                        </select>
+                    </form>
+                </div>
+            <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+        </div>
+
+        <div class="deliveries-container">
+            <!-- Ordini In Consegna -->
+            <h2>Ordini In Consegna</h2>
+            <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('ordersOnDelivery'), 'order');
+$foreach2DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('order')->value) {
+$foreach2DoElse = false;
+?>
+                <div class="delivery-card">
+                    <div class="delivery-header">
+                        <h3>Ordine #<?php echo $_smarty_tpl->getValue('order')->getId();?>
+</h3>
+                        <?php $_smarty_tpl->assign('statoClasse', '', false, NULL);?>
+                        <?php if ($_smarty_tpl->getValue('order')->getStato() == 'annullato') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'annullato', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'consegnato') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'consegnato', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'pronto') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'pronto', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_preparazione') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'in_preparazione', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_attesa') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'errore', false, NULL);?>
+                        <?php } elseif ($_smarty_tpl->getValue('order')->getStato() == 'in_consegna') {?>
+                            <?php $_smarty_tpl->assign('statoClasse', 'in_consegna', false, NULL);?>
+                        <?php }?>
+                        <span class="order-status <?php echo htmlspecialchars((string)$_smarty_tpl->getValue('statoClasse'), ENT_QUOTES, 'UTF-8', true);?>
+"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getSmarty()->getModifierCallback('replace')($_smarty_tpl->getValue('order')->getStato(),"_"," "));?>
+</span>
+                    </div>
+                    <div class="delivery-info">
+                        <p><strong>Note:</strong> <?php echo htmlspecialchars((string)$_smarty_tpl->getValue('order')->getNote(), ENT_QUOTES, 'UTF-8', true);?>
+</p>
+                        <p><strong>Data esecuzione:</strong> <?php echo $_smarty_tpl->getValue('order')->getDataEsecuzione()->format('d/m/Y H:i:s');?>
+</p>
+                        <p><strong>Data ricezione:</strong> <?php echo $_smarty_tpl->getValue('order')->getDataRicezione()->format('d/m/Y H:i:s');?>
+</p>
+                        <p><strong>Costo totale:</strong> €<?php echo $_smarty_tpl->getValue('order')->getCosto();?>
+</p>
+                        <p><strong>Prodotti:</strong></p>
+                        <ul>
+                            <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('order')->getItemOrdini(), 'itemOrdine');
+$foreach3DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('itemOrdine')->value) {
+$foreach3DoElse = false;
+?>
+                                <li><?php echo htmlspecialchars((string)$_smarty_tpl->getValue('itemOrdine')->getProdotto()->getNome(), ENT_QUOTES, 'UTF-8', true);?>
+ - <?php echo htmlspecialchars((string)$_smarty_tpl->getValue('itemOrdine')->getProdotto()->getDescrizione(), ENT_QUOTES, 'UTF-8', true);?>
+ - qty: <?php echo $_smarty_tpl->getValue('itemOrdine')->getQuantita();?>
+ - €<?php echo $_smarty_tpl->getValue('itemOrdine')->getPrezzoUnitarioAlMomento();?>
+</li>
+                            <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                        </ul>
+                    </div>
+                    <form method="POST" action="/Delivery/Rider/cambiaStatoOrdine" class="status-form">
+                        <input type="hidden" name="ordineId" value="<?php echo $_smarty_tpl->getValue('order')->getId();?>
+">
+                        <label for="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
+">Modifica stato:</label>
+                        <select name="stato" id="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
+" class="status-select">
+                            <option value="">-- Seleziona stato --</option>
+                            <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>
+                                <option value="pronto" selected>Pronto</option>
+                            <?php }?>
+                            <option value="in_consegna" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_consegna') {?>selected<?php }?>>In Consega</option>
+                            <option value="consegnato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'consegnato') {?>selected<?php }?>>Consegnato</option>
                         </select>
                     </form>
                 </div>

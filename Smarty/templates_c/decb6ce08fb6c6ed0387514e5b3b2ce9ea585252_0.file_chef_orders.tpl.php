@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-29 16:10:29
+/* Smarty version 5.5.1, created on 2025-07-02 14:38:06
   from 'file:chef_orders.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_68614955e01723_31003669',
+  'unifunc' => 'content_6865282e2750e1_86735685',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'decb6ce08fb6c6ed0387514e5b3b2ce9ea585252' => 
     array (
       0 => 'chef_orders.tpl',
-      1 => 1751190960,
+      1 => 1751459881,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_68614955e01723_31003669 (\Smarty\Template $_smarty_tpl) {
+function content_6865282e2750e1_86735685 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -108,11 +108,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <select name="stato" id="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
 " class="status-select">
                                 <option value="">-- Seleziona stato --</option>
-                                <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
-                                <option value="consegnato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'consegnato') {?>selected<?php }?>>Consegnato</option>
-                                <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
                                 <option value="in_preparazione" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_preparazione') {?>selected<?php }?>>In Preparazione</option>
-                                <option value="in_attesa" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_attesa') {?>selected<?php }?>>In Attesa</option>
+                                <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
+                                <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
                             </select>
                         </form>
                     </div>

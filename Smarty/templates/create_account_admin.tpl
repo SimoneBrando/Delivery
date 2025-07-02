@@ -141,9 +141,6 @@
                                     <td>{$rider->getNome()} {$rider->getCognome()}</td>
                                     <td>{$rider->getEmail()}</td>
                                     <td class="actions">
-                                        <button class="btn btn-edit" data-id="{$rider->getId()}">
-                                            <i class="fas fa-edit"></i> Modifica
-                                        </button>
                                         <form action="/Delivery/Proprietario/deleteEmployee" method="POST" class="inline-form">
                                             <input type="hidden" name="employeeId" value="{$rider->getUserId()}">
                                             <button type="submit" class="btn btn-delete">

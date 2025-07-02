@@ -18,10 +18,10 @@ class CSegnalazione extends BaseController{
             $ordineId = UHTTPMethods::post('ordine_id');
             $ordine = $this->persistent_manager->getObjOnAttribute(EOrdine::class, 'id', $ordineId);
             if ($user->getId() !== $ordine->getCliente()->getId()){
-                throw new \InvalidArgumentException("Questo ordine non appartiene all'utente loggato");
+                $this->catchError("Questo ordine non appartiene all'utente loggato","User/showMyOrders");
             }
             if($this->persistent_manager->getWarningByOrderId($ordineId)){
-                throw new \InvalidArgumentException("Già esiste una segnalazione per quest'ordine");
+                $this->catchError("Già esiste una segnalazione per quest'ordine","User/showMyOrders");
             }
             $testo = UHTTPMethods::postString('testo');
             $descrizione = UHTTPMethods::postString('descrizione');

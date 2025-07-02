@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-06-27 21:39:21
+/* Smarty version 5.5.1, created on 2025-07-02 14:49:08
   from 'file:login.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_685ef369ae7628_69152009',
+  'unifunc' => 'content_68652ac4105df1_14342925',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '55ae4b4420fd16b87a0b205e02129a0a1c7942d5' => 
     array (
       0 => 'login.tpl',
-      1 => 1751052209,
+      1 => 1751460546,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_685ef369ae7628_69152009 (\Smarty\Template $_smarty_tpl) {
+function content_68652ac4105df1_14342925 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -96,6 +96,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                         </div>
                         <div class="form-group">
                             <p>Non hai un account? <a href="/Delivery/User/showRegisterForm">Registrati</a></p>
+                        </div>
+                        <div class="form-group">
+                            <a href="/Delivery/User/forgotPassword">Password dimenticata</a>
                         </div>
                     </form>
                 </div>

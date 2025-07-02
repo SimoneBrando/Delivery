@@ -176,7 +176,7 @@ html, body {
 /* Bottone modale */
 
 .btn-link-modal {
-    background-color: var(--colore-bianco);
+    background-color: #ffffff00;
     color: var(--colore-primario);
     font-weight: bold;
     text-decoration: none;

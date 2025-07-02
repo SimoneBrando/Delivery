@@ -61,6 +61,42 @@
     background-color: var(--colore-primario-hover);
 }
 
+.remove-address-btn {
+    background-color: transparent;
+    color: var(--colore-errore); /* Usa un rosso per indicare la pericolosità */
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-address-btn:hover {
+    background-color: rgba(255, 0, 0, 0.1); /* leggera sfumatura rossa al passaggio */
+    color: darkred;
+}
+
+.remove-card-btn {
+    background-color: transparent;
+    color: var(--colore-errore); /* Usa un rosso per indicare la pericolosità */
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-card-btn:hover {
+    background-color: rgba(255, 0, 0, 0.1); /* leggera sfumatura rossa al passaggio */
+    color: darkred;
+}
+
 .orders-link {
     margin-top: 30px;
     text-align: center;
@@ -224,6 +260,40 @@ select:focus {
 .form-group select {
     width: 100%;
     box-sizing: border-box;
+}
+
+/* Stile bottoni */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-confirm {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.btn-cancel {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-confirm:hover {
+    background-color: #c82333;
+}
+
+.btn-cancel:hover {
+    background-color: #5a6268;
 }
 
 /* Animazione apertura modale */

@@ -271,11 +271,8 @@ class CUser extends BaseController{
      * @return void
      */
     public function removeAccount(string $userId = "") {
-        $this->requireLogin();
         try{
             $this->auth_manager->admin()->deleteUserById($userId);
-            $user = $this->persistent_manager->getObjOnAttribute(EUtente::class,'user_id',$userId);
-            $this->persistent_manager->deleteObj($user);
         } catch (\Delight\Auth\UnknownIdException $e) {
             die('Unknown ID');
         } catch (\Exception $e) {
@@ -295,14 +292,10 @@ class CUser extends BaseController{
      * @return void
      */
     public function deleteAccount(){
-        if (!($this->isLogged())){
-            header("Location: /Delivery/User/home");
-            exit;
-        }
+        $this->requireLogin();
         $userId = $this->getUserId();
         $this->logoutUser();
         $this->removeAccount($userId);
-        header("Location: /Delivery/User/home");
     }
 
     //Gestione MetodiPagamento
@@ -548,6 +541,7 @@ class CUser extends BaseController{
         }
         $email = UHTTPMethods::post('email');
         try {
+            /*
             $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
                 // Costruisci il link di reset password
                 $url = 'https://www.delivery.com/reset_password?selector=' . urlencode($selector) . '&token=' . urlencode($token);
@@ -567,6 +561,10 @@ class CUser extends BaseController{
                 $mail->send();
                 
             });
+            */
+            UFlashMessage::addMessage('success', 'Una email è stata inviata al tuo account per resettare la password');
+            header("Location: /Delivery/User/showLoginForm");
+            exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
             die('Invalid email address');
         } catch (\Delight\Auth\EmailNotVerifiedException $e) {

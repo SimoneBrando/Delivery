@@ -41,6 +41,7 @@
                         <option value="in_attesa" {if ($smarty.get.status|default:'') == 'in_attesa'}selected{/if}>In attesa</option>
                         <option value="in_preparazione" {if ($smarty.get.status|default:'') == 'in_preparazione'}selected{/if}>In preparazione</option>
                         <option value="pronto" {if ($smarty.get.status|default:'') == 'pronto'}selected{/if}>Pronto</option>
+                        <option value="in_consegna" {if ($smarty.get.status|default:'') == 'in_consegna'}selected{/if}>In Consegna</option>
                         <option value="consegnato" {if ($smarty.get.status|default:'') == 'consegnato'}selected{/if}>Consegnato</option>
                         <option value="annullato" {if ($smarty.get.status|default:'') == 'annullato'}selected{/if}>Annullato</option>
                     </select>

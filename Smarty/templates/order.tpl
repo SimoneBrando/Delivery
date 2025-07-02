@@ -25,10 +25,11 @@
             {foreach $menu as $categoria}
                 <div class="menu-category">
                     <h2>
-                        {if $categoria.categoria == "PIZZE"}<i class="fas fa-pizza-slice"></i>{/if}
-                        {if $categoria.categoria == "CALZONI"}<i class="fas fa-bread-slice"></i>{/if}
-                        {if $categoria.categoria == "CONTORNI"}<i class="fas fa-carrot"></i>{/if}
-                        {if $categoria.categoria == "BEVANDE"}<i class="fas fa-glass-whiskey"></i>{/if}
+                        {if $categoria.categoria == "Antipasti"}<i class="fa-solid fa-martini-glass-citrus"></i>{/if}
+                        {if $categoria.categoria == "Primi"}<i class="fas fa-bread-slice"></i>{/if}
+                        {if $categoria.categoria == "Secondi"}<i class="fas fa-pizza-slice"></i>{/if}
+                        {if $categoria.categoria == "Dolci"}<i class="fa-solid fa-ice-cream"></i>{/if}
+                        {if $categoria.categoria == "Bevande"}<i class="fas fa-glass-whiskey"></i>{/if}
                         {$categoria.categoria|escape}
                     </h2>
                     <div class="menu-items">

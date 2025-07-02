@@ -6,7 +6,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Entity\EOrdine;
-use Foundation\FPersistentManager;
+use Services\Utility\UFlashMessage;
 use View\VRider;
 use Services\Utility\UHTTPMethods;
 use Services\MailingService;
@@ -15,9 +15,11 @@ class CRider extends BaseController{
 
     public function showOrders(){
         $this->requireRole('rider');
-        $view = new VRider($this->isLoggedIn(), $this->userRole);
-        $orders = $this->persistent_manager->getOrdersByState('pronto');
-        $view->showOrders($orders);
+        $messages = UFlashMessage::getMessage();
+        $view = new VRider($this->isLoggedIn(), $this->userRole, $messages);
+        $ordersReady = $this->persistent_manager->getOrdersByState('pronto');
+        $ordersOnDelivery = $this->persistent_manager->getOrdersByState('in_consegna');
+        $view->showOrders($ordersReady, $ordersOnDelivery);
     }
 
     public function cambiaStatoOrdine(){
@@ -137,6 +139,7 @@ class CRider extends BaseController{
                 
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
+            UFlashMessage::addMessage('success', 'Ordine modificato con successo');
             header("Location: /Delivery/Rider/showOrders");
             exit;
         }
@@ -144,21 +147,7 @@ class CRider extends BaseController{
             if ($this->persistent_manager->isTransactionActive()){
                 $this->persistent_manager->rollback();
             }
-            $this->handleError($e);            
+            $this->catchError($e->getMessage(),"Rider/showOrders");            
         }
-    }
-
-    public function showOnDeliveryOrders() {
-        $this->requireRole('rider');
-        $view = new VRider($this->isLoggedIn(), $this->userRole);
-        $orders = $this->persistent_manager->getOrdersByState('in_consegna');
-        $view->showOrders($orders);
-    }
-
-    public function showDeliveredOrders() {
-        $this->requireRole('rider');
-        $view = new VRider($this->isLoggedIn(), $this->userRole);
-        $orders = $this->persistent_manager->getOrdersByState('consegnato');
-        $view->showOrders($orders);
     }
 }

@@ -177,7 +177,8 @@ section[id] {
   padding: 10px 15px;
   margin-top: 15px;
   cursor: pointer;
-  width: 100%;
+  width: fit-content;
+  height: fit-content;
   transition: background-color 0.2s ease;
   border-radius: 12px;
 }

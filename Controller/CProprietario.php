@@ -4,6 +4,7 @@ namespace Controller;
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
+use Services\Utility\UFlashMessage;
 use View\VProprietario;
 use Services\Utility\UHTTPMethods;
 use Entity\EProdotto;
@@ -185,6 +186,7 @@ class CProprietario extends BaseController {
         try {
             $user = new CUser();
             $user->registerUser($role, $extraData);
+            UFlashMessage::addMessage('success', 'Account dipendente creato con successo');
             header("Location: /Delivery/Proprietario/showCreateAccount");
             exit;
         } catch (\Exception $e) {
@@ -197,18 +199,22 @@ class CProprietario extends BaseController {
         $employeeId = UHTTPMethods::post('employeeId');
         $user = new CUser();
         $user->removeAccount($employeeId);
-        $this->showCreateAccount();
+        UFlashMessage::addMessage('success', 'Account dipendente eliminato con successo');
+        header("Location: /Delivery/Proprietario/showCreateAccount");
+        exit;
     }
 
     public function showCreationForm(){
         $this->requireRole('proprietario');
-        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
+        $messages = UFlashMessage::getMessage();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $view -> showCreationForm();
     }
 
     public function showReviews(){
         $this->requireRole('proprietario');
-        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
+        $messages = UFlashMessage::getMessage();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
 
         $allReviews = $this->persistent_manager->getAllReviews();
 
@@ -250,7 +256,8 @@ class CProprietario extends BaseController {
 
     public function showSegnalazioni() {
         $this->requireRole('proprietario');
-        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
+        $messages = UFlashMessage::getMessage();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
 
         $segnalazioni = $this->persistent_manager->getAllWarnings();
 
@@ -293,7 +300,8 @@ class CProprietario extends BaseController {
 
     public function showMenu(){
         $this->requireRole('proprietario');
-        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
+        $messages = UFlashMessage::getMessage();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $prodotti = $this->persistent_manager->getAllActiveProduct();
 
         $search = $_GET['search'] ?? '';
@@ -317,7 +325,8 @@ class CProprietario extends BaseController {
 
     public function showOrders(){
         $this->requireRole('proprietario');
-        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
+        $messages = UFlashMessage::getMessage();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $allOrders = $this->persistent_manager->getAllOrders();
 
         $search = $_GET['search'] ?? '';
@@ -357,9 +366,10 @@ class CProprietario extends BaseController {
 
     public function showCreateAccount(){
         $this->requireRole('proprietario');
+        $messages = UFlashMessage::getMessage();
         $chefs = $this->persistent_manager->getAllChefs();
         $riders= $this->persistent_manager->getAllRiders();
-        $view = new VProprietario($this->isLoggedIn(), $this->userRole);
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $view -> showCreateAccount($chefs, $riders);
     }
 
@@ -393,6 +403,7 @@ class CProprietario extends BaseController {
         $prodotto->setCosto($costo);
 
         $this->persistent_manager->saveObj($prodotto);
+        UFlashMessage::addMessage('success', 'Prodotto aggiunto con successo');
         header('Location: /Delivery/Proprietario/showMenu/'); 
             
     }
@@ -404,7 +415,8 @@ class CProprietario extends BaseController {
             $prodotto = $this->persistent_manager->getObjOnAttribute(EProdotto::class, 'id', $prodottoId);
             $prodotto->setAttivo(false);
             $this->persistent_manager->updateObj($prodotto);
-            $this->showMenu();
+            UFlashMessage::addMessage('success', 'Prodotto rimosso con successo');
+            header('Location: /Delivery/Proprietario/showMenu/'); 
         } catch (\Exception $e) {
             $this->handleError($e);
         }
@@ -443,8 +455,8 @@ class CProprietario extends BaseController {
         $prodotto->setCosto($costo);
 
         $this->persistent_manager->updateObj($prodotto);
-
-        header('Location: /Delivery/Proprietario/showMenu/');
+        UFlashMessage::addMessage('success', 'Prodotto modificato con successo');
+        header('Location: /Delivery/Proprietario/showMenu/'); 
         exit;
     }
 

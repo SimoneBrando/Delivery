@@ -4,6 +4,7 @@ namespace Controller;
 require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
+use Services\Utility\UFlashMessage;
 use View\VChef;
 use Services\Utility\UHTTPMethods;
 use Services\MailingService;
@@ -14,15 +15,16 @@ class CChef extends BaseController{
     public function showOrders(){
         $this->requireRole('cuoco');
         $ordiniInPreparazione = $this->persistent_manager->getOrdersByState('in_preparazione');
-        $view = new VChef($this->isLoggedIn(), $this->userRole);
+        $messages = UFlashMessage::getMessage();
+        $view = new VChef($this->isLoggedIn(), $this->userRole, $messages);
         $view->showOrders($ordiniInPreparazione);
     }
 
     public function showOrdiniInAttesa(){
         $this->requireRole('cuoco');
-        $this->requireRole('cuoco');
         $ordiniInAttesa = $this->persistent_manager->getOrdersByState('in_attesa');
-        $view = new VChef($this->isLoggedIn(), $this->userRole);
+        $messages = UFlashMessage::getMessage();
+        $view = new VChef($this->isLoggedIn(), $this->userRole, $messages);
         $view->showOrdiniInAttesa($ordiniInAttesa);
     }
 
@@ -36,7 +38,27 @@ class CChef extends BaseController{
             $ordine->setStato($nuovoStato);
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
-            header("Location: /Delivery/Rider/showOrders");
+            UFlashMessage::addMessage('success', 'Ordine modificato con successo');
+            header("Location: /Delivery/Chef/showOrders");
+            exit;
+        } catch (\Exception $e) {
+            if ($this->persistent_manager->isTransactionActive()){
+                $this->persistent_manager->rollback();
+            }
+            $this->catchError($e->getMessage(),"Chef/showOrders");            
+        }
+    }
+
+    public function accettaOrdine(){
+        $this->requireRole('cuoco');
+        $ordineId = UHTTPMethods::post("ordine_id");
+        $this->persistent_manager->beginTransaction();
+        try{
+            $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
+            $ordine->setStato("in_preparazione");
+            $this->persistent_manager->flush();
+            $this->persistent_manager->commit();
+            header("Location: /Delivery/Chef/showOrdiniInAttesa");
             exit;
         } catch (\Exception $e) {
             if ($this->persistent_manager->isTransactionActive()){
@@ -45,76 +67,6 @@ class CChef extends BaseController{
             $this->handleError($e);            
         }
     }
-
-public function accettaOrdine(){
-    $this->requireRole('cuoco');
-    $ordineId = UHTTPMethods::post("ordine_id");
-    $this->persistent_manager->beginTransaction();
-
-    try {
-        $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
-        $ordine->setStato("in_preparazione");
-
-        // === EMAIL al cliente ===
-        $cliente = $ordine->getCliente();
-        $email = $cliente->getEmail();
-        $name = htmlspecialchars($cliente->getNome());
-
-        $dataPrevista = $ordine->getDataRicezione()->format('d/m/Y H:i');
-        $orderId = $ordine->getId();
-
-        $items = $ordine->getItemOrdini();
-        $listaProdotti = "<ul>";
-        foreach ($items as $item) {
-            $prodotto = $item->getProdotto()->getNome();
-            $quantita = $item->getQuantita();
-            $prezzo = number_format($item->getPrezzoUnitarioAlMomento(), 2);
-            $listaProdotti .= "<li>$quantita × $prodotto – €$prezzo</li>";
-        }
-        $listaProdotti .= "</ul>";
-
-        $totale = number_format($ordine->getCosto(), 2);
-        $indirizzo = $ordine->getIndirizzoConsegna();
-        $via = htmlspecialchars($indirizzo->getVia() . ' ' . $indirizzo->getCivico() . ', ' . $indirizzo->getCap() . ' ' . $indirizzo->getCitta());
-
-        $message = "
-            <h2>Il tuo ordine è stato accettato! 🍽️</h2>
-            <p>Ciao <strong>$name</strong>,</p>
-            <p>Siamo felici di comunicarti che il tuo ordine <strong>#{$orderId}</strong> è stato accettato ed è ora in preparazione!</p>
-            <p><strong>Consegna prevista:</strong> $dataPrevista</p>
-            <p><strong>Indirizzo di consegna:</strong><br>$via</p>
-            <p><strong>Riepilogo ordine:</strong></p>
-            $listaProdotti
-            <p><strong>Totale:</strong> €$totale</p>
-            <br>
-            <p>Riceverai un’altra notifica non appena il rider prenderà in carico l’ordine.</p>
-            <p>Grazie per aver scelto Delivery!</p>
-            <br>
-            <p>Il team di Delivery</p>
-            <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
-        ";
-
-        $mailService = new \Services\MailingService();
-        $mailService->mailTo(
-            $email,
-            "Il tuo ordine #$orderId è in preparazione!",
-            $message
-        );
-
-        // Commit
-        $this->persistent_manager->flush();
-        $this->persistent_manager->commit();
-
-        header("Location: /Delivery/Chef/showOrdiniInAttesa");
-        exit;
-
-    } catch (\Exception $e) {
-        if ($this->persistent_manager->isTransactionActive()) {
-            $this->persistent_manager->rollback();
-        }
-        $this->handleError($e);
-    }
-}
 
     public function rifiutaOrdine(){
         $this->requireRole('cuoco');
@@ -177,7 +129,6 @@ public function accettaOrdine(){
 
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
-
             header("Location: /Delivery/Chef/showOrdiniInAttesa");
             exit;
 
@@ -185,7 +136,7 @@ public function accettaOrdine(){
             if ($this->persistent_manager->isTransactionActive()){
                 $this->persistent_manager->rollback();
             }
-            $this->handleError($e);
+            $this->handleError($e);            
         }
     }
 

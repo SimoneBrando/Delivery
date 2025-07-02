@@ -19,6 +19,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
@@ -55,10 +56,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                 <div class="login-form">
                     <h1>Registrati</h1>
 
-                    <?php if ((true && ($_smarty_tpl->hasVariable('error') && null !== ($_smarty_tpl->getValue('error') ?? null))) && $_smarty_tpl->getValue('error') != '') {?>
-                        <div class="error-message"><?php echo $_smarty_tpl->getValue('error');?>
-</div>
-                    <?php }?>
+                    <!-- Error Section -->
+                    <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
                     <form action="/Delivery/User/registerUser" method="POST">
                         <div class="form-group">

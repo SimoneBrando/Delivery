@@ -6,16 +6,17 @@ class VUser{
 
     private $smarty;
 
-    public function __construct(bool $logged = false, ?string $role = null ){
+    public function __construct(bool $logged = false, ?string $role = null, array $messages = []){
 
         $this->smarty = getSmartyInstance();
-        $this->assignCommonVars($logged, $role);
+        $this->assignCommonVars($logged, $role, $messages);
 
     }
 
-    public function assignCommonVars(bool $logged, ?string $role = null) {
+    public function assignCommonVars(bool $logged, ?string $role = null, array $messages = []) {
         $this->smarty->assign('logged', $logged);
         $this->smarty->assign('role', $role);
+        $this->smarty->assign('messages', $messages);
     }
 
     public function showMenu($menu){
@@ -39,13 +40,11 @@ class VUser{
         $this->smarty->display('miei_ordini.tpl');
     }
 
-    public function showLoginForm(string $error = ""){
-        $this->smarty->assign('error', $error);
+    public function showLoginForm(){
         $this->smarty->display('login.tpl');
     }
 
-    public function showRegisterForm(string $error = ""){
-        $this->smarty->assign('error', $error);
+    public function showRegisterForm(){
         $this->smarty->display('register.tpl');
     }
 

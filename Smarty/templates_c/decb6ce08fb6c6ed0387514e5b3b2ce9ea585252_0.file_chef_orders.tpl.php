@@ -19,6 +19,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
@@ -41,6 +42,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 
      <main>
         <div class="deliveries-container">
+
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+            
             <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('orders')) > 0) {?>
                 <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('orders'), 'order');
@@ -103,11 +109,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                             <select name="stato" id="status<?php echo $_smarty_tpl->getValue('order')->getId();?>
 " class="status-select">
                                 <option value="">-- Seleziona stato --</option>
-                                <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
-                                <option value="consegnato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'consegnato') {?>selected<?php }?>>Consegnato</option>
-                                <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
                                 <option value="in_preparazione" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_preparazione') {?>selected<?php }?>>In Preparazione</option>
-                                <option value="in_attesa" <?php if ($_smarty_tpl->getValue('statoClasse') == 'in_attesa') {?>selected<?php }?>>In Attesa</option>
+                                <option value="pronto" <?php if ($_smarty_tpl->getValue('statoClasse') == 'pronto') {?>selected<?php }?>>Pronto</option>
+                                <option value="annullato" <?php if ($_smarty_tpl->getValue('statoClasse') == 'annullato') {?>selected<?php }?>>Annullato</option>
                             </select>
                         </form>
                     </div>

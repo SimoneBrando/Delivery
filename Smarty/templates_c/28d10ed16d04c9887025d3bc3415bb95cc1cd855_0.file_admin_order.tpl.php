@@ -19,6 +19,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
@@ -50,6 +51,11 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </div>
         
         <!-- Filtri e Ricerca -->
+        
+            <!-- Error Section -->
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
         <form method="get" action="/Delivery/Proprietario/showOrders/">
         <section class="filters-section">
             <div class="filters-grid">
@@ -65,6 +71,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                         <option value="in_attesa" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_attesa') {?>selected<?php }?>>In attesa</option>
                         <option value="in_preparazione" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_preparazione') {?>selected<?php }?>>In preparazione</option>
                         <option value="pronto" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'pronto') {?>selected<?php }?>>Pronto</option>
+                        <option value="in_consegna" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'in_consegna') {?>selected<?php }?>>In Consegna</option>
                         <option value="consegnato" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'consegnato') {?>selected<?php }?>>Consegnato</option>
                         <option value="annullato" <?php if (((($tmp = $_GET['status'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'annullato') {?>selected<?php }?>>Annullato</option>
                     </select>

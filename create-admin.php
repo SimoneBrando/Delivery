@@ -20,12 +20,7 @@ $cognome = 'Admin';
 $email = $options['email'];
 $password = $options['password'];
 
-$user = new EProprietario();
-$user->setNome($nome)
-    ->setCognome($cognome)
-    ->setEmail($email)
-    ->setPassword($password);
-$user = $user->setCodiceProprietario("1");
+
 
 $auth_manager = getAuth();
 try {
@@ -36,6 +31,12 @@ try {
         callback: null);
     $user->setUserId($userId);
     FPersistentManager::getInstance()->saveObj($user);
+    $user = new EProprietario();
+    $user->setNome($nome)
+        ->setCognome($cognome)
+        ->setEmail($email)
+        ->setPassword($password);
+    $user = $user->setCodiceProprietario($userId);
     echo "✅ Admin creato con successo con email: $email";
 } catch (\Delight\Auth\UserAlreadyExistsException $e) {
     die("⚠️  Utente già registrato con questa email.\n");

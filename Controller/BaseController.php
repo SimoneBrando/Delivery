@@ -9,6 +9,7 @@ use Entity\EUtente;
 use Exception;
 use Foundation\FPersistentManager;
 use Services\Utility\UCookie;
+use Services\Utility\UFlashMessage;
 use Services\Utility\USession;
 use View\VUser;
 use View\VErrors;   
@@ -107,4 +108,11 @@ abstract class BaseController{
         $view = new VErrors();
         $view->showFatalError($error->getMessage(), $cartError);
     }
+
+    public function catchError(string $error ="Errore insolito, riprovare.", string $redirect = "User/home"){
+        UFlashMessage::addMessage('error', $error);
+        header("Location: /Delivery/$redirect");
+        exit;
+    }
+
 }

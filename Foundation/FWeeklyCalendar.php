@@ -32,4 +32,22 @@ class FWeeklyCalendar
         return FEntityManager::getInstance()->getObjOnAttribute(EWeeklyCalendar::class, 'data', $data);
 
     }
+
+    public static function getCalendar(): array {
+
+        return FEntityManager::getInstance()->getAll(EWeeklyCalendar::class);
+
+    }
+
+    public static function editDay(EWeeklyCalendar $day): bool {
+
+        try {
+            FEntityManager::getInstance()->updateObj($day);
+            return true;
+        } catch (Exception $e) {
+            echo "Errore: " . $e->getMessage();
+            return false;
+        }
+
+    }
 }

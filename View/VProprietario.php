@@ -57,6 +57,12 @@ class VProprietario{
         $this->smarty->display('admin_order.tpl');
     }
 
+    public function showCalendar($giorniChiusuraSettimanali, $giorniChiusuraEccezionali){
+        $this->smarty->assign('giorniChiusuraSettimanali', $giorniChiusuraSettimanali);
+        $this->smarty->assign('giorniChiusuraEccezionali', $giorniChiusuraEccezionali);
+        $this->smarty->display('calendar_admin.tpl');
+    }
+
     public function showCreateAccount($chefs, $riders){
         $this->smarty->assign('chefs', $chefs);
         $this->smarty->assign('riders', $riders);

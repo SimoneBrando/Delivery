@@ -8,6 +8,9 @@ use Services\Utility\UFlashMessage;
 use View\VProprietario;
 use Services\Utility\UHTTPMethods;
 use Entity\EProdotto;
+use Entity\EWeeklyCalendar;
+use Entity\EExceptionCalendar;
+use Datetime;
 
 class CProprietario extends BaseController {
 
@@ -364,6 +367,15 @@ class CProprietario extends BaseController {
         $view->showOrders($allOrders);
     }
 
+    public function showCalendar(){
+        $this->requireRole('proprietario');
+        $messages = UFlashMessage::getMessage();
+        $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
+        $giorniChiusuraSettimanali = $this->persistent_manager->getCalendar();
+        $giorniChiusuraEccezionali = $this->persistent_manager->getExceptionClosedDays();
+        $view -> showCalendar($giorniChiusuraSettimanali, $giorniChiusuraEccezionali);
+    }
+
     public function showCreateAccount(){
         $this->requireRole('proprietario');
         $messages = UFlashMessage::getMessage();
@@ -459,6 +471,112 @@ class CProprietario extends BaseController {
         header('Location: /Delivery/Proprietario/showMenu/'); 
         exit;
     }
+
+    public function addExceptionDay() {
+        $this->requireRole('proprietario');
+        $data = UHTTPMethods::post('dataChiusura') ?? null;
+        if (!$data) {
+            die('Data mancante');
+        }
+
+        $giorno = new DateTime($data);
+        $giorno->setTime(0, 0, 0);
+
+        $eccezione = new EExceptionCalendar();
+        $eccezione->setExceptionDate($giorno);
+        $eccezione->setAperto(false);
+
+        if ($this->persistent_manager->addExceptionDay($eccezione)) {
+            UFlashMessage::addMessage('success', 'Giorno di chiusura eccezionale aggiunto con successo');
+        } else {
+            UFlashMessage::addMessage('error', 'Errore durante l\'aggiunta del giorno di chiusura eccezionale');
+        }
+
+        header("Location: /Delivery/Proprietario/showCalendar");
+    }
+
+    public function deleteExceptionDay() {
+        $this->requireRole('proprietario');
+        $data = UHTTPMethods::post('dataChiusura') ?? null;
+        if (!$data) {
+            die('Data mancante');
+        }
+
+        $giorno = new DateTime($data);
+        $giorno->setTime(00, 00, 00);
+
+        $eccezione = $this->persistent_manager->getObjOnAttribute(EExceptionCalendar::class, 'exceptionDate', $giorno);
+
+        if ($eccezione) {
+            if ($this->persistent_manager->deleteExceptionDay($eccezione)) {
+                UFlashMessage::addMessage('success', 'Giorno di chiusura eccezionale rimosso con successo');
+            } else {
+                UFlashMessage::addMessage('error', 'Errore durante la rimozione del giorno di chiusura eccezionale');
+            }
+        } else {
+            UFlashMessage::addMessage('error', 'Giorno di chiusura eccezionale non trovato');
+        }
+
+        header("Location: /Delivery/Proprietario/showCalendar");
+    }
+
+    public function editDay() {
+        $this->requireRole('proprietario');
+
+        $data = UHTTPMethods::post('giorno') ?? null;
+        $apertura = UHTTPMethods::post('apertura') ?? null;    // stringa "HH:mm"
+        $chiusura = UHTTPMethods::post('chiusura') ?? null;    // stringa "HH:mm"
+        $stato = UHTTPMethods::post('stato') ?? null;          // "aperto" o "chiuso"
+
+        try {
+            $giorno = new DateTime();
+            $giorno->setTime(0, 0, 0);
+        } catch (Exception $e) {
+            die('Data non valida');
+        }
+
+        $giornoSettimanale = $this->persistent_manager->getObjOnAttribute(EWeeklyCalendar::class, 'data', $data);
+
+        if ($giornoSettimanale) {
+            // Imposto apertura e chiusura solo se fornite e convertibili in DateTime
+            if ($apertura) {
+                $aperturaCompletaStr = $giorno->format('Y-m-d') . ' ' . $apertura . ':00';  // es. "2025-07-03 19:00:00"
+                $orarioApertura = DateTime::createFromFormat('Y-m-d H:i:s', $aperturaCompletaStr);
+                if ($orarioApertura) {
+                    $giornoSettimanale->setOrarioApertura($orarioApertura);
+                }
+        }
+
+            if ($chiusura) {
+                $chiusuraCompletaStr = $giorno->format('Y-m-d') . ' ' . $chiusura . ':00';  // es. "2025-07-03 23:00:00"
+                $orarioChiusura = DateTime::createFromFormat('Y-m-d H:i:s', $chiusuraCompletaStr);
+                if ($orarioChiusura) {
+                    $giornoSettimanale->setOrarioChiusura($orarioChiusura);
+                }
+            }
+
+            // Imposto stato aperto/chiuso
+            if ($stato === 'aperto') {
+                $giornoSettimanale->setAperto(true);
+            } elseif ($stato === 'chiuso') {
+                $giornoSettimanale->setAperto(false);
+                $giornoSettimanale->setOrarioApertura(null); // Rimuovo orario apertura se chiuso
+                $giornoSettimanale->setOrarioChiusura(null); // Rimuovo orario chiusura se chiuso
+            }
+
+            // Salvo la modifica nel DB
+            if ($this->persistent_manager->editDay($giornoSettimanale)) {
+                UFlashMessage::addMessage('success', 'Giorno modificato con successo');
+            } else {
+                UFlashMessage::addMessage('error', 'Errore durante la modifica del giorno');
+            }
+        } else {
+            UFlashMessage::addMessage('error', 'Giorno non trovato');
+        }
+
+        header("Location: /Delivery/Proprietario/showCalendar");
+    }
+
 
 
 }

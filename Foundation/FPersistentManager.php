@@ -9,6 +9,8 @@ use Entity\EUtente;
 use Entity\ECarrello;
 use Entity\EProdotto;
 use Entity\EItemCarrello;
+use Entity\EExceptionCalendar;
+use Entity\EWeeklyCalendar;
 use Exception;
 
 class FPersistentManager
@@ -323,6 +325,32 @@ class FPersistentManager
         return FWeeklyCalendar::getDayById($dayName);
         
     }
+
+    public static function getCalendar(): array {
+
+        return FWeeklyCalendar::getCalendar();
+
+    }
+
+    public static function editDay(EWeeklyCalendar $day): bool {
+
+        return FWeeklyCalendar::editDay($day);
+
+    }
+
+    public static function addExceptionDay(EExceptionCalendar $day){
+
+        return FExceptionCalendar::addExceptionDay($day);
+
+    }
+
+    public static function deleteExceptionDay(EExceptionCalendar $day){
+
+        return FExceptionCalendar::deleteExceptionDay($day);
+
+    }
+
+
 
 
 }

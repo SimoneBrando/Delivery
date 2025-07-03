@@ -1,4 +1,30 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.5.1, created on 2025-07-03 18:09:13
+  from 'file:admin_panel.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.5.1',
+  'unifunc' => 'content_6866ab293e04c0_14087141',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '624e5bbb3f25a3d609755223230f47628ffb82bb' => 
+    array (
+      0 => 'admin_panel.tpl',
+      1 => 1751558513,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:header.tpl' => 1,
+    'file:footer.tpl' => 1,
+  ),
+))) {
+function content_6866ab293e04c0_14087141 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +37,8 @@
 </head>
 <body>
     <!-- Header -->
-    {include file="header.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <!-- Main Content -->
     <main class="admin-preview-container">
@@ -86,21 +113,24 @@
                     <div class="stat-icon"><i class="fas fa-euro-sign"></i></div>
                     <div class="stat-info">
                         <h3>Fatturato della Settimana</h3>
-                        <p>€{$totaleSettimana}</p>
+                        <p>€<?php echo $_smarty_tpl->getValue('totaleSettimana');?>
+</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
                     <div class="stat-info">
                         <h3>Ordini della Settimana</h3>
-                        <p>{$ordiniSettimana}</p>
+                        <p><?php echo $_smarty_tpl->getValue('ordiniSettimana');?>
+</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-icon"><i class="fas fa-users"></i></div>
                     <div class="stat-info">
                         <h3>Clienti totali</h3>
-                        <p>{$numeroClienti}</p>
+                        <p><?php echo $_smarty_tpl->getValue('numeroClienti');?>
+</p>
                     </div>
                 </div>
             </div>
@@ -119,28 +149,48 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {foreach from=$orders item=ordine}
+                    <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('orders'), 'ordine');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('ordine')->value) {
+$foreach0DoElse = false;
+?>
                         <tr>
-                            <td data-label="ID">#{$ordine->getId()}</td>
-                            <td data-label="Cliente">{$ordine->getCliente()->getNome()} {$ordine->getCliente()->getCognome()}</td>
-                            <td data-label="Importo">€{$ordine->getCosto()|number_format:2}</td>
+                            <td data-label="ID">#<?php echo $_smarty_tpl->getValue('ordine')->getId();?>
+</td>
+                            <td data-label="Cliente"><?php echo $_smarty_tpl->getValue('ordine')->getCliente()->getNome();?>
+ <?php echo $_smarty_tpl->getValue('ordine')->getCliente()->getCognome();?>
+</td>
+                            <td data-label="Importo">€<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('ordine')->getCosto(),2);?>
+</td>
                             <td data-label="Stato">
-                                <span class="status {$ordine->getStato()|lower}">
-                                    {$ordine->getStato()|capitalize}
+                                <span class="status <?php echo mb_strtolower((string) $_smarty_tpl->getValue('ordine')->getStato(), 'UTF-8');?>
+">
+                                    <?php echo $_smarty_tpl->getSmarty()->getModifierCallback('capitalize')($_smarty_tpl->getValue('ordine')->getStato());?>
+
                                 </span>
                             </td>
                         </tr>
-                    {/foreach}
+                    <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 </tbody>
             </table>
         </section>
     </main>
 
     <!-- Footer -->
-    {include file="footer.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
 
-    <script src="/Smarty/js/hamburger.js"></script>
-    <script src="/Smarty/js/theme.js" defer></script>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+>
 </body>
 </html>
+<?php }
+}

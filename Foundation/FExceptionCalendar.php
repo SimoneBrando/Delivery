@@ -24,4 +24,28 @@ class FExceptionCalendar
 
     }
 
+    public static function addExceptionDay(EExceptionCalendar $day): bool {
+
+        try {
+            FEntityManager::getInstance()->saveObj($day);
+            return true;
+        } catch (Exception $e) {
+            echo "Errore: " . $e->getMessage();
+            return false;
+        }
+
+    }
+
+    public static function deleteExceptionDay(EExceptionCalendar $day): bool {
+
+        try {
+            FEntityManager::getInstance()->deleteObj($day);
+            return true;
+        } catch (Exception $e) {
+            echo "Errore: " . $e->getMessage();
+            return false;
+        }
+
+    }
+
 }

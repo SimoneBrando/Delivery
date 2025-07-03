@@ -18,7 +18,13 @@ class FWeeklyCalendar
     public static function getWeeklyClosedDays(){
 
         return FEntityManager::getInstance()->getObjListOnAttribute(EWeeklyCalendar::class, 'aperto', false);  
-              
+
+    }
+
+    public static function getWeeklyOpenDays(){
+
+        return FEntityManager::getInstance()->getObjListOnAttribute(EWeeklyCalendar::class, 'aperto', true);  
+
     }
 
 }

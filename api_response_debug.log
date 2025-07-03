@@ -2,7 +2,7 @@ Array
 (
     [destination_addresses] => Array
         (
-            [0] => 67031 Castel di Sangro, Province of L'Aquila, Italy
+            [0] => 67030 Roccacasale, Province of L'Aquila, Italy
         )
 
     [origin_addresses] => Array
@@ -20,14 +20,14 @@ Array
                                 (
                                     [distance] => Array
                                         (
-                                            [text] => 110 km
-                                            [value] => 110226
+                                            [text] => 58.8 km
+                                            [value] => 58787
                                         )
 
                                     [duration] => Array
                                         (
-                                            [text] => 1 hour 50 mins
-                                            [value] => 6594
+                                            [text] => 1 hour 2 mins
+                                            [value] => 3710
                                         )
 
                                     [status] => OK

@@ -440,6 +440,17 @@ if ($date) {
     echo "Nessun giorno di chiusura eccezionale trovato.\n";
 }
 
+$now = new \DateTime('now', new \DateTimeZone('Europe/Rome'));
+
+
+$fmt = new \IntlDateFormatter('it_IT', \IntlDateFormatter::FULL, \IntlDateFormatter::NONE);
+echo $fmt->format(new \DateTime()); // es. "mercoledì 2 luglio 2025"
+
+
+
+//echo $now->format('Y-m-d H:i:s') . "\n";
+//echo $dayName;
+
 
 
 

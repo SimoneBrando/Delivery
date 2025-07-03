@@ -306,6 +306,12 @@ class FPersistentManager
        
     }
 
+    public static function getWeeklyOpenDays(){
+
+        return FWeeklyCalendar::getWeeklyOpenDays();
+
+    }
+
     public static function getExceptionClosedDays(){
 
         return FExceptionCalendar::getExceptionClosedDays();

@@ -2,10 +2,14 @@
 
 namespace Services;
 
+
+
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../config/config.php';
 
 use DateTime;
+use Foundation\FPersistentManager;
+
 
 
 class OrderTimeCalculator {
@@ -65,9 +69,110 @@ class OrderTimeCalculator {
         $secondi = $data['rows'][0]['elements'][0]['duration']['value'];
         return (int)ceil($secondi / 60); // converti in minuti
     }
-    
-    public function orarioConsegnaCalculator(array $itemOrderList, int $ordiniInPreparazione = 0, string $indirizzoCliente = ""): DateTime  {
+
+
+    public function orarioConsegnaCalculator(
+    array $itemOrderList, 
+    int $ordiniInPreparazione = 0, 
+    string $indirizzoCliente = ""
+    ): DateTime {
+
         $minuti = $this->timeCalculator($itemOrderList, $ordiniInPreparazione, $indirizzoCliente);
-        return (new DateTime())->modify("+$minuti minutes");
+        $orarioPrevisto = (new DateTime())->modify("+$minuti minutes");
+
+        // Controlla e correggi orario di consegna per essere in un orario aperto
+        return $this->trovaPrimoOrarioAperto($orarioPrevisto, $minuti);
     }
+
+
+    /**
+     * Controlla se la data/ora è in orario aperto,
+     * altrimenti la sposta al prossimo orario di apertura.
+     */
+    private function trovaPrimoOrarioAperto(DateTime $orario, int $timePT): DateTime {
+
+        do {
+            $giornoSettimanaIT = $this->getNomeGiornoItaliano($orario);
+            $eccezione = $this->getEccezionePerData($orario);
+            $orarioSettimana = $this->getOrarioSettimanalePerGiorno($giornoSettimanaIT);
+
+            // Se è giorno chiuso settimanale o eccezione aperto=false => passo al giorno successivo in apertura
+            if (($orarioSettimana === null || !$orarioSettimana->isAperto()) || 
+                ($eccezione !== null && !$eccezione->isAperto())) {
+
+                $orario->modify('+1 day')->setTime(0, 0);
+                continue;
+            }
+
+            // Ora controllo se orario corrente è in orario di apertura
+            $apertura = clone $orario;
+            $apertura->setTime((int)$orarioSettimana->getOrarioApertura()->format('H'), (int)$orarioSettimana->getOrarioApertura()->format('i'));
+
+            $chiusura = clone $orario;
+            $chiusura->setTime((int)$orarioSettimana->getOrarioChiusura()->format('H'), (int)$orarioSettimana->getOrarioChiusura()->format('i'));
+
+            if ($orario < $apertura) {
+                // Sposto l'orario all'apertura di quel giorno
+                $orario = $apertura;
+                $orario->modify("+ $timePT minutes"); // Aggiungo il tempo di preparazione e consegna stimato precedentemente
+                break;
+            } elseif ($orario > $chiusura) {
+                // Oltre orario chiusura, passo al giorno successivo
+                $orario->modify('+1 day')->setTime(0, 0);
+                continue;
+            } else {
+                // L'orario è dentro l'orario di apertura: OK
+                break;
+            }
+
+        } while (true);
+
+        return $orario;
+    }
+
+
+    // Esempio di metodi che devi implementare, accedendo al DB tramite il tuo persistent manager
+
+    private function getNomeGiornoItaliano(DateTime $date): string {
+        $daysIT = [
+            'Monday' => 'lunedì',
+            'Tuesday' => 'martedì',
+            'Wednesday' => 'mercoledì',
+            'Thursday' => 'giovedì',
+            'Friday' => 'venerdì',
+            'Saturday' => 'sabato',
+            'Sunday' => 'domenica',
+        ];
+        return $daysIT[$date->format('l')];
+    }
+
+    private function getEccezionePerData(DateTime $date) {
+        $exceptionClosedDays = FPersistentManager::getInstance()::getExceptionClosedDays();
+        foreach ($exceptionClosedDays as $exception) {
+            if ($exception->getExceptionDate()->format('Y-m-d') === $date->format('Y-m-d')) {
+                return $exception; // Giorno con eccezione
+            }
+        }
+        return null; // Nessuna eccezione per questa data
+    }
+
+    private function getOrarioSettimanalePerGiorno(string $giornoIT) {
+
+        $weeklyClosedDays = FPersistentManager::getInstance()::getWeeklyClosedDays();
+        $weeklyOpenDays = FPersistentManager::getInstance()::getWeeklyOpenDays();
+
+        foreach ($weeklyClosedDays as $closedDay) {
+            if ($closedDay->getData() === $giornoIT) {
+                return null; // Giorno chiuso
+            }
+        }
+
+        foreach ($weeklyOpenDays as $openDay) {
+            if ($openDay->getData() === $giornoIT) {
+                return $openDay; // Giorno aperto
+            }
+        }
+
+    }
+
 }

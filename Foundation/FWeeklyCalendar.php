@@ -27,4 +27,9 @@ class FWeeklyCalendar
 
     }
 
+    public static function getDayById(string $data): ?EWeeklyCalendar {
+
+        return FEntityManager::getInstance()->getObjOnAttribute(EWeeklyCalendar::class, 'data', $data);
+
+    }
 }

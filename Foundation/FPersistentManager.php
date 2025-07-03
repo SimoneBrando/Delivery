@@ -318,5 +318,11 @@ class FPersistentManager
 
     }
 
+    public static function getDayById($dayName){
+
+        return FWeeklyCalendar::getDayById($dayName);
+        
+    }
+
 
 }

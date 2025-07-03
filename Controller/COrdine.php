@@ -35,12 +35,64 @@ class COrdine extends BaseController{
         try{
             $this->requireRole('cliente');
             $user = $this->getUser();
+            $view = new VUser($this->isLoggedIn(), $this->userRole);
             $cart = json_decode(UHTTPMethods::post('cart_data'), true);
             if (!is_array($cart) || empty($cart)) {
                 throw new \InvalidArgumentException("Carrello non valido o vuoto.");
             }
+
             $note = UHTTPMethods::post("note");
             $dataConsegna = new \DateTime(UHTTPMethods::post('dataConsegna'));
+            $daysIT = [
+                'Monday' => 'lunedì',
+                'Tuesday' => 'martedì',
+                'Wednesday' => 'mercoledì',
+                'Thursday' => 'giovedì',
+                'Friday' => 'venerdì',
+                'Saturday' => 'sabato',
+                'Sunday' => 'domenica'
+            ];
+            // 
+            $giornoSettimana = $dataConsegna->format('l'); // Esempio: 'Monday', 'Tuesday'
+
+            // Recupera orari apertura/chiusura per quel giorno (ricorrente)
+            $giorno = $this->persistent_manager->getDayById($daysIT[$giornoSettimana]);
+            $orarioApertura = $giorno ? $giorno->getOrarioApertura() : null;
+            $orarioChiusura = $giorno ? $giorno->getOrarioChiusura() : null;
+
+            // Se il giorno non esiste o è chiuso
+            if (!$orarioApertura && !$orarioChiusura) {
+                $view->dateError();
+                return;
+            }
+
+            // Controllo chiusure eccezionali
+            $giorniChiusuraEccezionali = $this->persistent_manager->getExceptionClosedDays(); // array di oggetti con getExceptionDate()
+            $dataConsegnaStr = $dataConsegna->format('Y-m-d');
+
+            foreach ($giorniChiusuraEccezionali as $giornoChiusura) {
+                if ($giornoChiusura->getExceptionDate()->format('Y-m-d') === $dataConsegnaStr) {
+                    $view->dateError();
+                    return;
+                }
+            }
+
+            // Controllo orario compreso tra apertura e chiusura
+            $apertura = (clone $dataConsegna)->setTime((int)$orarioApertura->format('H'), (int)$orarioApertura->format('i'));
+            $chiusura = (clone $dataConsegna)->setTime((int)$orarioChiusura->format('H'), (int)$orarioChiusura->format('i'));
+
+            if ($dataConsegna < $apertura || $dataConsegna > $chiusura) {
+                $view->dateError();
+                return;
+            }
+
+
+
+
+
+
+
+
             $indirizzoConsegna = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class,'id', UHTTPMethods::post('indirizzo_id'));
             $metodoPagamento = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', UHTTPMethods::post('numero_carta'));
             $stato = ($this->persistent_manager->getOrdersByState('in_preparazione') > 10) ? "in_attesa" : "in_preparazione";

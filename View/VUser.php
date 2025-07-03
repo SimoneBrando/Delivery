@@ -35,6 +35,10 @@ class VUser{
         $this->smarty->display('order.tpl');
     }
 
+    public function dateError(){
+        $this->smarty->display('data_non_disponibile.tpl');
+    }
+
     public function showMyOrders($orders){
         $this->smarty->assign('orders', $orders);
         $this->smarty->display('miei_ordini.tpl');

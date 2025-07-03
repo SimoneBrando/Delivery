@@ -92,50 +92,7 @@ class CRider extends BaseController{
                     $message
                 );
             }
-            if($nuovoStato == 'annullato'){
-                $mailService = new MailingService();
-                $cliente = $ordine->getCliente(); 
-                $email = $cliente->getEmail();
-                $name = $cliente->getNome(); 
-                $orderId = $ordine->getId();
-
-                $message = "
-                    <h2>Il tuo ordine è stato annullato</h2>
-                    <p>Ciao <strong>$name</strong>,</p>
-                    <p>Ci dispiace informarti che l'ordine <strong>#{$orderId}</strong> è stato annullato.</p>
-                    <p>Se hai domande o dubbi, non esitare a contattarci.</p>
-                    <br><p>Il team di Delivery</p>
-                    <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
-                ";
-
-                $mailService->mailTo(
-                    $email,
-                    "Ordine #$orderId annullato",
-                    $message
-                );
-            }
-            if($nuovoStato == 'in_attesa'){
-                $mailService = new MailingService();
-                $cliente = $ordine->getCliente(); 
-                $email = $cliente->getEmail();
-                $name = $cliente->getNome(); 
-                $orderId = $ordine->getId();
-
-                $message = "
-                    <h2>Il tuo ordine è in attesa</h2>
-                    <p>Ciao <strong>$name</strong>,</p>
-                    <p>Il tuo ordine <strong>#{$orderId}</strong> è attualmente in attesa di essere elaborato.</p>
-                    <p>Ti informeremo non appena ci saranno aggiornamenti.</p>
-                    <br><p>Il team di Delivery</p>
-                    <br><img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
-                ";
-
-                $mailService->mailTo(
-                    $email,
-                    "Ordine #$orderId in attesa",
-                    $message
-                );
-            }
+            
                 
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();

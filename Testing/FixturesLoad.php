@@ -29,7 +29,7 @@ use Testing\Fixtures\CuocoFixture;
 use Testing\Fixtures\ClienteFixture;
 use Testing\Fixtures\CategoriaFixture;
 use Testing\Fixtures\CartaCreditoFixture;
-
+use Testing\Fixtures\CalendarioFixture;
 
 
 $loader = new Loader();
@@ -48,7 +48,7 @@ $loader->addFixture(new ProdottoFixture());
 $loader->addFixture(new OrdineFixture());
 $loader->addFixture(new RecensioneFixture());
 $loader->addFixture(new SegnalazioneFixture());
-
+$loader->addFixture(new CalendarioFixture());
 
 
 

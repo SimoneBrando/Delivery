@@ -5,34 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bb2ff668-f7e5-4860-a3f8-3c4beb23b74e" name="Changes" comment="Added methods for FCarta_credito.php and FIndirizzo.php, FRecensione.php, FSegnalazione.php and FPersistentManager.php. Edited methods for FOrdine.php, FUtente.php and their entity. Added on Main.php demo to try methods">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.htaccess" beforeDir="false" afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Delivery.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Delivery.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/CChef.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/CChef.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/COrdine.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/COrdine.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Controller/CRider.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/CRider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/CUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/CUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates/rider_orders.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates/rider_orders.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates/waiting_orders.tpl" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates/waiting_orders.tpl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/0d72ae563e5ca74c451763467a59fb234539c4a9_0.file_order.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/0d72ae563e5ca74c451763467a59fb234539c4a9_0.file_order.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/14480e0397d18fd823be1c34e12f9063673c3c8c_0.file_home.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/14480e0397d18fd823be1c34e12f9063673c3c8c_0.file_home.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/184a3a4cffb9be7e422c469c139684c31825bc68_0.file_fatal_error.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/184a3a4cffb9be7e422c469c139684c31825bc68_0.file_fatal_error.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/3a76fd225865711c5992502a388fbfd2fa38e3c7_0.file_menu.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/3a76fd225865711c5992502a388fbfd2fa38e3c7_0.file_menu.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/3f3f17cf2e66324b15069bdd41cb42f980767cf6_0.file_confermed_order.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/3f3f17cf2e66324b15069bdd41cb42f980767cf6_0.file_confermed_order.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/55ae4b4420fd16b87a0b205e02129a0a1c7942d5_0.file_login.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/55ae4b4420fd16b87a0b205e02129a0a1c7942d5_0.file_login.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/95b6e83be46b4b16983f9be45912518a2874178f_0.file_check_order.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/95b6e83be46b4b16983f9be45912518a2874178f_0.file_check_order.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/9d0e4bcfe5a0c690469298830419db939b0820fe_0.file_waiting_orders.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/9d0e4bcfe5a0c690469298830419db939b0820fe_0.file_waiting_orders.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/9e932e4f6c2f580ad1cc62e005964a60ffefeb46_0.file_rider_orders.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/9e932e4f6c2f580ad1cc62e005964a60ffefeb46_0.file_rider_orders.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/c097591f2f6c1944940b106e904d446dd03a6ded_0.file_miei_ordini.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/c097591f2f6c1944940b106e904d446dd03a6ded_0.file_miei_ordini.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/db270f8ac0a7c303c09193d152556bd55efa06f7_0.file_register.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/db270f8ac0a7c303c09193d152556bd55efa06f7_0.file_register.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/decb6ce08fb6c6ed0387514e5b3b2ce9ea585252_0.file_chef_orders.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/decb6ce08fb6c6ed0387514e5b3b2ce9ea585252_0.file_chef_orders.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smarty/templates_c/f45da135237bbd958ce3abfce3ac99e643d0fa06_0.file_account.tpl.php" beforeDir="false" afterPath="$PROJECT_DIR$/Smarty/templates_c/f45da135237bbd958ce3abfce3ac99e643d0fa06_0.file_account.tpl.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_response_debug.log" beforeDir="false" afterPath="$PROJECT_DIR$/api_response_debug.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +137,7 @@
       <workItem from="1750063667289" duration="1000" />
       <workItem from="1750068549605" duration="6000" />
       <workItem from="1750073342114" duration="44000" />
-      <workItem from="1751447899794" duration="3368000" />
+      <workItem from="1751447899794" duration="4398000" />
     </task>
     <task id="LOCAL-00001" summary="Added methods for FCarta_credito.php and FIndirizzo.php, FRecensione.php, FSegnalazione.php and FPersistentManager.php. Edited methods for FOrdine.php, FUtente.php and their entity. Added on Main.php demo to try methods">
       <option name="closed" value="true" />

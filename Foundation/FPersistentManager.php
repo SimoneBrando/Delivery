@@ -295,4 +295,22 @@ class FPersistentManager
     public static function getMenu(){
         return FElenco_prodotti::getMenu();
     }
+
+
+
+
+    //<-----------------------CALENDAR--------------------->//
+    public static function getWeeklyClosedDays(){
+
+        return FWeeklyCalendar::getWeeklyClosedDays();
+       
+    }
+
+    public static function getExceptionClosedDays(){
+
+        return FExceptionCalendar::getExceptionClosedDays();
+
+    }
+
+
 }

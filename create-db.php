@@ -18,6 +18,8 @@ use Entity\ECuoco;
 use Entity\ECategoria;
 use Entity\EElenco_prodotti;
 use Entity\EItemOrdine;
+use Entity\EWeeklyCalendar;
+use Entity\EExceptionCalendar;
 
 // Creazione tabelle di PHP-Auth
 try {
@@ -67,6 +69,8 @@ $classes = [
     $entityManager->getClassMetadata(EElenco_prodotti::class),
     $entityManager->getClassMetadata(EItemOrdine::class),
     $entityManager->getClassMetadata(EProprietario::class),
+    $entityManager->getClassMetaData(EWeeklyCalendar::class),
+    $entityManager->getClassMetadata(EExceptionCalendar::class)
 ];
 
 $schemaTool->dropDatabase();

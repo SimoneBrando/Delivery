@@ -14,6 +14,8 @@ use Entity\ECarta_credito;
 use Entity\ERecensione;
 use Entity\ECliente;
 use Entity\EItemCarrello;
+use Entity\EWeeklyCalendar;
+use Entity\EExceptionCalendar;
 
 
 // Recupero del PersistentManager
@@ -372,6 +374,8 @@ try {
 //    echo "errore" . $e . "\n";
 //}
 
+
+/*
 try {
     $u = FPersistentManager::getCartByClientId(1);
 
@@ -409,6 +413,31 @@ try {
 
 } catch (Exception $e) {
     echo "Errore durante il recupero del carrello: " . $e->getMessage() . "\n";
+}
+
+*/
+
+/*
+$date = FPersistentManager::getInstance()->getWeeklyClosedDays();
+if ($date) {
+    echo "Giorni di chiusura settimanale:\n";
+    foreach ($date as $day) {
+        echo "- " . $day->getData() . ": " . ($day->isAperto() ? "Aperto" : "Chiuso") . "\n";
+    }
+} else {
+    echo "Nessun giorno di chiusura settimanale trovato.\n";
+}
+    */
+
+
+$date = FPersistentManager::getInstance()->getExceptionClosedDays();
+if ($date) {
+    echo "Giorni di chiusura eccezionale:\n";
+    foreach ($date as $day) {
+        echo "- " . $day->getExceptionDate()->format('Y-m-d H:i:s') . ": " . ($day->isAperto() ? "Aperto" : "Chiuso") . "\n";
+    }
+} else {
+    echo "Nessun giorno di chiusura eccezionale trovato.\n";
 }
 
 

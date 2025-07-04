@@ -544,10 +544,22 @@ class CProprietario extends BaseController {
     
             $orarioApertura = DateTime::createFromFormat('H:i', $apertura); // ad esempio 04-07.2025 21:00:00
             $orarioChiusura = DateTime::createFromFormat('H:i', $chiusura);
+
+            if($orarioApertura < $orarioChiusura){
+
+                $giornoSettimanale->setOrarioApertura($orarioApertura);
+                $giornoSettimanale->setOrarioChiusura($orarioChiusura);
+
+            }
+
+            else {
+                UFlashMessage::addMessage('error', 'L\'orario di apertura deve essere precedente all\'orario di chiusura');
+                header("Location: /Delivery/Proprietario/showCalendar");
+                return;
+            }
                 
 
-            $giornoSettimanale->setOrarioApertura($orarioApertura);
-            $giornoSettimanale->setOrarioChiusura($orarioChiusura);
+
 
         }
 

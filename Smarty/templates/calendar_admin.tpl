@@ -23,6 +23,8 @@
         </div>
 
        <section class="calendar-section">
+
+       {include file="error_section.tpl"}
             <h2><i class="fas fa-clock"></i> Orari Settimanali</h2>
 
             <table class="calendar-table">

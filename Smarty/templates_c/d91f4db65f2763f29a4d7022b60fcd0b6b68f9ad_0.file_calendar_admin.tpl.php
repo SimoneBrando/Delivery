@@ -1,28 +1,29 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-03 19:57:06
+/* Smarty version 5.5.1, created on 2025-07-04 13:08:45
   from 'file:calendar_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6866c472359908_58100838',
+  'unifunc' => 'content_6867b63da099b5_28780009',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd91f4db65f2763f29a4d7022b60fcd0b6b68f9ad' => 
     array (
       0 => 'calendar_admin.tpl',
-      1 => 1751565422,
+      1 => 1751627323,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6866c472359908_58100838 (\Smarty\Template $_smarty_tpl) {
+function content_6867b63da099b5_28780009 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -50,6 +51,9 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </div>
 
        <section class="calendar-section">
+
+       <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
             <h2><i class="fas fa-clock"></i> Orari Settimanali</h2>
 
             <table class="calendar-table">

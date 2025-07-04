@@ -520,63 +520,44 @@ class CProprietario extends BaseController {
         header("Location: /Delivery/Proprietario/showCalendar");
     }
 
-    public function editDay() {
+   public function editDay() {
         $this->requireRole('proprietario');
 
-        $data = UHTTPMethods::post('giorno') ?? null;
-        $apertura = UHTTPMethods::post('apertura') ?? null;    // stringa "HH:mm"
-        $chiusura = UHTTPMethods::post('chiusura') ?? null;    // stringa "HH:mm"
-        $stato = UHTTPMethods::post('stato') ?? null;          // "aperto" o "chiuso"
+        $orari = UHTTPMethods::post('orari') ?? [];
 
-        try {
-            $giorno = new DateTime();
-            $giorno->setTime(0, 0, 0);
-        } catch (Exception $e) {
-            die('Data non valida');
-        }
+        $data = UHTTPMethods::post('giorno');
+        $apertura = $orari['apertura'] ?? null;
+        $chiusura = $orari['chiusura'] ?? null;
+        $stato = $orari['stato'];
 
         $giornoSettimanale = $this->persistent_manager->getObjOnAttribute(EWeeklyCalendar::class, 'data', $data);
 
-        if ($giornoSettimanale) {
-            // Imposto apertura e chiusura solo se fornite e convertibili in DateTime
-            if ($apertura) {
-                $aperturaCompletaStr = $giorno->format('Y-m-d') . ' ' . $apertura . ':00';  // es. "2025-07-03 19:00:00"
-                $orarioApertura = DateTime::createFromFormat('Y-m-d H:i:s', $aperturaCompletaStr);
-                if ($orarioApertura) {
-                    $giornoSettimanale->setOrarioApertura($orarioApertura);
-                }
+        if ($stato=="chiuso") {
+            $giornoSettimanale->setAperto(false);
+            $giornoSettimanale->setOrarioApertura(null);
+            $giornoSettimanale->setOrarioChiusura(null);
+
+
+        } else {
+            $giornoSettimanale->setAperto(true);
+
+    
+            $orarioApertura = DateTime::createFromFormat('H:i', $apertura); // ad esempio 04-07.2025 21:00:00
+            $orarioChiusura = DateTime::createFromFormat('H:i', $chiusura);
+                
+
+            $giornoSettimanale->setOrarioApertura($orarioApertura);
+            $giornoSettimanale->setOrarioChiusura($orarioChiusura);
+
         }
 
-            if ($chiusura) {
-                $chiusuraCompletaStr = $giorno->format('Y-m-d') . ' ' . $chiusura . ':00';  // es. "2025-07-03 23:00:00"
-                $orarioChiusura = DateTime::createFromFormat('Y-m-d H:i:s', $chiusuraCompletaStr);
-                if ($orarioChiusura) {
-                    $giornoSettimanale->setOrarioChiusura($orarioChiusura);
-                }
-            }
-
-            // Imposto stato aperto/chiuso
-            if ($stato === 'aperto') {
-                $giornoSettimanale->setAperto(true);
-            } elseif ($stato === 'chiuso') {
-                $giornoSettimanale->setAperto(false);
-                $giornoSettimanale->setOrarioApertura(null); // Rimuovo orario apertura se chiuso
-                $giornoSettimanale->setOrarioChiusura(null); // Rimuovo orario chiusura se chiuso
-            }
-
-            // Salvo la modifica nel DB
-            if ($this->persistent_manager->editDay($giornoSettimanale)) {
-                UFlashMessage::addMessage('success', 'Giorno modificato con successo');
-            } else {
-                UFlashMessage::addMessage('error', 'Errore durante la modifica del giorno');
-            }
+        if ($this->persistent_manager->editDay($giornoSettimanale)) {
+            UFlashMessage::addMessage('success', 'Giorno modificato con successo');
         } else {
-            UFlashMessage::addMessage('error', 'Giorno non trovato');
+            UFlashMessage::addMessage('error', 'Errore durante la modifica del giorno');
         }
 
         header("Location: /Delivery/Proprietario/showCalendar");
     }
-
-
 
 }

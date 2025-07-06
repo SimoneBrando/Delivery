@@ -21,6 +21,8 @@
         </section>
 
         <section class="menu-section">
+            <div id="menu-container"></div>
+            
             <h1>Ordina dal menù</h1>
 
             {foreach $menu as $categoria}
@@ -81,6 +83,7 @@
 </body>
 
 <script src="/Smarty/Js/cart.js" defer></script>
+<script src="/Smarty/js/menu.js" defer></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];

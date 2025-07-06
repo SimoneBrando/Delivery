@@ -549,6 +549,13 @@ class CUser extends BaseController{
         $view->showMenu($menu);
     }
 
+    public function getMenuJson() {
+    $menu = $this->persistent_manager->getMenu();
+    header('Content-Type: application/json');
+    echo json_encode($menu); // Assicurati che sia serializzabile
+    exit;
+}
+
     public function order(){
         $view = new VUser($this->isLoggedIn(), $this->userRole);
         $menu = $this->persistent_manager->getMenu();

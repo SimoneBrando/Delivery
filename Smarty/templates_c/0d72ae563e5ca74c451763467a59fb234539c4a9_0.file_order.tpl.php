@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-02 17:36:35
+/* Smarty version 5.5.1, created on 2025-07-06 18:06:46
   from 'file:order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6865520375a4f5_48661915',
+  'unifunc' => 'content_686a9f166012f5_79712154',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '0d72ae563e5ca74c451763467a59fb234539c4a9' => 
     array (
       0 => 'order.tpl',
-      1 => 1751469988,
+      1 => 1751818002,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6865520375a4f5_48661915 (\Smarty\Template $_smarty_tpl) {
+function content_686a9f166012f5_79712154 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -48,6 +48,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </section>
 
         <section class="menu-section">
+            <div id="menu-container"></div>
+            
             <h1>Ordina dal menù</h1>
 
             <?php
@@ -133,6 +135,9 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 
 <?php echo '<script'; ?>
  src="/Smarty/Js/cart.js" defer><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+ src="/Smarty/js/menu.js" defer><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
 >

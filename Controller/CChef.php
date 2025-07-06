@@ -35,6 +35,20 @@ class CChef extends BaseController{
         $this->persistent_manager->beginTransaction();
         try{
             $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
+
+            if($nuovoStato == 'in_preparazione' && $ordine->getStato() != 'in_attesa'){
+                UFlashMessage::addMessage('error', 'L\'ordine non può essere messo in preparazione se non è in attesa.');
+                header("Location: /Delivery/Chef/showOrders");
+                exit;
+            }
+
+            if($nuovoStato == 'pronto' && $ordine->getStato() != 'in_preparazione'){
+                UFlashMessage::addMessage('error', 'L\'ordine non può essere segnato come pronto se non è in preparazione.');
+                header("Location: /Delivery/Chef/showOrders");
+                exit;
+            }
+
+
             $ordine->setStato($nuovoStato);
             if($nuovoStato == 'annullato'){
                 $mailService = new MailingService();

@@ -5,6 +5,7 @@ namespace Foundation;
 use DateTime;
 use Entity\ECliente;
 use Entity\EOrdine;
+use Entity\EUtente;
 use Exception;
 
 require_once 'FPersistentManager.php';
@@ -63,6 +64,22 @@ class FOrdine{
         $inizio = (clone $time)->setTime(0,0,0);
         $fine = (clone $time)->setTime(23,59,59); //I need to convert a timestamp into a DateTime to fit into Doctrine db
         return FEntityManager::getInstance()->getObjListBetween(EOrdine::class,'dataEsecuzione', [$inizio,$fine]);
+    }
+
+    public static function getOrdersByRider($riderId): array
+    {
+        $rider = FEntityManager::getInstance()->getObj(EUtente::class, $riderId);
+        $riderId = $rider->getId();
+        $orders = FEntityManager::getInstance()->getObjListOnAttribute(EOrdine::class, 'riderConsegna', $riderId);
+        return $orders;
+    }
+
+    public static function getOrdersByStateNotMine($state, $userId): array
+    {
+        $orders = FEntityManager::getInstance()->getObjListOnAttribute(EOrdine::class, 'stato', $state);
+        return array_filter($orders, function($order) use ($userId) {
+            return $order->getRiderConsegna() === null || $order->getRiderConsegna()->getId() !== $userId;
+        });
     }
 
 

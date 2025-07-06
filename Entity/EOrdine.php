@@ -74,6 +74,13 @@ class EOrdine {
      */
     private $metodoPagamento;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Entity\ERider", inversedBy="ordiniConsegna")
+     * @ORM\JoinColumn(name="riderConsegna_id", referencedColumnName ="id", nullable=true)
+     */
+    private $riderConsegna;
+
+
     public function __construct() {
         $this->itemOrdini = new ArrayCollection();
     }
@@ -122,6 +129,11 @@ class EOrdine {
         return $this->dataConsegna;
     }
 
+    public function getRiderConsegna(): ?ERider {
+        return $this->riderConsegna;
+    }
+
+
     // Setters
     public function setNote($note) : EOrdine {
         $this->note = $note;
@@ -166,6 +178,12 @@ class EOrdine {
         return $this;
     }
 
+    public function setRiderConsegna(?ERider $rider): self {
+        $this->riderConsegna = $rider;
+        return $this;
+    }
+
+
     public function addItemOrdine(EItemOrdine $item): self {
         if (!$this->itemOrdini->contains($item)) {
             $this->itemOrdini[] = $item;
@@ -174,16 +192,6 @@ class EOrdine {
         return $this;
     }
 
-    /*
-    public function removeItemOrdine(EItemOrdine $item): self {
-        if ($this->itemOrdini->contains($item)) {
-            $this->itemOrdini->removeElement($item);
-            if ($item->getOrdine() === $this) {
-                $item->setOrdine(null);
-            }
-        }
-        return $this;
-    }
-    */
+
 
 }

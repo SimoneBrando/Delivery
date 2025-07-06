@@ -253,6 +253,14 @@ class FPersistentManager
         return FOrdine::getDailyOrders($time);
     }
 
+    public static function getOrdersByRider($riderId): array
+    {
+        return FOrdine::getOrdersByRider($riderId);
+    }
+    public static function getOrdersByStateNotMine($state, $userId): array
+    {
+        return FOrdine::getOrdersByStateNotMine($state, $userId);
+    }
 
     //<----------------------PRODUCT------------------------>//
 

@@ -18,8 +18,9 @@ class CRider extends BaseController{
         $messages = UFlashMessage::getMessage();
         $view = new VRider($this->isLoggedIn(), $this->userRole, $messages);
         $ordersReady = $this->persistent_manager->getOrdersByState('pronto');
-        $ordersOnDelivery = $this->persistent_manager->getOrdersByState('in_consegna');
-        $view->showOrders($ordersReady, $ordersOnDelivery);
+        $ordersOnDelivery = $this->persistent_manager->getOrdersByStateNotMine('in_consegna', $this->getUser()->getId());
+        $myOrders = $this->persistent_manager->getOrdersByRider($this->getUser()->getId());
+        $view->showOrders($ordersReady, $ordersOnDelivery, $myOrders);
     }
 
     public function cambiaStatoOrdine(){
@@ -30,7 +31,16 @@ class CRider extends BaseController{
         $this->persistent_manager->beginTransaction();
         try{
             $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
+
+            // Verifica se l'ordine è gestito dal rider corrente
+            if ($ordine->getRiderConsegna() !== $this->getUser() && $ordine->getRiderConsegna() !== null) {
+                UFlashMessage::addMessage('error', 'L\'ordine è già stato preso in carico da un altro rider.');
+                header("Location: /Delivery/Rider/showOrders");
+                exit;
+            }
+
             $ordine->setStato($nuovoStato);
+            $ordine->setRiderConsegna($this->getUser());
             if($nuovoStato == 'consegnato'){
                 $ordine->setDataConsegna(new \DateTime());
                 $dataConsegna = $ordine->getDataConsegna()->format('d/m/Y H:i');

@@ -18,12 +18,9 @@ class MailingService
 {
     $this->mailer = new PHPMailer(true);
 
-    $envPath = "C:/xampp/htdocs/Delivery/mailing.env";
-
     // Load .env 
-    $dotenv = Dotenv::createImmutable("C:/xampp/htdocs/Delivery/", "mailing.env");
-    $dotenv->load();
-
+    $dotenv = Dotenv::createImmutable(dirname(__DIR__), 'mailing.env');
+    $dotenv->safeLoad();
 
     // Configure PHPMailer 
     try {

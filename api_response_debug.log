@@ -2,7 +2,7 @@ Array
 (
     [destination_addresses] => Array
         (
-            [0] => Via Chieti, 32, 67100 L'Aquila AQ, Italy
+            [0] => Via Roma, 31, 67030 Ateleta AQ, Italy
         )
 
     [origin_addresses] => Array
@@ -20,14 +20,14 @@ Array
                                 (
                                     [distance] => Array
                                         (
-                                            [text] => 3.3 km
-                                            [value] => 3289
+                                            [text] => 114 km
+                                            [value] => 114226
                                         )
 
                                     [duration] => Array
                                         (
-                                            [text] => 9 mins
-                                            [value] => 558
+                                            [text] => 1 hour 57 mins
+                                            [value] => 6993
                                         )
 
                                     [status] => OK

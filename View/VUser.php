@@ -73,4 +73,8 @@ class VUser{
     public function showReviewForm(){
         $this->smarty->display('review_form.tpl');
     }
+
+    public function showForgotPasswordForm(){
+        $this->smarty->display('forgot_password.tpl');
+    }
 }

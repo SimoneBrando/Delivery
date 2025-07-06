@@ -101,8 +101,8 @@
             <ul>
                 <li><i class="fas fa-phone"></i> 06 1234 5678</li>
                 <li><i class="fas fa-mobile-alt"></i> 345 678 9012</li>
-                <li><i class="fas fa-envelope"></i> info@homerestaurant.it</li>
-                <li><i class="fas fa-envelope"></i> commerciale@homerestaurant.it</li>
+                <li><i class="fas fa-envelope"></i> info@deliveryhomerestaurant.altervista.org</li>
+                <li><i class="fas fa-envelope"></i> commerciale@deliveryhomerestauranthomerestaurant.it</li>
                 <li><i class="fas fa-calendar-alt"></i> Giorni e orari di chiusura</li>
             </ul>
             <div class="orari-apertura">
@@ -114,18 +114,18 @@
                     </tr>
                     <tr>
                         <td>Martedì - Giovedì</td>
-                        <td>12:00 - 15:00 | 19:00 - 23:00</td>
+                        <td>19:00 - 22:30</td>
                     </tr>
                     <tr>
                         <td>Venerdì - Sabato</td>
-                        <td>12:00 - 15:00 | 19:00 - 00:00</td>
+                        <td>19:00 - 23:30</td>
                     </tr>
                     <tr>
                         <td>Domenica</td>
-                        <td>12:00 - 15:00 | 19:00 - 22:30</td>
+                        <td>19:00 - 23:00</td>
                     </tr>
                 </table>
-                <p class="note">* Apertura straordinaria su prenotazione per gruppi.</p>
+                <p class="note">* Esclusi festivi.</p>
             </div>
         </section>
     </main>

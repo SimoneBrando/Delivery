@@ -20,7 +20,7 @@
             "View\\": "View",
             "Testing\\": "Testing/",
             "Testing\\Fixtures\\": "Testing/Fixtures",
-            "Services\\": "services"
+            "Services\\": "Services/"
         }
     }
 }

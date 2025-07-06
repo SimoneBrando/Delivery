@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-02 17:35:10
+/* Smarty version 5.5.1, created on 2025-07-06 12:29:02
   from 'file:home.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_686551aecc8905_63048029',
+  'unifunc' => 'content_686a4fee02b1f9_05029128',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '14480e0397d18fd823be1c34e12f9063673c3c8c' => 
     array (
       0 => 'home.tpl',
-      1 => 1751469988,
+      1 => 1751716401,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_686551aecc8905_63048029 (\Smarty\Template $_smarty_tpl) {
+function content_686a4fee02b1f9_05029128 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -138,8 +138,8 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             <ul>
                 <li><i class="fas fa-phone"></i> 06 1234 5678</li>
                 <li><i class="fas fa-mobile-alt"></i> 345 678 9012</li>
-                <li><i class="fas fa-envelope"></i> info@homerestaurant.it</li>
-                <li><i class="fas fa-envelope"></i> commerciale@homerestaurant.it</li>
+                <li><i class="fas fa-envelope"></i> info@deliveryhomerestaurant.altervista.org</li>
+                <li><i class="fas fa-envelope"></i> commerciale@deliveryhomerestauranthomerestaurant.it</li>
                 <li><i class="fas fa-calendar-alt"></i> Giorni e orari di chiusura</li>
             </ul>
             <div class="orari-apertura">
@@ -151,18 +151,18 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                     </tr>
                     <tr>
                         <td>Martedì - Giovedì</td>
-                        <td>12:00 - 15:00 | 19:00 - 23:00</td>
+                        <td>19:00 - 22:30</td>
                     </tr>
                     <tr>
                         <td>Venerdì - Sabato</td>
-                        <td>12:00 - 15:00 | 19:00 - 00:00</td>
+                        <td>19:00 - 23:30</td>
                     </tr>
                     <tr>
                         <td>Domenica</td>
-                        <td>12:00 - 15:00 | 19:00 - 22:30</td>
+                        <td>19:00 - 23:00</td>
                     </tr>
                 </table>
-                <p class="note">* Apertura straordinaria su prenotazione per gruppi.</p>
+                <p class="note">* Esclusi festivi.</p>
             </div>
         </section>
     </main>

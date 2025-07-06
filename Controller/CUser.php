@@ -592,31 +592,36 @@ class CUser extends BaseController{
             header('Location: /Delivery/User/home');
             exit;
         }
+        $view = new VUser($this->isLoggedIn(), $this->userRole);
+        $view->showForgotPasswordForm();
+
+
         $email = UHTTPMethods::post('email');
         try {
-            /*
+            
             $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
                 // Costruisci il link di reset password
                 $url = 'https://www.delivery.com/reset_password?selector=' . urlencode($selector) . '&token=' . urlencode($token);
                 //Da definire le variabili d'ambiente
-                $mail = new PHPMailer(true);
-                $mail->isSMTP();
-                $mail->Host = $_ENV['SMTP_HOST'];
-                $mail->SMTPAuth = true;
-                $mail->Username = $_ENV['SMTP_USERNAME'];
-                $mail->Password = $_ENV['SMTP_PASSWORD'];
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port = $_ENV['SMTP_PORT'];
-                $mail->setFrom('no-reply@delivery.com', 'Delivery Service');
-                $mail->addAddress($email);
-                $mail->Subject = 'Reset your password';
-                $mail->Body = "Hi,\n\nWe received a request to reset your password.\n\nPlease click the following link to reset it:\n\n$url\n\nIf you did not request this, you can ignore this email.";    
-                $mail->send();
+                $mailService = new MailingService();
+                $message = "
+                    <h2>Richiesta di reset password</h2>
+                    <p>Ciao,</p>
+                    <p>Hai richiesto il reset della tua password su Delivery. Clicca sul link qui sotto per procedere:</p>
+                    <p><a href='$url'>Resetta la tua password</a></p>
+                    <p>Se non hai richiesto questo cambiamento, ignora questa email.</p>
+                    <br>
+                    <p>Grazie,<br>Il team di Delivery</p>
+                    <img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+                ";
+                $mailService->mailTo($email, 'Resetta la tua password su Delivery', $message);
+
+                
                 
             });
-            */
+            
             UFlashMessage::addMessage('success', 'Una email è stata inviata al tuo account per resettare la password');
-            header("Location: /Delivery/User/showLoginForm");
+
             exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
             die('Invalid email address');

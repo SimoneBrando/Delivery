@@ -77,4 +77,7 @@ class VUser{
     public function showForgotPasswordForm(){
         $this->smarty->display('forgot_password.tpl');
     }
+    public function errorCartOrAddress(){
+        $this->smarty->display('error_cart_or_address.tpl');
+    }
 }

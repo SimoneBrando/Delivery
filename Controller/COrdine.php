@@ -41,6 +41,10 @@ class COrdine extends BaseController{
                 throw new \InvalidArgumentException("Carrello non valido o vuoto.");
             }
 
+            if(!UHTTPMethods::post('indirizzo_id') || !UHTTPMethods::post('numero_carta')) {
+                $view->errorCartOrAddress();
+                return;
+            }
             $note = UHTTPMethods::post("note");
             $dataConsegna = new \DateTime(UHTTPMethods::post('dataConsegna'));
             $daysIT = [

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-06 19:36:31
+/* Smarty version 5.5.1, created on 2025-07-07 22:10:40
   from 'file:header.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_686ab41fd779c9_76116890',
+  'unifunc' => 'content_686c29c09622e6_94596260',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2782fd097f6af45548f5e7574f5c13c1862b177b' => 
     array (
       0 => 'header.tpl',
-      1 => 1751039408,
+      1 => 1751919034,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_686ab41fd779c9_76116890 (\Smarty\Template $_smarty_tpl) {
+function content_686c29c09622e6_94596260 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><header>
     <div class="header-container">
@@ -53,9 +53,6 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
             <?php }?>
         </div>
         <div class="user-actions">
-            <a href="admin_panel.html" title="Notifiche">
-                <i class="fas fa-bell"></i>
-            </a>
             <a href="/Delivery/User/showProfile" title="Profilo">
                 <i class="fas fa-user"></i>
             </a>

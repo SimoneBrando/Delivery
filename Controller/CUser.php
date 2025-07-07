@@ -556,6 +556,7 @@ class CUser extends BaseController{
     exit;
 }
 
+
     public function order(){
         $view = new VUser($this->isLoggedIn(), $this->userRole);
         $menu = $this->persistent_manager->getMenu();

@@ -95,10 +95,10 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
 ?>
 
     <?php echo '<script'; ?>
- src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+ src="/Smarty/Js/hamburger.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
- src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+ src="/Smarty/Js/theme.js" defer><?php echo '</script'; ?>
 >
 </body>
 </html>

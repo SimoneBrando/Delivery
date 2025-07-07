@@ -38,6 +38,6 @@
             localStorage.removeItem("cart_createdAt");
         });
     </script>
-    <script src="/Smarty/js/theme.js" defer></script>
+    <script src="/Smarty/Js/theme.js" defer></script>
 </body>
 </html>

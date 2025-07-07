@@ -67,10 +67,10 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'riderConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cuocoPreparazione'];
+            return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'riderConsegna'];
         }
 
-        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'riderConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cuocoPreparazione'];
+        return ['__isInitialized__', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'id', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'note', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataEsecuzione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataRicezione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'dataConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'costo', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'cliente', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'itemOrdini', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'segnalazione', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'stato', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'indirizzoConsegna', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'metodoPagamento', '' . "\0" . 'Entity\\EOrdine' . "\0" . 'riderConsegna'];
     }
 
     /**
@@ -316,17 +316,6 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
-    public function getCuocoPreparazione(): ?\Entity\ECuoco
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getCuocoPreparazione', []);
-
-        return parent::getCuocoPreparazione();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function setNote($note): \Entity\EOrdine
     {
 
@@ -432,17 +421,6 @@ class EOrdine extends \Entity\EOrdine implements \Doctrine\ORM\Proxy\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setRiderConsegna', [$rider]);
 
         return parent::setRiderConsegna($rider);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function setCuocoPreparazione(?\Entity\ECuoco $cuoco): \Entity\EOrdine
-    {
-
-        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setCuocoPreparazione', [$cuoco]);
-
-        return parent::setCuocoPreparazione($cuoco);
     }
 
     /**

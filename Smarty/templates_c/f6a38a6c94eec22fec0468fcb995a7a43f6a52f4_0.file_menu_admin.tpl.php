@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.5.1, created on 2025-07-07 15:43:24
+  from 'file:menu_admin.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.5.1',
+  'unifunc' => 'content_686bcefc180c96_24466577',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'f6a38a6c94eec22fec0468fcb995a7a43f6a52f4' => 
+    array (
+      0 => 'menu_admin.tpl',
+      1 => 1751894239,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
+    'file:footer.tpl' => 1,
+  ),
+))) {
+function content_686bcefc180c96_24466577 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +38,8 @@
 </head>
 <body>
     <!-- Header -->
-    {include file="header.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <!-- Main Content -->
     <main class="admin-container">
@@ -26,24 +54,26 @@
         <!-- Filtri e Ricerca -->
 
             <!-- Error Section -->
-            {include file="error_section.tpl"}
+            <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
         
         <form method="get" action="/Delivery/Proprietario/showMenu/">
         <section class="filters-section">
             <div class="filters-grid">
                 <div class="search-box">
                     <i class="fas fa-search"></i>
-                    <input type="text" name="search" value="{$smarty.get.search|default:''|escape}"  placeholder="Cerca prodotti...">
+                    <input type="text" name="search" value="<?php echo htmlspecialchars((string)(($tmp = $_GET['search'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"  placeholder="Cerca prodotti...">
                 </div>
                 <div class="filter-group">
                     <label for="filterCategory"><i class="fas fa-filter"></i> Filtra per categoria:</label>
                     <select name="category" id="filterCategory">
-                        <option value="all" {if ($smarty.get.category|default:'all') == 'all'}selected{/if}>Tutte le categorie</option> 
-                        <option value="antipasti" {if ($smarty.get.category|default:'') == 'antipasti'}selected{/if}>Antipasti</option> 
-                        <option value="primi" {if ($smarty.get.category|default:'') == 'primi'}selected{/if}>Primi</option>
-                        <option value="secondi" {if ($smarty.get.category|default:'') == 'secondi'}selected{/if}>Secondi</option>
-                        <option value="dolci" {if ($smarty.get.category|default:'') == 'dolci'}selected{/if}>Dolci</option>
-                        <option value="bevande" {if ($smarty.get.category|default:'') == 'bevande'}selected{/if}>Bevande</option>
+                        <option value="all" <?php if (((($tmp = $_GET['category'] ?? null)===null||$tmp==='' ? 'all' ?? null : $tmp)) == 'all') {?>selected<?php }?>>Tutte le categorie</option> 
+                        <option value="antipasti" <?php if (((($tmp = $_GET['category'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'antipasti') {?>selected<?php }?>>Antipasti</option> 
+                        <option value="primi" <?php if (((($tmp = $_GET['category'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'primi') {?>selected<?php }?>>Primi</option>
+                        <option value="secondi" <?php if (((($tmp = $_GET['category'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'secondi') {?>selected<?php }?>>Secondi</option>
+                        <option value="dolci" <?php if (((($tmp = $_GET['category'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'dolci') {?>selected<?php }?>>Dolci</option>
+                        <option value="bevande" <?php if (((($tmp = $_GET['category'] ?? null)===null||$tmp==='' ? '' ?? null : $tmp)) == 'bevande') {?>selected<?php }?>>Bevande</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -58,7 +88,7 @@
                 <h2><i class="fas fa-list"></i> Tutti i Prodotti</h2>
             </div>
             
-            {if $products|@count > 0}
+            <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('products')) > 0) {?>
                 <table class="products-table">
                     <thead>
                         <tr>
@@ -71,41 +101,61 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {foreach from=$products item=product}
-                            <tr data-id="{$product->getId()}">
-                                <td data-label="ID">{$product->getId()}</td>
-                                <td data-label="Nome">{$product->getNome()}</td>
-                                <td data-label="Descrizione">{$product->getDescrizione()}</td>
-                                <td data-label="Categoria">{$product->getCategoria()->getNome()}</td>
-                                <td data-label="Prezzo">€{$product->getCosto()|number_format:2}</td>
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('products'), 'product');
+$foreach0DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('product')->value) {
+$foreach0DoElse = false;
+?>
+                            <tr data-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+">
+                                <td data-label="ID"><?php echo $_smarty_tpl->getValue('product')->getId();?>
+</td>
+                                <td data-label="Nome"><?php echo $_smarty_tpl->getValue('product')->getNome();?>
+</td>
+                                <td data-label="Descrizione"><?php echo $_smarty_tpl->getValue('product')->getDescrizione();?>
+</td>
+                                <td data-label="Categoria"><?php echo $_smarty_tpl->getValue('product')->getCategoria()->getNome();?>
+</td>
+                                <td data-label="Prezzo">€<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('product')->getCosto(),2);?>
+</td>
                                 <td class="actions">
                                     <button type="button"
                                             class="btn btn-edit"
                                             data-modal-target="editProductModal"
-                                            data-id="{$product->getId()}"
-                                            data-nome="{$product->getNome()|escape:'html'}"
-                                            data-descrizione="{$product->getDescrizione()|escape:'html'}"
-                                            data-prezzo="{$product->getCosto()}"
-                                            data-categoria="{$product->getCategoria()->getId()}">
+                                            data-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+"
+                                            data-nome="<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('product')->getNome(), ENT_QUOTES, 'UTF-8', true);?>
+"
+                                            data-descrizione="<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('product')->getDescrizione(), ENT_QUOTES, 'UTF-8', true);?>
+"
+                                            data-prezzo="<?php echo $_smarty_tpl->getValue('product')->getCosto();?>
+"
+                                            data-categoria="<?php echo $_smarty_tpl->getValue('product')->getCategoria()->getId();?>
+">
                                         <i class="fas fa-edit"></i> Modifica
                                     </button>
                                     <form action="/Delivery/Proprietario/deleteProduct/" method="post" class="inline-delete-form">
-                                        <input type="hidden" name="product_id" value="{$product->getId()}">
-                                        <button type="submit" class="btn btn-delete" data-product-id="{$product->getId()}">
+                                        <input type="hidden" name="product_id" value="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+">
+                                        <button type="submit" class="btn btn-delete" data-product-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+">
                                             <i class="fas fa-trash-alt"></i> Elimina
                                         </button>
                                     </form>
                                 </td>
                             </tr>
-                        {/foreach}
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                     </tbody>
                 </table>
-            {else}
+            <?php } else { ?>
                 <div class="no-products">
                     <i class="far fa-frown"></i>
                     <p>Nessun prodotto trovato</p>
                 </div>
-            {/if}
+            <?php }?>
         </section>
 
         <!-- Form Aggiungi Prodotto -->
@@ -113,14 +163,17 @@
             <h2><i class="fas fa-plus-circle"></i> Aggiungi Prodotto</h2>
             
             <form id="productForm" action="/Delivery/Proprietario/saveProduct" method="post">
-                {if $editMode}
-                    <input type="hidden" name="product_id" value="{$editingProduct->getId()}">
-                {/if}
+                <?php if ($_smarty_tpl->getValue('editMode')) {?>
+                    <input type="hidden" name="product_id" value="<?php echo $_smarty_tpl->getValue('editingProduct')->getId();?>
+">
+                <?php }?>
                 
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="productName">Nome:</label>
-                        <input type="text" id="productName" name="nome" value="{if $editMode}{$editingProduct->getNome()}{/if}" required>
+                        <input type="text" id="productName" name="nome" value="<?php if ($_smarty_tpl->getValue('editMode')) {
+echo $_smarty_tpl->getValue('editingProduct')->getNome();
+}?>" required>
                     </div>
                     
                     <div class="form-group">
@@ -136,24 +189,28 @@
                     
                     <div class="form-group">
                         <label for="productPrice">Prezzo (€):</label>
-                        <input type="number" id="productPrice" name="costo" step="0.01" min="0" value="{if $editMode}{$editingProduct->getCosto()}{/if}" required>
+                        <input type="number" id="productPrice" name="costo" step="0.01" min="0" value="<?php if ($_smarty_tpl->getValue('editMode')) {
+echo $_smarty_tpl->getValue('editingProduct')->getCosto();
+}?>" required>
                     </div>
                     
                     <div class="form-group full-width">
                         <label for="productDescription">Descrizione:</label>
-                        <textarea id="productDescription" name="descrizione" rows="3" required>{if $editMode}{$editingProduct->getDescrizione()}{/if}</textarea>
+                        <textarea id="productDescription" name="descrizione" rows="3" required><?php if ($_smarty_tpl->getValue('editMode')) {
+echo $_smarty_tpl->getValue('editingProduct')->getDescrizione();
+}?></textarea>
                     </div>
                     
                     <div class="form-group full-width actions">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-save"></i> {if $editMode}Salva Modifiche{else}Aggiungi Prodotto{/if}
+                            <i class="fas fa-save"></i> <?php if ($_smarty_tpl->getValue('editMode')) {?>Salva Modifiche<?php } else { ?>Aggiungi Prodotto<?php }?>
                         </button>
                         
-                        {if $editMode}
+                        <?php if ($_smarty_tpl->getValue('editMode')) {?>
                             <a href="/Delivery/Proprietario/gestioneMenu" class="btn btn-cancel">
                                 <i class="fas fa-times"></i> Annulla
                             </a>
-                        {/if}
+                        <?php }?>
                     </div>
                 </div>
             </form>
@@ -161,7 +218,8 @@
     </main>
 
     <!-- Footer -->
-    {include file="footer.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <!-- Modale per Modifica Prodotto -->
     <div id="editProductModal" class="modal" style="display: none;">
@@ -208,10 +266,17 @@
 
 
 
-    <script src="/Smarty/Js/hamburger.js"></script>
-    <script src="/Smarty/Js/theme.js"></script>
-    <script src="/Smarty/Js/modal.js"></script>
-    <script>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/theme.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/modal.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+>
     document.addEventListener('DOMContentLoaded', function () {
     document.querySelectorAll('[data-modal-target="editProductModal"]').forEach(button => {
         button.addEventListener('click', function () {
@@ -223,9 +288,11 @@
         });
     });
     });
-    </script>
+    <?php echo '</script'; ?>
+>
 
     
 
 </body>
-</html>
+</html><?php }
+}

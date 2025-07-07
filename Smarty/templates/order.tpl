@@ -77,13 +77,13 @@
     {include file="footer.tpl"}
 
 
-    <script src="/Smarty/js/hamburger.js"></script>
-    <script src="/Smarty/js/theme.js" defer></script>
+    <script src="/Smarty/Js/hamburger.js"></script>
+    <script src="/Smarty/Js/theme.js" defer></script>
 
 </body>
 
 <script src="/Smarty/Js/cart.js" defer></script>
-<script src="/Smarty/js/menu.js" defer></script>
+<script src="/Smarty/Js/menu.js" defer></script>
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         cart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [];

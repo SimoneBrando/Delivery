@@ -60,10 +60,10 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?>
 
   <?php echo '<script'; ?>
- src="/Smarty/js/hamburger.js"><?php echo '</script'; ?>
+ src="/Smarty/Js/hamburger.js"><?php echo '</script'; ?>
 >
   <?php echo '<script'; ?>
- src="/Smarty/js/theme.js" defer><?php echo '</script'; ?>
+ src="/Smarty/Js/theme.js" defer><?php echo '</script'; ?>
 >
 
 </body>

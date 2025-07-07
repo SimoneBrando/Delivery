@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.5.1, created on 2025-07-07 15:13:57
+  from 'file:register.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.5.1',
+  'unifunc' => 'content_686bc815bbf002_58593835',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'db270f8ac0a7c303c09193d152556bd55efa06f7' => 
+    array (
+      0 => 'register.tpl',
+      1 => 1751469988,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
+    'file:footer.tpl' => 1,
+  ),
+))) {
+function content_686bc815bbf002_58593835 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +38,8 @@
 </head>
 <body>
     <!-- Header -->
-    {include file="header.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <main>
         <!-- Hero Section -->
@@ -29,7 +57,8 @@
                     <h1>Registrati</h1>
 
                     <!-- Error Section -->
-                    {include file="error_section.tpl"}
+                    <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
                     <form action="/Delivery/User/registerUser" method="POST">
                         <div class="form-group">
@@ -39,7 +68,8 @@
                                 id="nome" 
                                 name="nome" 
                                 required 
-                                value="{$name|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('name') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -49,7 +79,8 @@
                                 id="cognome" 
                                 name="cognome" 
                                 required 
-                                value="{$cognome|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('cognome') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -59,7 +90,8 @@
                                 id="email" 
                                 name="email" 
                                 required 
-                                value="{$email|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('email') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -85,13 +117,19 @@
     </main>
 
     <!-- Footer -->
-    {include file="footer.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
-    <script src="/Smarty/Js/hamburger.js"></script>
-    <script src="/Smarty/Js/theme.js" defer></script>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/theme.js" defer><?php echo '</script'; ?>
+>
 
-    {literal}
-    <script>
+    
+    <?php echo '<script'; ?>
+>
         document.getElementById('phone').addEventListener('input', function(e) {
             let phoneNumber = e.target.value.replace(/\D/g, ''); // solo numeri
             phoneNumber = phoneNumber.slice(0, 10); // massimo 10 cifre
@@ -104,8 +142,11 @@
                 e.target.value = phoneNumber.replace(/(\d{3})(\d{3})(\d{0,4})/, '$1 $2 $3');
             }
         });
-    </script>
-    {/literal}
+    <?php echo '</script'; ?>
+>
+    
 
 </body>
 </html>
+<?php }
+}

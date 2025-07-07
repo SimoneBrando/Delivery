@@ -101,8 +101,8 @@
             </div>
         </div>
 
-    <script src="/Smarty/js/hamburger.js"></script>
-    <script src="/Smarty/js/theme.js" defer></script>
-    <script src="/Smarty/js/report_modal.js"></script>
+    <script src="/Smarty/Js/hamburger.js"></script>
+    <script src="/Smarty/Js/theme.js" defer></script>
+    <script src="/Smarty/Js/report_modal.js"></script>
 </body>
 </html>

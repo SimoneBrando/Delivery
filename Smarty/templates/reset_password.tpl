@@ -35,24 +35,12 @@
                     <!-- Error Section -->
                     {include file="error_section.tpl"}
 
-                    <form action="/Delivery/User/forgotPassword" method="POST">
-                        <div class="form-group">
-                            <label for="email">Indirizzo Email</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                required
-                                placeholder="Inserisci la tua email"
-                                value="{$email|default:''|escape:'html'}"
-                            >
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn">Invia link di reset</button>
-                        </div>
-                        <div class="form-group">
-                            <p>Hai già un account? <a href="/Delivery/User/showLoginForm">Accedi</a></p>
-                        </div>
+                    <form action="/Delivery/User/resetPassword" method="POST">
+                        <input type="hidden" name="selector" value={$selector}>
+                        <input type="hidden" name="token" value={$token}>
+                        <label>New Password:</label>
+                        <input type="password" name="password">
+                        <button type="submit">Reset Password</button>
                     </form>
                 </div>
             </div>

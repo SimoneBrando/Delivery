@@ -80,4 +80,10 @@ class VUser{
     public function errorCartOrAddress(){
         $this->smarty->display('error_cart_or_address.tpl');
     }
+
+    public function showResetPassword($selector, $token){
+        $this->smarty->assign('selector', $selector);
+        $this->smarty->assign('token', $token);
+        $this->smarty->display("reset_password.tpl");
+    }
 }

@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 5.5.1, created on 2025-07-08 15:41:41
+  from 'file:forgot_password.tpl' */
+
+/* @var \Smarty\Template $_smarty_tpl */
+if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
+  'version' => '5.5.1',
+  'unifunc' => 'content_686d2015742fe2_18929507',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'f4887d529450b5f87111dfbac26f052289ff8bde' => 
+    array (
+      0 => 'forgot_password.tpl',
+      1 => 1751981538,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+    'file:header.tpl' => 1,
+    'file:error_section.tpl' => 1,
+    'file:footer.tpl' => 1,
+  ),
+))) {
+function content_686d2015742fe2_18929507 (\Smarty\Template $_smarty_tpl) {
+$_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
+?><!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
@@ -11,7 +38,8 @@
 </head>
 <body>
     <!-- Header -->
-    {include file="header.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
     <!-- Main Section -->
     <main>
@@ -33,7 +61,14 @@
                     <h1>Recupera la tua Password</h1>
 
                     <!-- Error Section -->
-                    {include file="error_section.tpl"}
+                    <?php $_smarty_tpl->renderSubTemplate("file:error_section.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
+
+                    <!-- Flash Message (opzionale) -->
+                    <?php if ((true && ($_smarty_tpl->hasVariable('flashMessage') && null !== ($_smarty_tpl->getValue('flashMessage') ?? null)))) {?>
+                        <div class="flash-message"><?php echo $_smarty_tpl->getValue('flashMessage');?>
+</div>
+                    <?php }?>
 
                     <form action="/Delivery/User/forgotPassword" method="POST">
                         <div class="form-group">
@@ -44,7 +79,8 @@
                                 name="email" 
                                 required
                                 placeholder="Inserisci la tua email"
-                                value="{$email|default:''|escape:'html'}"
+                                value="<?php echo htmlspecialchars((string)(($tmp = $_smarty_tpl->getValue('email') ?? null)===null||$tmp==='' ? '' ?? null : $tmp), ENT_QUOTES, 'UTF-8', true);?>
+"
                             >
                         </div>
                         <div class="form-group">
@@ -60,9 +96,16 @@
     </main>
 
     <!-- Footer -->
-    {include file="footer.tpl"}
+    <?php $_smarty_tpl->renderSubTemplate("file:footer.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), (int) 0, $_smarty_current_dir);
+?>
 
-    <script src="/Smarty/Js/hamburger.js"></script>
-    <script src="/Smarty/Js/theme.js" defer></script>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/hamburger.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="/Smarty/Js/theme.js" defer><?php echo '</script'; ?>
+>
 </body>
 </html>
+<?php }
+}

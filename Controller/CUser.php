@@ -10,6 +10,7 @@ use Entity\ECarta_credito;
 use Entity\EIndirizzo;
 use Entity\EUtente;
 use InvalidArgumentException;
+use Exception;
 use Services\Utility\UFlashMessage;
 use View\VUser;
 use Services\MailingService;
@@ -25,7 +26,7 @@ class CUser extends BaseController{
      *
      * Recupera i dati dal metodo POST ('password', 'email', 'nome', 'cognome'), crea un nuovo utente tramite
      * 'auth_manager', genera un profilo del ruolo specificato, lo popola con i dati base
-     * e opzionalmente con altri dati extra. Salva poi l'entità e reindirizza al login.
+     * e opzionalmente con altri dati extra. Salva poi l'entità, invia una email di conferma all'utente e reindirizza al login.
      *
      * @param string $role Il ruolo da assegnare all'utente (default: "Cliente"). Deve corrispondere a una classe 'Entity\E{Ruolo}' esistente.
      * @param array $extraData Array associativo di metodi e valori da invocare sull'entità, differenti in base al ruolo dell'utente.
@@ -136,7 +137,7 @@ class CUser extends BaseController{
      * Gestisce anche i principali errori di autenticazione, mostrando messaggi appropriati.
      *
      * @throws \Delight\Auth\InvalidEmailException Se l'indirizzo email fornito non è valido.
-     * @throws \Delight\Auth\InvalidPasswordException Se la password fornita è errata.
+     * @throws InvalidPasswordException Se la password fornita è errata.
      * @throws \Delight\Auth\EmailNotVerifiedException Se l'email non è stata verificata.
      * @throws \Delight\Auth\TooManyRequestsException Se ci sono stati troppi tentativi di login.
      * @throws \Delight\Auth\AttemptCancelledException Se il tentativo è stato annullato (es. login concorrente).
@@ -171,7 +172,7 @@ class CUser extends BaseController{
             exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
             $this->catchError("Email o password errati.", "User/showLoginForm");
-        } catch (\Delight\Auth\InvalidPasswordException $e) {
+        } catch (InvalidPasswordException $e) {
             $this->catchError("Email o password errati.", "User/showLoginForm");
         } catch (\Delight\Auth\EmailNotVerifiedException $e) {
             $this->catchError("Email non verificata.", "User/showLoginForm");
@@ -210,7 +211,7 @@ class CUser extends BaseController{
      * tenta un rollback della password originale.
      *
      * @throws \Delight\Auth\NotLoggedInException Se l'utente non è autenticato.
-     * @throws \Delight\Auth\InvalidPasswordException Se la vecchia o nuova password non è valida.
+     * @throws InvalidPasswordException Se la vecchia o nuova password non è valida.
      * @throws \Delight\Auth\TooManyRequestsException Se ci sono stati troppi tentativi di modifica.
      * @throws ORMException Se si verifica un errore durante l'aggiornamento nel database.
      *
@@ -259,7 +260,7 @@ class CUser extends BaseController{
             header("Location: /Delivery/User/showProfile");
         } catch (\Delight\Auth\NotLoggedInException $e) {
             header("Location: /Delivery/User/home");
-        } catch (\Delight\Auth\InvalidPasswordException $e) {
+        } catch (InvalidPasswordException $e) {
             $this->catchError("Passwords non valide.", "User/showProfile");
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             $this->catchError("Errore insolito, riprova più tardi.", "User/showProfile");
@@ -268,7 +269,7 @@ class CUser extends BaseController{
             if(isset($userId)){
                 try {
                     $this->auth_manager->changePassword($$newPassword,$oldPassword); //ripristino la vecchia password in caso di errore
-                } catch (\Delight\Auth\InvalidPasswordException $e) {
+                } catch (InvalidPasswordException $e) {
                     $this->catchError("Passwords non valide", "User/showProfile");
                 } catch (\Delight\Auth\TooManyRequestsException $e) {
                     $this->catchError("Errore insolito, riprova più tardi.", "User/showProfile");
@@ -328,7 +329,7 @@ class CUser extends BaseController{
             $this->auth_manager->admin()->deleteUserById($userId);
         } catch (\Delight\Auth\UnknownIdException $e) {
             die('Unknown ID');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             die ("Unknown exception $e");
         } catch (\ArgumentCountError $e) {
             die ("Argument passed not valid");
@@ -384,7 +385,7 @@ class CUser extends BaseController{
             UFlashMessage::addMessage('success', 'Metodo di pagamento aggiunto con successo');
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->catchError($e->getMessage(), "User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
@@ -400,14 +401,14 @@ class CUser extends BaseController{
             $numeroCarta = UHTTPMethods::postInt('numero_carta',16,16);
             $creditCard = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', $numeroCarta);
             if (!$creditCard) {
-                throw new \InvalidArgumentException("Carta di credito non trovata.");
+                throw new InvalidArgumentException("Carta di credito non trovata.");
             }
             $creditCard->setCartaAttiva(false);
             $this->persistent_manager->updateObj($creditCard);
             UFlashMessage::addMessage('success', 'Metodo di pagamento rimosso con successo');
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->catchError($e->getMessage(), "User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
@@ -437,7 +438,7 @@ class CUser extends BaseController{
             UFlashMessage::addMessage('success', 'Indirizzo aggiunto con successo');
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->catchError("Errore nei dati inseriti.", "User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
@@ -453,14 +454,14 @@ class CUser extends BaseController{
             $indirizzoId = UHTTPMethods::post('indirizzo_id');
             $indirizzo = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class, 'id', $indirizzoId);
             if (!$indirizzo) {
-                throw new \InvalidArgumentException("Indirizzo non trovato.");
+                throw new InvalidArgumentException("Indirizzo non trovato.");
             }
             $indirizzo->setAttivo(false);
             $this->persistent_manager->updateObj($indirizzo);
             UFlashMessage::addMessage('success', 'Indirizzo rimosso con successo');
             header("Location: /Delivery/User/showProfile");
             exit;
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException $e) {
             $this->catchError($e->getMessage(),"User/showProfile");
         } catch (\PDOException $e) {
             error_log("Errore DB: " . $e->getMessage());
@@ -602,15 +603,12 @@ class CUser extends BaseController{
         }
         $view = new VUser($this->isLoggedIn(), $this->userRole);
         $view->showForgotPasswordForm();
-
-
         $email = UHTTPMethods::post('email');
         try {
-            
             $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
                 // Costruisci il link di reset password
-                $url = 'https://www.delivery.com/reset_password?selector=' . urlencode($selector) . '&token=' . urlencode($token);
-                //Da definire le variabili d'ambiente
+                $url = 'https://deliveryhomerestaurant.altervista.org/Delivery/User/showResetPasswordForm/' . urlencode($selector) . '/' . urlencode($token);
+                
                 $mailService = new MailingService();
                 $message = "
                     <h2>Richiesta di reset password</h2>
@@ -623,13 +621,8 @@ class CUser extends BaseController{
                     <img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
                 ";
                 $mailService->mailTo($email, 'Resetta la tua password su Delivery', $message);
-
-                
-                
             });
-            
-            UFlashMessage::addMessage('success', 'Una email è stata inviata al tuo account per resettare la password');
-
+            header('Location: /Delivery/User/showLoginForm');
             exit;
         } catch (\Delight\Auth\InvalidEmailException $e) {
             die('Invalid email address');
@@ -640,20 +633,27 @@ class CUser extends BaseController{
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
         } catch(Exception $e) {
-            die($e->errorMessage());
+            UFlashMessage::addMessage('error', $e->getMessage());
+            header('Location: /Delivery/User/showLoginForm');
+            exit;
         }
     }
     
     //Step 2 of 3: Verifying an attempt
-    public function showResetPasswordForm() {
-        if ($this->auth_manager->canResetPassword($_GET['selector'], $_GET['token'])) {
-            echo '<form method="post" action="/Delivery/User/resetPassword">';
-            echo '<input type="hidden" name="selector" value="' . htmlspecialchars($_GET['selector']) . '">';
-            echo '<input type="hidden" name="token" value="' . htmlspecialchars($_GET['token']) . '">';
-            echo '<label>New Password:</label>';
-            echo '<input type="password" name="password">';
-            echo '<button type="submit">Reset Password</button>';
-            echo '</form>';
+    public function showResetPasswordForm(...$params) {
+        $selector = isset($params[0]) ? urldecode($params[0]) : null;
+        $token = isset($params[1]) ? urldecode($params[1]) : null;
+        if (!$token || !$selector) {
+            UFlashMessage::addMessage('error', "Errore nella creazione del link, ci scusiamo per il disagio!");
+            header('Location: /Delivery/User/home');
+            exit;
+        }
+        if ($this->auth_manager->canResetPassword($selector, $token)) {
+            $view = new VUser();
+            $view->showResetPassword($selector, $token);
+        } else {
+            echo "Errore nell'Auth Service";
+            return;
         }
     }
 
@@ -664,12 +664,13 @@ class CUser extends BaseController{
         $newPassword = UHTTPMethods::post('password');
         try {
             $this->auth_manager->resetPasswordAndSignIn($selector, $token, $newPassword);
-            echo 'Password has been reset';
             $userId= $this->auth_manager->getUserId(); //recupero userId dell'utente che si è appena loggato cambiando password
-            $client = $this->persistent_manager->getObjOnAttribute("Cliente","user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
+            $client = $this->persistent_manager->getObjOnAttribute(EUtente::class,"user_id", $userId); //recupero l'oggetto Cliente relativo a quell'userId
             $oldPassword = $client->getPassword(); //recupero la vecchia password del Cliente (al fine di eseguire un rollback manuale se necessario)
             $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
             $this->persistent_manager->updateObj($client); //salvataggio sul database
+            UFlashMessage::addMessage('success', "Password modificata con successo e login eseguito!");
+            header('Location: /Delivery/User/showProfile');
         }
         catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
             die('Invalid token');
@@ -677,7 +678,7 @@ class CUser extends BaseController{
             die('Token expired');
         } catch (\Delight\Auth\ResetDisabledException $e) {
             die('Password reset is disabled');
-        } catch (\Delight\Auth\InvalidPasswordException $e) {
+        } catch (InvalidPasswordException $e) {
             die('Invalid password');
         } catch (\Delight\Auth\TooManyRequestsException $e) {
             die('Too many requests');
@@ -686,13 +687,15 @@ class CUser extends BaseController{
             if(isset($userId)){
                 try {
                     $this->auth_manager->changePassword($newPassword,$oldPassword); //ripristino la vecchia password in caso di errore
-                } catch (\Delight\Auth\InvalidPasswordException $e) {
+                } catch (InvalidPasswordException $e) {
                     die('Invalid password(s)');
                 } catch (\Delight\Auth\TooManyRequestsException $e) {
                     die('Too many requests');
                 }
             }
             die('ORM error');
+        } finally {
+            exit;
         }
     }
     

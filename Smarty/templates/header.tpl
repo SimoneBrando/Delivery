@@ -1,4 +1,23 @@
 <header>
+    <!-- Avviso se JavaScript è disabilitato -->
+    <noscript>
+        <div class="alert alert-danger text-center m-0" role="alert">
+            Attenzione: questo sito richiede JavaScript per funzionare correttamente. Abilitalo nel tuo browser.
+        </div>
+    </noscript>
+    
+    <!-- Avviso se i cookie sono disabilitati -->
+    <div id="cookie-warning" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; text-align: center; border: 1px solid #f5c6cb;">
+        Attenzione: questo sito richiede l'uso dei cookie per funzionare correttamente. Abilitali nel tuo browser.
+    </div>
+
+    <script>
+        // Controlla se i cookie sono abilitati
+        if (!navigator.cookieEnabled) {
+            document.getElementById('cookie-warning').style.display = 'block';
+        }
+    </script>
+
     <div class="header-container">
 
         <!-- Hamburger visibile solo su mobile -->

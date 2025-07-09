@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-07 22:10:40
+/* Smarty version 5.5.1, created on 2025-07-09 10:01:07
   from 'file:header.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_686c29c09622e6_94596260',
+  'unifunc' => 'content_686e21c32e8cd7_68338735',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2782fd097f6af45548f5e7574f5c13c1862b177b' => 
     array (
       0 => 'header.tpl',
-      1 => 1751919034,
+      1 => 1752048008,
       2 => 'file',
     ),
   ),
@@ -20,9 +20,30 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   array (
   ),
 ))) {
-function content_686c29c09622e6_94596260 (\Smarty\Template $_smarty_tpl) {
+function content_686e21c32e8cd7_68338735 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><header>
+    <!-- Avviso se JavaScript è disabilitato -->
+    <noscript>
+        <div class="alert alert-danger text-center m-0" role="alert">
+            Attenzione: questo sito richiede JavaScript per funzionare correttamente. Abilitalo nel tuo browser.
+        </div>
+    </noscript>
+    
+    <!-- Avviso se i cookie sono disabilitati -->
+    <div id="cookie-warning" style="display: none; background-color: #f8d7da; color: #721c24; padding: 10px; text-align: center; border: 1px solid #f5c6cb;">
+        Attenzione: questo sito richiede l'uso dei cookie per funzionare correttamente. Abilitali nel tuo browser.
+    </div>
+
+    <?php echo '<script'; ?>
+>
+        // Controlla se i cookie sono abilitati
+        if (!navigator.cookieEnabled) {
+            document.getElementById('cookie-warning').style.display = 'block';
+        }
+    <?php echo '</script'; ?>
+>
+
     <div class="header-container">
 
         <!-- Hamburger visibile solo su mobile -->

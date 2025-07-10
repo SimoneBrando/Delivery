@@ -601,42 +601,48 @@ class CUser extends BaseController{
             header('Location: /Delivery/User/home');
             exit;
         }
-        $view = new VUser($this->isLoggedIn(), $this->userRole);
-        $view->showForgotPasswordForm();
-        $email = UHTTPMethods::post('email');
-        try {
-            $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
-                // Costruisci il link di reset password
-                $url = 'https://deliveryhomerestaurant.altervista.org/Delivery/User/showResetPasswordForm/' . urlencode($selector) . '/' . urlencode($token);
-                
-                $mailService = new MailingService();
-                $message = "
-                    <h2>Richiesta di reset password</h2>
-                    <p>Ciao,</p>
-                    <p>Hai richiesto il reset della tua password su Delivery. Clicca sul link qui sotto per procedere:</p>
-                    <p><a href='$url'>Resetta la tua password</a></p>
-                    <p>Se non hai richiesto questo cambiamento, ignora questa email.</p>
-                    <br>
-                    <p>Grazie,<br>Il team di Delivery</p>
-                    <img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
-                ";
-                $mailService->mailTo($email, 'Resetta la tua password su Delivery', $message);
-            });
-            header('Location: /Delivery/User/showLoginForm');
-            exit;
-        } catch (\Delight\Auth\InvalidEmailException $e) {
-            die('Invalid email address');
-        } catch (\Delight\Auth\EmailNotVerifiedException $e) {
-            die('Email not verified');
-        } catch (\Delight\Auth\ResetDisabledException $e) {
-            die('Password reset is disabled');
-        } catch (\Delight\Auth\TooManyRequestsException $e) {
-            die('Too many requests');
-        } catch(Exception $e) {
-            UFlashMessage::addMessage('error', $e->getMessage());
-            header('Location: /Delivery/User/showLoginForm');
-            exit;
+        
+        if ($_SERVER['REQUEST_METHOD']=='POST'){
+            try {
+                $email = UHTTPMethods::post('email');
+                $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
+                    // Costruisci il link di reset password
+                    $url = 'https://deliveryhomerestaurant.altervista.org/Delivery/User/showResetPasswordForm/' . urlencode($selector) . '/' . urlencode($token);
+                    
+                    $mailService = new MailingService();
+                    $message = "
+                        <h2>Richiesta di reset password</h2>
+                        <p>Ciao,</p>
+                        <p>Hai richiesto il reset della tua password su Delivery. Clicca sul link qui sotto per procedere:</p>
+                        <p><a href='$url'>Resetta la tua password</a></p>
+                        <p>Se non hai richiesto questo cambiamento, ignora questa email.</p>
+                        <br>
+                        <p>Grazie,<br>Il team di Delivery</p>
+                        <img src='https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png' style='width:120px; height:auto;' alt='Logo Delivery'>
+                    ";
+                    $mailService->mailTo($email, 'Resetta la tua password su Delivery', $message);
+                });
+                UFlashMessage::addMessage('error', 'Email inviata al tuo indirizzo');
+            } catch (\Delight\Auth\InvalidEmailException $e) {
+                UFlashMessage::addMessage('error', 'Indirizzo email non valido');
+            } catch (\Delight\Auth\EmailNotVerifiedException $e) {
+                UFlashMessage::addMessage('error', 'Indirizzo email non verificato');
+            } catch (\Delight\Auth\ResetDisabledException $e) {
+                UFlashMessage::addMessage('error', 'Reset della password disabilitato');
+            } catch (\Delight\Auth\TooManyRequestsException $e) {
+                UFlashMessage::addMessage('error', 'Troppe richieste di reset, riprovare più tardi');
+            } catch(Exception $e) {
+                UFlashMessage::addMessage('error', $e->getMessage());
+            }
+            $messages = UFlashMessage::getMessage();
+            $view = new VUser($this->isLoggedIn(), $this->userRole, $messages);
+            $view->showForgotPasswordForm();
+            return;
         }
+
+        $messages = UFlashMessage::getMessage();
+        $view = new VUser($this->isLoggedIn(), $this->userRole, $messages);
+        $view->showForgotPasswordForm();
     }
     
     //Step 2 of 3: Verifying an attempt
@@ -644,16 +650,13 @@ class CUser extends BaseController{
         $selector = isset($params[0]) ? urldecode($params[0]) : null;
         $token = isset($params[1]) ? urldecode($params[1]) : null;
         if (!$token || !$selector) {
-            UFlashMessage::addMessage('error', "Errore nella creazione del link, ci scusiamo per il disagio!");
-            header('Location: /Delivery/User/home');
-            exit;
+            $this->catchError("Errore nella creazione del link, ci scusiamo per il disagio!", "User/home");
         }
         if ($this->auth_manager->canResetPassword($selector, $token)) {
             $view = new VUser();
             $view->showResetPassword($selector, $token);
         } else {
-            echo "Errore nell'Auth Service";
-            return;
+            $this->catchError("Errore insolito, ci scusiamo per il disagio!", "User/home");
         }
     }
 
@@ -697,27 +700,27 @@ class CUser extends BaseController{
             header('Location: /Delivery/User/showLoginForm');
         }
         catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
-            die('Invalid token');
+            $this->catchError("Errore nella creazione del link, ci scusiamo per il disagio!", 'User/showLoginForm');
         } catch (\Delight\Auth\TokenExpiredException $e) {
-            die('Token expired');
+            $this->catchError("Errore nella creazione del link, ci scusiamo per il disagio!", 'User/showLoginForm');
         } catch (\Delight\Auth\ResetDisabledException $e) {
-            die('Password reset is disabled');
+            $this->catchError("Reset della password disabilitato", 'User/showLoginForm');
         } catch (InvalidPasswordException $e) {
-            die('Invalid password');
+            $this->catchError("Password non valida, eseguire nuovamente la procedura di reset", 'User/showLoginForm');
         } catch (\Delight\Auth\TooManyRequestsException $e) {
-            die('Too many requests');
+            $this->catchError("Troppe richieste di reset, riprovare più tardi", 'User/showLoginForm');
         } catch (ORMException $e) {
             //Tentativo di rollback manuale
             if(isset($userId)){
                 try {
                     $this->auth_manager->changePassword($newPassword,$oldPassword); //ripristino la vecchia password in caso di errore
                 } catch (InvalidPasswordException $e) {
-                    die('Invalid password(s)');
+                    throw $e;
                 } catch (\Delight\Auth\TooManyRequestsException $e) {
-                    die('Too many requests');
+                    throw $e;
                 }
             }
-            die('ORM error');
+            $this->catchError("Errore imprevisto, ci scusiamo per il disagio!", 'User/showLoginForm');
         } finally {
             exit;
         }

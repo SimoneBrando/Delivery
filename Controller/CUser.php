@@ -7,6 +7,7 @@ use Controller\BaseController;
 use Delight\Auth\InvalidPasswordException;
 use Doctrine\ORM\Exception\ORMException;
 use Entity\ECarta_credito;
+use Entity\ECliente;
 use Entity\EIndirizzo;
 use Entity\EUtente;
 use InvalidArgumentException;
@@ -428,12 +429,12 @@ class CUser extends BaseController{
             $civico = UHTTPMethods::post('civico');
             $cap = UHTTPMethods::postInt('cap',5,5);
             $citta = UHTTPMethods::postString('citta');
-            $address = new EIndirizzo();
+            $address = $this->checkIfAddressAlreadyExistsForUser($user, $citta, $via, $civico);
             $address->setVia($via)
                 ->setCivico($civico)
                 ->setCap($cap)
                 ->setCitta($citta)
-                ->addCliente($user);
+                ->setAttivo(true);
             $this->persistent_manager->saveObj($address);
             UFlashMessage::addMessage('success', 'Indirizzo aggiunto con successo');
             header("Location: /Delivery/User/showProfile");
@@ -445,7 +446,7 @@ class CUser extends BaseController{
             $this->catchError("Errore durante il salvataggio, riprovare.", "Use/showProfile");
         } catch (\Throwable $th) {
             error_log("Errore generico: " . $th->getMessage());
-            $this->catchError("Errore imprevisto, riprovare.", "User/showProfile");
+            $this->catchError("Errore imprevisto, riprovare.".$th->getMessage(), "User/showProfile");
         }
     }
     public function removeAddress(){
@@ -488,6 +489,33 @@ class CUser extends BaseController{
         });
         return $userAddresses;
     }
+
+    public function checkIfAddressAlreadyExistsForUser(ECliente $user, string $newCitta, string $newVia, $newCivico): EIndirizzo {
+        $userAddresses = $user->getIndirizziConsegna();
+        $newCitta = strtolower(trim($newCitta));
+        $newVia = strtolower(trim($newVia));
+        $newCivico = strtolower(trim($newCivico));
+        //Controllo se l'utente ha degli indirizzi associati
+        if (empty($userAddresses)){
+            $address = new EIndirizzo();
+            $address->addCliente($user);
+            return $address;
+        }
+        //Controllo se tra gli indirizzi dell'utente c'è già uno con gli stessi dati
+        foreach ($userAddresses as $indirizzo) {
+            if (
+                strtolower(trim($indirizzo->getCitta())) === $newCitta &&
+                strtolower(trim($indirizzo->getVia())) === $newVia &&
+                strtolower(trim($indirizzo->getCivico())) === $newCivico
+            ) {
+                return $indirizzo;
+            }
+        }
+        $address = new EIndirizzo();
+        $address->addCliente($user);
+        return $address;
+    }
+
 
     public function findActiveUserCards(){
         $this->requireLogin();

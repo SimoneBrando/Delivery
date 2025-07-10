@@ -188,6 +188,10 @@ class FPersistentManager
         return FIndirizzo::getAllActiveAddresses();
     }
 
+    public static function getAllNonActiveAddresses(): array{
+        return FIndirizzo::getAllNonActiveAddresses();
+    }
+
 // <--------------------------------REVIEW--------------------------------------------> //
 
     /**

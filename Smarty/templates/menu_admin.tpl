@@ -59,47 +59,56 @@
             </div>
             
             {if $products|@count > 0}
-                <table class="products-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Descrizione</th>
-                            <th>Categoria</th>
-                            <th>Prezzo</th>
-                            <th>Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {foreach from=$products item=product}
-                            <tr data-id="{$product->getId()}">
-                                <td data-label="ID">{$product->getId()}</td>
-                                <td data-label="Nome">{$product->getNome()}</td>
-                                <td data-label="Descrizione">{$product->getDescrizione()}</td>
-                                <td data-label="Categoria">{$product->getCategoria()->getNome()}</td>
-                                <td data-label="Prezzo">€{$product->getCosto()|number_format:2}</td>
-                                <td class="actions">
-                                    <button type="button"
-                                            class="btn btn-edit"
-                                            data-modal-target="editProductModal"
-                                            data-id="{$product->getId()}"
-                                            data-nome="{$product->getNome()|escape:'html'}"
-                                            data-descrizione="{$product->getDescrizione()|escape:'html'}"
-                                            data-prezzo="{$product->getCosto()}"
-                                            data-categoria="{$product->getCategoria()->getId()}">
-                                        <i class="fas fa-edit"></i> Modifica
-                                    </button>
-                                    <form action="/Delivery/Proprietario/deleteProduct/" method="post" class="inline-delete-form">
-                                        <input type="hidden" name="product_id" value="{$product->getId()}">
-                                        <button type="submit" class="btn btn-delete" data-product-id="{$product->getId()}">
-                                            <i class="fas fa-trash-alt"></i> Elimina
-                                        </button>
-                                    </form>
-                                </td>
+                <div class="scrollable-table">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Descrizione</th>
+                                <th>Categoria</th>
+                                <th>Prezzo</th>
+                                <th>Azioni</th>
                             </tr>
-                        {/foreach}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {assign var="currentCategory" value=""}
+                            {foreach from=$products item=product}
+                                {if $currentCategory != $product->getCategoria()->getNome()}
+                                    {assign var="currentCategory" value=$product->getCategoria()->getNome()}
+                                    <tr class="category-header">
+                                        <td colspan="6"><strong>{$currentCategory}</strong></td>
+                                    </tr>
+                                {/if}
+                                <tr data-id="{$product->getId()}">
+                                    <td data-label="ID">{$product->getId()}</td>
+                                    <td data-label="Nome">{$product->getNome()}</td>
+                                    <td data-label="Descrizione">{$product->getDescrizione()}</td>
+                                    <td data-label="Categoria">{$product->getCategoria()->getNome()}</td>
+                                    <td data-label="Prezzo">€{$product->getCosto()|number_format:2}</td>
+                                    <td class="actions">
+                                        <button type="button"
+                                                class="btn btn-edit"
+                                                data-modal-target="editProductModal"
+                                                data-id="{$product->getId()}"
+                                                data-nome="{$product->getNome()|escape:'html'}"
+                                                data-descrizione="{$product->getDescrizione()|escape:'html'}"
+                                                data-prezzo="{$product->getCosto()}"
+                                                data-categoria="{$product->getCategoria()->getId()}">
+                                            <i class="fas fa-edit"></i> Modifica
+                                        </button>
+                                        <form action="/Delivery/Proprietario/deleteProduct/" method="post" class="inline-delete-form">
+                                            <input type="hidden" name="product_id" value="{$product->getId()}">
+                                            <button type="submit" class="btn btn-delete" data-product-id="{$product->getId()}">
+                                                <i class="fas fa-trash-alt"></i> Elimina
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {/foreach}
+                        </tbody>
+                    </table>
+                </div>
             {else}
                 <div class="no-products">
                     <i class="far fa-frown"></i>

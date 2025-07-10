@@ -45,6 +45,11 @@ class EUtente
     private $cognome;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $attivo;
+
+    /**
      * @ORM\Column(type="string")
      */
     private $email;
@@ -66,7 +71,7 @@ class EUtente
 
     // Costruttore
     public function __construct(){
-
+        $this->attivo = true;
     }
 
     // Getter
@@ -83,6 +88,17 @@ class EUtente
     public function getNome(): string
     {
         return $this->nome;
+    }
+
+    public function getAttivo(): bool
+    {
+        return $this->attivo;
+    }
+
+    public function setAttivo(bool $attivo): EUtente
+    {
+        $this->attivo = $attivo;
+        return $this;
     }
 
     public function setNome(string $nome): EUtente

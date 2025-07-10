@@ -10,6 +10,7 @@ use Entity\ECarta_credito;
 use Entity\ECliente;
 use Entity\EIndirizzo;
 use Entity\EUtente;
+use Error;
 use InvalidArgumentException;
 use Exception;
 use Services\Utility\UFlashMessage;
@@ -277,6 +278,8 @@ class CUser extends BaseController{
                 }
             }
             $this->handleFatalError($e);
+        } catch (Error $e) {
+            $this->catchError("Errore insolito nell'invio della mail di conferma, la password è stata comunque modificata.", "User/showProfile");
         }
     }
 
@@ -328,6 +331,9 @@ class CUser extends BaseController{
     public function removeAccount(string $userId = "") {
         try{
             $this->auth_manager->admin()->deleteUserById($userId);
+            $user = $this->persistent_manager->getObjOnAttribute(EUtente::class, 'user_id', $userId);
+            $user->setAttivo(false);
+            $this->persistent_manager->updateObj($user);
         } catch (\Delight\Auth\UnknownIdException $e) {
             die('Unknown ID');
         } catch (Exception $e) {
@@ -620,7 +626,7 @@ class CUser extends BaseController{
     //-----------------------------------------------------------------------------------------------------------------------------------
 
 
-    //FORGOT PASSWORD DA TESTARE
+    //FORGOT PASSWORD
     
     //Quando l'utente non ricorda la password
     //Step 1 of 3: Initiating the request
@@ -635,7 +641,7 @@ class CUser extends BaseController{
                 $email = UHTTPMethods::post('email');
                 $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
                     // Costruisci il link di reset password
-                    $url = 'https://deliveryhomerestaurant.altervista.org/Delivery/User/showResetPasswordForm/' . urlencode($selector) . '/' . urlencode($token);
+                    $url = 'http://localhost/Delivery/User/showResetPasswordForm/' . urlencode($selector) . '/' . urlencode($token);
                     
                     $mailService = new MailingService();
                     $message = "
@@ -650,7 +656,7 @@ class CUser extends BaseController{
                     ";
                     $mailService->mailTo($email, 'Resetta la tua password su Delivery', $message);
                 });
-                UFlashMessage::addMessage('error', 'Email inviata al tuo indirizzo');
+                UFlashMessage::addMessage('success', 'Email inviata al tuo indirizzo');
             } catch (\Delight\Auth\InvalidEmailException $e) {
                 UFlashMessage::addMessage('error', 'Indirizzo email non valido');
             } catch (\Delight\Auth\EmailNotVerifiedException $e) {

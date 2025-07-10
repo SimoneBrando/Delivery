@@ -25,6 +25,11 @@ class FCuoco{
         return FEntityManager::getInstance()->getAll(ECuoco::class);
     }
 
+    public static function getAllActiveChefs(): array
+    {
+        return FEntityManager::getInstance()->getObjListOnAttribute(ECuoco::class, 'attivo', true);
+    }
+
 
 
 

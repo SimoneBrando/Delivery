@@ -24,5 +24,9 @@ class FRider
         return FEntityManager::getInstance()->getAll(ERider::class);
     }
 
+    public static function getAllActiveRiders(): array
+    {
+        return FEntityManager::getInstance()->getObjListOnAttribute(ERider::class, 'attivo', true);
+    }
 
 }

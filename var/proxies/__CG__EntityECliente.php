@@ -305,6 +305,28 @@ class ECliente extends \Entity\ECliente implements \Doctrine\ORM\Proxy\Proxy
     /**
      * {@inheritDoc}
      */
+    public function getAttivo(): bool
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getAttivo', []);
+
+        return parent::getAttivo();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setAttivo(bool $attivo): \Entity\EUtente
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAttivo', [$attivo]);
+
+        return parent::setAttivo($attivo);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function setNome(string $nome): \Entity\EUtente
     {
 

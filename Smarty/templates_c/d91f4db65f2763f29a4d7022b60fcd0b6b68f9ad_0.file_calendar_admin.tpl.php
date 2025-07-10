@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-10 21:27:12
+/* Smarty version 5.5.1, created on 2025-07-10 21:53:29
   from 'file:calendar_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_687014104c27f2_27640226',
+  'unifunc' => 'content_68701a395c90f3_88409104',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd91f4db65f2763f29a4d7022b60fcd0b6b68f9ad' => 
     array (
       0 => 'calendar_admin.tpl',
-      1 => 1752175629,
+      1 => 1752177199,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_687014104c27f2_27640226 (\Smarty\Template $_smarty_tpl) {
+function content_68701a395c90f3_88409104 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -46,7 +46,7 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
                 <a href="javascript:history.back()" class="back-arrow">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
-                <h1>Gestione Calendario</h1>
+               <h1><i class="fas fa-calendar-alt"></i> Gestione Calendario</h1>
             </div>
 
 

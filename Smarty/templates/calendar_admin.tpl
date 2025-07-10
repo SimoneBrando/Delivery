@@ -18,7 +18,7 @@
                 <a href="javascript:history.back()" class="back-arrow">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
-                <h1>Gestione Calendario</h1>
+               <h1><i class="fas fa-calendar-alt"></i> Gestione Calendario</h1>
             </div>
 
 

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-07 15:43:24
+/* Smarty version 5.5.1, created on 2025-07-10 22:07:27
   from 'file:menu_admin.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_686bcefc180c96_24466577',
+  'unifunc' => 'content_68701d7f15a693_17455895',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'f6a38a6c94eec22fec0468fcb995a7a43f6a52f4' => 
     array (
       0 => 'menu_admin.tpl',
-      1 => 1751894239,
+      1 => 1752178044,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_686bcefc180c96_24466577 (\Smarty\Template $_smarty_tpl) {
+function content_68701d7f15a693_17455895 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -89,67 +89,77 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
             </div>
             
             <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('products')) > 0) {?>
-                <table class="products-table">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nome</th>
-                            <th>Descrizione</th>
-                            <th>Categoria</th>
-                            <th>Prezzo</th>
-                            <th>Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+                <div class="scrollable-table">
+                    <table class="products-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Descrizione</th>
+                                <th>Categoria</th>
+                                <th>Prezzo</th>
+                                <th>Azioni</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $_smarty_tpl->assign('currentCategory', '', false, NULL);?>
+                            <?php
 $_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('products'), 'product');
 $foreach0DoElse = true;
 foreach ($_from ?? [] as $_smarty_tpl->getVariable('product')->value) {
 $foreach0DoElse = false;
 ?>
-                            <tr data-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+                                <?php if ($_smarty_tpl->getValue('currentCategory') != $_smarty_tpl->getValue('product')->getCategoria()->getNome()) {?>
+                                    <?php $_smarty_tpl->assign('currentCategory', $_smarty_tpl->getValue('product')->getCategoria()->getNome(), false, NULL);?>
+                                    <tr class="category-header">
+                                        <td colspan="6"><strong><?php echo $_smarty_tpl->getValue('currentCategory');?>
+</strong></td>
+                                    </tr>
+                                <?php }?>
+                                <tr data-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
 ">
-                                <td data-label="ID"><?php echo $_smarty_tpl->getValue('product')->getId();?>
+                                    <td data-label="ID"><?php echo $_smarty_tpl->getValue('product')->getId();?>
 </td>
-                                <td data-label="Nome"><?php echo $_smarty_tpl->getValue('product')->getNome();?>
+                                    <td data-label="Nome"><?php echo $_smarty_tpl->getValue('product')->getNome();?>
 </td>
-                                <td data-label="Descrizione"><?php echo $_smarty_tpl->getValue('product')->getDescrizione();?>
+                                    <td data-label="Descrizione"><?php echo $_smarty_tpl->getValue('product')->getDescrizione();?>
 </td>
-                                <td data-label="Categoria"><?php echo $_smarty_tpl->getValue('product')->getCategoria()->getNome();?>
+                                    <td data-label="Categoria"><?php echo $_smarty_tpl->getValue('product')->getCategoria()->getNome();?>
 </td>
-                                <td data-label="Prezzo">€<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('product')->getCosto(),2);?>
+                                    <td data-label="Prezzo">€<?php echo $_smarty_tpl->getSmarty()->getModifierCallback('number_format')($_smarty_tpl->getValue('product')->getCosto(),2);?>
 </td>
-                                <td class="actions">
-                                    <button type="button"
-                                            class="btn btn-edit"
-                                            data-modal-target="editProductModal"
-                                            data-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+                                    <td class="actions">
+                                        <button type="button"
+                                                class="btn btn-edit"
+                                                data-modal-target="editProductModal"
+                                                data-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
 "
-                                            data-nome="<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('product')->getNome(), ENT_QUOTES, 'UTF-8', true);?>
+                                                data-nome="<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('product')->getNome(), ENT_QUOTES, 'UTF-8', true);?>
 "
-                                            data-descrizione="<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('product')->getDescrizione(), ENT_QUOTES, 'UTF-8', true);?>
+                                                data-descrizione="<?php echo htmlspecialchars((string)$_smarty_tpl->getValue('product')->getDescrizione(), ENT_QUOTES, 'UTF-8', true);?>
 "
-                                            data-prezzo="<?php echo $_smarty_tpl->getValue('product')->getCosto();?>
+                                                data-prezzo="<?php echo $_smarty_tpl->getValue('product')->getCosto();?>
 "
-                                            data-categoria="<?php echo $_smarty_tpl->getValue('product')->getCategoria()->getId();?>
+                                                data-categoria="<?php echo $_smarty_tpl->getValue('product')->getCategoria()->getId();?>
 ">
-                                        <i class="fas fa-edit"></i> Modifica
-                                    </button>
-                                    <form action="/Delivery/Proprietario/deleteProduct/" method="post" class="inline-delete-form">
-                                        <input type="hidden" name="product_id" value="<?php echo $_smarty_tpl->getValue('product')->getId();?>
-">
-                                        <button type="submit" class="btn btn-delete" data-product-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
-">
-                                            <i class="fas fa-trash-alt"></i> Elimina
+                                            <i class="fas fa-edit"></i> Modifica
                                         </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php
+                                        <form action="/Delivery/Proprietario/deleteProduct/" method="post" class="inline-delete-form">
+                                            <input type="hidden" name="product_id" value="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+">
+                                            <button type="submit" class="btn btn-delete" data-product-id="<?php echo $_smarty_tpl->getValue('product')->getId();?>
+">
+                                                <i class="fas fa-trash-alt"></i> Elimina
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php
 }
 $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             <?php } else { ?>
                 <div class="no-products">
                     <i class="far fa-frown"></i>

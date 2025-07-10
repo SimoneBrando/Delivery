@@ -311,6 +311,9 @@ class CProprietario extends BaseController {
                     || mb_stripos($product->getDescrizione(), $searchLower) !== false;
             });
         }
+        usort($prodotti, function ($a, $b) {
+            return $a->getCategoria()->getId() <=> $b->getCategoria()->getId(); // ordinamento crescente
+        });
         $view->showMenu($prodotti);
     }
 
@@ -367,8 +370,8 @@ class CProprietario extends BaseController {
     public function showCreateAccount(){
         $this->requireRole('proprietario');
         $messages = UFlashMessage::getMessage();
-        $chefs = $this->persistent_manager->getAllChefs();
-        $riders= $this->persistent_manager->getAllRiders();
+        $chefs = $this->persistent_manager->getAllActiveChefs();
+        $riders= $this->persistent_manager->getAllActiveRiders();
         $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $view -> showCreateAccount($chefs, $riders);
     }

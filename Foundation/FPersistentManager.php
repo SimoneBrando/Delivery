@@ -149,6 +149,11 @@ class FPersistentManager
         return FRider::getAllRiders();
     }
 
+    public static function getAllActiveRiders(): array
+    {
+        return FRider::getAllActiveRiders();
+    }
+
     //<-------------------CHEF-------------------------------------->//
     /**
      * @throws Exception
@@ -158,6 +163,11 @@ class FPersistentManager
     public static function getAllChefs(): array
     {
         return FCuoco::getAllChefs();
+    }
+
+    public static function getAllActiveChefs(): array
+    {
+        return FCuoco::getAllActiveChefs();
     }
     // <-----------------------CLIENT------------------->
 

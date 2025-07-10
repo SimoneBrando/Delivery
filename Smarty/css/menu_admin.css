@@ -464,3 +464,24 @@ body[data-theme="dark"] {
         border-color: var(--colore-bordo);
     }
 }
+
+
+.scrollable-table {
+    max-height: 400px; /* oppure 50vh o altro valore */
+    overflow-y: auto;
+    border-radius: 8px;
+}
+
+/* Mantieni intestazioni visibili se vuoi (opzionale, solo se fissi il thead) */
+.scrollable-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: var(--colore-primario);
+    z-index: 1;
+}
+
+.category-header {
+    background-color: var(--colore-ombra-interna);
+    font-weight: inherit;
+    color: var(--colore-testo);
+}

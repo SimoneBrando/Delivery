@@ -36,11 +36,15 @@
                     {include file="error_section.tpl"}
 
                     <form action="/Delivery/User/resetPassword" method="POST">
-                        <input type="hidden" name="selector" value={$selector}>
-                        <input type="hidden" name="token" value={$token}>
-                        <label>New Password:</label>
-                        <input type="password" name="password">
-                        <button type="submit">Reset Password</button>
+                        <div class="form-group">
+                            <input type="hidden" name="selector" value={$selector}>
+                            <input type="hidden" name="token" value={$token}>
+                            <label>Nuova Password:</label>
+                            <input type="password" name="password" required placeholder="Nuova Password">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn">Modifica Password</button>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -14,18 +14,6 @@ use Datetime;
 
 class CProprietario extends BaseController {
 
-    public function inserisciProdotto(){
-        $this->requireRole('proprietario');
-        $prodotto = new EProdotto();
-        $this->persistent_manager->saveObj($prodotto);
-    }
-
-    public function modificaProdotto(){
-        $this->requireRole('proprietario');
-        $prodotto = new EProdotto();
-        $this->persistent_manager->updateObj($prodotto);
-    }
-
     public function showDashboard(){
         $this->requireRole('proprietario');
 
@@ -221,9 +209,9 @@ class CProprietario extends BaseController {
 
         $allReviews = $this->persistent_manager->getAllReviews();
 
-        $sort = $_GET['sort'] ?? 'newest';  
-        $stars = $_GET['stars'] ?? 'all';    
-        $search = $_GET['search'] ?? '';    
+        $sort = UHTTPMethods::get('sort') ?? 'newest';  
+        $stars = UHTTPMethods::get('stars') ?? 'all';    
+        $search = UHTTPMethods::get('search') ?? '';    
 
         if ($stars !== 'all') {
             $starsInt = intval($stars);
@@ -264,8 +252,8 @@ class CProprietario extends BaseController {
 
         $segnalazioni = $this->persistent_manager->getAllWarnings();
 
-        $sort = $_GET['sort'] ?? 'newest';
-        $search = $_GET['search'] ?? '';
+        $sort = UHTTPMethods::get('sort') ?? 'newest';
+        $search = UHTTPMethods::get('search') ?? '';
 
         if (!empty($search)) {
             $searchLower = mb_strtolower($search);
@@ -307,8 +295,8 @@ class CProprietario extends BaseController {
         $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $prodotti = $this->persistent_manager->getAllActiveProduct();
 
-        $search = $_GET['search'] ?? '';
-        $categoryFilter = $_GET['category'] ?? 'all';
+        $search = UHTTPMethods::get('search') ?? '';
+        $categoryFilter = UHTTPMethods::get('category') ?? 'all';
 
         if ($categoryFilter !== 'all') {
             $prodotti = array_filter($prodotti, function($product) use ($categoryFilter) {
@@ -332,9 +320,9 @@ class CProprietario extends BaseController {
         $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $allOrders = $this->persistent_manager->getAllOrders();
 
-        $search = $_GET['search'] ?? '';
-        $status = $_GET['status'] ?? 'all';
-        $sort = $_GET['sort'] ?? 'newest';
+        $search = UHTTPMethods::get('search') ?? '';
+        $status = UHTTPMethods::get('status') ?? 'all';
+        $sort = UHTTPMethods::get('sort') ?? 'newest';
 
         if ($status !== 'all') {
             $allOrders = array_filter($allOrders, function($order) use ($status) {
@@ -406,13 +394,20 @@ class CProprietario extends BaseController {
                 die('Prodotto non trovato');
             }
         } else {
-            $prodotto = new EProdotto();
+            $prodottiNonAttivi = $this->persistent_manager->getAllNonActiveProduct();
+            $risultato = array_filter($prodottiNonAttivi, function($p) use ($nome) {
+                return $p->getNome() === $nome;
+            });
+            $prodottoTrovato = reset($risultato);
+            $prodotto = $prodottoTrovato ? $prodottoTrovato : new EProdotto();
         }
 
-        $prodotto->setNome($nome);
-        $prodotto->setCategoria($categoria);
-        $prodotto->setDescrizione($descrizione);
-        $prodotto->setCosto($costo);
+        $prodotto->setNome($nome)
+            ->setCategoria($categoria)
+            ->setDescrizione($descrizione)
+            ->setCosto($costo)
+            ->setAttivo(true);
+
 
         $this->persistent_manager->saveObj($prodotto);
         UFlashMessage::addMessage('success', 'Prodotto aggiunto con successo');

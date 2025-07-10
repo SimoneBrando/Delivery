@@ -25,4 +25,8 @@ class FProdotto
         return FEntityManager::getInstance()->getObjListOnAttribute(EProdotto::class, 'attivo', true);
     }
 
+    public static function getAllNonActiveProducts(): array{
+        return FEntityManager::getInstance()->getObjListOnAttribute(EProdotto::class, 'attivo', false);
+    }
+
 }

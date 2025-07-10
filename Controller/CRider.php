@@ -6,6 +6,7 @@ require_once __DIR__ . "/../vendor/autoload.php";
 
 use Controller\BaseController;
 use Entity\EOrdine;
+use Exception;
 use Services\Utility\UFlashMessage;
 use View\VRider;
 use Services\Utility\UHTTPMethods;

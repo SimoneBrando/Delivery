@@ -5,7 +5,36 @@ namespace Services\Utility;
 use InvalidArgumentException;
 
 class UHTTPMethods {
+
+    /**
+     * Restituisce il metodo HTTP della richiesta corrente (es. GET, POST, PUT, DELETE).
+     *
+     * @return string|null Il metodo HTTP della richiesta, oppure valore null se il metodo è mancante.
+     */
+    public static function method() {
+        return $_SERVER['REQUEST_METHOD'] ?? null;
+    }
     
+    /**
+     * Recupera un parametro dalla query string (array $_GET).
+     *
+     * @param string $param  Il nome del parametro da recuperare.
+     * @param mixed  $default Valore di default da restituire se il parametro non è presente.
+     *
+     * @return mixed Il valore del parametro se presente, altrimenti il valore di default.
+     */
+        public static function get($param, $default = null){
+        return $_GET[$param] ?? $default;
+    }
+
+    /**
+     * Recupera un parametro dai dati POST (array $_POST).
+     *
+     * @param string $param  Il nome del parametro da recuperare.
+     * @param mixed  $default Valore di default da restituire se il parametro non è presente.
+     *
+     * @return mixed Il valore del parametro se presente, altrimenti il valore di default.
+     */
     public static function post($param, $default = null){
         return $_POST[$param] ?? $default;
     }

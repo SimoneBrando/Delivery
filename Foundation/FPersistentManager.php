@@ -277,6 +277,10 @@ class FPersistentManager
         return FProdotto::getAllActiveProducts();
     }
 
+    public static function getAllNonActiveProduct(): array{
+        return FProdotto::getAllNonActiveProducts();
+    }
+
 
 
     //<-------------------------CREDIT CARD------------------------->//

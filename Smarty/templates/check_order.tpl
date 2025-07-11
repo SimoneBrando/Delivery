@@ -75,7 +75,7 @@
                                             <input type="radio" id="carta_{$carta->getNumeroCarta()}" name="numero_carta" value="{$carta->getNumeroCarta()}" {if $carta@first}checked{/if}>
                                             <label class="radio-label" for="carta_{$carta->getNumeroCarta()}">
                                                 <i class="far fa-credit-card"></i>
-                                                {$carta->getNomeIntestatario()}
+                                                {$carta->getNominativo()}
                                                 •••• •••• •••• {$carta->getNumeroCarta()|substr:-4}
                                                 ({$carta->getDataScadenza()|date_format:"m/y"})
                                             </label>

@@ -122,9 +122,9 @@ class EUtente
         return $this->password;
     }
 
-    //The class EUtente is an abstract class with InheritanceType(JOINED) and a DiscriminatorColumn called ruolo
-    //So Doctrine saves automatically the role of the instance not using an attribute $ruolo, then we can't simply
-    //return the value of the attribute, but we have to extrapolate the value from the class of the object
+    //La classe EUtente è una classe astratta con InheritanceType(JOINED) e una DiscriminatorColumn chiamata 'ruolo'.
+    //Di conseguenza, Doctrine salva automaticamente il ruolo dell'istanza senza usare un attributo $ruolo, quindi non possiamo
+    //semplicemente restituire il valore di un attributo, ma dobbiamo estrapolare il valore dalla classe dell'oggetto.
     public function getRuolo(): string
     {
         $className = get_class($this);         // Esempio: Entity\ECliente

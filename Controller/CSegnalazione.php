@@ -34,7 +34,7 @@ class CSegnalazione extends BaseController{
                 ->setTesto($testo);
             $this->persistent_manager->saveObj($segnalazione);
 
-              // ✅ Invia email di conferma
+            //  Invia email di conferma
             $email = $user->getEmail();
 
             $nome = htmlspecialchars($user->getNome());

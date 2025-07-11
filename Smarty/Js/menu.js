@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     container.innerHTML = html;
 
-    //  Aggiungi listener ai bottoni "+" appena generati dopo aver aggiornato il menù
+    // Aggiunge listener ai bottoni "+" appena generati dopo aver aggiornato il menù
     document.querySelectorAll('.add-button').forEach(button => {
         button.addEventListener('click', () => {
             const id = button.dataset.id;

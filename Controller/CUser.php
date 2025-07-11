@@ -96,12 +96,6 @@ class CUser extends BaseController{
             <br><br><img src="https://deliveryhomerestaurant.altervista.org/Smarty/Immagini/logo.png" alt="Logo Delivery Home Restaurant" style="width:150px; height:auto;">
             ';
 
-
-   
-
-
-
-            
             $mailService->mailTo($email, 'Benvenuto su Delivery', $welcomeText);
             header('Location: /Delivery/User/showLoginForm');
         } catch (\Delight\Auth\InvalidEmailException $e) {
@@ -585,11 +579,11 @@ class CUser extends BaseController{
     }
 
     public function getMenuJson() {
-    $menu = $this->persistent_manager->getMenu();
-    header('Content-Type: application/json');
-    echo json_encode($menu); // Assicurati che sia serializzabile
-    exit;
-}
+        $menu = $this->persistent_manager->getMenu();
+        header('Content-Type: application/json');
+        echo json_encode($menu);
+        exit;
+    }
 
 
     public function order(){
@@ -640,7 +634,7 @@ class CUser extends BaseController{
             try {
                 $email = UHTTPMethods::post('email');
                 $this->auth_manager->forgotPassword($email, function ($selector, $token) use ($email) {
-                    // Costruisci il link di reset password
+                    //Costruisco il link di reset password
                     $url = 'http://localhost/Delivery/User/showResetPasswordForm/' . urlencode($selector) . '/' . urlencode($token);
                     
                     $mailService = new MailingService();
@@ -707,7 +701,7 @@ class CUser extends BaseController{
             $client->setPassword($newPassword); //cambio della password nell'oggetto Cliente
             $this->persistent_manager->updateObj($client); //salvataggio sul database
             $this->auth_manager->logOut(); //logout per evitare problemi di sessioni incrociate
-            // Invio email di notifica
+            //Invio email di notifica
             $mailService = new MailingService();
             $name = htmlspecialchars($client->getNome());
             $email = $client->getEmail();

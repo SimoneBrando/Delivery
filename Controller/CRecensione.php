@@ -24,10 +24,7 @@ class CRecensione extends BaseController{
                 ->setData(new \DateTime());
             $this->persistent_manager->saveObj($review);
 
-
-
-            
-            // ✅ Invia email di conferma
+            //  Invia email di conferma
             $email = $user->getEmail();
 
             $nome = htmlspecialchars($user->getNome());

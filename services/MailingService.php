@@ -14,31 +14,32 @@ class MailingService
 {
     private PHPMailer $mailer;
 
-  public function __construct()
-{
-    $this->mailer = new PHPMailer(true);
+    public function __construct()
+    {
+        $this->mailer = new PHPMailer(true);
 
-    // Load .env 
-    $dotenv = Dotenv::createImmutable(dirname(__DIR__), 'mailing.env');
-    $dotenv->safeLoad();
+        // Load .env 
+        $dotenv = Dotenv::createImmutable(dirname(__DIR__), 'mailing.env');
+        $dotenv->safeLoad();
 
-    // Configure PHPMailer 
-    try {
-        $this->mailer->isSMTP();
-        $this->mailer->Host = $_ENV['MAIL_HOST'];
-        $this->mailer->SMTPAuth = true;
-        $this->mailer->Username = $_ENV['MAIL_USERNAME'];
-        $this->mailer->Password = $_ENV['MAIL_PASSWORD'];
-        $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $this->mailer->Port = $_ENV['MAIL_PORT'];
-        $this->mailer->setFrom(
-            $_ENV['MAIL_FROM_EMAIL'],
-            $_ENV['MAIL_FROM_NAME']
-        );
-    } catch (Exception $e) {
-        error_log("PHPMailer Error: " . $e->getMessage());
+        // Configure PHPMailer 
+        try {
+            $this->mailer->isSMTP();
+            $this->mailer->Host = $_ENV['MAIL_HOST'];
+            $this->mailer->SMTPAuth = true;
+            $this->mailer->Username = $_ENV['MAIL_USERNAME'];
+            $this->mailer->Password = $_ENV['MAIL_PASSWORD'];
+            $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $this->mailer->Port = $_ENV['MAIL_PORT'];
+            $this->mailer->setFrom(
+                $_ENV['MAIL_FROM_EMAIL'],
+                $_ENV['MAIL_FROM_NAME']
+            );
+        } catch (Exception $e) {
+            error_log("PHPMailer Error: " . $e->getMessage());
+        }
     }
-}
+    
     public function mailTo(string $toEmail, string $subject, string $body)
     {
         try {

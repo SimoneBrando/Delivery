@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Conferma ordine
     const confirmBtn = document.querySelector('.confirm-order');
     confirmBtn.addEventListener('click', function() {
-        // Qui potresti aggiungere la logica per inviare l'ordine
         alert('Ordine confermato! Grazie per il tuo acquisto.');
         // window.location.href = 'ordine-confermato.html';
     });
@@ -61,14 +60,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Usa sia change che click per gestire bene la selezione
+   
     asapRadio.addEventListener('change', toggleScheduledTime);
     scheduleRadio.addEventListener('change', toggleScheduledTime);
     
     asapRadio.addEventListener('click', toggleScheduledTime);
     scheduleRadio.addEventListener('click', toggleScheduledTime);
 
-    // Inizializza stato all'avvio
     toggleScheduledTime();
 });
 

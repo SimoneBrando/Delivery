@@ -131,8 +131,6 @@ class OrderTimeCalculator {
     }
 
 
-    // Esempio di metodi che devi implementare, accedendo al DB tramite il tuo persistent manager
-
     private function getNomeGiornoItaliano(DateTime $date): string {
         $daysIT = [
             'Monday' => 'lunedì',

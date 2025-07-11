@@ -8,7 +8,7 @@
     const cartTotal = document.getElementById('cart-total');
     const cartElement = document.getElementById('cart');
 
-    // Aggiungi event listener ai bottoni "+"
+    // Aggiungo event listener ai bottoni "+"
     document.querySelectorAll('.menu-item').forEach(item => {
         const name = item.querySelector('h3').textContent;
         const price = parseFloat(item.querySelector('.item-price').textContent.replace('€', '').replace(',', '.'));
@@ -139,15 +139,15 @@
             const parsedCart = JSON.parse(cart);
             const createdDate = createdAt ? new Date(parseInt(createdAt)) : null;
 
-            // Popola data
+            // Popolo data
             if (createdDate) {
                 document.getElementById("order-date").textContent = createdDate.toLocaleString();
             }
 
-            // Popola prodotti
+            // Popolo prodotti
             const itemsContainer = document.getElementById("cart-items");
             let total = 0;
-            itemsContainer.innerHTML = ""; // Pulisci
+            itemsContainer.innerHTML = ""; // Pulisco
 
             parsedCart.forEach(item => {
                 const li = document.createElement("li");

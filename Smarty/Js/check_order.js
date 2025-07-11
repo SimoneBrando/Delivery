@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutBtn.disabled = true;
         checkoutBtn.classList.add("disabled");
         checkoutBtn.textContent = "Carrello vuoto";
-        return; // Non procedere oltre se il carrello è vuoto
+        return; // Non procede oltre se il carrello è vuoto
     }
 
     // 2. Funzione per aggiornare l'orario di consegna

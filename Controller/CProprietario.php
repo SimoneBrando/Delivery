@@ -157,7 +157,7 @@ class CProprietario extends BaseController {
             $ordiniPerGiorno[$key] = 0;
             $inizio->modify('+1 day');
         }
-        // Poi unisci i dati reali:
+        
         foreach ($allOrders as $ordine) {
             $data = $ordine->getDataEsecuzione()->format('d/m/Y');
             if (isset($ordiniPerGiorno[$data])) {

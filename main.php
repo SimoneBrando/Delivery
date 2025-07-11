@@ -17,29 +17,30 @@ use Entity\EItemCarrello;
 use Entity\EWeeklyCalendar;
 use Entity\EExceptionCalendar;
 
+///QUESTO E' UN FILE DI TESTING CHE PUO' ESSERE TRANQUILLAMENTE IGNORATO
 
 // Recupero del PersistentManager
 try {
     $pm = FPersistentManager::getInstance();
-    echo "✅ PersistentManager ottenuto correttamente.\n\n";
+    echo "PersistentManager ottenuto correttamente.\n\n";
 } catch (Exception $e) {
-    die("❌ Errore nella creazione del PersistentManager: " . $e->getMessage());
+    die("Errore nella creazione del PersistentManager: " . $e->getMessage());
 }
 
 /*
 try {
-    // 🔍 getObj: recupera un prodotto con ID 1
+    // getObj: recupera un prodotto con ID 1
     $prodotto = FPersistentManager::getObj(EProdotto::class, 1481);
     if ($prodotto) {
-        echo "📦 Prodotto con ID 1481 trovato: " . $prodotto->getNome() . " - " . $prodotto->getCosto() . "€\n";
+        echo "Prodotto con ID 1481 trovato: " . $prodotto->getNome() . " - " . $prodotto->getCosto() . "€\n";
         // $pm->deleteObj($prodotto);
     } else {
-        echo "⚠️ Nessun prodotto trovato con ID 1480.\n";
+        echo "Nessun prodotto trovato con ID 1480.\n";
     }
 
-   // 📋 getAll: recupera tutti i Products
+   //  getAll: recupera tutti i Products
   $Products = FPersistentManager::getAll(EProdotto::class);
-   echo "\n📋 Tutti i Products nel database:\n ";
+   echo "\n Tutti i Products nel database:\n ";
    foreach ($Products as $p) {
        echo "- " . $p->getNome() . " (" . $p->getCosto() . "€)\n";
    }
@@ -47,12 +48,12 @@ try {
     // 🔍 getObjOnAttribute: trova Products con nome specifico
     $p = FPersistentManager::getInstance()->getObjOnAttribute(EProdotto::class, 'nome', 'aut');
     if($p){
-        echo "\n🍕 Products con nome 'aut':\n ";
+        echo "\n Products con nome 'aut':\n ";
         echo "- " . $p->getDescrizione() . " - " . $p->getCosto() . "€\n";
 }
 
 } catch (Exception $e) {
-    echo "❌ Errore durante l'esecuzione dei metodi: " . $e->getMessage() . "\n";
+    echo "Errore durante l'esecuzione dei metodi: " . $e->getMessage() . "\n";
 }
 */
 

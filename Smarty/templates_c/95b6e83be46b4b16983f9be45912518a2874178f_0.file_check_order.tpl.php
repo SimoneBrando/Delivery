@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-11 01:48:43
+/* Smarty version 5.5.1, created on 2025-07-11 18:16:59
   from 'file:check_order.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_6870515bb6b0c5_03791223',
+  'unifunc' => 'content_687138fb2aa223_56620518',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '95b6e83be46b4b16983f9be45912518a2874178f' => 
     array (
       0 => 'check_order.tpl',
-      1 => 1751894239,
+      1 => 1752250517,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_6870515bb6b0c5_03791223 (\Smarty\Template $_smarty_tpl) {
+function content_687138fb2aa223_56620518 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -132,7 +132,7 @@ $foreach1Backup = clone $_smarty_tpl->getVariable('carta');
                                             <label class="radio-label" for="carta_<?php echo $_smarty_tpl->getValue('carta')->getNumeroCarta();?>
 ">
                                                 <i class="far fa-credit-card"></i>
-                                                <?php echo $_smarty_tpl->getValue('carta')->getNomeIntestatario();?>
+                                                <?php echo $_smarty_tpl->getValue('carta')->getNominativo();?>
 
                                                 •••• •••• •••• <?php echo substr((string) $_smarty_tpl->getValue('carta')->getNumeroCarta(), (int) -4);?>
 

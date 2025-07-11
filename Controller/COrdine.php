@@ -111,6 +111,9 @@ class COrdine extends BaseController{
                 if($prodotto->getCosto() != $item['price']) {
                     throw new \InvalidArgumentException("Il prezzo del prodotto {$item['name']} è stato modificato, ora è {$prodotto->getCosto()} Riprovare!", 1);
                 }
+                if($prodotto->getAttivo() == false) {
+                    throw new \InvalidArgumentException("Il prodotto {$item['name']} non è più disponibile.", 2);
+                }
                 $itemOrder = new EItemOrdine;
                 $itemOrder->setOrdine($order)
                     ->setProdotto($prodotto)

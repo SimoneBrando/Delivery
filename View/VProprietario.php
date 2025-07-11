@@ -18,7 +18,7 @@ class VProprietario{
     }
 
 
-    public function showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, $fatturatoSettimana, $nomiTopPiatti, $quantitaTopPiatti){
+    public function showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, $fatturatoSettimana, $nomiTopPiatti, $quantitaTopPiatti, $utentiConMoltiOrdini, $minOrdini, $ordiniPerGiorno){
         $this->smarty->assign('ordini', $orders);
         $this->smarty->assign('totaleOggi', $totaleOggi);
         $this->smarty->assign('numeroClienti', $numeroClienti);
@@ -27,6 +27,9 @@ class VProprietario{
         $this->smarty->assign('fatturatoSettimana', $fatturatoSettimana);
         $this->smarty->assign('nomiPiatti', $nomiTopPiatti);
         $this->smarty->assign('quantitaPiatti', $quantitaTopPiatti);
+        $this->smarty->assign('best_clienti', $utentiConMoltiOrdini);
+        $this->smarty->assign('min_orders', $minOrdini);
+        $this->smarty->assign('ordini_giorno', $ordiniPerGiorno);
         $this->smarty->display('dashboard.tpl');
     }
 

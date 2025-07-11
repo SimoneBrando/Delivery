@@ -126,9 +126,46 @@ class CProprietario extends BaseController {
             }
         }
 
+        $contatori = [];
+        foreach ($allOrders as $ordine) {
+            $userId = $ordine->getCliente()->getId();
+            if (!isset($contatori[$userId])) {
+                $contatori[$userId] = [
+                    'utente' => $ordine->getCliente(),
+                    'conteggio' => 0
+                ];
+            }
+            $contatori[$userId]['conteggio']++;
+        }
+        // Filtra $maxUtenti utenti con almeno $minOrdini ordini
+        $minOrdini = 1;
+        $maxUtenti = 5;
+        $utentiConMoltiOrdini = array_filter($contatori, function ($info) use($minOrdini) {
+            return $info['conteggio'] >= $minOrdini;
+        });
+        // Ordina per numero di ordini decrescente
+        usort($utentiConMoltiOrdini, function ($a, $b) {
+            return $b['conteggio'] <=> $a['conteggio'];
+        });
+        $utentiConMoltiOrdini = array_slice($utentiConMoltiOrdini, 0,$maxUtenti);
 
+        $inizio = new DateTime('-7 days');
+        $oggi = new DateTime();
+        $ordiniPerGiorno = [];
+        while ($inizio <= $oggi) {
+            $key = $inizio->format('d/m/Y');
+            $ordiniPerGiorno[$key] = 0;
+            $inizio->modify('+1 day');
+        }
+        // Poi unisci i dati reali:
+        foreach ($allOrders as $ordine) {
+            $data = $ordine->getDataEsecuzione()->format('d/m/Y');
+            if (isset($ordiniPerGiorno[$data])) {
+                $ordiniPerGiorno[$data]++;
+            }
+        }
         $view = new VProprietario($this->isLoggedIn(), $this->userRole);
-        $view -> showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, array_values($fatturatoSettimana), $nomiTopPiatti, $quantitaTopPiatti);
+        $view -> showDashboard($orders, $totaleOggi, $numeroClienti, $ordiniOggi, $mediaValutazioni, array_values($fatturatoSettimana), $nomiTopPiatti, $quantitaTopPiatti, $utentiConMoltiOrdini, $minOrdini, $ordiniPerGiorno);
         
     }
 
@@ -359,10 +396,22 @@ class CProprietario extends BaseController {
     }
 
     public function showCalendar(){
+        $daysOrder =[
+            'lunedì' => 1,
+            'martedì' => 2,
+            'mercoledì' => 3,
+            'giovedì' => 4,
+            'venerdì' => 5,
+            'sabato' => 6,
+            'domenica' => 7,
+        ];
         $this->requireRole('proprietario');
         $messages = UFlashMessage::getMessage();
         $view = new VProprietario($this->isLoggedIn(), $this->userRole, $messages);
         $giorniChiusuraSettimanali = $this->persistent_manager->getCalendar();
+        usort($giorniChiusuraSettimanali, function ($a, $b) use ($daysOrder) {
+            return $daysOrder[$a->getData()] <=> $daysOrder[$b->getData()];
+        });
         $giorniChiusuraEccezionali = $this->persistent_manager->getExceptionClosedDays();
         $view -> showCalendar($giorniChiusuraSettimanali, $giorniChiusuraEccezionali);
     }

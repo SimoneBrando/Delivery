@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-10 16:25:15
+/* Smarty version 5.5.1, created on 2025-07-10 22:29:54
   from 'file:admin_segnalazioni.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_686fcd4bdcfd53_00721154',
+  'unifunc' => 'content_687022c280a226_72326162',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b3fcca2d971ec46fd3c36039f0a2471b520e079e' => 
     array (
       0 => 'admin_segnalazioni.tpl',
-      1 => 1751981538,
+      1 => 1752179392,
       2 => 'file',
     ),
   ),
@@ -23,7 +23,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_686fcd4bdcfd53_00721154 (\Smarty\Template $_smarty_tpl) {
+function content_687022c280a226_72326162 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -102,6 +102,8 @@ $foreach0DoElse = false;
                                         <h3><?php echo $_smarty_tpl->getValue('segnalazione')->getOrdine()->getCliente()->getNome();?>
  <?php echo $_smarty_tpl->getValue('segnalazione')->getOrdine()->getCliente()->getCognome();?>
  </h3>
+                                        <p>Email: <?php echo $_smarty_tpl->getValue('segnalazione')->getOrdine()->getCliente()->getEmail();?>
+</p>
                                         <p>Id Ordine: <?php echo $_smarty_tpl->getValue('segnalazione')->getOrdine()->getId();?>
  </p>
                                         <span class="review-date"><?php echo $_smarty_tpl->getSmarty()->getModifierCallback('date_format')($_smarty_tpl->getValue('segnalazione')->getData(),"%H:%M %e %B %Y");?>

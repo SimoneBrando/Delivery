@@ -67,6 +67,8 @@
         <div class="chart-container">
             <h2><i class="fas fa-chart-line"></i> Fatturato Ultimi 7 Giorni</h2>
             <canvas id="revenueChart"></canvas>
+            <h2><i class="fas fa-chart-line"></i> Ordini Ultimi 7 Giorni</h2>
+            <canvas id="ordersChart"></canvas>
         </div>
         <div class="chart-container">
             <h2><i class="fas fa-pizza-slice"></i> Piatti Più Venduti</h2>
@@ -74,7 +76,8 @@
         </div>
     </section>
 
-    <!-- Ultimi Ordini Dinamici -->
+    <section class="dashboard-sections">
+        <!-- Ultimi Ordini Dinamici -->
         <section class="recent-orders">
             <h2><i class="fas fa-history"></i> Ultimi Ordini</h2>
             <table>
@@ -102,6 +105,35 @@
                 </tbody>
             </table>
         </section>
+
+        <!-- Utenti con più ordini -->
+        <section class="best-users">
+            <h2><i class="fas fa-users"></i> Migliori Clienti</h2>
+            {if $best_clienti|@count > 0}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Numero Ordini</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {foreach from=$best_clienti item=infoCliente} 
+                            <tr>
+                                <td data-labe="Cliente">{$infoCliente.utente->getNome()} {$infoCliente.utente->getCognome()}</td>
+                                <td data-label="Numero Ordini">{$infoCliente.conteggio}</td>
+                                <td data-label="Email">{$infoCliente.utente->getEmail()}</td>
+                            </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+            {else}
+                <p> Nessun Utente ha effettuato più di {$min_orders} ordini attualmente!</p>            
+            {/if}
+        </section>
+    </section>
+            
 
     <!-- Footer -->
     
@@ -144,6 +176,31 @@
             },
             options: {
                 responsive: true
+            }
+        });
+
+        // grafico ordiniPerGiorno
+        const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+        const ordiniPerGiorno = {$ordini_giorno|@json_encode};
+        const labels = Object.keys(ordiniPerGiorno);
+        const data = Object.values(ordiniPerGiorno);
+        new Chart(ordersCtx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ordini per giorno',
+                    data: data,
+                    backgroundColor: '#046C6D',
+                    borderColor: '#035050',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
             }
         });
     </script>

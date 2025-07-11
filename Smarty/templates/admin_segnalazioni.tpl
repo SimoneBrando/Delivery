@@ -65,6 +65,7 @@
                                     </div>
                                     <div class="user-details">
                                         <h3>{$segnalazione->getOrdine()->getCliente()->getNome()} {$segnalazione->getOrdine()->getCliente()->getCognome()} </h3>
+                                        <p>Email: {$segnalazione->getOrdine()->getCliente()->getEmail()}</p>
                                         <p>Id Ordine: {$segnalazione->getOrdine()->getId()} </p>
                                         <span class="review-date">{$segnalazione->getData()|date_format:"%H:%M %e %B %Y"}</span>
                                     </div>

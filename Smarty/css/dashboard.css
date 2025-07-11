@@ -142,8 +142,13 @@
     gap: 10px;
 }
 
+.chart-container canvas + h2 {
+    margin-top: 5rem;
+}
+
 /* Tabella Ordini - stile avanzato */
-.recent-orders {
+.recent-orders,
+.best-users {
     background-color: var(--colore-bianco);
     padding: 20px;
     border-radius: 12px;
@@ -154,7 +159,8 @@
     color: var(--colore-testo);
 }
 
-.recent-orders h2 {
+.recent-orders h2,
+.best-users h2 {
     color: var(--colore-primario);
     font-size: 1.8rem;
     margin-bottom: 20px;
@@ -163,13 +169,15 @@
     gap: 10px;
 }
 
-.recent-orders table {
+.recent-orders table,
+.best-users table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 10px;
 }
 
-.recent-orders thead tr {
+.recent-orders thead tr,
+.best-users thead tr {
     background-color: var(--colore-primario);
     color: var(--colore-bianco);
     text-align: left;
@@ -177,29 +185,34 @@
     border-radius: 12px;
 }
 
-.recent-orders thead th {
+.recent-orders thead th,
+.best-users thead th {
     padding: 12px 15px;
 }
 
-.recent-orders tbody tr {
+.recent-orders tbody tr,
+.best-users tbody tr {
     background-color: var(--colore-ombra-chiara);
     transition: background-color 0.3s ease;
     border-radius: 12px;
     box-shadow: 0 1px 3px var(--colore-ombra-leggera);
 }
 
-.recent-orders tbody tr:hover {
+.recent-orders tbody tr:hover,
+.best-users tbody tr:hover {
     background-color: var(--colore-primario-hover);
     color: var(--colore-bianco);
     cursor: pointer;
 }
 
-.recent-orders tbody td {
+.recent-orders tbody td,
+.best-users tbody td {
     padding: 12px 15px;
     vertical-align: middle;
 }
 
-.recent-orders tbody td:hover {
+.recent-orders tbody td:hover,
+.best-users tbody td:hover {
     padding: 12px 15px;
     vertical-align: middle;
     color: var(--colore-bianco)
@@ -311,4 +324,22 @@
         text-align: left;
         color: var(--colore-testo);
     }
+}
+
+.dashboard-sections {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+
+.recent-orders,
+.best-users {
+    flex: 1;
+    min-width: 300px;
+    background-color: var(--colore-bianco);
+    padding: 1rem;
+    border-radius: 8px;
 }

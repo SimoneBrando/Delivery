@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 5.5.1, created on 2025-07-10 21:47:37
+/* Smarty version 5.5.1, created on 2025-07-11 00:01:33
   from 'file:dashboard.tpl' */
 
 /* @var \Smarty\Template $_smarty_tpl */
 if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
   'version' => '5.5.1',
-  'unifunc' => 'content_687018d9d9ead1_84362181',
+  'unifunc' => 'content_6870383d8419b7_24861462',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'ad81bc4189d5633bc80f1f12003cfa34ffa468fc' => 
     array (
       0 => 'dashboard.tpl',
-      1 => 1751894239,
+      1 => 1752184891,
       2 => 'file',
     ),
   ),
@@ -22,7 +22,7 @@ if ($_smarty_tpl->getCompiled()->isFresh($_smarty_tpl, array (
     'file:footer.tpl' => 1,
   ),
 ))) {
-function content_687018d9d9ead1_84362181 (\Smarty\Template $_smarty_tpl) {
+function content_6870383d8419b7_24861462 (\Smarty\Template $_smarty_tpl) {
 $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
 ?><!DOCTYPE html>
 <html lang="it">
@@ -100,6 +100,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         <div class="chart-container">
             <h2><i class="fas fa-chart-line"></i> Fatturato Ultimi 7 Giorni</h2>
             <canvas id="revenueChart"></canvas>
+            <h2><i class="fas fa-chart-line"></i> Ordini Ultimi 7 Giorni</h2>
+            <canvas id="ordersChart"></canvas>
         </div>
         <div class="chart-container">
             <h2><i class="fas fa-pizza-slice"></i> Piatti Più Venduti</h2>
@@ -107,7 +109,8 @@ $_smarty_current_dir = 'C:\\xampp\\htdocs\\Delivery\\Smarty\\templates';
         </div>
     </section>
 
-    <!-- Ultimi Ordini Dinamici -->
+    <section class="dashboard-sections">
+        <!-- Ultimi Ordini Dinamici -->
         <section class="recent-orders">
             <h2><i class="fas fa-history"></i> Ultimi Ordini</h2>
             <table>
@@ -148,6 +151,47 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
                 </tbody>
             </table>
         </section>
+
+        <!-- Utenti con più ordini -->
+        <section class="best-users">
+            <h2><i class="fas fa-users"></i> Migliori Clienti</h2>
+            <?php if ($_smarty_tpl->getSmarty()->getModifierCallback('count')($_smarty_tpl->getValue('best_clienti')) > 0) {?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Numero Ordini</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+$_from = $_smarty_tpl->getSmarty()->getRuntime('Foreach')->init($_smarty_tpl, $_smarty_tpl->getValue('best_clienti'), 'infoCliente');
+$foreach1DoElse = true;
+foreach ($_from ?? [] as $_smarty_tpl->getVariable('infoCliente')->value) {
+$foreach1DoElse = false;
+?> 
+                            <tr>
+                                <td data-labe="Cliente"><?php echo $_smarty_tpl->getValue('infoCliente')['utente']->getNome();?>
+ <?php echo $_smarty_tpl->getValue('infoCliente')['utente']->getCognome();?>
+</td>
+                                <td data-label="Numero Ordini"><?php echo $_smarty_tpl->getValue('infoCliente')['conteggio'];?>
+</td>
+                                <td data-label="Email"><?php echo $_smarty_tpl->getValue('infoCliente')['utente']->getEmail();?>
+</td>
+                            </tr>
+                        <?php
+}
+$_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
+                    </tbody>
+                </table>
+            <?php } else { ?>
+                <p> Nessun Utente ha effettuato più di <?php echo $_smarty_tpl->getValue('min_orders');?>
+ ordini attualmente!</p>            
+            <?php }?>
+        </section>
+    </section>
+            
 
     <!-- Footer -->
     
@@ -195,6 +239,32 @@ $_smarty_tpl->getSmarty()->getRuntime('Foreach')->restore($_smarty_tpl, 1);?>
             },
             options: {
                 responsive: true
+            }
+        });
+
+        // grafico ordiniPerGiorno
+        const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+        const ordiniPerGiorno = <?php echo json_encode($_smarty_tpl->getValue('ordini_giorno'));?>
+;
+        const labels = Object.keys(ordiniPerGiorno);
+        const data = Object.values(ordiniPerGiorno);
+        new Chart(ordersCtx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Ordini per giorno',
+                    data: data,
+                    backgroundColor: '#046C6D',
+                    borderColor: '#035050',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
             }
         });
     <?php echo '</script'; ?>

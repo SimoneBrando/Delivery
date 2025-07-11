@@ -9,6 +9,10 @@
   border: 1px solid var(--colore-bordo);
   border-radius: 12px;
   box-shadow: 0 4px 12px var(--colore-ombra-media);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .form-container h1 {

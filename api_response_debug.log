@@ -2,7 +2,7 @@ Array
 (
     [destination_addresses] => Array
         (
-            [0] => 67020 Acciano AQ, Italy
+            [0] => 67053 Capistrello, Province of L'Aquila, Italy
         )
 
     [origin_addresses] => Array
@@ -20,14 +20,14 @@ Array
                                 (
                                     [distance] => Array
                                         (
-                                            [text] => 39.9 km
-                                            [value] => 39896
+                                            [text] => 60.6 km
+                                            [value] => 60562
                                         )
 
                                     [duration] => Array
                                         (
-                                            [text] => 48 mins
-                                            [value] => 2909
+                                            [text] => 47 mins
+                                            [value] => 2838
                                         )
 
                                     [status] => OK

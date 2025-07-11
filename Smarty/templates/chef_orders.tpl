@@ -45,12 +45,13 @@
                             <p><strong>Prodotti:</strong></p>
                             <ul>
                                 {foreach $order->getItemOrdini() as $itemOrdine}
-                                    <li>{$itemOrdine->getProdotto()->getNome()|escape} - {$itemOrdine->getProdotto()->getDescrizione()|escape} - qty: {$itemOrdine->getQuantita()} - €{$itemOrdine->getPrezzoUnitarioAlMomento()}</li>
+                                    <li class="product-item">{$itemOrdine->getProdotto()->getNome()|escape} - {$itemOrdine->getProdotto()->getDescrizione()|escape} - qty: {$itemOrdine->getQuantita()} - €{$itemOrdine->getPrezzoUnitarioAlMomento()}</li>
                                 {/foreach}
                             </ul>
                         </div>
                         <form method="POST" action="/Delivery/Chef/cambiaStatoOrdine" class="status-form">
                             <input type="hidden" name="ordineId" value="{$order->getId()}">
+                            <input type="hidden" name="stato_attuale" value="{$order->getStato()}">
                             <label for="status{$order->getId()}">Modifica stato:</label>
                             <select name="stato" id="status{$order->getId()}" class="status-select">
                                 <option value="">-- Seleziona stato --</option>

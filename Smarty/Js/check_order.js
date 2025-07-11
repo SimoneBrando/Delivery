@@ -11,6 +11,7 @@ function displayCartItems() {
     // Popola gli elementi del carrello
     cart.forEach(item => {
         const li = document.createElement('li');
+        li.classList.add('product-item');
         li.textContent = `${item.qty}x ${item.name} - €${(item.qty * item.price).toFixed(2)}`;
         cartItemsEl.appendChild(li);
     });

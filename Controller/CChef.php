@@ -9,6 +9,7 @@ use View\VChef;
 use Services\Utility\UHTTPMethods;
 use Services\MailingService;
 use Entity\EOrdine;
+use InvalidArgumentException;
 
 class CChef extends BaseController{
 
@@ -32,10 +33,13 @@ class CChef extends BaseController{
         $this->requireRole('cuoco');
         $ordineId = UHTTPMethods::post('ordineId');
         $nuovoStato = UHTTPMethods::postString('stato');
+        $statoAttuale = UHTTPMethods::postString('stato_attuale');
         $this->persistent_manager->beginTransaction();
         try{
             $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
-
+            if ($statoAttuale != $ordine->getStato()){
+                throw new InvalidArgumentException("L'ordine selezionato è già stato modificato da un altro dipendente!");
+            }
             if($nuovoStato == 'in_preparazione' && $ordine->getStato() != 'in_attesa'){
                 UFlashMessage::addMessage('error', 'L\'ordine non può essere messo in preparazione se non è in attesa.');
                 header("Location: /Delivery/Chef/showOrders");
@@ -77,7 +81,9 @@ class CChef extends BaseController{
             UFlashMessage::addMessage('success', 'Ordine modificato con successo');
             header("Location: /Delivery/Chef/showOrders");
             exit;
-        } catch (\Exception $e) {
+        } catch (InvalidArgumentException $e) {
+            $this->catchError($e->getMessage(), "Chef/showOrders");
+        }catch (\Exception $e) {
             if ($this->persistent_manager->isTransactionActive()){
                 $this->persistent_manager->rollback();
             }
@@ -92,6 +98,9 @@ class CChef extends BaseController{
     $this->persistent_manager->beginTransaction();
     try {
         $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
+        if($ordine->getStato() != 'in_attesa'){
+            throw new InvalidArgumentException("L'ordine selezionato è già stato modificato da un altro dipendente!");
+        }
         $ordine->setStato("in_preparazione");
 
         // Recupera info cliente
@@ -143,9 +152,12 @@ class CChef extends BaseController{
 
         $this->persistent_manager->flush();
         $this->persistent_manager->commit();
+        UFlashMessage::addMessage('success', "Ordine accettato con successo");
         header("Location: /Delivery/Chef/showOrdiniInAttesa");
         exit;
 
+    } catch (InvalidArgumentException $e) {
+        $this->catchError($e->getMessage(), "Chef/showOrdiniInAttesa");
     } catch (\Exception $e) {
         if ($this->persistent_manager->isTransactionActive()) {
             $this->persistent_manager->rollback();
@@ -163,6 +175,9 @@ class CChef extends BaseController{
         $this->persistent_manager->beginTransaction();
         try {
             $ordine = $this->persistent_manager->locking(EOrdine::class, $ordineId);
+            if($ordine->getStato() != 'in_attesa'){
+                throw new InvalidArgumentException("L'ordine selezionato è già stato modificato da un altro dipendente!");
+            }
             $ordine->setStato("annullato");
 
             // Recupera info cliente
@@ -215,10 +230,13 @@ class CChef extends BaseController{
 
             $this->persistent_manager->flush();
             $this->persistent_manager->commit();
+            UFlashMessage::addMessage('success', "Ordine rifiutato con successo");
             header("Location: /Delivery/Chef/showOrdiniInAttesa");
             exit;
 
-        } catch (\Exception $e) {
+        } catch (InvalidArgumentException $e) {
+            $this->catchError($e->getMessage(), "Chef/showOrdiniInAttesa");
+        }catch (\Exception $e) {
             if ($this->persistent_manager->isTransactionActive()){
                 $this->persistent_manager->rollback();
             }

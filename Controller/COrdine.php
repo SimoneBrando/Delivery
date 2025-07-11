@@ -90,13 +90,6 @@ class COrdine extends BaseController{
                 return;
             }
 
-
-
-
-
-
-
-
             $indirizzoConsegna = $this->persistent_manager->getObjOnAttribute(EIndirizzo::class,'id', UHTTPMethods::post('indirizzo_id'));
             $metodoPagamento = $this->persistent_manager->getObjOnAttribute(ECarta_credito::class, 'numeroCarta', UHTTPMethods::post('numero_carta'));
             $stato = ($this->persistent_manager->getOrdersByState('in_preparazione') > 10) ? "in_attesa" : "in_preparazione";
@@ -141,13 +134,11 @@ class COrdine extends BaseController{
             $this->persistent_manager->commit();
             //Fine Transazione
 
-
             $mailService = new MailingService();
             $cliente = $order->getCliente(); 
             $email = $cliente->getEmail();
             $name = $cliente->getNome(); 
             $orderId = $order->getId();
-
             $message = "
                     <h2>Il tuo ordine è in attesa</h2>
                     <p>Ciao <strong>$name</strong>,</p>
@@ -163,15 +154,13 @@ class COrdine extends BaseController{
                     $message
             );
 
-          
-
             $view = new VUser($this->isLoggedIn(), $this->userRole);
             $view->confermedOrder();
         } catch (\InvalidArgumentException $e){
             if ($this->persistent_manager->isTransactionActive()){
                 $this->persistent_manager->rollback();
             }
-            $cartError = ($e->getCode()==1) ? true : false;
+            $cartError = ($e->getCode()==1 || $e->getCode()==2) ? true : false;
             error_log("Errore input utente: " . $e->getMessage());
             $this->handleError($e, $cartError);
         } catch (\Exception $e) {

@@ -46,7 +46,7 @@
                             <p><strong>Prodotti:</strong></p>
                             <ul>
                                 {foreach $order->getItemOrdini() as $itemOrdine}
-                                    <li>{$itemOrdine->getProdotto()->getNome()|escape} - {$itemOrdine->getProdotto()->getDescrizione()|escape} - qty: {$itemOrdine->getQuantita()} - €{$itemOrdine->getPrezzoUnitarioAlMomento()}</li>
+                                    <li class="product-item">{$itemOrdine->getProdotto()->getNome()|escape} - {$itemOrdine->getProdotto()->getDescrizione()|escape} - qty: {$itemOrdine->getQuantita()} - €{$itemOrdine->getPrezzoUnitarioAlMomento()}</li>
                                 {/foreach}
                             </ul>
                         </div>

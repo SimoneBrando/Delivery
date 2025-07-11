@@ -232,6 +232,20 @@ footer {
     color: var(--colore-stelle-piene); /* es. un bel dorato per sole/luna */
 }
 
+.product-item{
+    list-style: none;
+    position: relative;
+    padding-left: 1.2rem;
+}
+
+.product-item::before {
+    content: "▹";
+    position: absolute;
+    left: 0;
+    color: var(--colore-primario);
+    font-size: 1rem;
+    line-height: 1.2;
+}
 
 /*  Responsive  */
 @media (max-width: 768px) {

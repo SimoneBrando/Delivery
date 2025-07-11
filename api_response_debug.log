@@ -2,7 +2,7 @@ Array
 (
     [destination_addresses] => Array
         (
-            [0] => 67053 Capistrello, Province of L'Aquila, Italy
+            [0] => Via Roma, 1, 67100 L'Aquila AQ, Italy
         )
 
     [origin_addresses] => Array
@@ -20,14 +20,14 @@ Array
                                 (
                                     [distance] => Array
                                         (
-                                            [text] => 60.6 km
-                                            [value] => 60562
+                                            [text] => 1.0 km
+                                            [value] => 1040
                                         )
 
                                     [duration] => Array
                                         (
-                                            [text] => 47 mins
-                                            [value] => 2838
+                                            [text] => 5 mins
+                                            [value] => 277
                                         )
 
                                     [status] => OK

@@ -26,9 +26,13 @@
 
         <div class="deliveries-container">
             <h2>Ordini In Consegna</h2>
-            {foreach $ordersOnDelivery as $order}
-                {include file="order_card.tpl" order=$order showExtraStatuses=true}
-            {/foreach}
+            {if $ordersOnDelivery|@count > 0}
+                {foreach $ordersOnDelivery as $order}
+                    {include file="order_card.tpl" order=$order showExtraStatuses=true}
+                {/foreach}
+            {else}
+                <p>Nessun ordine attualmente in consegna!<p>
+            {/if}
         </div>
 
         <div class="deliveries-container">
@@ -38,7 +42,7 @@
                     {include file="order_card.tpl" order=$order showExtraStatuses=false}
                 {/foreach}
             {else}
-                <p>Non hai ordini assegnati al momento.</p>
+                <p>Non hai ordini assegnati al momento!</p>
             {/if}
         </div>
 
